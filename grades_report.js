@@ -186,5 +186,5 @@ function updateStudentCells(student, enrollment, course_id, user_id) {
 	updateCell('section', user_id, '');
 	updateCell('days_in_course', user_id, diff_days);
 	updateCell('grade', user_id, current_score);
-	updateCell('unsubmitted_as_0', user_id, final_score);
+	updateCell('final_grade', user_id, final_score);
 }
