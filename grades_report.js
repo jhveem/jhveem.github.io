@@ -52,7 +52,7 @@ let columns = {
 	average_element: null,
 	median_element: null,
 	sortable_type: 'sorttable_numeric',
-	description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student's score) and divides it by the total possible points in the course to estimate the students progress in the course.",
+	description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
 	percent: true
     },
     days_since_last_submission: {
