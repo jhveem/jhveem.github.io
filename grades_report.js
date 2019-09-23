@@ -16,7 +16,7 @@ let columns = {
 	average_element: null,
 	median_element: null,
 	sortable_type: '',
-	description: "The student's section.",
+	description: "The student's section. *COMING SOON",
 	percent: false
     },
     days_in_course: {
