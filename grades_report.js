@@ -160,7 +160,7 @@ function createRow(user_id) {
 	return row;
 }
 
-function updateStudentCells(student, enrollment, user_id) {
+function updateStudentCells(student, enrollment, course_id, user_id) {
 	let report_body = $('#btech-report-table-body');
 	let start_date = Date.parse(enrollment.created_at);
 	let now_date = Date.now();
