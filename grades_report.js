@@ -7,7 +7,7 @@ let columns = {
 	average_element: null,
 	median_element: null,
 	sortable_type: '',
-	description: "The student\'s name. Click on the name to see their user profile with contact information. Click on 'grades' to go to their grades page.",
+	description: "The student&#39;s name. Click on the name to see their user profile with contact information. Click on 'grades' to go to their grades page.",
 	percent: false
     },
     section: {
@@ -16,7 +16,7 @@ let columns = {
 	average_element: null,
 	median_element: null,
 	sortable_type: '',
-	description: "The student\'s section. *COMING SOON",
+	description: "The student&#39;s section. *COMING SOON",
 	percent: false
     },
     days_in_course: {
