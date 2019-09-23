@@ -7,7 +7,7 @@ let columns = {
 	average_element: null,
 	median_element: null,
 	sortable_type: '',
-	description: "The student's name. Click on the name to see their user profile with contact information. Click on 'grades' to go to their grades page.",
+	description: "The student\'s name. Click on the name to see their user profile with contact information. Click on 'grades' to go to their grades page.",
 	percent: false
     },
     section: {
@@ -16,7 +16,7 @@ let columns = {
 	average_element: null,
 	median_element: null,
 	sortable_type: '',
-	description: "The student's section. *COMING SOON",
+	description: "The student\'s section. *COMING SOON",
 	percent: false
     },
     days_in_course: {
@@ -25,7 +25,7 @@ let columns = {
 	average_element: null,
 	median_element: null,
 	sortable_type: 'sorttable_numeric',
-	description: "The number of days since the student was added to the course. Does not take into account when they first submitted anything or when the actual first day of class was..",
+	description: "The number of days since the student was added to the course. Does not take into account when they first submitted anything or when the actual first day of class was.",
 	percent: false
     },
     grade: {
