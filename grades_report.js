@@ -120,6 +120,8 @@ function createReport() {
 	$('#btech-modal').append("<div class='btech-modal-content' id='btech-modal-content'></div>");
 	$('#btech-modal-content').append("<span class='btech-close' id='btech-close'>&times;</span>");
 	$('#btech-modal-content').append("<h3 style='text-align: center;'>Report</h3>");
+	$('#btech-modal-content').append("<h5 style='text-align: center;'>Click on column headers to sort by that column.</h5>");
+	$('#btech-modal-content').append("<h5 style='text-align: center;'>Hover over column headers for more information on the information displayed in that column.</h5>");
 	$('#btech-modal-content').append("<table class='sortable' border='1' id='btech-report-table'></table>");
 	$('#btech-report-table').append("<tbody border='1' id='btech-report-table-body'></tbody>");
 	$('#btech-report-table').append("<thead border='1' id='btech-report-table-head'></thead>");
