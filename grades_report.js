@@ -183,7 +183,7 @@ function updateStudentCells(student, enrollment, course_id, user_id) {
 
 	let row = createRow(user_id);
 	row.appendTo(report_body);
-	let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+user_id+"'>"+student.name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+user_id+"'>grades</a>)";
+	let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+user_id+"'>"+student.sortable_name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+user_id+"'>grades</a>)";
 	updateCell('name', user_id, nameHTML);
 	updateCell('section', user_id, '');
 	updateCell('days_in_course', user_id, diff_days);
