@@ -48,8 +48,6 @@ function updateAverage(key, dict) {
 		let course = dict[course_id];
 		let val = course[key];
 		if (val !== "N/A") {
-			console.log(key);
-			console.log(val);
 			total += parseInt(val);
 			count += 1;
 		}
