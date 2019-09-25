@@ -48,7 +48,6 @@ function updateAverage(key, dict) {
         let course = dict[course_id];
         let val = course[key];
         if (val !== "N/A") {
-            console.log(val);
             total += parseInt(val);
             count += 1;
         }
@@ -122,7 +121,6 @@ class Course {
     constructor(id, name, user_id) {
         this.id = id;
 	this.user_id = user_id;
-        console.log(name);
         this.name = name;
         this.assignments = [];
         this.state = "";
