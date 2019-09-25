@@ -119,8 +119,9 @@ let columns = {
 };
 
 class Course {
-    constructor(id, name) {
+    constructor(id, name, user_id) {
         this.id = id;
+	this.user_id = user_id;
         console.log(name);
         this.name = name;
         this.assignments = [];
@@ -129,7 +130,7 @@ class Course {
         this.final_grade = "N/A";
         this.row = this.genRow();
         this.row.appendTo($('#btech-report-table-body'));
-        this.updateCell('name', this.name);
+        this.updateCell('name', "<a href='https://btech.instructure.com/courses/"+id+"'>"+this.name+"</a>(<a href='https://btech.instructure.com/courses/"+id+"/grades/"+this.user_id+"'>grades</a>)");
     }
     genRow() {
         let row = $('<tr id="btech-modal-report-'+this.id+'"></tr>');
