@@ -127,31 +127,34 @@ let columns = {
 };
 
 class Course {
-    constructor(id, name, user_id) {
-        this.id = id;
-	this.user_id = user_id;
-        this.name = name;
-        this.assignments = [];
-        this.state = "";
-        this.grade = "N/A";
-        this.progress = "N/A";
-        this.final_grade = "N/A";
-        this.row = this.genRow();
-	this.row.appendTo($('#btech-report-table-body'));
-        this.updateCell('name', "<a target='_blank' href='https://btech.instructure.com/courses/"+id+"'>"+this.name+"</a>(<a target='_blank' href='https://btech.instructure.com/courses/"+id+"/grades/"+this.user_id+"'>grades</a>)");
-    }
-    genRow() {
-        let row = $('<tr id="btech-modal-report-'+this.id+'"></tr>');
-        for (let key in columns) {
-            row.append("<td id='"+getCellId(key, this.id)+"' style='text-align:left; padding:10px;'>N/A</td>");
-        }
-        return row;
-    }
-    updateCell(key, value, color="#FFF") {
-        let cellId = getCellId(key, this.id);
-        let cell = $("#"+cellId);
-        cell.css("background-color",color);
-        if (columns[key].percent == true && value !== "N/A") value += "%";
-        cell.html(value);
-    }
+	constructor(id, name, user_id) {
+		this.id = id;
+		this.user_id = user_id;
+		this.name = name;
+		this.assignments = [];
+		this.state = "";
+		this.grade = "N/A";
+		this.progress = "N/A";
+		this.final_grade = "N/A";
+		this.row = this.genRow();
+		this.row.appendTo($('#btech-report-table-body'));
+		this.updateCell('name', "<a target='_blank' href='https://btech.instructure.com/courses/"+id+"'>"+this.name+"</a>(<a target='_blank' href='https://btech.instructure.com/courses/"+id+"/grades/"+this.user_id+"'>grades</a>)");
+	}
+	genRow() {
+		let row = $('<tr id="btech-modal-report-'+this.id+'"></tr>');
+		for (let key in columns) {
+			row.append("<td id='"+getCellId(key, this.id)+"' style='text-align:left; padding:10px;'>N/A</td>");
+		}
+		return row;
+	}
+	updateCell(key, value, color="#FFF") {
+	let cellId = getCellId(key, this.id);
+	let cell = $("#"+cellId);
+	cell.css("background-color",color);
+	if (columns[key].percent == true && value !== "N/A") value += "%";
+		cell.html(value);
+	}
+	hideRow() {
+		this.row.hide();
+	}
 }
