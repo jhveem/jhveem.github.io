@@ -54,7 +54,7 @@ function updateAverage(key, dict) {
         }
     }
     let average = total / count;
-    let text = Math.floor(average);
+    let text = Math.round(average);
     if (columns[key].percent === true) text += "%";
     columns[key].average_element.html(text);
 }
@@ -78,6 +78,15 @@ let columns = {
         median_element: null,
         sortable_type: '',
         description: "The course&#39;s name. Click on the name to go to the course page. Click on 'grades' to go to their grades page for that course.",
+        percent: false
+    },
+    state: {
+        average: false,
+        list: [],
+        average_element: null,
+        median_element: null,
+        sortable_type: '',
+        description: "The student&#39;s activity state. Usually active, completed, or invited",
         percent: false
     },
     section: {
