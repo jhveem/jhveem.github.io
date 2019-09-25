@@ -42,20 +42,22 @@ function keyToCSS(key) {
 }
 
 function updateAverage(key, dict) {
-    let total = 0;
-    let count = 0;
-    for (var course_id in dict) {
-        let course = dict[course_id];
-        let val = course[key];
-        if (val !== "N/A") {
-            total += parseInt(val);
-            count += 1;
-        }
-    }
-    let average = total / count;
-    let text = Math.round(average);
-    if (columns[key].percent === true) text += "%";
-    columns[key].average_element.html(text);
+	let total = 0;
+	let count = 0;
+	for (var course_id in dict) {
+		let course = dict[course_id];
+		let val = course[key];
+		if (val !== "N/A") {
+			console.log(key);
+			console.log(val);
+			total += parseInt(val);
+			count += 1;
+		}
+	}
+	let average = total / count;
+	let text = Math.round(average);
+	if (columns[key].percent === true) text += "%";
+	columns[key].average_element.html(text);
 }
 
 function getCellId(key, user_id) {
