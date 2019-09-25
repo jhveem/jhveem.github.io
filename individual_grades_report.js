@@ -136,6 +136,7 @@ class Course {
         this.assignments = [];
         this.state = "";
         this.grade = "N/A";
+        this.progress = 0;
         this.final_grade = "N/A";
         this.row = this.genRow();
         this.row.appendTo($('#btech-report-table-body'));
