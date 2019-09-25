@@ -130,7 +130,7 @@ class Course {
         this.final_grade = "N/A";
         this.row = this.genRow();
         this.row.appendTo($('#btech-report-table-body'));
-        this.updateCell('name', "<a href='https://btech.instructure.com/courses/"+id+"'>"+this.name+"</a>(<a href='https://btech.instructure.com/courses/"+id+"/grades/"+this.user_id+"'>grades</a>)");
+        this.updateCell('name', "<a target='_blank' href='https://btech.instructure.com/courses/"+id+"'>"+this.name+"</a>(<a target='_blank' href='https://btech.instructure.com/courses/"+id+"/grades/"+this.user_id+"'>grades</a>)");
     }
     genRow() {
         let row = $('<tr id="btech-modal-report-'+this.id+'"></tr>');
