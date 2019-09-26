@@ -1,80 +1,6 @@
+createIndividualGradesReport();
 function createIndividualGradesReport() {
 
-	function getAssignmentData(courses, course_id, enrollment) {
-		let course = courses[course_id];
-		let user_id = course.user_id;
-		let url = "/api/v1/courses/"+course_id+"/analytics/users/"+user_id+"/assignments";
-		$.get(url, function(data) {
-			course.assignments = data;
-			let assignments = data;
-			let total_points_possible = 0;
-			let current_points_possible = 0;
-			let most_recent = {};
-			let submitted = 0;
-			let progress_per_day = 0;
-			let start_date = Date.parse(enrollment.created_at);
-			let now_date = Date.now();
-			let diff_time = Math.abs(now_date - start_date);
-			let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
-			let most_recent_time = diff_time;
-			for (let a = 0; a < assignments.length; a++) {
-				let assignment = assignments[a];
-				let points_possible = assignment.points_possible;
-				let submitted_at = Date.parse(assignment.submission.submitted_at);
-				total_points_possible += points_possible;
-				if (assignment.submission.score !== null) {
-					current_points_possible += points_possible;
-					submitted += 1;
-				}
-				if (Math.abs(now_date - submitted_at) < most_recent_time) {
-					most_recent_time = Math.abs(now_date - submitted_at);
-					most_recent = assignment;
-				}
-			}
-			let progress = Math.ceil(current_points_possible / total_points_possible * 100);
-			progress = Math.ceil(submitted / assignments.length * 100);
-			course.progress = progress;
-
-			//calculate color for last submission day
-			let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
-			let color = "#FFF";
-			if (most_recent_days >= 7 && most_recent_days <= 21) {
-				let g = 16 - Math.floor(((most_recent_days - 6) / 15) * 16);
-				if (g < 6) g = 6;
-				color = "#F"+g.toString(16)+"7";
-			}
-			if (most_recent_days > 21) color = "#F67";
-			course.updateCell('progress', progress);
-			updateAverage('progress', courses);
-		});
-	}
-	function requestCourseGradeData(courses, course_id, state) {
-		let course = courses[course_id];
-		let user_id = course.user_id;
-		let url = "/api/v1/courses/"+course_id+"/search_users?user_ids[]="+user_id+"&enrollment_state[]="+state+"&include[]=enrollments";
-		$.get(url, function(data) {
-			if (data.length > 0) {
-				let enrollment = data[0].enrollments[0];
-				let grade = enrollment.grades.current_score;
-				if (grade == null) {
-					if (course.state == "active") grade = 0;
-					else grade = "N/A";
-				}
-				course.grade = grade;
-				course.updateCell('grade', grade);
-				updateAverage('grade', courses);
-
-				let final_grade = enrollment.grades.final_score;
-				if (grade == "N/A" && final_grade == 0) final_grade = "N/A";
-				course.final_grade = final_grade;
-				course.updateCell('final_grade', final_grade);
-				updateAverage('final_grade', courses);
-				getAssignmentData(courses, course_id, enrollment);
-			} else if (state == "active") {
-				requestCourseGradeData(courses, course_id, 'completed');
-			}
-		});
-	}
   for (let key in columns) {
       columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
   }
@@ -119,6 +45,81 @@ function createIndividualGradesReport() {
             average_row.append(columns[key].average_element);
         }
     }
+}
+function getAssignmentData(courses, course_id, enrollment) {
+  let course = courses[course_id];
+  let user_id = course.user_id;
+  let url = "/api/v1/courses/"+course_id+"/analytics/users/"+user_id+"/assignments";
+  $.get(url, function(data) {
+    course.assignments = data;
+    let assignments = data;
+    let total_points_possible = 0;
+    let current_points_possible = 0;
+    let most_recent = {};
+    let submitted = 0;
+    let progress_per_day = 0;
+    let start_date = Date.parse(enrollment.created_at);
+    let now_date = Date.now();
+    let diff_time = Math.abs(now_date - start_date);
+    let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
+    let most_recent_time = diff_time;
+    for (let a = 0; a < assignments.length; a++) {
+      let assignment = assignments[a];
+      let points_possible = assignment.points_possible;
+      let submitted_at = Date.parse(assignment.submission.submitted_at);
+      total_points_possible += points_possible;
+      if (assignment.submission.score !== null) {
+        current_points_possible += points_possible;
+        submitted += 1;
+      }
+      if (Math.abs(now_date - submitted_at) < most_recent_time) {
+        most_recent_time = Math.abs(now_date - submitted_at);
+        most_recent = assignment;
+      }
+    }
+    let progress = Math.ceil(current_points_possible / total_points_possible * 100);
+    progress = Math.ceil(submitted / assignments.length * 100);
+    course.progress = progress;
+
+    //calculate color for last submission day
+    let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
+    let color = "#FFF";
+    if (most_recent_days >= 7 && most_recent_days <= 21) {
+      let g = 16 - Math.floor(((most_recent_days - 6) / 15) * 16);
+      if (g < 6) g = 6;
+      color = "#F"+g.toString(16)+"7";
+    }
+    if (most_recent_days > 21) color = "#F67";
+    course.updateCell('progress', progress);
+    updateAverage('progress', courses);
+  });
+}
+function requestCourseGradeData(courses, course_id, state) {
+  let course = courses[course_id];
+  let user_id = course.user_id;
+  let url = "/api/v1/courses/"+course_id+"/search_users?user_ids[]="+user_id+"&enrollment_state[]="+state+"&include[]=enrollments";
+  $.get(url, function(data) {
+    if (data.length > 0) {
+      let enrollment = data[0].enrollments[0];
+      let grade = enrollment.grades.current_score;
+      if (grade == null) {
+        if (course.state == "active") grade = 0;
+        else grade = "N/A";
+      }
+      course.grade = grade;
+      course.updateCell('grade', grade);
+      updateAverage('grade', courses);
+
+      let final_grade = enrollment.grades.final_score;
+      if (grade == "N/A" && final_grade == 0) final_grade = "N/A";
+      course.final_grade = final_grade;
+      course.updateCell('final_grade', final_grade);
+      updateAverage('final_grade', courses);
+      getAssignmentData(courses, course_id, enrollment);
+    } else if (state == "active") {
+      requestCourseGradeData(courses, course_id, 'completed');
+    }
+  });
 }
 function createHeaderRow() {
 	let row = $('<tr></tr>');
