@@ -214,6 +214,7 @@ function requestCourseSectionData(courses, course_id, state) {
   let course = courses[course_id];
   let user_id = parseInt(course.user_id);
   let url = "/api/v1/courses/"+course_id+"/sections?include[]=students";
+  console.log(course.name);
   $.get(url, function(data) {
     let sections = data;
     if (sections.length > 0) {
@@ -225,9 +226,9 @@ function requestCourseSectionData(courses, course_id, state) {
             for (let j = 0; j < students.length; j++) {
               let student = students[j];
               if (student.id === user_id) {
-                console.log(course.name);
                 console.log(section.name);
                 course.updateCell('section', section.name);
+                console.log('');
                 return;
               }
             }

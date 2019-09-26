@@ -64,6 +64,31 @@ let columns = {
     },
 };
 
+class Student {
+	constructor(id, name, course_id) {
+    this.id = id;
+    this.course_id = course_id;
+  }
+	genRow() {
+		let row = $('<tr id="btech-modal-report-'+this.id+'"></tr>');
+		for (let key in columns) {
+			row.append("<td id='"+getCellId(key, this.id)+"' style='text-align:left; padding:10px;'>N/A</td>");
+		}
+		return row;
+	}
+	updateCell(key, value, color="#FFF") {
+    let cellId = getCellId(key, this.id);
+    let cell = $("#"+cellId);
+    cell.css("background-color",color);
+    
+    if (columns[key].percent == true && !isNaN(parseInt(value))) value += "%";
+    cell.html(value);
+  }
+  hideRow() {
+    this.row.hide();
+  }
+}
+
 function createGradesReport() {
     for (let key in columns) {
         columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
@@ -73,7 +98,6 @@ function createGradesReport() {
     let course_id = ENV.context_asset_string.replace("course_", "");
     createReport();
     let report = $('#btech-report-table');
-    let report_head = $('#btech-report-table-head');
     let report_foot = $('#btech-report-table-foot');
     let average = 0;
     let progress_per_day_list = [];
