@@ -228,6 +228,7 @@ function requestCourseSectionData(courses, course_id, state) {
           }
         }
       }
+    }
   });
 }
 function requestCourseGradeData(courses, course_id, state) {
