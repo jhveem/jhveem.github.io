@@ -99,19 +99,19 @@ class Course {
 }
 
 function createIndividualGradesReport() {
-
+  //init report
   createReport();
+
+  //init variables
   let report = $('#btech-report-table');
   let report_body = $('#btech-report-table-body');
   let report_foot = $('#btech-report-table-foot');
   let m = (/\/users\/([0-9]+)/.exec(window.location.pathname));
   let user_id = m[1];
-  let url_old = "/api/v1/users/"+user_id+"/courses?per_page=100";
-  url_old += "&include%5B%5D=total_scores";
-  url_old += "&include%5B%5D=account";
-  url_old += "&enrollment_state=active";
   let course_ul = $('#courses_list');
   let courses = {};
+
+  //get course names and state
   course_ul.find('li').each(function() {
     let state = $(this).attr('class').replace(" clearfix", "").replace(" ", "");
     let href = $(this).find('a').attr('href');
@@ -126,18 +126,27 @@ function createIndividualGradesReport() {
     course.updateCell('state', state);
   });
 
-    for (var course_id in courses) {
-        let course = courses[course_id];
-  requestCourseGradeData(courses, course_id, 'active');
+  //get sections
+  for (var course_id in courses) {
+    let course = courses[course_id];
+    requestCourseSectionData(courses, course_id);
+  }
+
+  //get grades
+  for (var course_id in courses) {
+    let course = courses[course_id];
+    requestCourseGradeData(courses, course_id, 'active');
+  }
+
+  //put together footer
+  report_foot.append("<tr><td colspan=7 height=10></td></tr>");
+  let average_row = $('<tr id="btech-modal-average"></tr>').appendTo(report_foot);
+  average_row.append("<td colspan=3>AVERAGE</td>");
+  for (let key in columns) {
+    if (columns[key].average == true) {
+      average_row.append(columns[key].average_element);
     }
-    report_foot.append("<tr><td colspan=7 height=10></td></tr>");
-    let average_row = $('<tr id="btech-modal-average"></tr>').appendTo(report_foot);
-    average_row.append("<td colspan=3>AVERAGE</td>");
-    for (let key in columns) {
-        if (columns[key].average == true) {
-            average_row.append(columns[key].average_element);
-        }
-    }
+  }
 }
 function getAssignmentData(courses, course_id, enrollment) {
   let course = courses[course_id];
@@ -199,6 +208,26 @@ function getAssignmentData(courses, course_id, enrollment) {
   }).fail(function() {
     course.updateCell('progress', "N/A");
     course.updateCell('days_since_last_submission', "N/A", "#FAB");
+  });
+}
+function requestCourseSectionData(courses, course_id, state) {
+  let course = courses[course_id];
+  let user_id = course.user_id;
+  let url = "/api/v1/courses/"+course_id+"/sections?include[]=students";
+  $.get(url, function(data) {
+    if (data.length > 0) {
+      let sections = data;
+      for (let i = 0; i < sections.length; i++) {
+        let section = sections[i];
+        let students = section.students;
+        for (let j = 0; j < students.length; j++) {
+          let student = students[j];
+          if (student.id === user_id) {
+            course.updateCell('section', section.name);
+            return;
+          }
+        }
+      }
   });
 }
 function requestCourseGradeData(courses, course_id, state) {
