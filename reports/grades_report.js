@@ -223,7 +223,7 @@ function createGradesReport() {
       }
       if (enrollment !== null) {
         let student = new Student(user_id, studentData.name, course_id);
-        let student.data = studentData;
+        student.data = studentData;
         getAssignmentData(student);
       }
     }
