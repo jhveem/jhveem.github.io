@@ -190,14 +190,6 @@ function createGradesReport() {
     }
 }
 
-function keyToHeading(key) {
-	return key.replace(/_/g, " ").toUpperCase();
-	}
-
-	function keyToCSS(key) {
-	return key.replace(/_/g, "-");
-	}
-
 	function update_average(key, value) {
 	let total = 0;
 	for (let i = 0; i < columns[key].list.length; i++) {
@@ -216,28 +208,6 @@ function update_median(key, value) {
 	columns[key].median_element.html(text);
 }
 
-function median(values) {
-	if(values.length ===0) return 0;
-	values.sort(function(a,b){
-	    return a-b;
-	});
-	var half = Math.floor(values.length / 2);
-	if (values.length % 2)
-	    return values[half];
-	return (values[half - 1] + values[half]) / 2.0;
-};
-
-function createHeaderRow() {
-	let row = $('<tr></tr>');
-	let count = 0;
-	for (let key in columns) {
-		let sortable_type = columns[key].sortable_type;
-		let description = columns[key].description;
-		row.append("<th title='"+description+"' class='"+sortable_type+"'style='text-align:center; padding:10px;'>"+key.replace(/_/g, " ").toUpperCase()+"</th>");
-		count += 1;
-	}
-	return row;
-}
 
 function createReport() {
 	$('div#application').append("<div id='btech-modal' class='btech-modal'></div>");
@@ -265,9 +235,6 @@ function createReport() {
 	});
 }
 
-function getCellId(key, user_id) {
-	return "btech-report-"+keyToCSS(key)+"-"+user_id
-}
 
 function updateCell(key, user_id, value, color="#FFF") {
 	let cellId = getCellId(key, user_id);

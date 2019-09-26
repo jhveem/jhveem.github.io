@@ -99,9 +99,6 @@ class Course {
 
 function createIndividualGradesReport() {
 
-  for (let key in columns) {
-      columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
-  }
   createReport();
   let report = $('#btech-report-table');
   let report_head = $('#btech-report-table-head');
@@ -177,6 +174,7 @@ function getAssignmentData(courses, course_id, enrollment) {
     }
     let progress = Math.ceil(current_points_possible / total_points_possible * 100);
     progress = Math.ceil(submitted / assignments.length * 100);
+    if (isNaN(progress)) progress = 0;
     course.progress = progress;
 
     //calculate color for last submission day
@@ -188,8 +186,14 @@ function getAssignmentData(courses, course_id, enrollment) {
       color = "#F"+g.toString(16)+"7";
     }
     if (most_recent_days > 21) color = "#F67";
-    course.updateCell('progress', progress);
-    course.updateCell('days_since_last_submission', most_recent_days, color);
+    if (course.state === 'active') {
+      course.updateCell('progress', progress);
+      course.updateCell('days_since_last_submission', most_recent_days, color);
+      updateAverage('progress', courses);
+    } else {
+      course.updateCell('progress', user_id, "N/A");
+      course.updateCell('days_since_last_submission', user_id, "N/A", "#FAB");
+    }
     updateAverage('progress', courses);
   }).fail(function() {
     course.updateCell('progress', user_id, "N/A");
@@ -224,24 +228,6 @@ function requestCourseGradeData(courses, course_id, state) {
     }
   });
 }
-function createHeaderRow() {
-	let row = $('<tr></tr>');
-	let count = 0;
-	for (let key in columns) {
-		let sortable_type = columns[key].sortable_type;
-		let description = columns[key].description;
-		row.append("<th title='"+description+"' class='"+sortable_type+"'style='text-align:center; padding:10px;'>"+key.replace(/_/g, " ").toUpperCase()+"</th>");
-		count += 1;
-	}
-	return row;
-}
-function keyToHeading(key) {
-    return key.replace(/_/g, " ").toUpperCase();
-}
-
-function keyToCSS(key) {
-    return key.replace(/_/g, "-");
-}
 
 function updateAverage(key, dict) {
 	let total = 0;
@@ -260,16 +246,5 @@ function updateAverage(key, dict) {
 	columns[key].average_element.html(text);
 }
 
-function getCellId(key, user_id) {
-	return "btech-report-"+keyToCSS(key)+"-"+user_id
-}
-
-function updateCell(key, user_id, value, color="#FFF") {
-	let cellId = getCellId(key, user_id);
-	let cell = $("#"+cellId);
-	cell.css("background-color",color);
-	if (columns[key].percent == true && value !== "N/A") value += "%";
-	cell.html(value);
-}
 
 createIndividualGradesReport();
