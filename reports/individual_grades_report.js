@@ -236,7 +236,7 @@ function updateAverage(key, dict) {
 	for (var course_id in dict) {
 		let course = dict[course_id];
 		let val = course[key];
-		if (!isNaN(parseInt(value))) {
+		if (!isNaN(parseInt(val))) {
 			total += parseInt(val);
 			count += 1;
 		}
