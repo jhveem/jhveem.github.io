@@ -90,7 +90,7 @@ class Course {
     let cell = $("#"+cellId);
     cell.css("background-color",color);
     
-    if (columns[key].percent == true && !isNaN(parseInt(value)) value += "%";
+    if (columns[key].percent == true && !isNaN(parseInt(value))) value += "%";
     cell.html(value);
   }
   hideRow() {
