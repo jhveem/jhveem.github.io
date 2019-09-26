@@ -1,4 +1,3 @@
-const month_name = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 let columns = {
     name: {
