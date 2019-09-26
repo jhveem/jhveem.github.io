@@ -52,7 +52,16 @@ let columns = {
 		sortable_type: 'sorttable_numeric',
 		description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
 		percent: true
-	}
+	},
+  days_since_last_submission: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "This shows the number of days which have past since the student last submitted an assignment on canvas. Other activities not recorded in canvas are not taken into account.",
+    percent: false
+  },
 };
 
 class Course {
@@ -180,7 +189,11 @@ function getAssignmentData(courses, course_id, enrollment) {
     }
     if (most_recent_days > 21) color = "#F67";
     course.updateCell('progress', progress);
+    course.updateCell('days_since_last_submission', most_recent_days, color);
     updateAverage('progress', courses);
+  }).fail(function() {
+    course.updateCell('progress', user_id, "N/A");
+    course.updateCell('days_since_last_submission', user_id, "N/A", "#FAB");
   });
 }
 function requestCourseGradeData(courses, course_id, state) {
