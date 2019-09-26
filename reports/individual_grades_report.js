@@ -215,16 +215,19 @@ function requestCourseSectionData(courses, course_id, state) {
   let user_id = course.user_id;
   let url = "/api/v1/courses/"+course_id+"/sections?include[]=students";
   $.get(url, function(data) {
-    if (data.length > 0) {
-      let sections = data;
+    let sections = data;
+    if (sections.length > 0) {
       for (let i = 0; i < sections.length; i++) {
         let section = sections[i];
+        console.log(section);
         let students = section.students;
-        for (let j = 0; j < students.length; j++) {
-          let student = students[j];
-          if (student.id === user_id) {
-            course.updateCell('section', section.name);
-            return;
+        if (students.length > 0) {
+          for (let j = 0; j < students.length; j++) {
+            let student = students[j];
+            if (student.id === user_id) {
+              course.updateCell('section', section.name);
+              return;
+            }
           }
         }
       }
