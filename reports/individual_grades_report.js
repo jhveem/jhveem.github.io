@@ -105,8 +105,6 @@ function createIndividualGradesReport() {
   let report_head = $('#btech-report-table-head');
   let report_body = $('#btech-report-table-body');
   let report_foot = $('#btech-report-table-foot');
-  let header_row = createHeaderRow();
-  header_row.appendTo(report_head);
   let m = (/\/users\/([0-9]+)/.exec(window.location.pathname));
   let user_id = m[1];
   let url_old = "/api/v1/users/"+user_id+"/courses?per_page=100";

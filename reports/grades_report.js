@@ -75,9 +75,6 @@ function createGradesReport() {
     let report = $('#btech-report-table');
     let report_head = $('#btech-report-table-head');
     let report_foot = $('#btech-report-table-foot');
-    let header_row = createHeaderRow();
-    $("#yourElement").attr('title', 'This is the hover-over text');
-    header_row.appendTo(report_head);
     let average = 0;
     let progress_per_day_list = [];
 
