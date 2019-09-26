@@ -200,6 +200,7 @@ function requestCourseGradeData(courses, course_id, state) {
       updateAverage('grade', courses);
 
       let final_grade = enrollment.grades.final_score;
+      if (final_grade == null) final_grade = 0;
       if (grade == "N/A" && final_grade == 0) final_grade = "N/A";
       course.final_grade = final_grade;
       course.updateCell('final_grade', final_grade);
