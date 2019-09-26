@@ -1,4 +1,70 @@
+let columns = {
+  name: {
+    average: false,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: '',
+    description: "The course&#39;s name. Click on the name to go to the course home page. Click on 'grades' to see the grades page.",
+    percent: false
+  },
+  section: {
+    average: false,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: '',
+    description: "The student&#39;s section. *COMING SOON",
+    percent: false
+  },
+  state: {
+    average: false,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: '',
+    description: "The student's current state. Usually active, completed, or invited.",
+    percent: false
+  },
+  grade: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "This grade is calculated by canvas based on their currently submitted assignments.",
+    percent: true
+  },
+  final_grade: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "This grade is calculated based on all assignments and treats unsubmitted grades as 0.",
+    percent: true
+  },
+  progress: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
+    percent: true
+  },
+  days_since_last_submission: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "This shows the number of days which have past since the student last submitted an assignment on canvas. Other activities not recorded in canvas are not taken into account.",
+    percent: false
+  },
+};
 createIndividualGradesReport();
+
 function createIndividualGradesReport() {
 
   for (let key in columns) {
@@ -247,13 +313,13 @@ class Course {
 		return row;
 	}
 	updateCell(key, value, color="#FFF") {
-	let cellId = getCellId(key, this.id);
-	let cell = $("#"+cellId);
-	cell.css("background-color",color);
-	if (columns[key].percent == true && value !== "N/A") value += "%";
-		cell.html(value);
-	}
-	hideRow() {
-		this.row.hide();
-	}
+    let cellId = getCellId(key, this.id);
+    let cell = $("#"+cellId);
+    cell.css("background-color",color);
+    if (columns[key].percent == true && value !== "N/A") value += "%";
+    cell.html(value);
+  }
+  hideRow() {
+    this.row.hide();
+  }
 }
