@@ -18,7 +18,7 @@ if (/\/users\/[0-9]+/.test(window.location.pathname)) {
   document.body.appendChild( scriptElement );
   scriptElement.onload = function() {
     let individualReportElement = document.createElement( "script" );
-    individualReportElement.src = "https://jhveem.github.io/reports/reports_functions.js";
+    individualReportElement.src = "https://jhveem.github.io/reports/individual_grades_report.js";
     document.body.appendChild(individualReportElement);
   }
 }
