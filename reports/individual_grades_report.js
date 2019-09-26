@@ -224,6 +224,8 @@ function requestCourseSectionData(courses, course_id, state) {
           if (students.length > 0) {
             for (let j = 0; j < students.length; j++) {
               let student = students[j];
+              console.log(student.id);
+              console.log(user_id);
               if (student.id === user_id) {
                 console.log(section.name);
                 course.updateCell('section', section.name);
