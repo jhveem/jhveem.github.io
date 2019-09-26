@@ -1,68 +1,60 @@
 let columns = {
-  name: {
-    average: false,
-    list: [],
-    average_element: null,
-    median_element: null,
-    sortable_type: '',
-    description: "The course&#39;s name. Click on the name to go to the course home page. Click on 'grades' to see the grades page.",
-    percent: false
-  },
-  section: {
-    average: false,
-    list: [],
-    average_element: null,
-    median_element: null,
-    sortable_type: '',
-    description: "The student&#39;s section. *COMING SOON",
-    percent: false
-  },
-  state: {
-    average: false,
-    list: [],
-    average_element: null,
-    median_element: null,
-    sortable_type: '',
-    description: "The student's current state. Usually active, completed, or invited.",
-    percent: false
-  },
-  grade: {
-    average: true,
-    list: [],
-    average_element: null,
-    median_element: null,
-    sortable_type: 'sorttable_numeric',
-    description: "This grade is calculated by canvas based on their currently submitted assignments.",
-    percent: true
-  },
-  final_grade: {
-    average: true,
-    list: [],
-    average_element: null,
-    median_element: null,
-    sortable_type: 'sorttable_numeric',
-    description: "This grade is calculated based on all assignments and treats unsubmitted grades as 0.",
-    percent: true
-  },
-  progress: {
-    average: true,
-    list: [],
-    average_element: null,
-    median_element: null,
-    sortable_type: 'sorttable_numeric',
-    description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
-    percent: true
-  },
-  days_since_last_submission: {
-    average: true,
-    list: [],
-    average_element: null,
-    median_element: null,
-    sortable_type: 'sorttable_numeric',
-    description: "This shows the number of days which have past since the student last submitted an assignment on canvas. Other activities not recorded in canvas are not taken into account.",
-    percent: false
-  },
+	name: {
+		average: false,
+		list: [],
+		average_element: null,
+		median_element: null,
+		sortable_type: '',
+		description: "The course&#39;s name. Click on the name to go to the course page. Click on 'grades' to go to their grades page for that course.",
+		percent: false
+	},
+	state: {
+		average: false,
+		list: [],
+		average_element: null,
+		median_element: null,
+		sortable_type: '',
+		description: "The student&#39;s activity state. Usually active, completed, or invited",
+		percent: false
+	},
+	section: {
+		average: false,
+		list: [],
+		average_element: null,
+		median_element: null,
+		sortable_type: '',
+		description: "The student&#39;s section. *COMING SOON",
+		percent: false
+	},
+	grade: {
+		average: true,
+		list: [],
+		average_element: null,
+		median_element: null,
+		sortable_type: 'sorttable_numeric',
+		description: "This grade is calculated by canvas based on their currently submitted assignments.",
+		percent: true
+	},
+	final_grade: {
+		average: true,
+		list: [],
+		average_element: null,
+		median_element: null,
+		sortable_type: 'sorttable_numeric',
+		description: "This grade is calculated based on all assignments and treats unsubmitted grades as 0.",
+		percent: true
+	},
+	progress: {
+		average: true,
+		list: [],
+		average_element: null,
+		median_element: null,
+		sortable_type: 'sorttable_numeric',
+		description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
+		percent: true
+	}
 };
+
 createIndividualGradesReport();
 
 function createIndividualGradesReport() {
@@ -234,63 +226,6 @@ function updateCell(key, user_id, value, color="#FFF") {
 	if (columns[key].percent == true && value !== "N/A") value += "%";
 	cell.html(value);
 }
-let columns = {
-	name: {
-		average: false,
-		list: [],
-		average_element: null,
-		median_element: null,
-		sortable_type: '',
-		description: "The course&#39;s name. Click on the name to go to the course page. Click on 'grades' to go to their grades page for that course.",
-		percent: false
-	},
-	state: {
-		average: false,
-		list: [],
-		average_element: null,
-		median_element: null,
-		sortable_type: '',
-		description: "The student&#39;s activity state. Usually active, completed, or invited",
-		percent: false
-	},
-	section: {
-		average: false,
-		list: [],
-		average_element: null,
-		median_element: null,
-		sortable_type: '',
-		description: "The student&#39;s section. *COMING SOON",
-		percent: false
-	},
-	grade: {
-		average: true,
-		list: [],
-		average_element: null,
-		median_element: null,
-		sortable_type: 'sorttable_numeric',
-		description: "This grade is calculated by canvas based on their currently submitted assignments.",
-		percent: true
-	},
-	final_grade: {
-		average: true,
-		list: [],
-		average_element: null,
-		median_element: null,
-		sortable_type: 'sorttable_numeric',
-		description: "This grade is calculated based on all assignments and treats unsubmitted grades as 0.",
-		percent: true
-	},
-	progress: {
-		average: true,
-		list: [],
-		average_element: null,
-		median_element: null,
-		sortable_type: 'sorttable_numeric',
-		description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
-		percent: true
-	}
-};
-
 class Course {
 	constructor(id, name, user_id) {
 		this.id = id;
