@@ -14,11 +14,11 @@ function addMenuItem(linkText, linkhref) {
 /*gen report on individual page*/
 if (/\/users\/[0-9]+/.test(window.location.pathname)) {
   var scriptElement = document.createElement( "script" );
-  scriptElement.src = "https://jhveem.github.io/reports_functions.js";
+  scriptElement.src = "https://jhveem.github.io/reports/reports_functions.js";
   document.body.appendChild( scriptElement );
   scriptElement.onload = function() {
     let individualReportElement = document.createElement( "script" );
-    individualReportElement.src = "https://jhveem.github.io/reports_functions.js";
+    individualReportElement.src = "https://jhveem.github.io/repors/reports_functions.js";
     document.body.appendChild(individualReportElement);
   }
 }
