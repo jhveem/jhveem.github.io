@@ -89,7 +89,8 @@ class Course {
     let cellId = getCellId(key, this.id);
     let cell = $("#"+cellId);
     cell.css("background-color",color);
-    if (columns[key].percent == true && value !== "N/A") value += "%";
+    
+    if (columns[key].percent == true && (!isNaN(parseInt(value)) value += "%";
     cell.html(value);
   }
   hideRow() {
@@ -235,7 +236,7 @@ function updateAverage(key, dict) {
 	for (var course_id in dict) {
 		let course = dict[course_id];
 		let val = course[key];
-		if (val !== "N/A") {
+		if (!isNaN(parseInt(value))) {
 			total += parseInt(val);
 			count += 1;
 		}
