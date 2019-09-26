@@ -218,12 +218,12 @@ function createGradesReport() {
       for (let e = 0; e < studentData.enrollments.length; e++) {
         if (studentData.enrollments[e].type === "StudentEnrollment") {
           enrollment = studentData.enrollments[e];
-          student.enrollment = enrollment;
         }
       }
       if (enrollment !== null) {
         let student = new Student(user_id, studentData.name, course_id);
         student.data = studentData;
+        student.enrollment = enrollment;
         getAssignmentData(student);
       }
     }
