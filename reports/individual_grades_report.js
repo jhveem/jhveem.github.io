@@ -90,7 +90,7 @@ class Course {
     let cell = $("#"+cellId);
     cell.css("background-color",color);
     
-    if (columns[key].percent == true && (!isNaN(parseInt(value)) value += "%";
+    if (columns[key].percent == true && !isNaN(parseInt(value)) value += "%";
     cell.html(value);
   }
   hideRow() {
@@ -191,6 +191,9 @@ function getAssignmentData(courses, course_id, enrollment) {
       course.updateCell('progress', progress);
       course.updateCell('days_since_last_submission', most_recent_days, color);
       updateAverage('progress', courses);
+    } else if (course.state == 'completed') {
+      course.updateCell('progress', 100);
+      course.updateCell('days_since_last_submission', "COMPLETE");
     } else {
       course.updateCell('progress', "N/A");
       course.updateCell('days_since_last_submission', "N/A");
