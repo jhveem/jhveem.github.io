@@ -219,13 +219,13 @@ function requestCourseSectionData(courses, course_id, state) {
     if (sections.length > 0) {
       for (let i = 0; i < sections.length; i++) {
         let section = sections[i];
-        console.log(section);
         let students = section.students;
         if (students !== null) {
           if (students.length > 0) {
             for (let j = 0; j < students.length; j++) {
               let student = students[j];
               if (student.id === user_id) {
+                console.log(section.name);
                 course.updateCell('section', section.name);
                 return;
               }
