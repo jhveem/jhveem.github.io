@@ -67,6 +67,7 @@ let columns = {
 class Student {
 	constructor(id, name, course_id) {
     this.id = id;
+    this.name = name;
     this.course_id = course_id;
     this.days_in_course = 0;
     this.days_since_last_submission = 0;
@@ -77,7 +78,7 @@ class Student {
 		this.row = this.genRow();
     this.enrollment = {};
     this.data = {};
-    nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+id+"'>"+student.sortable_name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+id+"'>grades</a>)";
+    nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+id+"'>"+this.data.sortable_name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+id+"'>grades</a>)";
     this.updateCell('name', nameHTML);
     this.updateCell('section', '');
   }
