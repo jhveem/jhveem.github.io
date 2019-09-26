@@ -33,7 +33,7 @@ if (window.location.pathname.includes("/gradebook") === true) {
 
   var scriptElement = document.createElement( "script" );
 
-  scriptElement.src = "https://jhveem.github.io/grades_report.js";
+  scriptElement.src = "https://jhveem.github.io/reports/grades_report.js";
   document.body.appendChild( scriptElement );
 
   scriptElement.onload = function() {
