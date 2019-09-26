@@ -23,7 +23,7 @@ let columns = {
 		average_element: null,
 		median_element: null,
 		sortable_type: '',
-		description: "The student&#39;s section. *COMING SOON",
+		description: "The student&#39;s section.",
 		percent: false
 	},
 	grade: {
@@ -225,6 +225,7 @@ function requestCourseSectionData(courses, course_id, state) {
             for (let j = 0; j < students.length; j++) {
               let student = students[j];
               if (student.id === user_id) {
+                console.log(course.name);
                 console.log(section.name);
                 course.updateCell('section', section.name);
                 return;
