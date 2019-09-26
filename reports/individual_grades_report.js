@@ -191,13 +191,13 @@ function getAssignmentData(courses, course_id, enrollment) {
       course.updateCell('days_since_last_submission', most_recent_days, color);
       updateAverage('progress', courses);
     } else {
-      course.updateCell('progress', user_id, "N/A");
-      course.updateCell('days_since_last_submission', user_id, "N/A", "#FAB");
+      course.updateCell('progress', "N/A");
+      course.updateCell('days_since_last_submission', "N/A");
     }
     updateAverage('progress', courses);
   }).fail(function() {
-    course.updateCell('progress', user_id, "N/A");
-    course.updateCell('days_since_last_submission', user_id, "N/A", "#FAB");
+    course.updateCell('progress', "N/A");
+    course.updateCell('days_since_last_submission', "N/A", "#FAB");
   });
 }
 function requestCourseGradeData(courses, course_id, state) {
