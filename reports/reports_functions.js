@@ -28,9 +28,6 @@ function createReport() {
 	    let modal = $('div#btech-modal');
 	    modal.hide();
 	});
-  for (let key in columns) {
-      columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
-  }
   let report_head = $('#btech-report-table-head');
   let header_row = createHeaderRow();
   header_row.appendTo(report_head);
@@ -69,4 +66,27 @@ function createHeaderRow() {
 		count += 1;
 	}
 	return row;
+}
+
+function updateAverage(key, dict) {
+	let total = 0;
+	let count = 0;
+	for (var id in dict) {
+		let element = dict[course_id];
+		let val = element[key];
+		if (!isNaN(parseInt(val))) {
+			total += parseInt(val);
+			count += 1;
+		}
+	}
+	let average = total / count;
+	let text = Math.round(average);
+	if (columns[key].percent === true) text += "%";
+	columns[key].average_element.html(text);
+}
+window.onclick = function(event) {
+  let modal = $('div#btech-modal');
+  if (event.target == modal) {
+      modal.hide();
+  }
 }

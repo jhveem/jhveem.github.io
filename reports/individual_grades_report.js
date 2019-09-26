@@ -101,10 +101,12 @@ class Course {
 function createIndividualGradesReport() {
   //init report
   createReport();
+  for (let key in columns) {
+      columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
+  }
 
   //init variables
   let report = $('#btech-report-table');
-  let report_body = $('#btech-report-table-body');
   let report_foot = $('#btech-report-table-foot');
   let m = (/\/users\/([0-9]+)/.exec(window.location.pathname));
   let user_id = m[1];
@@ -148,6 +150,7 @@ function createIndividualGradesReport() {
     }
   }
 }
+
 function getAssignmentData(courses, course_id, enrollment) {
   let course = courses[course_id];
   let user_id = course.user_id;
@@ -210,12 +213,12 @@ function getAssignmentData(courses, course_id, enrollment) {
     course.updateCell('days_since_last_submission', "N/A", "#FAB");
   });
 }
+
 function requestCourseSectionData(courses, course_id, state) {
   let course = courses[course_id];
   let user_id = parseInt(course.user_id);
-  let url = "/api/v1/courses/"+course_id+"/sections?include[]=students";
+  let url = "/api/v1/courses/"+course_id+"/sections?per_page=100&include[]=students";
   $.get(url, function(data) {
-    console.log(course.name);
     let sections = data;
     if (sections.length > 0) {
       for (let i = 0; i < sections.length; i++) {
@@ -226,9 +229,7 @@ function requestCourseSectionData(courses, course_id, state) {
             for (let j = 0; j < students.length; j++) {
               let student = students[j];
               if (student.id === user_id) {
-                console.log(section.name);
                 course.updateCell('section', section.name);
-                console.log('');
                 return;
               }
             }
@@ -238,6 +239,7 @@ function requestCourseSectionData(courses, course_id, state) {
     }
   });
 }
+
 function requestCourseGradeData(courses, course_id, state) {
   let course = courses[course_id];
   let user_id = course.user_id;
@@ -266,23 +268,5 @@ function requestCourseGradeData(courses, course_id, state) {
     }
   });
 }
-
-function updateAverage(key, dict) {
-	let total = 0;
-	let count = 0;
-	for (var course_id in dict) {
-		let course = dict[course_id];
-		let val = course[key];
-		if (!isNaN(parseInt(val))) {
-			total += parseInt(val);
-			count += 1;
-		}
-	}
-	let average = total / count;
-	let text = Math.round(average);
-	if (columns[key].percent === true) text += "%";
-	columns[key].average_element.html(text);
-}
-
 
 createIndividualGradesReport();
