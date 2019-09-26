@@ -31,6 +31,7 @@ function createReport() {
   for (let key in columns) {
       columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
   }
+  let report_head = $('#btech-report-table-head');
   let header_row = createHeaderRow();
   header_row.appendTo(report_head);
 }

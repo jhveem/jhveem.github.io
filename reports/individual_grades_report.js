@@ -102,7 +102,6 @@ function createIndividualGradesReport() {
 
   createReport();
   let report = $('#btech-report-table');
-  let report_head = $('#btech-report-table-head');
   let report_body = $('#btech-report-table-body');
   let report_foot = $('#btech-report-table-foot');
   let m = (/\/users\/([0-9]+)/.exec(window.location.pathname));
