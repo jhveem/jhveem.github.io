@@ -214,8 +214,8 @@ function requestCourseSectionData(courses, course_id, state) {
   let course = courses[course_id];
   let user_id = parseInt(course.user_id);
   let url = "/api/v1/courses/"+course_id+"/sections?include[]=students";
-  console.log(course.name);
   $.get(url, function(data) {
+    console.log(course.name);
     let sections = data;
     if (sections.length > 0) {
       for (let i = 0; i < sections.length; i++) {
