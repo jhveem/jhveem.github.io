@@ -116,8 +116,6 @@ class Student {
     let final_score = grades.final_score;
     if (final_score === null) final_score = 0;
 
-    let row = createRow(user_id);
-    row.appendTo(report_body);
     this.updateCell('days_in_course', diff_days);
     this.updateCell('grade', current_score);
     this.updateCell('final_grade', final_score);
