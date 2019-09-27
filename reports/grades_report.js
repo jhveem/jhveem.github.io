@@ -260,6 +260,7 @@ function createGradesReport() {
       }
       if (enrollment !== null) {
         let student = new Student(user_id, studentData.name, course_id);
+        students[user_id] = student;
         student.data = studentData;
         student.enrollment = enrollment;
         student.processEnrollment();
