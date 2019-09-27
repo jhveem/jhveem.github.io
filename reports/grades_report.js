@@ -137,9 +137,19 @@ class Student {
   }
 }
 
+function checkStudentInSection(students, studentData) {
+    for (let k = 0; k < students.length; k++) {
+      let student = students[id];
+      let user_id = parseInt(student.user_id);
+      if (studentData.id === user_id) {
+        student.updateCell('section', section.name);
+        student.section = section.name;
+        return;
+      }
+    }
+}
+
 function getSectionData(students, id) {
-  let student = students[id];
-  let user_id = parseInt(student.user_id);
   let course_id = student.course_id;
   let url = "/api/v1/courses/"+course_id+"/sections?per_page=100&include[]=students";
   $.get(url, function(data) {
@@ -152,10 +162,7 @@ function getSectionData(students, id) {
           if (studentsData.length > 0) {
             for (let j = 0; j < studentsData.length; j++) {
               let studentData = studentsData[j];
-              if (studentData.id === user_id) {
-                student.updateCell('section', section.name);
-                return;
-              }
+              checkStudentInSection(students, studentData);
             }
           }
         }
@@ -285,10 +292,9 @@ function createGradesReport() {
         student.enrollment = enrollment;
         student.processEnrollment();
         getAssignmentData(student);
-        getSectionData(students, user_id);
       }
     }
-
+    getSectionData(students, user_id);
     //Set up the bottom data including averages, medians, and other information
     report_foot.append("<tr><td colspan=7 height=10></td></tr>");
     let average_row = $('<tr style="padding:10px;" id="btech-modal-average"></tr>').appendTo(report_foot);
