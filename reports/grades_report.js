@@ -79,6 +79,7 @@ class Student {
 		this.grade = "N/A";
 		this.progress = "N/A";
 		this.final_grade = "N/A";
+    this.section = "";
 		this.row = this.genRow();
 		this.row.appendTo($('#btech-report-table-body'));
     this.enrollment = {};
