@@ -183,11 +183,11 @@ function getAssignmentData(student) {
     if (most_recent_days > 21) color = "#F67";
 
     //add in submission related cells
-    student.updateCell('progress', user_id, progress);
-    student.updateCell('days_since_last_submission', user_id, most_recent_days, color);
+    student.updateCell('progress', progress);
+    student.updateCell('days_since_last_submission', most_recent_days, color);
   }).fail(function() {
-    student.updateCell('progress', user_id, "N/A");
-    student.updateCell('days_since_last_submission', user_id, "N/A", "#FAB");
+    student.updateCell('progress', "N/A");
+    student.updateCell('days_since_last_submission', "N/A", "#FAB");
   });
 }
 
@@ -237,6 +237,7 @@ function createGradesReport() {
         let student = new Student(user_id, studentData.name, course_id);
         student.data = studentData;
         student.enrollment = enrollment;
+        student.processEnrollment();
         getAssignmentData(student);
       }
     }
