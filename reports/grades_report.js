@@ -86,7 +86,7 @@ class Student {
     this.days_since_last_submission = 0;
     this.section = "";
 		this.grade = "N/A";
-		this.progress = "N/A";
+		this.progress = 0;
 		this.final_grade = "N/A";
     this.section = "";
 		this.row = this.genRow();
@@ -148,6 +148,7 @@ class Student {
     updateMedian('final_grade', this.dict);
 
     this.progress = Math.round(this.final_grade / this.grade * 100);
+    if (isNaN(progress)) progress = 0;
     this.updateCell('progress', this.progress);
     updateAverage('progress', this.dict);
     updateMedian('progress', this.dict);
