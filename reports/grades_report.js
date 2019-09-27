@@ -64,6 +64,15 @@ let columns = {
     description: "The number of days since the student was added to the course. Does not take into account when they first submitted anything or when the actual first day of class was.",
     percent: false
   },
+  ungraded: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "The number of ungraded assignments for this student.",
+    percent: false
+  },
 };
 
 class Student {
@@ -194,6 +203,7 @@ function getAssignmentData(student) {
     let diff_time = Math.abs(now_date - start_date);
     let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
     let most_recent_time = diff_time;
+    let ungraded = 0;
     for (let a = 0; a < assignments.length; a++) {
       let assignment = assignments[a];
       let points_possible = assignment.points_possible;
@@ -203,15 +213,17 @@ function getAssignmentData(student) {
         current_points_possible += points_possible;
         submitted += 1;
       }
+      if (assigment.submission.score === null && assignment.submission.submitted_at !== null) {
+        ungraded += 1;
+      }
       if (Math.abs(now_date - submitted_at) < most_recent_time) {
         most_recent_time = Math.abs(now_date - submitted_at);
         most_recent = assignment;
       }
     }
-    let progress = Math.ceil(current_points_possible / total_points_possible * 100);
-    progress = Math.ceil(submitted / assignments.length * 100);
-    if (isNaN(progress)) progress = 0;
-    student.progress = progress;
+
+    student.ungraded = ungraded;
+    student.updateCell('ungraded', ungraded);
     
     //update the footer
     let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
@@ -234,13 +246,6 @@ function getAssignmentData(student) {
     }
     if (most_recent_days > 21) color = "#F67";
 
-    //add in submission related cells
-    //I have found a better way to calculate progress
-    /*
-    student.updateCell('progress', progress);
-    updateAverage('progress', student.dict);
-    updateMedian('progress', student.dict);
-    */
 
     student.updateCell('days_since_last_submission', most_recent_days, color);
     student.days_since_last_submission = most_recent_days;
