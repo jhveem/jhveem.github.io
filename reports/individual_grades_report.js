@@ -209,17 +209,16 @@ function getAssignmentData(courses, course_id, enrollment) {
     }
     if (most_recent_days > 21) color = "#F67";
     if (course.state === 'active') {
-      course.updateCell('progress', progress);
       course.updateCell('days_since_last_submission', most_recent_days, color);
       updateAverage('progress', courses);
     } else if (course.state == 'completed') {
       course.updateCell('progress', 100);
+      updateAverage('progress', courses);
       course.updateCell('days_since_last_submission', "COMPLETE");
     } else {
       course.updateCell('progress', "N/A");
       course.updateCell('days_since_last_submission', "N/A");
     }
-    updateAverage('progress', courses);
   }).fail(function() {
     course.updateCell('progress', "N/A");
     course.updateCell('days_since_last_submission', "N/A", "#FAB");
