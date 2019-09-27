@@ -192,10 +192,12 @@ function getAssignmentData(courses, course_id, enrollment) {
         most_recent = assignment;
       }
     }
+    /*
     let progress = Math.ceil(current_points_possible / total_points_possible * 100);
     progress = Math.ceil(submitted / assignments.length * 100);
     if (isNaN(progress)) progress = 0;
     course.progress = progress;
+    */
 
     //calculate color for last submission day
     let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
@@ -272,7 +274,13 @@ function requestCourseGradeData(courses, course_id, state) {
       course.final_grade = final_grade;
       course.updateCell('final_grade', final_grade);
       updateAverage('final_grade', courses);
-      getAssignmentData(courses, course_id, enrollment);
+
+      if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
+        let progress = final_grade / grade;
+        course.progress = progress;
+        course.updateCell('progress' progress);
+        getAssignmentData(courses, course_id, enrollment);
+      }
     } else if (state == "active") {
       requestCourseGradeData(courses, course_id, 'completed');
     }
