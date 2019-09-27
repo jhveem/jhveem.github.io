@@ -138,7 +138,7 @@ class Student {
   }
 }
 
-function checkStudentInSection(students, studentData) {
+function checkStudentInSection(students, studentData, section) {
   for (let id in students) {
     let student = students[id];
     let user_id = parseInt(student.user_id);
@@ -162,7 +162,7 @@ function getSectionData(students, course_id) {
           if (studentsData.length > 0) {
             for (let j = 0; j < studentsData.length; j++) {
               let studentData = studentsData[j];
-              checkStudentInSection(students, studentData);
+              checkStudentInSection(students, studentData, section);
             }
           }
         }
