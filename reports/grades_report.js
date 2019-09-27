@@ -68,7 +68,7 @@ let columns = {
 
 class Student {
 	constructor(id, name, course_id) {
-    this.id = id;
+    this.user_id = id;
     this.name = name;
     this.course_id = course_id;
     this.days_in_course = 0;
@@ -86,14 +86,14 @@ class Student {
     this.updateCell('section', '');
   }
 	genRow() {
-		let row = $('<tr id="btech-modal-report-'+this.id+'"></tr>');
+		let row = $('<tr id="btech-modal-report-'+this.user_id+'"></tr>');
 		for (let key in columns) {
-			row.append("<td id='"+getCellId(key, this.id)+"' style='text-align:left; padding:10px;'>N/A</td>");
+			row.append("<td id='"+getCellId(key, this.user_id)+"' style='text-align:left; padding:10px;'>N/A</td>");
 		}
 		return row;
 	}
 	updateCell(key, value, color="#FFF") {
-    let cellId = getCellId(key, this.id);
+    let cellId = getCellId(key, this.user_id);
     let cell = $("#"+cellId);
     cell.css("background-color",color);
     
@@ -122,8 +122,35 @@ class Student {
   }
 }
 
+function getSectionData(students, id) {
+  let student = students[id];
+  let user_id = parseInt(student.user_id);
+  let course_id = student.course_id;
+  let url = "/api/v1/courses/"+course_id+"/sections?per_page=100&include[]=students";
+  $.get(url, function(data) {
+    let sections = data;
+    if (sections.length > 0) {
+      for (let i = 0; i < sections.length; i++) {
+        let section = sections[i];
+        let studentsData = section.students;
+        if (studentsData !== null) {
+          if (studentsData.length > 0) {
+            for (let j = 0; j < studentsData.length; j++) {
+              let studentData = studentsData[j];
+              if (studentData.id === user_id) {
+                student.updateCell('section', section.name);
+                return;
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
 function getAssignmentData(student) {
-  let user_id = student.id;
+  let user_id = student.user_id;
   let course_id = student.course_id;
   let enrollment = student.enrollment;
   let url = "/api/v1/courses/"+course_id+"/analytics/users/"+user_id+"/assignments";
@@ -237,6 +264,7 @@ function createGradesReport() {
         student.enrollment = enrollment;
         student.processEnrollment();
         getAssignmentData(student);
+        getSectionData(students, user_id);
       }
     }
 
