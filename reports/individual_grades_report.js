@@ -81,7 +81,9 @@ class Course {
 	genRow() {
 		let row = $('<tr id="btech-modal-report-'+this.id+'"></tr>');
 		for (let key in columns) {
-			row.append("<td id='"+getCellId(key, this.id)+"' style='text-align:left; padding:10px;'>N/A</td>");
+      let align = 'left';
+      if (columns[key].sortable_type === 'sorttable_numeric') align = 'center';
+			row.append("<td id='"+getCellId(key, this.id)+"' style='text-align:"+align+"; padding:10px;'>N/A</td>");
 		}
 		return row;
 	}
