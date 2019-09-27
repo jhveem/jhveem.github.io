@@ -304,42 +304,4 @@ function createGradesReport() {
   });
 }
 
-function update_average(key, value) {
-	let total = 0;
-	for (let i = 0; i < columns[key].list.length; i++) {
-	    total += columns[key].list[i];
-	}
-	let average = total / columns[key].list.length;
-	let text = Math.floor(average);
-	if (columns[key].percent === true) text += "%";
-	columns[key].average_element.html(text);
-}
-
-
-
-function updateCell(key, user_id, value, color="#FFF") {
-	let cellId = getCellId(key, user_id);
-	let cell = $("#"+cellId);
-	cell.css("background-color",color);
-	if (columns[key].average === true) {
-	    let val = value;
-	    if (val === "N/A") {val = 0;}
-	    if (typeof(val) === "String") val = parseInt(val);
-	    columns[key].list.push(val);
-	    update_average(key, val);
-	    update_median(key, val);
-	}
-	if (columns[key].percent == true && value !== "N/A") value += "%";
-	cell.html(value);
-}
-
-function createRow(user_id) {
-	let row = $('<tr id="btech-modal-report-'+user_id+'"></tr>');
-	for (let key in columns) {
-	    row.append("<td id='"+getCellId(key, user_id)+"' style='text-align:left; padding:10px;'></td>");
-	}
-	return row;
-}
-
-
 createGradesReport();
