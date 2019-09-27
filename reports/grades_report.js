@@ -213,7 +213,7 @@ function getAssignmentData(student) {
         current_points_possible += points_possible;
         submitted += 1;
       }
-      if (assigment.submission.score === null && assignment.submission.submitted_at !== null) {
+      if (assignment.submission.score === null && assignment.submission.submitted_at !== null) {
         ungraded += 1;
       }
       if (Math.abs(now_date - submitted_at) < most_recent_time) {
