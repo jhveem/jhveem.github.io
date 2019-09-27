@@ -136,7 +136,7 @@ class Student {
     updateAverage('final_grade', this.dict);
     updateMedian('final_grade', this.dict);
 
-    this.progress = final_grade / grade;
+    this.progress = this.final_grade / this.grade;
     student.updateCell('progress', this.progress);
     updateAverage('progress', this.dict);
     updateMedian('progress', this.dict);
