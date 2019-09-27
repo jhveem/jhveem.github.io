@@ -16,7 +16,7 @@ let columns = {
     average_element: null,
     median_element: null,
     sortable_type: '',
-    description: "The student&#39;s section. *COMING SOON",
+    description: "The student&#39;s section.",
     percent: false
   },
   days_in_course: {
@@ -67,7 +67,7 @@ let columns = {
 };
 
 class Student {
-	constructor(id, name, course_id) {
+	constructor(dict, id, name, course_id) {
     this.user_id = id;
     this.name = name;
     this.course_id = course_id;
@@ -81,6 +81,7 @@ class Student {
 		this.row.appendTo($('#btech-report-table-body'));
     this.enrollment = {};
     this.data = {};
+    this.dict = dict;
     let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+id+"'>"+name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+id+"'>grades</a>)";
     this.updateCell('name', nameHTML);
     this.updateCell('section', '');
@@ -117,8 +118,11 @@ class Student {
     if (final_score === null) final_score = 0;
 
     this.updateCell('days_in_course', diff_days);
+    updateAverage('days_in_course', this.dict);
     this.updateCell('grade', current_score);
+    updateAverage('grade', this.dict);
     this.updateCell('final_grade', final_score);
+    updateAverage('final_grade', this.dict);
   }
 }
 
@@ -259,7 +263,7 @@ function createGradesReport() {
         }
       }
       if (enrollment !== null) {
-        let student = new Student(user_id, studentData.name, course_id);
+        let student = new Student(students, user_id, studentData.name, course_id);
         students[user_id] = student;
         student.data = studentData;
         student.enrollment = enrollment;
