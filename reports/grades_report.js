@@ -19,15 +19,6 @@ let columns = {
     description: "The student&#39;s section.",
     percent: false
   },
-  days_in_course: {
-    average: true,
-    list: [],
-    average_element: null,
-    median_element: null,
-    sortable_type: 'sorttable_numeric',
-    description: "The number of days since the student was added to the course. Does not take into account when they first submitted anything or when the actual first day of class was.",
-    percent: false
-  },
   grade: {
     average: true,
     list: [],
@@ -62,6 +53,15 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "This shows the number of days which have past since the student last submitted an assignment on canvas. Other activities not recorded in canvas are not taken into account.",
+    percent: false
+  },
+  days_in_course: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "The number of days since the student was added to the course. Does not take into account when they first submitted anything or when the actual first day of class was.",
     percent: false
   },
 };
