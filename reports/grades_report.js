@@ -310,8 +310,8 @@ function createGradesReport() {
 
     report_foot.append("<tr><td colspan=7 height=10></td></tr>");
     let final_row = $('<tr id="btech-modal-report-summary"></tr>').appendTo(report_foot);
-    final_row.append("<td colspan=2>ESTIMATED AVERAGE DAYS TO COMPLETION</td>");
-    final_row.append("<td id='btech-days-to-completion' style='text-align:center;'></td>");
+    final_row.append("<td style='padding:10px;' colspan=2>ESTIMATED AVERAGE DAYS TO COMPLETION</td>");
+    final_row.append("<td style='padding:10px;' id='btech-days-to-completion' style='text-align:center;'></td>");
 
   });
 }
