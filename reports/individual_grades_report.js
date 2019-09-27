@@ -276,9 +276,9 @@ function requestCourseGradeData(courses, course_id, state) {
       updateAverage('final_grade', courses);
 
       if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
-        let progress = final_grade / grade;
+        let progress = Math.round(final_grade / grade * 100);
         course.progress = progress;
-        course.updateCell('progress' progress);
+        course.updateCell('progress', progress);
         getAssignmentData(courses, course_id, enrollment);
       }
     } else if (state == "active") {
