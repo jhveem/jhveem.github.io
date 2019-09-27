@@ -224,12 +224,12 @@ function getAssignmentData(student) {
 
     //add in submission related cells
     student.updateCell('progress', progress);
-    student.updateAverage('progress', students);
-    student.updateMedian('progress', students);
+    student.updateAverage('progress', student.dict);
+    student.updateMedian('progress', student.dict);
 
     student.updateCell('days_since_last_submission', most_recent_days, color);
-    student.updateAverage('days_since_last_submission', students);
-    student.updateMedian('days_since_last_submission', students);
+    student.updateAverage('days_since_last_submission', student.dict);
+    student.updateMedian('days_since_last_submission', student.dict);
   }).fail(function() {
     student.updateCell('progress', "N/A");
     student.updateCell('days_since_last_submission', "N/A", "#FAB");
