@@ -78,6 +78,7 @@ class Student {
 		this.progress = "N/A";
 		this.final_grade = "N/A";
 		this.row = this.genRow();
+		this.row.appendTo($('#btech-report-table-body'));
     this.enrollment = {};
     this.data = {};
     let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+id+"'>"+name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+id+"'>grades</a>)";
