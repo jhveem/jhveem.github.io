@@ -63,7 +63,7 @@ function createHeaderRow() {
 function updateAverage(key, dict) {
 	let total = 0;
 	let count = 0;
-	for (var id in dict) {
+	for (let id in dict) {
 		let element = dict[id];
 		let val = element[key];
 		if (!isNaN(parseInt(val))) {
