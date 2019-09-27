@@ -225,6 +225,8 @@ function getAssignmentData(student) {
     student.ungraded = ungraded;
     student.updateCell('ungraded', ungraded);
     
+    let progress = student.progress;
+
     //update the footer
     let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
     progress_per_day = progress / diff_days;
