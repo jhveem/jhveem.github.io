@@ -287,7 +287,7 @@ function createGradesReport() {
         }
       }
       if (enrollment !== null) {
-        let student = new Student(students, user_id, studentData.name, course_id);
+        let student = new Student(students, user_id, studentData.sortable_name, course_id);
         student.data = studentData;
         student.enrollment = enrollment;
         student.processEnrollment();
