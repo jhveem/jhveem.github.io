@@ -228,6 +228,7 @@ function getAssignmentData(student) {
     updateMedian('progress', student.dict);
 
     student.updateCell('days_since_last_submission', most_recent_days, color);
+    student.days_since_last_submission = most_recent_days;
     updateAverage('days_since_last_submission', student.dict);
     updateMedian('days_since_last_submission', student.dict);
   }).fail(function() {
