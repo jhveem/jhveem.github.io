@@ -138,15 +138,15 @@ class Student {
 }
 
 function checkStudentInSection(students, studentData) {
-    for (let k = 0; k < students.length; k++) {
-      let student = students[id];
-      let user_id = parseInt(student.user_id);
-      if (studentData.id === user_id) {
-        student.updateCell('section', section.name);
-        student.section = section.name;
-        return;
-      }
+  for (let id in students) {
+    let student = students[id];
+    let user_id = parseInt(student.user_id);
+    if (studentData.id === user_id) {
+      student.updateCell('section', section.name);
+      student.section = section.name;
+      return;
     }
+  }
 }
 
 function getSectionData(students, course_id) {
