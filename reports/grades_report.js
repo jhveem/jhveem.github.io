@@ -310,7 +310,7 @@ function createGradesReport() {
 
     report_foot.append("<tr><td colspan=7 height=10></td></tr>");
     let final_row = $('<tr id="btech-modal-report-summary"></tr>').appendTo(report_foot);
-    final_row.append("<td style='padding:10px;' colspan=2>ESTIMATED AVERAGE DAYS TO COMPLETION</td>");
+    final_row.append("<td style='padding:10px;' colspan=2 title='A projection of the number of days it will take the average student to complete this course based on the time it has take students to reach their current progress.'>PROJECTED AVERAGE DAYS TO COMPLETION</td>");
     final_row.append("<td style='padding:10px; text-align:center;' id='btech-days-to-completion' style='text-align:center;'></td>");
 
   });
