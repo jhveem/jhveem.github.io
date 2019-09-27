@@ -206,6 +206,7 @@ function getAssignmentData(student) {
     let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
     let most_recent_time = diff_time;
     let ungraded = 0;
+    let color = "#FFF";
     for (let a = 0; a < assignments.length; a++) {
       let assignment = assignments[a];
       let points_possible = assignment.points_possible;
@@ -225,7 +226,7 @@ function getAssignmentData(student) {
     }
 
     student.ungraded = ungraded;
-    let color = "#FFF";
+    color = "#FFF";
     if (ungraded >= 1 && ungraded <= 10) {
       let g = 16 - ungraded;
       color = "#F"+g.toString(16)+"7";
@@ -248,7 +249,7 @@ function getAssignmentData(student) {
     $('#btech-days-to-completion').html(''+average_days_to_complete);
 
     //calculate color for last submission day
-    let color = "#FFF";
+    color = "#FFF";
     if (most_recent_days >= 7 && most_recent_days <= 21) {
       let g = 16 - Math.floor(((most_recent_days - 6) / 15) * 16);
       if (g < 6) g = 6;
