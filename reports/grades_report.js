@@ -256,8 +256,8 @@ function createGradesReport() {
       modal.show();
   });
   for (let key in columns) {
-    columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
-    columns[key].median_element = $('<td style="text-align:center;" id="btech-report-median-'+keyToCSS(key)+'"></td>');
+    columns[key].average_element = $('<td style="text-align:center; padding:10px;" " id="btech-report-average'+keyToCSS(key)+'"></td>');
+    columns[key].median_element = $('<td style="text-align:center; padding:10px;" id="btech-report-median-'+keyToCSS(key)+'"></td>');
   }
 
   let course_id = ENV.context_asset_string.replace("course_", "");
@@ -297,10 +297,10 @@ function createGradesReport() {
     getSectionData(students, course_id);
     //Set up the bottom data including averages, medians, and other information
     report_foot.append("<tr><td colspan=7 height=10></td></tr>");
-    let average_row = $('<tr style="padding:10px;" id="btech-modal-average"></tr>').appendTo(report_foot);
-    let median_row = $('<tr style="padding:10px;" id="btech-modal-median"></tr>').appendTo(report_foot);
-    median_row.append("<td colspan=2>MEDIAN</td>");
-    average_row.append("<td colspan=2>AVERAGE</td>");
+    let average_row = $('<tr id="btech-modal-average"></tr>').appendTo(report_foot);
+    let median_row = $('<tr id="btech-modal-median"></tr>').appendTo(report_foot);
+    median_row.append('<td style="padding:10px;" colspan=2>MEDIAN</td>');
+    average_row.append('<td style="padding:10px;" colspan=2>AVERAGE</td>');
     for (let key in columns) {
       if (columns[key].average == true) {
         average_row.append(columns[key].average_element);
