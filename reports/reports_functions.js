@@ -16,14 +16,6 @@ function createReport() {
 	$('#btech-report-table').append("<tbody border='1' id='btech-report-table-body'></tbody>");
 	$('#btech-report-table').append("<thead border='1' id='btech-report-table-head'></thead>");
 	$('#btech-report-table').append("<tfoot border='1' id='btech-report-table-foot'></tfoot>");
-	let gen_report_button = $('<a class="btn button-sidebar-wide" id="btech-modal-report-gen">Report</a>');
-    let menu_bar = $("#right-side div").first();
-    gen_report_button.appendTo(menu_bar);
-
-	gen_report_button.click(function() {
-	    let modal = $('div#btech-modal');
-	    modal.show();
-	});
 	$('#btech-close').click(function() {
 	    let modal = $('div#btech-modal');
 	    modal.hide();

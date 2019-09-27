@@ -1,3 +1,4 @@
+//progress per day stuff needs to be redesigned so it gets recalced whenever progress is calced.
 let progress_per_day_list = [];
 let columns = {
   name: {
@@ -191,6 +192,15 @@ function getAssignmentData(student) {
 
 function createGradesReport() {
   createReport();
+  let gen_report_button = $('<a class="Button" id="btech-modal-report-gen">Report</a>');
+  let new_grades = $('div.header-buttons');
+  let old_grades = $('div#gradebook-toolbar');
+  if (new_grades.length > 0) gen_report_button.appendTo(new_grades);
+  if (old_grades.length > 0) gen_report_button.appendTo(old_grades);
+  gen_report_button.click(function() {
+      let modal = $('div#btech-modal');
+      modal.show();
+  });
   for (let key in columns) {
     columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
     columns[key].median_element = $('<td style="text-align:center;" id="btech-report-median-'+keyToCSS(key)+'"></td>');
