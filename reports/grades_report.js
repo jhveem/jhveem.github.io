@@ -93,9 +93,11 @@ class Student {
 		this.row.appendTo($('#btech-report-table-body'));
     this.enrollment = {};
     this.data = {};
+    this.ungraded = 0;
     let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+id+"'>"+name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+id+"'>grades</a>)";
     this.updateCell('name', nameHTML);
     this.updateCell('section', '');
+    this.updateCell('ungraded', 0);
   }
 	genRow() {
 		let row = $('<tr id="btech-modal-report-'+this.user_id+'"></tr>');
