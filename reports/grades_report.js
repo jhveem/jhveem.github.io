@@ -156,7 +156,7 @@ function getAssignmentData(student) {
     let progress = Math.ceil(current_points_possible / total_points_possible * 100);
     progress = Math.ceil(submitted / assignments.length * 100);
     if (isNaN(progress)) progress = 0;
-    course.progress = progress;
+    student.progress = progress;
     
     //update the footer
     let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
