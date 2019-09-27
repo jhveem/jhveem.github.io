@@ -78,7 +78,7 @@ class Student {
 		this.row = this.genRow();
     this.enrollment = {};
     this.data = {};
-    nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+id+"'>"+name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+id+"'>grades</a>)";
+    let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/"+id+"'>"+name+"</a> (<a target='_blank' href='https://btech.instructure.com/courses/"+course_id+"/grades/"+id+"'>grades</a>)";
     this.updateCell('name', nameHTML);
     this.updateCell('section', '');
   }
