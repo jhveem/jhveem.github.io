@@ -1,3 +1,4 @@
+let progress_per_day_list = [];
 let columns = {
   name: {
     average: false,
