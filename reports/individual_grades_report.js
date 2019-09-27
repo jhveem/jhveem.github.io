@@ -101,6 +101,14 @@ class Course {
 function createIndividualGradesReport() {
   //init report
   createReport();
+	let gen_report_button = $('<a class="btn button-sidebar-wide" id="btech-modal-report-gen">Report</a>');
+  let menu_bar = $("#right-side div").first();
+  gen_report_button.appendTo(menu_bar);
+
+	gen_report_button.click(function() {
+	    let modal = $('div#btech-modal');
+	    modal.show();
+	});
   for (let key in columns) {
       columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
   }
