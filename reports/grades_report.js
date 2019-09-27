@@ -149,7 +149,7 @@ function checkStudentInSection(students, studentData) {
     }
 }
 
-function getSectionData(students, id) {
+function getSectionData(students) {
   let course_id = student.course_id;
   let url = "/api/v1/courses/"+course_id+"/sections?per_page=100&include[]=students";
   $.get(url, function(data) {
@@ -294,7 +294,7 @@ function createGradesReport() {
         getAssignmentData(student);
       }
     }
-    getSectionData(students, user_id);
+    getSectionData(students);
     //Set up the bottom data including averages, medians, and other information
     report_foot.append("<tr><td colspan=7 height=10></td></tr>");
     let average_row = $('<tr style="padding:10px;" id="btech-modal-average"></tr>').appendTo(report_foot);
