@@ -123,14 +123,17 @@ class Student {
     this.days_in_course = diff_days;
     this.updateCell('days_in_course', diff_days);
     updateAverage('days_in_course', this.dict);
+    updateMedian('days_in_course', this.dict);
 
     this.grade = current_score;
     this.updateCell('grade', current_score);
     updateAverage('grade', this.dict);
+    updateMedian('grade', this.dict);
 
     this.final_grade = final_score;
     this.updateCell('final_grade', final_score);
     updateAverage('final_grade', this.dict);
+    updateMedian('final_grade', this.dict);
   }
 }
 
@@ -282,8 +285,8 @@ function createGradesReport() {
 
     //Set up the bottom data including averages, medians, and other information
     report_foot.append("<tr><td colspan=7 height=10></td></tr>");
-    let average_row = $('<tr id="btech-modal-average"></tr>').appendTo(report_foot);
-    let median_row = $('<tr id="btech-modal-median"></tr>').appendTo(report_foot);
+    let average_row = $('<tr style="padding:10px;" id="btech-modal-average"></tr>').appendTo(report_foot);
+    let median_row = $('<tr style="padding:10px;" id="btech-modal-median"></tr>').appendTo(report_foot);
     median_row.append("<td colspan=2>MEDIAN</td>");
     average_row.append("<td colspan=2>AVERAGE</td>");
     for (let key in columns) {
@@ -312,12 +315,6 @@ function update_average(key, value) {
 	columns[key].average_element.html(text);
 }
 
-function update_median(key, value) {
-	let med = median(columns[key].list)
-	let text = Math.floor(med);
-	if (columns[key].percent === true) text += "%";
-	columns[key].median_element.html(text);
-}
 
 
 function updateCell(key, user_id, value, color="#FFF") {

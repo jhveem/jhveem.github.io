@@ -82,3 +82,16 @@ window.onclick = function(event) {
       modal.hide();
   }
 }
+
+function updateMedian(key, dict) {
+  let vals  = [];
+  for (let id in dict) {
+		let element = dict[id];
+		let val = element[key];
+    vals.push(val);
+  }
+	let med = median(vals)
+	let text = Math.floor(med);
+	if (columns[key].percent === true) text += "%";
+	columns[key].median_element.html(text);
+}

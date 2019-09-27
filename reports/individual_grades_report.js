@@ -152,7 +152,7 @@ function createIndividualGradesReport() {
 
   //put together footer
   report_foot.append("<tr><td colspan=7 height=10></td></tr>");
-  let average_row = $('<tr id="btech-modal-average"></tr>').appendTo(report_foot);
+  let average_row = $('<tr style="padding:10px;" id="btech-modal-average"></tr>').appendTo(report_foot);
   average_row.append("<td colspan=3>AVERAGE</td>");
   for (let key in columns) {
     if (columns[key].average == true) {
