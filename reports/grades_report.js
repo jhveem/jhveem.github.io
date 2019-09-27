@@ -231,7 +231,7 @@ function getAssignmentData(student) {
       let g = 16 - ungraded;
       color = "#F"+g.toString(16)+"7";
     }
-    if (most_recent_days > 10) color = "#F67";
+    if (ungraded > 10) color = "#F67";
     student.updateCell('ungraded', ungraded, color);
     
     let progress = student.progress;
