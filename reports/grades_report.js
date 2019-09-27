@@ -135,6 +135,11 @@ class Student {
     this.updateCell('final_grade', final_score);
     updateAverage('final_grade', this.dict);
     updateMedian('final_grade', this.dict);
+
+    this.progress = final_grade / grade;
+    student.updateCell('progress', this.progress);
+    updateAverage('progress', this.dict);
+    updateMedian('progress', this.dict);
   }
 }
 
@@ -230,9 +235,12 @@ function getAssignmentData(student) {
     if (most_recent_days > 21) color = "#F67";
 
     //add in submission related cells
+    //I have found a better way to calculate progress
+    /*
     student.updateCell('progress', progress);
     updateAverage('progress', student.dict);
     updateMedian('progress', student.dict);
+    */
 
     student.updateCell('days_since_last_submission', most_recent_days, color);
     student.days_since_last_submission = most_recent_days;
