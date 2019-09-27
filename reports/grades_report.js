@@ -148,7 +148,7 @@ class Student {
     updateMedian('final_grade', this.dict);
 
     this.progress = Math.round(this.final_grade / this.grade * 100);
-    if (isNaN(progress)) progress = 0;
+    if (isNaN(this.progress)) this.progress = 0;
     this.updateCell('progress', this.progress);
     updateAverage('progress', this.dict);
     updateMedian('progress', this.dict);
