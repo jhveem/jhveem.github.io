@@ -249,6 +249,7 @@ function getAssignmentData(student) {
     student.updateCell('ungraded', ungraded, color);
     let perc_submitted = Math.round((submitted / max_submissions) * 100);
     student.updateCell('submissions', perc_submitted);
+    updateAverage('submissions', student.dict);
     
     let progress = student.progress;
 

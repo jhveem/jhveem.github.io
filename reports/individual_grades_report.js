@@ -207,6 +207,7 @@ function getAssignmentData(courses, course_id, enrollment) {
     }
     let perc_submitted = Math.round((submitted / max_submissions) * 100);
     course.updateCell('submissions', perc_submitted);
+    updateAverage('progress', courses);
 
     /*
     let progress = Math.ceil(current_points_possible / total_points_possible * 100);
