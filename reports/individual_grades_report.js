@@ -277,10 +277,8 @@ function requestCourseGradeData(courses, course_id, state) {
   $.get(url, function(data) {
     if (data.length > 0) {
       let enrollment = data[0].enrollments[0];
-      console.log(enrollment);
       let grades = enrollment.grades;
-      console.log(grades);
-      if (grades !== null) {
+      if (grades !== undefined) {
         let grade = grades.current_score;
         if (grade == null) {
           if (course.state == "active") grade = 0;
