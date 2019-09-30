@@ -46,6 +46,15 @@ let columns = {
     description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
     percent: true
   },
+  submissions: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "This shows the percent of assignments submitted out of the total assignments in the course.",
+    percent: true
+  }
   days_since_last_submission: {
     average: true,
     list: [],
@@ -234,6 +243,7 @@ function getAssignmentData(student) {
     }
     if (ungraded > 10) color = "#F67";
     student.updateCell('ungraded', ungraded, color);
+    student.updateCell('submissions', submitted / assignments.length);
     
     let progress = student.progress;
 
