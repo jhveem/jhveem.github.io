@@ -250,6 +250,7 @@ function getAssignmentData(student) {
     let perc_submitted = Math.round((submitted / max_submissions) * 100);
     student.updateCell('submissions', perc_submitted);
     updateAverage('submissions', student.dict);
+    updateMedian('submissions', student.dict);
     
     let progress = student.progress;
 
