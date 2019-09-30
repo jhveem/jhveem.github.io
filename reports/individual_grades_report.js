@@ -53,6 +53,15 @@ let columns = {
 		description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
 		percent: true
 	},
+  submissions: {
+    average: true,
+    list: [],
+    average_element: null,
+    median_element: null,
+    sortable_type: 'sorttable_numeric',
+    description: "This shows the percent of assignments submitted out of the total assignments in the course.",
+    percent: true
+  },
   days_since_last_submission: {
     average: true,
     list: [],
@@ -172,6 +181,7 @@ function getAssignmentData(courses, course_id, enrollment) {
     let current_points_possible = 0;
     let most_recent = {};
     let submitted = 0;
+    let max_submissions = 0;
     let progress_per_day = 0;
     let start_date = Date.parse(enrollment.created_at);
     let now_date = Date.now();
@@ -183,15 +193,21 @@ function getAssignmentData(courses, course_id, enrollment) {
       let points_possible = assignment.points_possible;
       let submitted_at = Date.parse(assignment.submission.submitted_at);
       total_points_possible += points_possible;
-      if (assignment.submission.score !== null) {
-        current_points_possible += points_possible;
-        submitted += 1;
+      if (assignment.max_score > 0) {
+        max_submissions += 1;
+        if (assignment.submission.score !== null) {
+          current_points_possible += points_possible;
+          submitted += 1;
+        }
       }
       if (Math.abs(now_date - submitted_at) < most_recent_time) {
         most_recent_time = Math.abs(now_date - submitted_at);
         most_recent = assignment;
       }
     }
+    let perc_submitted = Math.round((submitted / max_submissions) * 100);
+    course.updateCell('submissions', perc_submitted);
+
     /*
     let progress = Math.ceil(current_points_possible / total_points_possible * 100);
     progress = Math.ceil(submitted / assignments.length * 100);
