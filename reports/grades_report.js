@@ -248,6 +248,7 @@ function getAssignmentData(student) {
     if (ungraded > 10) color = "#F67";
     student.updateCell('ungraded', ungraded, color);
     let perc_submitted = Math.round((submitted / max_submissions) * 100);
+    if (isNaN(perc_submitted)) perc_submitted = 0;
     student.updateCell('submissions', perc_submitted);
     student.submissions = perc_submitted;
     updateAverage('submissions', student.dict);

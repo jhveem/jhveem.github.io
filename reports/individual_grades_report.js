@@ -206,6 +206,7 @@ function getAssignmentData(courses, course_id, enrollment) {
       }
     }
     let perc_submitted = Math.round((submitted / max_submissions) * 100);
+    if (isNaN(perc_submitted)) perc_submitted = 0;
     course.updateCell('submissions', perc_submitted);
     course.submissions = perc_submitted;
     updateAverage('progress', courses);
