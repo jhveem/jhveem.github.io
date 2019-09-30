@@ -209,6 +209,7 @@ function getAssignmentData(student) {
     let current_points_possible = 0;
     let most_recent = {};
     let submitted = 0;
+    let max_submissions = 0;
     let progress_per_day = 0;
     let start_date = Date.parse(enrollment.created_at);
     let now_date = Date.now();
@@ -222,6 +223,9 @@ function getAssignmentData(student) {
       let points_possible = assignment.points_possible;
       let submitted_at = Date.parse(assignment.submission.submitted_at);
       total_points_possible += points_possible;
+      if (assignment.max_score > 0) {
+        max_submissions += 1;
+      }
       if (assignment.submission.score !== null) {
         current_points_possible += points_possible;
         submitted += 1;
@@ -243,7 +247,7 @@ function getAssignmentData(student) {
     }
     if (ungraded > 10) color = "#F67";
     student.updateCell('ungraded', ungraded, color);
-    let perc_submitted = Math.round((submitted / assignments.length) * 100);
+    let perc_submitted = Math.round((submitted / max_submissions) * 100);
     student.updateCell('submissions', perc_submitted);
     
     let progress = student.progress;
