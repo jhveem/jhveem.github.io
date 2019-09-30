@@ -225,10 +225,10 @@ function getAssignmentData(student) {
       total_points_possible += points_possible;
       if (assignment.max_score > 0) {
         max_submissions += 1;
-      }
-      if (assignment.submission.score !== null) {
-        current_points_possible += points_possible;
-        submitted += 1;
+        if (assignment.submission.score !== null) {
+          current_points_possible += points_possible;
+          submitted += 1;
+        }
       }
       if (assignment.submission.score === null && assignment.submission.submitted_at !== null) {
         ungraded += 1;
