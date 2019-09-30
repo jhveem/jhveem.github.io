@@ -277,27 +277,30 @@ function requestCourseGradeData(courses, course_id, state) {
   $.get(url, function(data) {
     if (data.length > 0) {
       let enrollment = data[0].enrollments[0];
-      let grade = enrollment.grades.current_score;
-      if (grade == null) {
-        if (course.state == "active") grade = 0;
-        else grade = "N/A";
-      }
-      course.grade = grade;
-      course.updateCell('grade', grade);
-      updateAverage('grade', courses);
+      let grades = enrollment.grades;
+      if (grades !== null) {
+        let grade = grades.current_score;
+        if (grade == null) {
+          if (course.state == "active") grade = 0;
+          else grade = "N/A";
+        }
+        course.grade = grade;
+        course.updateCell('grade', grade);
+        updateAverage('grade', courses);
 
-      let final_grade = enrollment.grades.final_score;
-      if (final_grade == null) final_grade = 0;
-      if (grade == "N/A" && final_grade == 0) final_grade = "N/A";
-      course.final_grade = final_grade;
-      course.updateCell('final_grade', final_grade);
-      updateAverage('final_grade', courses);
+        let final_grade = enrollment.grades.final_score;
+        if (final_grade == null) final_grade = 0;
+        if (grade == "N/A" && final_grade == 0) final_grade = "N/A";
+        course.final_grade = final_grade;
+        course.updateCell('final_grade', final_grade);
+        updateAverage('final_grade', courses);
 
-      if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
-        let progress = Math.round(final_grade / grade * 100);
-        course.progress = progress;
-        course.updateCell('progress', progress);
-        getAssignmentData(courses, course_id, enrollment);
+        if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
+          let progress = Math.round(final_grade / grade * 100);
+          course.progress = progress;
+          course.updateCell('progress', progress);
+          getAssignmentData(courses, course_id, enrollment);
+        }
       }
     } else if (state == "active") {
       requestCourseGradeData(courses, course_id, 'completed');
