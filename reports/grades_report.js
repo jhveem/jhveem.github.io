@@ -54,7 +54,7 @@ let columns = {
     sortable_type: 'sorttable_numeric',
     description: "This shows the percent of assignments submitted out of the total assignments in the course.",
     percent: true
-  }
+  },
   days_since_last_submission: {
     average: true,
     list: [],
