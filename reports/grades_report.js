@@ -243,7 +243,8 @@ function getAssignmentData(student) {
     }
     if (ungraded > 10) color = "#F67";
     student.updateCell('ungraded', ungraded, color);
-    student.updateCell('submissions', submitted / assignments.length);
+    let perc_submitted = Math.round((submitted / assignments.length) * 100);
+    student.updateCell('submissions', perc_submitted);
     
     let progress = student.progress;
 
