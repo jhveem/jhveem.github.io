@@ -278,6 +278,7 @@ function requestCourseGradeData(courses, course_id, state) {
     if (data.length > 0) {
       let enrollment = data[0].enrollments[0];
       let grades = enrollment.grades;
+      console.log(grades);
       if (grades !== null) {
         let grade = grades.current_score;
         if (grade == null) {
