@@ -205,8 +205,6 @@ function getAssignmentData(student) {
   $.get(url, function(data) {
     student.assignments = data;
     let assignments = data;
-    let total_points_possible = 0;
-    let current_points_possible = 0;
     let most_recent = {};
     let submitted = 0;
     let max_submissions = 0;
@@ -223,13 +221,10 @@ function getAssignmentData(student) {
     for (let a = 0; a < assignments.length; a++) {
       let assignment = assignments[a];
       console.log(assignment);
-      let points_possible = assignment.points_possible;
       let submitted_at = Date.parse(assignment.submission.submitted_at);
-      total_points_possible += points_possible;
-      if (assignment.max_score > 0) {
+      if (assignment.points_possible > 0) {
         max_submissions += 1;
         if (assignment.submission.score !== null) {
-          current_points_possible += points_possible;
           submitted += 1;
         }
       }
