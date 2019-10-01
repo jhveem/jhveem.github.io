@@ -44,7 +44,7 @@ let columns = {
 		description: "This grade is calculated based on all assignments and treats unsubmitted grades as 0.",
 		percent: true
 	},
-	progress: {
+	points: {
 		average: true,
 		list: [],
 		average_element: null,
@@ -81,7 +81,7 @@ class Course {
 		this.assignments = [];
 		this.state = "";
 		this.grade = "N/A";
-		this.progress = "N/A";
+		this.points = "N/A";
 		this.final_grade = "N/A";
 		this.row = this.genRow();
 		this.row.appendTo($('#btech-report-table-body'));
@@ -209,14 +209,7 @@ function getAssignmentData(courses, course_id, enrollment) {
     if (isNaN(perc_submitted)) perc_submitted = 0;
     course.updateCell('submissions', perc_submitted);
     course.submissions = perc_submitted;
-    updateAverage('progress', courses);
-
-    /*
-    let progress = Math.ceil(current_points_possible / total_points_possible * 100);
-    progress = Math.ceil(submitted / assignments.length * 100);
-    if (isNaN(progress)) progress = 0;
-    course.progress = progress;
-    */
+    updateAverage('points', courses);
 
     //calculate color for last submission day
     let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
@@ -229,17 +222,17 @@ function getAssignmentData(courses, course_id, enrollment) {
     if (most_recent_days > 21) color = "#F67";
     if (course.state === 'active') {
       course.updateCell('days_since_last_submission', most_recent_days, color);
-      updateAverage('progress', courses);
+      updateAverage('points', courses);
     } else if (course.state == 'completed') {
-      course.updateCell('progress', 100);
-      updateAverage('progress', courses);
+      course.updateCell('points', 100);
+      updateAverage('points', courses);
       course.updateCell('days_since_last_submission', "COMPLETE");
     } else {
-      course.updateCell('progress', "N/A");
+      course.updateCell('points', "N/A");
       course.updateCell('days_since_last_submission', "N/A");
     }
   }).fail(function() {
-    course.updateCell('progress', "N/A");
+    course.updateCell('points', "N/A");
     course.updateCell('days_since_last_submission', "N/A", "#FAB");
   });
 }
@@ -296,9 +289,10 @@ function requestCourseGradeData(courses, course_id, state) {
         updateAverage('final_grade', courses);
 
         if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
-          let progress = Math.round(final_grade / grade * 100);
-          course.progress = progress;
-          course.updateCell('progress', progress);
+          let points = Math.round(final_grade / grade * 100);
+		  if (isNaN(points)) points = 0;
+          course.points = points;
+          course.updateCell('points', points);
           getAssignmentData(courses, course_id, enrollment);
         }
       }

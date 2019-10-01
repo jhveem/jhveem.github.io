@@ -37,7 +37,7 @@ let columns = {
     description: "This grade is calculated based on all assignments and treats unsubmitted grades as 0.",
     percent: true
   },
-  progress: {
+  points: {
     average: true,
     list: [],
     average_element: null,
@@ -95,7 +95,7 @@ class Student {
     this.days_since_last_submission = 0;
     this.section = "";
 		this.grade = "N/A";
-		this.progress = 0;
+		this.points= 0;
 		this.final_grade = "N/A";
     this.section = "";
 		this.row = this.genRow();
@@ -156,11 +156,11 @@ class Student {
     updateAverage('final_grade', this.dict);
     updateMedian('final_grade', this.dict);
 
-    this.progress = Math.round(this.final_grade / this.grade * 100);
-    if (isNaN(this.progress)) this.progress = 0;
-    this.updateCell('progress', this.progress);
-    updateAverage('progress', this.dict);
-    updateMedian('progress', this.dict);
+    this.points = Math.round(this.final_grade / this.grade * 100);
+    if (isNaN(this.points)) this.points = 0;
+    this.updateCell('points', this.points);
+    updateAverage('points', this.dict);
+    updateMedian('points', this.dict);
   }
 }
 
@@ -249,11 +249,11 @@ function getAssignmentData(student) {
     updateAverage('submissions', student.dict);
     updateMedian('submissions', student.dict);
     
-    let progress = student.progress;
+    let points = student.points;
 
     //update the footer
     let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
-    progress_per_day = progress / diff_days;
+    progress_per_day = points / diff_days;
     progress_per_day_list.push(progress_per_day);
     let sum_progress = 0;
     for (let i = 0; i < progress_per_day_list.length; i++) {
@@ -278,7 +278,7 @@ function getAssignmentData(student) {
     updateAverage('days_since_last_submission', student.dict);
     updateMedian('days_since_last_submission', student.dict);
   }).fail(function() {
-    student.updateCell('progress', "N/A");
+    student.updateCell('points', "N/A");
     student.updateCell('days_since_last_submission', "N/A", "#FAB");
   });
 }
