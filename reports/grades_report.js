@@ -218,8 +218,11 @@ function getAssignmentData(student) {
     let most_recent_time = diff_time;
     let ungraded = 0;
     let color = "#FFF";
+    console.log(student.name);
+    console.log(assignments.length);
     for (let a = 0; a < assignments.length; a++) {
       let assignment = assignments[a];
+      console.log(assignment);
       let points_possible = assignment.points_possible;
       let submitted_at = Date.parse(assignment.submission.submitted_at);
       total_points_possible += points_possible;
