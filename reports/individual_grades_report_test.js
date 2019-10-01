@@ -290,6 +290,7 @@ function requestCourseGradeData(courses, course_id, state) {
 
         if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
           let points = Math.round(final_grade / grade * 100);
+		  if (isNaN(points)) points = 0;
           course.points = points;
           course.updateCell('points', points);
           getAssignmentData(courses, course_id, enrollment);
