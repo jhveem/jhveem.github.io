@@ -201,7 +201,7 @@ function getAssignmentData(student) {
   let user_id = student.user_id;
   let course_id = student.course_id;
   let enrollment = student.enrollment;
-  let url = "/api/v1/courses/"+course_id+"/analytics/users/"+user_id+"/assignments";
+  let url = "/api/v1/courses/"+course_id+"/analytics/users/"+user_id+"/assignments?per_page=100";
   $.get(url, function(data) {
     student.assignments = data;
     let assignments = data;
