@@ -11,6 +11,20 @@ function addMenuItem(linkText, linkhref) {
 	$('#section-tabs').append(itemHtml);
 }
 
+$('span.avatar').hover(function() {
+    let large = $(this).clone();
+    large.css('width', '250px');
+    large.css('height', '250px');
+    large.css('position', 'fixed');
+    large.attr('id', 'btech-avatar-zoomed');
+    large.css('top', $(this).offset().top - $(window).scrollTop()+'px');
+    large.css('left', $(this).offset().left - $(window).scrollLeft()+'px');
+    large.css('z-index', '10000');
+    $('body').append(large);
+}, function() {
+    $('#btech-avatar-zoomed').remove();
+});
+
 /*gen report on individual page*/
 if (/\/users\/[0-9]+/.test(window.location.pathname)) {
   var scriptElement = document.createElement( "script" );
