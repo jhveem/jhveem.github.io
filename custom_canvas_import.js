@@ -36,9 +36,9 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
       }
     });
   }
+  let isStudent = ENV.IS_STUDENT;
   if (isStudent) {
-      let isStudent = ENV.IS_STUDENT;
-      getSubmittedAssignments(1);
+    getSubmittedAssignments(1);
   }
 }
 //END toggle submitted assignments
