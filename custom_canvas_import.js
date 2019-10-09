@@ -11,6 +11,39 @@ function addMenuItem(linkText, linkhref) {
 	$('#section-tabs').append(itemHtml);
 }
 
+//toggle color of submitted assignments for students
+//currently only in meats for testing
+if (window.location.pathname.includes("/courses/473716/modules") === true) {
+  function getSubmittedAssignments(page) {
+    let userId = ENV.current_user.id;
+    let courseId = ENV.COURSE_ID;
+    let url = "/api/v1/users/"+userId+"/courses/"+courseId+"/assignments?include[]=submission&page="+page+"&per_page=100";
+    $.get(url, function(data) {
+      if (data.length === 100) getSubmittedAssignments(page + 1);
+      for (let a = 0; a < data.length; a++) {
+        let assignment = data[a];
+        if (assignment.submission.submitted_at !== null) {
+          $('div.ig-row').each(function(index, value) {
+            let infoEl = $(value).find('div.ig-info');
+            let name = infoEl.find('a').html().trim();
+            let typeEl = infoEl.find('span.type');
+            let type = typeEl.html();
+            if (name === assignment.name) {
+              $(value).removeClass('student-view');
+            }
+          });
+        }
+      }
+    });
+  }
+  if (isStudent) {
+      let isStudent = ENV.IS_STUDENT;
+      getSubmittedAssignments(1);
+  }
+}
+//END toggle submitted assignments
+
+//zoom into picture on hover
 $('span.avatar').hover(function() {
     let large = $(this).clone();
     large.css('width', '250px');
@@ -24,6 +57,20 @@ $('span.avatar').hover(function() {
 }, function() {
     $('#btech-avatar-zoomed').remove();
 });
+//end zoom on hover
+
+/*gen report on gradebook page*/
+if (window.location.pathname.includes("/gradebook") === true) {
+  var scriptElement = document.createElement( "script" );
+  scriptElement.src = "https://jhveem.github.io/reports/reports_functions.js";
+  document.body.appendChild( scriptElement );
+  scriptElement.onload = function() {
+    let individualReportElement = document.createElement( "script" );
+    individualReportElement.src = "https://jhveem.github.io/reports/grades_report.js";
+    document.body.appendChild(individualReportElement);
+  }
+}
+/*END report*/
 
 /*gen report on individual page*/
 if (/\/users\/[0-9]+/.test(window.location.pathname)) {
@@ -38,18 +85,6 @@ if (/\/users\/[0-9]+/.test(window.location.pathname)) {
 }
 /*END report*/
 
-/*gen report on gradebook page*/
-if (window.location.pathname.includes("/gradebook") === true) {
-  var scriptElement = document.createElement( "script" );
-  scriptElement.src = "https://jhveem.github.io/reports/reports_functions.js";
-  document.body.appendChild( scriptElement );
-  scriptElement.onload = function() {
-    let individualReportElement = document.createElement( "script" );
-    individualReportElement.src = "https://jhveem.github.io/reports/grades_report.js";
-    document.body.appendChild(individualReportElement);
-  }
-}
-/*END report*/
 
 /*Show ungraded as 0 Final Grade next to Final Grade based on submitted assignments only.
 if (window.location.pathname == "/grades") {
