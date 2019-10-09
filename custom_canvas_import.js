@@ -25,6 +25,7 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
         if (assignment.submission.submitted_at !== null) {
           $('div.ig-row').each(function(index, value) {
             let infoEl = $(value).find('div.ig-info');
+            console.log(infoEl.find('a'));
             let name = infoEl.find('a').html().trim();
             let typeEl = infoEl.find('span.type');
             let type = typeEl.html();
