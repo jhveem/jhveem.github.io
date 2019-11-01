@@ -125,7 +125,7 @@ class Student {
       value = "<div title='"+description+"'>"+value+"</div>";
     }
     if (url !== "") {
-      value = "<a style='color: #000;' href='"+url+"'>"+value+"</a>";
+      value = "<a target='_blank' style='color: #000;' href='"+url+"'>"+value+"</a>";
     }
     
     if (columns[key].percent == true && !isNaN(parseInt(value))) value += "%";
@@ -279,9 +279,9 @@ function getAssignmentData(student) {
     if (most_recent_days > 21) color = "#F67";
 
     if (most_recent.assignment_id !== undefined) {
-    student.updateCell('days_since_last_submission', most_recent_days, "/courses/"+course_id+"/assignments/"+most_recent.assignment_id, "Most recent submission: " + most_recent.title, color);
+      student.updateCell('days_since_last_submission', most_recent_days, "/courses/"+course_id+"/assignments/"+most_recent.assignment_id, "Most recent submission: " + most_recent.title, color);
     } else {
-    student.updateCell('days_since_last_submission', most_recent_days, "", "", color);
+      student.updateCell('days_since_last_submission', most_recent_days, "", "NO SUBMISSIONS: The student may still have points if they were put in manually by the instructor or transfered from another course.", color);
     }
     student.days_since_last_submission = most_recent_days;
     updateAverage('days_since_last_submission', student.dict);
