@@ -125,7 +125,7 @@ class Student {
       value = "<div title='"+description+"'>"+value+"</div>";
     }
     if (url !== "") {
-      value = "<a href='"+url+"'>"+value+"</a>";
+      value = "<a style='color: #000;' href='"+url+"'>"+value+"</a>";
     }
     
     if (columns[key].percent == true && !isNaN(parseInt(value))) value += "%";
