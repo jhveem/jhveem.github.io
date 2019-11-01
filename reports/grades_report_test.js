@@ -219,8 +219,11 @@ function getAssignmentData(student) {
     let most_recent_time = diff_time;
     let ungraded = 0;
     let color = "#FFF";
+    let most_recent_url = "";
     for (let a = 0; a < assignments.length; a++) {
       let assignment = assignments[a];
+      if (a === 0) console.log(assignment);
+      if (a === 0) console.log(assignment.html_url);
       let submitted_at = Date.parse(assignment.submission.submitted_at);
       if (assignment.points_possible > 0) {
         max_submissions += 1;
