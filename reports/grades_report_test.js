@@ -278,8 +278,11 @@ function getAssignmentData(student) {
     }
     if (most_recent_days > 21) color = "#F67";
 
-
+    if (most_recent !== undefined) {
     student.updateCell('days_since_last_submission', most_recent_days, "/course/"+course_id+"/assignments/"+most_recent.id, "Most recent submission: " + most_recent.title, color);
+    } else {
+    student.updateCell('days_since_last_submission', most_recent_days, "", "", color);
+    }
     student.days_since_last_submission = most_recent_days;
     updateAverage('days_since_last_submission', student.dict);
     updateMedian('days_since_last_submission', student.dict);
