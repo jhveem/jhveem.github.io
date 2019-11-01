@@ -117,10 +117,13 @@ class Student {
 		}
 		return row;
 	}
-	updateCell(key, value, color="#FFF") {
+	updateCell(key, value, url="", color="#FFF") {
     let cellId = getCellId(key, this.user_id);
     let cell = $("#"+cellId);
     cell.css("background-color",color);
+    if (url !== "") {
+      value = "<a href='"+url+"'>"+value+"</a>";
+    }
     
     if (columns[key].percent == true && !isNaN(parseInt(value))) value += "%";
     cell.html(value);
@@ -241,7 +244,7 @@ function getAssignmentData(student) {
       color = "#F"+g.toString(16)+"7";
     }
     if (ungraded > 10) color = "#F67";
-    student.updateCell('ungraded', ungraded, color);
+    student.updateCell('ungraded', ungraded, "", color);
     let perc_submitted = Math.round((submitted / max_submissions) * 100);
     if (isNaN(perc_submitted)) perc_submitted = 0;
     student.updateCell('submissions', perc_submitted);
@@ -273,13 +276,13 @@ function getAssignmentData(student) {
     if (most_recent_days > 21) color = "#F67";
 
 
-    student.updateCell('days_since_last_submission', most_recent_days, color);
+    student.updateCell('days_since_last_submission', most_recent_days, "", color);
     student.days_since_last_submission = most_recent_days;
     updateAverage('days_since_last_submission', student.dict);
     updateMedian('days_since_last_submission', student.dict);
   }).fail(function() {
     student.updateCell('points', "N/A");
-    student.updateCell('days_since_last_submission', "N/A", "#FAB");
+    student.updateCell('days_since_last_submission', "N/A", "", "#FAB");
   });
 }
 
