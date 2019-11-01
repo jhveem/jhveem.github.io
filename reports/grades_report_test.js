@@ -280,7 +280,7 @@ function getAssignmentData(student) {
 
     console.log(most_recent);
     if (most_recent !== {}) {
-    student.updateCell('days_since_last_submission', most_recent_days, "/course/"+course_id+"/assignments/"+most_recent.assignment_id, "Most recent submission: " + most_recent.title, color);
+    student.updateCell('days_since_last_submission', most_recent_days, "/courses/"+course_id+"/assignments/"+most_recent.assignment_id, "Most recent submission: " + most_recent.title, color);
     } else {
     student.updateCell('days_since_last_submission', most_recent_days, "", "", color);
     }
