@@ -121,6 +121,9 @@ class Student {
     let cellId = getCellId(key, this.user_id);
     let cell = $("#"+cellId);
     cell.css("background-color",color);
+    if (description !== "") {
+      value = "<div title='"+description+"'>"+value+"</div>";
+    }
     if (url !== "") {
       value = "<a href='"+url+"'>"+value+"</a>";
     }
@@ -276,7 +279,7 @@ function getAssignmentData(student) {
     if (most_recent_days > 21) color = "#F67";
 
 
-    student.updateCell('days_since_last_submission', most_recent_days, "/course/"+course_id+"/assignments/"+most_recent.assignment_id, "Most recent submission: " + most_recent.title, color);
+    student.updateCell('days_since_last_submission', most_recent_days, "/course/"+course_id+"/assignments/"+most_recent.id, "Most recent submission: " + most_recent.title, color);
     student.days_since_last_submission = most_recent_days;
     updateAverage('days_since_last_submission', student.dict);
     updateMedian('days_since_last_submission', student.dict);
