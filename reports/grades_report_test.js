@@ -117,7 +117,7 @@ class Student {
 		}
 		return row;
 	}
-	updateCell(key, value, url="", color="#FFF") {
+	updateCell(key, value, url="", description="", color="#FFF") {
     let cellId = getCellId(key, this.user_id);
     let cell = $("#"+cellId);
     cell.css("background-color",color);
@@ -219,11 +219,8 @@ function getAssignmentData(student) {
     let most_recent_time = diff_time;
     let ungraded = 0;
     let color = "#FFF";
-    let most_recent_url = "";
     for (let a = 0; a < assignments.length; a++) {
       let assignment = assignments[a];
-      if (a === 0) console.log(assignment);
-      if (a === 0) console.log(assignment.html_url);
       let submitted_at = Date.parse(assignment.submission.submitted_at);
       if (assignment.points_possible > 0) {
         max_submissions += 1;
@@ -247,7 +244,7 @@ function getAssignmentData(student) {
       color = "#F"+g.toString(16)+"7";
     }
     if (ungraded > 10) color = "#F67";
-    student.updateCell('ungraded', ungraded, "", color);
+    student.updateCell('ungraded', ungraded, "", "", color);
     let perc_submitted = Math.round((submitted / max_submissions) * 100);
     if (isNaN(perc_submitted)) perc_submitted = 0;
     student.updateCell('submissions', perc_submitted);
@@ -279,13 +276,13 @@ function getAssignmentData(student) {
     if (most_recent_days > 21) color = "#F67";
 
 
-    student.updateCell('days_since_last_submission', most_recent_days, "", color);
+    student.updateCell('days_since_last_submission', most_recent_days, "/course/"+course_id+"/assignments/"+most_recent.assignment_id, "Most recent submission: " + most_recent.title, color);
     student.days_since_last_submission = most_recent_days;
     updateAverage('days_since_last_submission', student.dict);
     updateMedian('days_since_last_submission', student.dict);
   }).fail(function() {
     student.updateCell('points', "N/A");
-    student.updateCell('days_since_last_submission', "N/A", "", "#FAB");
+    student.updateCell('days_since_last_submission', "N/A", "", "", "#FAB");
   });
 }
 
