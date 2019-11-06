@@ -76,7 +76,7 @@ if (window.location.pathname.includes("/gradebook") === true) {
 /*END report*/
 
 /*gen report on individual page*/
-if (/\/users\/[0-9]+/.test(window.location.pathname)) {
+if (/^\/users\/[0-9]+/.test(window.location.pathname)) {
   var scriptElement = document.createElement( "script" );
   scriptElement.src = "https://jhveem.github.io/reports/reports_functions.js";
   document.body.appendChild( scriptElement );
