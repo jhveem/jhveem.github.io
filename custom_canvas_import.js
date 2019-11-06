@@ -89,7 +89,7 @@ if (/^\/users\/[0-9]+/.test(window.location.pathname)) {
 /*END report*/
 
 
-/*Show ungraded as 0 Final Grade next to Final Grade based on submitted assignments only.
+//*Show ungraded as 0 Final Grade next to Final Grade based on submitted assignments only.
 if (window.location.pathname == "/grades") {
 	let user = ENV.current_user_id;
 	let tbody = $("table.student_grades").find("tbody");
@@ -105,6 +105,7 @@ if (window.location.pathname == "/grades") {
 	});
 	tbody.prepend("<tr><td></td><td>Completed Assignments</td><td></td><td>Final Grade</td></tr>");
 }
+/*
 if (window.location.pathname.includes("/grades/") === true) {
     let course = ENV.courses_with_grades[0].id;
     let user = ENV.students[0].id;
