@@ -43,7 +43,7 @@ let columns = {
     average_element: null,
     median_element: null,
     sortable_type: 'sorttable_numeric',
-    description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
+    description: "This is a weighted percentage of assignments submitted and is equal to a students grade if they got 100% on every assignment.",
     percent: true
   },
   submissions: {
@@ -52,7 +52,7 @@ let columns = {
     average_element: null,
     median_element: null,
     sortable_type: 'sorttable_numeric',
-    description: "This shows the percent of assignments submitted out of the total assignments in the course.",
+    description: "This is a raw percentage of assignments submitted without looking at points weighting.",
     percent: true
   },
   days_since_last_submission: {
