@@ -209,6 +209,7 @@ function getAssignmentData(courses, course_id, enrollment) {
     if (isNaN(perc_submitted)) perc_submitted = 0;
     course.updateCell('submissions', perc_submitted);
     course.submissions = perc_submitted;
+    updateAverage('submissions', courses);
     updateAverage('points', courses);
 
     //calculate color for last submission day
