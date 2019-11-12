@@ -83,6 +83,10 @@ function add_javascript_library(url) {
 
 if (window.location.pathname.includes("/rubrics") === true) {
   console.log("TEST BETA");
-  add_javascript_library("https://https//jhveem.github.io/beta/rubrics.js")
-  waitForKeyElements('#add_learning_outcome_link', attachButton);
+  var scriptElement = document.createElement( "script" );
+  scriptElement.src = "https://jhveem.github.io/beta/rubrics.js";
+  document.body.appendChild( scriptElement )
+  scriptElement.onload() {
+    waitForKeyElements('#add_learning_outcome_link', attachButton);
+  }
 }
