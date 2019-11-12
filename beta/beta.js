@@ -81,7 +81,8 @@ function add_javascript_library(url) {
 	document.getElementsByTagName('head')[0].appendChild(s);
 }
 
-if (window.location.pathname.includes("/gradebook") === true) {
+if (window.location.pathname.includes("/rubrics") === true) {
+  console.log("TEST BETA");
   add_javascript_library("https://https//jhveem.github.io/beta/rubrics.js")
   waitForKeyElements('#add_learning_outcome_link', attachButton);
 }
