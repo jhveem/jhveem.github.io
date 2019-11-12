@@ -1,3 +1,4 @@
+//can only call this once per element
 function waitForKeyElements (
   selectorTxt,    /* Required: The jQuery selector string that
                       specifies the desired element(s).
@@ -86,6 +87,6 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
   scriptElement.src = "https://jhveem.github.io/beta/rubrics.js";
   document.body.appendChild( scriptElement )
   scriptElement.onload = function() {
-    waitForKeyElements('#add_learning_outcome_link', attachButton);
+    //waitForKeyElements('#add_learning_outcome_link', attachButton);
   }
 }
