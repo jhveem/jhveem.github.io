@@ -84,7 +84,6 @@ add_javascript_library("https://gist.github.com/raw/2625891/waitForKeyElements.j
 add_javascript_library("https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js");
 add_javascript_library("https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js");
 
-console.log("TESTING RUBRIC");
 waitForKeyElements('#add_learning_outcome_link', attachButton);
 
 function pastToPresent(verb) {
