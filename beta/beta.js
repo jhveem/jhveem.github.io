@@ -81,7 +81,7 @@ function add_javascript_library(url) {
 	document.getElementsByTagName('head')[0].appendChild(s);
 }
 
-if (window.location.pathname.includes("/rubrics") === true) {
+if (window.location.pathname.includes("/rubrics") === true || window.location.pathname.includes("/assignments/") === true) {
   var scriptElement = document.createElement( "script" );
   scriptElement.src = "https://jhveem.github.io/beta/rubrics.js";
   document.body.appendChild( scriptElement )
