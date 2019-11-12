@@ -86,7 +86,7 @@ if (window.location.pathname.includes("/rubrics") === true) {
   var scriptElement = document.createElement( "script" );
   scriptElement.src = "https://jhveem.github.io/beta/rubrics.js";
   document.body.appendChild( scriptElement )
-  scriptElement.onload() {
+  scriptElement.onload = function() {
     waitForKeyElements('#add_learning_outcome_link', attachButton);
   }
 }
