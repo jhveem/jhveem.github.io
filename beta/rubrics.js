@@ -63,6 +63,7 @@ function makeSortable() {
   $('table.rubric_table tbody').sortable();
 }
 function attachButton() {
+  makeSortable();
   $('table.rubric_table tbody').children('tr').each(function(element) {
     let toolList = $(this).find('td.criterion_description div.editing');
     let criteriaDescription = $(this).find('td.criterion_description span.description_title').text();
