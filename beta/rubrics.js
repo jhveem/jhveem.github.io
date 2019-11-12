@@ -1,7 +1,3 @@
-
-//add_javascript_library("https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js");
-//add_javascript_library("https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js");
-
 function pastToPresent(verb) {
   let newVerb = '';
   let vowels = ['a', 'e', 'i', 'o', 'u'];
