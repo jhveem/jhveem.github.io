@@ -59,7 +59,8 @@ function makeSortable() {
   $('table.rubric_table tbody').sortable();
 }
 function attachButton() {
-  makeSortable();
+  makeSortable(); //only line needed to make rubrics sortable
+  //Everything below this is only for Instructional Designers. It adds stuff to auto fill rubrics but is not useful for most courses.
   $('table.rubric_table tbody').children('tr').each(function(element) {
     let toolList = $(this).find('td.criterion_description div.editing');
     let criteriaDescription = $(this).find('td.criterion_description span.description_title').text();
