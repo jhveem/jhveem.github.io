@@ -93,3 +93,10 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
     waitForKeyElements('#add_learning_outcome_link', attachButton);
   }
 }
+
+if (/^\/courses\/[0-9]+\/users/.test(window.location.pathname)) {
+  waitForKeyElements("table.roster", function() {
+      sorttable.makeSortable($("table.roster")[0]);
+  });
+  console.log('test');
+}
