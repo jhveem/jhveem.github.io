@@ -1,3 +1,8 @@
+var s = document.createElement("script");
+s.type = "text/javascript";
+s.src = "https://jhveem.github.io/external-libraries/sorttable.js";
+$("head").append(s);
+
 function addMenuItem(linkText, linkhref) {
 	'use strict';
 	var itemHtml;
