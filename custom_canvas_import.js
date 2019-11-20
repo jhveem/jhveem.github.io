@@ -3,6 +3,13 @@ s.type = "text/javascript";
 s.src = "https://jhveem.github.io/external-libraries/sorttable.js";
 $("head").append(s);
 
+var s = document.createElement("link");
+s.rel = "stylesheet";
+s.href = "https://pro.fontawesome.com/releases/v5.11.2/css/all.css";
+s.integrity = "sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx";
+s.crossorigin = "anonymous";
+$("head").append(s);
+
 function addMenuItem(linkText, linkhref) {
 	'use strict';
 	var itemHtml;
