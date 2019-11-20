@@ -133,3 +133,7 @@ if (window.location.pathname.includes("/grades/") === true) {
 		addMenuItem('Logout', '/logout');
 	}	
 */
+/*add in accordion stuff*/
+$( ".btech-accordion").accordion();
+$( ".btech-accordion").accordion("option", "icons", null);
+/*end of accordion stuff*/
