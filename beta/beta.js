@@ -83,6 +83,9 @@ function add_javascript_library(url) {
 	document.getElementsByTagName('head')[0].appendChild(s);
 }
 
+$("head").append('<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">');
+$("head").append('<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>');
+
 //*
 if (window.location.pathname.includes("/rubrics") === true || window.location.pathname.includes("/assignments/") === true) {
   console.log('test 1');
