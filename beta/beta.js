@@ -98,5 +98,4 @@ if (/^\/courses\/[0-9]+\/users/.test(window.location.pathname)) {
   waitForKeyElements("table.roster", function() {
       sorttable.makeSortable($("table.roster")[0]);
   });
-  console.log('test');
 }
