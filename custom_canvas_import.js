@@ -134,13 +134,13 @@ if (window.location.pathname.includes("/grades/") === true) {
 	}	
 */
 /*add in accordion stuff*/
-/*
+//*
 var scriptElement = document.createElement( "script" );
-scriptElement.src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js";
+scriptElement.src = "https://jhveem.github.io/external-libraries/jquery-accordion.js";
 document.body.appendChild( scriptElement );
 scriptElement.onload = function() {
   $(".btech-accordion").accordion();
   $(".btech-accordion").accordion("option", "icons", null);
 }
-*/
+//*/
 /*end of accordion stuff*/
