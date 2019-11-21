@@ -57,6 +57,11 @@
 /* end of changes to course menu */
 
 /* collapsible divs */
+.btech-toggler {
+  background: #f8f8f8;
+  border: 1px solid #000000;
+  padding: 3px;
+}
 .ui-accordion-header {
   background: #f8f8f8;
   border: 1px solid #000000;
