@@ -138,7 +138,7 @@ function createIndividualGradesReport() {
   createReport();
   for (let key in columns) {
     if (columns[key].hidden !== null) {
-      $('#btech-report-options').append('<button onclick="toggleColumnHidden(\''+key+'\')">'+key+'</button>');
+      $('#btech-report-options').append('<input type="checkbox" id="'+getCellId(key, "check-box")+'" onclick="toggleColumnHidden(\''+key+'\')"><span>'+key+'</span>');
     }
   }
 	let gen_report_button = $('<a class="btn button-sidebar-wide" id="btech-modal-report-gen">Report</a>');
