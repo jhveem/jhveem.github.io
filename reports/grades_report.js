@@ -8,6 +8,7 @@ let columns = {
     median_element: null,
     sortable_type: '',
     description: "The student&#39;s name. Click on the name to see their user profile with contact information. Click on 'grades' to go to their grades page.",
+    hidden: false,
     percent: false
   },
   section: {
@@ -17,6 +18,7 @@ let columns = {
     median_element: null,
     sortable_type: '',
     description: "The student&#39;s section.",
+    hidden: false,
     percent: false
   },
   grade: {
@@ -26,6 +28,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "This grade is calculated by canvas based on their currently submitted assignments.",
+    hidden: false,
     percent: true
   },
   final_grade: {
@@ -35,6 +38,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "This grade is calculated based on all assignments and treats unsubmitted grades as 0.",
+    hidden: false,
     percent: true
   },
   points: {
@@ -44,6 +48,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "This is a weighted percentage of assignments submitted and is equal to a students grade if they got 100% on every assignment.",
+    hidden: false,
     percent: true
   },
   submissions: {
@@ -53,6 +58,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "This is a raw percentage of assignments submitted without looking at points weighting.",
+    hidden: false,
     percent: true
   },
   days_since_last_submission: {
@@ -62,6 +68,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "This shows the number of days which have past since the student last submitted an assignment on canvas. Other activities not recorded in canvas are not taken into account.",
+    hidden: false,
     percent: false
   },
   days_in_course: {
@@ -71,6 +78,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "The number of days since the student was added to the course. Does not take into account when they first submitted anything or when the actual first day of class was.",
+    hidden: false,
     percent: false
   },
   ungraded: {
@@ -80,6 +88,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "The number of ungraded assignments for this student.",
+    hidden: false,
     percent: false
   },
 };

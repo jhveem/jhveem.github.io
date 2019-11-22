@@ -6,6 +6,7 @@ let columns = {
 		median_element: null,
 		sortable_type: '',
 		description: "The course&#39;s name. Click on the name to go to the course page. Click on 'grades' to go to their grades page for that course.",
+    hidden: false,
 		percent: false
 	},
 	state: {
@@ -15,6 +16,7 @@ let columns = {
 		median_element: null,
 		sortable_type: '',
 		description: "The student&#39;s activity state. Usually active, completed, or invited",
+    hidden: false,
 		percent: false
 	},
 	section: {
@@ -24,6 +26,7 @@ let columns = {
 		median_element: null,
 		sortable_type: '',
 		description: "The student&#39;s section.",
+    hidden: false,
 		percent: false
 	},
 	grade: {
@@ -33,6 +36,7 @@ let columns = {
 		median_element: null,
 		sortable_type: 'sorttable_numeric',
 		description: "This grade is calculated by canvas based on their currently submitted assignments.",
+    hidden: false,
 		percent: true
 	},
 	final_grade: {
@@ -42,6 +46,7 @@ let columns = {
 		median_element: null,
 		sortable_type: 'sorttable_numeric',
 		description: "This grade is calculated based on all assignments and treats unsubmitted grades as 0.",
+    hidden: false,
 		percent: true
 	},
 	points: {
@@ -51,6 +56,7 @@ let columns = {
 		median_element: null,
 		sortable_type: 'sorttable_numeric',
 		description: "This takes the point value of all submitted assignments (the possible points in the assignment, not the student&#39;s score) and divides it by the total possible points in the course to estimate the students progress in the course.",
+    hidden: false,
 		percent: true
 	},
   submissions: {
@@ -60,6 +66,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "This shows the percent of assignments submitted out of the total assignments in the course.",
+    hidden: false,
     percent: true
   },
   days_since_last_submission: {
@@ -69,6 +76,7 @@ let columns = {
     median_element: null,
     sortable_type: 'sorttable_numeric',
     description: "This shows the number of days which have past since the student last submitted an assignment on canvas. Other activities not recorded in canvas are not taken into account.",
+    hidden: false,
     percent: false
   },
 };
@@ -92,7 +100,7 @@ class Course {
 		for (let key in columns) {
       let align = 'left';
       if (columns[key].sortable_type === 'sorttable_numeric') align = 'center';
-			row.append("<td id='"+getCellId(key, this.id)+"' style='text-align:"+align+"; padding:10px;'>N/A</td>");
+			row.append("<td class='"+getCellId(key, "class")+"' id='"+getCellId(key, this.id)+"' style='text-align:"+align+"; padding:10px;'>N/A</td>");
 		}
 		return row;
 	}
@@ -121,7 +129,7 @@ function createIndividualGradesReport() {
 	    modal.show();
 	});
   for (let key in columns) {
-      columns[key].average_element = $('<td style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
+      columns[key].average_element = $('<td class="'+getCellId(key, "class")+'" style="text-align:center;" id="btech-report-average'+keyToCSS(key)+'"></td>');
   }
 
   //init variables

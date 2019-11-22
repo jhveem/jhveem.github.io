@@ -54,7 +54,7 @@ function createHeaderRow() {
 	for (let key in columns) {
 		let sortable_type = columns[key].sortable_type;
 		let description = columns[key].description;
-		row.append("<th title='"+description+"' class='"+sortable_type+"'style='text-align:center; padding:10px;'>"+key.replace(/_/g, " ").toUpperCase()+"</th>");
+		row.append("<th title='"+description+"' class='"+getCellId(key, "class") +" "+sortable_type+"'style='text-align:center; padding:10px;'>"+key.replace(/_/g, " ").toUpperCase()+"</th>");
 		count += 1;
 	}
 	return row;
