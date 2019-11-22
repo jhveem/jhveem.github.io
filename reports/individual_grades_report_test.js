@@ -137,7 +137,7 @@ function createIndividualGradesReport() {
   //init report
   createReport();
   for (let key in columns) {
-    if (columns[key].hidden !== none) {
+    if (columns[key].hidden !== null) {
       $('#btech-report-options').append('<button onclick="toggleColumnHidden("'+key+'")">'+key+'</button>');
     }
   }
