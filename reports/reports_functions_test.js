@@ -13,7 +13,7 @@ function createReport() {
 	$('#btech-modal-content').append("<h3 style='text-align: center;'>Report</h3>");
 	$('#btech-modal-content').append("<h5 style='text-align: center;'>Click on column headers to sort by that column.</h5>");
   $('#btech-modal-content').append("<h5 style='text-align: center;'>Hover over column headers for a description of the information displayed in that column.</h5>");
-  $('#btech-modal-content').append("<div id='btech-report-options'></div>");
+  $('#btech-modal-content').append("<div style='display: none;' id='btech-report-options'></div>");
 	$('#btech-modal-content').append("<table class='sortable' border='1' id='btech-report-table'></table>");
 	$('#btech-report-table').append("<tbody border='1' id='btech-report-table-body'></tbody>");
 	$('#btech-report-table').append("<thead border='1' id='btech-report-table-head'></thead>");
