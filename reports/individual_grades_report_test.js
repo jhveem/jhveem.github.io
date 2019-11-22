@@ -117,9 +117,30 @@ class Course {
   }
 }
 
+function toggleColumnHidden(key="") {
+  if (key !== "") {
+    if (columns[key] !== null) {
+      columns[key].hidden = !columns[key].hidden;
+    }
+  }
+  for (let key in columns) {
+    if (columns[key].hidden === true) {
+      $('.'+getCellId(key, "class")).hide();
+    }
+    else if (columns[key].hidden === false) {
+      $('.'+getCellId(key, "class")).show();
+    }
+  }
+}
+
 function createIndividualGradesReport() {
   //init report
   createReport();
+  for (let key in columns) {
+    if (columns[key].hidden !== none) {
+      $('#btech-report-options').append('<button onclick="toggleColumnHidden("'+key+'")">'+key+'</button>');
+    }
+  }
 	let gen_report_button = $('<a class="btn button-sidebar-wide" id="btech-modal-report-gen">Report</a>');
   let menu_bar = $("#right-side div").first();
   gen_report_button.appendTo(menu_bar);
