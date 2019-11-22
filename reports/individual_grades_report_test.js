@@ -101,7 +101,8 @@ class Course {
       let align = 'left';
       if (columns[key].sortable_type === 'sorttable_numeric') align = 'center';
 			row.append("<td class='"+getCellId(key, "class")+"' id='"+getCellId(key, this.id)+"' style='text-align:"+align+"; padding:10px;'>N/A</td>");
-		}
+    }
+    toggleColumnHidden();
 		return row;
 	}
 	updateCell(key, value, color="#FFF") {
@@ -198,6 +199,7 @@ function createIndividualGradesReport() {
       average_row.append(columns[key].average_element);
     }
   }
+  toggleColumnHidden();
 }
 
 function getAssignmentData(courses, course_id, enrollment) {
