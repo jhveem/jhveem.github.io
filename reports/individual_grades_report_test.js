@@ -118,16 +118,13 @@ class Course {
 }
 
 function toggleColumnHidden(key="") {
-  if (key !== "") {
-    if (columns[key] !== null) {
-      columns[key].hidden = !columns[key].hidden;
-    }
-  }
   for (let key in columns) {
-    if (columns[key].hidden === true) {
+    let checkBox = $('#'+getCellId(key, "check-box"));
+    if (checkBox.checked === true) {
+      columns[key].hidden = false;
       $('.'+getCellId(key, "class")).hide();
-    }
-    else if (columns[key].hidden === false) {
+    } else {
+      columns[key].hidden = true;
       $('.'+getCellId(key, "class")).show();
     }
   }
@@ -139,6 +136,10 @@ function createIndividualGradesReport() {
   for (let key in columns) {
     if (columns[key].hidden !== null) {
       $('#btech-report-options').append('<input type="checkbox" id="'+getCellId(key, "check-box")+'" onclick="toggleColumnHidden(\''+key+'\')"><span>'+key+'</span>');
+      let checkBox = $('#'+getCellId(key, "check-box"));
+      if (columns[key].hidden === false) {
+        checkBox.prop('checked', true);
+      }
     }
   }
 	let gen_report_button = $('<a class="btn button-sidebar-wide" id="btech-modal-report-gen">Report</a>');
