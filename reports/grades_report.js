@@ -122,7 +122,7 @@ class Student {
 		for (let key in columns) {
       let align = 'left';
       if (columns[key].sortable_type === 'sorttable_numeric') align = 'center';
-			row.append("<td id='"+getCellId(key, this.user_id)+"' style='text-align:"+align+"; padding:10px;'>N/A</td>");
+			row.append("<td  class='"+getCellId(key, "class")+"' id='"+getCellId(key, this.user_id)+"' style='text-align:"+align+"; padding:10px;'>N/A</td>");
 		}
 		return row;
 	}
@@ -303,6 +303,15 @@ function getAssignmentData(student) {
 
 function createGradesReport() {
   createReport();
+  for (let key in columns) {
+    if (columns[key].hidden !== null) {
+      $('#btech-report-options').append('<input type="checkbox" id="'+getCellId(key, "check-box")+'" onclick="toggleColumnHidden()"><span>'+key+'</span>');
+      let checkBox = $('#'+getCellId(key, "check-box"));
+      if (columns[key].hidden === false) {
+        checkBox.prop('checked', true);
+      }
+    }
+  }
   let gen_report_button = $('<a class="Button" id="btech-modal-report-gen">Report</a>');
   let new_grades = $('div.header-buttons');
   let old_grades = $('div#gradebook-toolbar');
@@ -313,8 +322,8 @@ function createGradesReport() {
       modal.show();
   });
   for (let key in columns) {
-    columns[key].average_element = $('<td style="text-align:center; padding:10px;" " id="btech-report-average'+keyToCSS(key)+'"></td>');
-    columns[key].median_element = $('<td style="text-align:center; padding:10px;" id="btech-report-median-'+keyToCSS(key)+'"></td>');
+    columns[key].average_element = $('<td class="'+getCellId(key, "class")+'" style="text-align:center; padding:10px;" " id="btech-report-average'+keyToCSS(key)+'"></td>');
+    columns[key].median_element = $('<td  class="'+getCellId(key, "class")+'" style="text-align:center; padding:10px;" id="btech-report-median-'+keyToCSS(key)+'"></td>');
   }
 
   let course_id = ENV.context_asset_string.replace("course_", "");

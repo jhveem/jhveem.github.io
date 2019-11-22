@@ -96,3 +96,16 @@ function updateMedian(key, dict) {
 	if (columns[key].percent === true) text += "%";
 	columns[key].median_element.html(text);
 }
+
+function toggleColumnHidden() {
+  for (let key in columns) {
+    let checkBox = $('#'+getCellId(key, "check-box"));
+    if (checkBox.prop("checked") === false) {
+      columns[key].hidden = true;
+      $('.'+getCellId(key, "class")).hide();
+    } else {
+      columns[key].hidden = false;
+      $('.'+getCellId(key, "class")).show();
+    }
+  }
+}
