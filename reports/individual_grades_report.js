@@ -101,7 +101,8 @@ class Course {
       let align = 'left';
       if (columns[key].sortable_type === 'sorttable_numeric') align = 'center';
 			row.append("<td class='"+getCellId(key, "class")+"' id='"+getCellId(key, this.id)+"' style='text-align:"+align+"; padding:10px;'>N/A</td>");
-		}
+    }
+    toggleColumnHidden();
 		return row;
 	}
 	updateCell(key, value, color="#FFF") {
@@ -117,9 +118,31 @@ class Course {
   }
 }
 
+function toggleColumnHidden() {
+  for (let key in columns) {
+    let checkBox = $('#'+getCellId(key, "check-box"));
+    if (checkBox.prop("checked") === false) {
+      columns[key].hidden = true;
+      $('.'+getCellId(key, "class")).hide();
+    } else {
+      columns[key].hidden = false;
+      $('.'+getCellId(key, "class")).show();
+    }
+  }
+}
+
 function createIndividualGradesReport() {
   //init report
   createReport();
+  for (let key in columns) {
+    if (columns[key].hidden !== null) {
+      $('#btech-report-options').append('<input type="checkbox" id="'+getCellId(key, "check-box")+'" onclick="toggleColumnHidden()"><span>'+key+'</span>');
+      let checkBox = $('#'+getCellId(key, "check-box"));
+      if (columns[key].hidden === false) {
+        checkBox.prop('checked', true);
+      }
+    }
+  }
 	let gen_report_button = $('<a class="btn button-sidebar-wide" id="btech-modal-report-gen">Report</a>');
   let menu_bar = $("#right-side div").first();
   gen_report_button.appendTo(menu_bar);
@@ -176,6 +199,7 @@ function createIndividualGradesReport() {
       average_row.append(columns[key].average_element);
     }
   }
+  toggleColumnHidden();
 }
 
 function getAssignmentData(courses, course_id, enrollment) {
