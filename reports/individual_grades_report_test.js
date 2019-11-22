@@ -118,10 +118,10 @@ class Course {
   }
 }
 
-function toggleColumnHidden(key="") {
+function toggleColumnHidden() {
   for (let key in columns) {
     let checkBox = $('#'+getCellId(key, "check-box"));
-    if (checkBox.checked === true) {
+    if (checkBox.prop("checked") === true) {
       columns[key].hidden = false;
       $('.'+getCellId(key, "class")).hide();
     } else {
@@ -136,7 +136,7 @@ function createIndividualGradesReport() {
   createReport();
   for (let key in columns) {
     if (columns[key].hidden !== null) {
-      $('#btech-report-options').append('<input type="checkbox" id="'+getCellId(key, "check-box")+'" onclick="toggleColumnHidden(\''+key+'\')"><span>'+key+'</span>');
+      $('#btech-report-options').append('<input type="checkbox" id="'+getCellId(key, "check-box")+'" onclick="toggleColumnHidden()"><span>'+key+'</span>');
       let checkBox = $('#'+getCellId(key, "check-box"));
       if (columns[key].hidden === false) {
         checkBox.prop('checked', true);
