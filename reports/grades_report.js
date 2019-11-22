@@ -8,7 +8,7 @@ let columns = {
     median_element: null,
     sortable_type: '',
     description: "The student&#39;s name. Click on the name to see their user profile with contact information. Click on 'grades' to go to their grades page.",
-    hidden: false,
+    hidden: null,
     percent: false
   },
   section: {
@@ -18,7 +18,7 @@ let columns = {
     median_element: null,
     sortable_type: '',
     description: "The student&#39;s section.",
-    hidden: false,
+    hidden: null,
     percent: false
   },
   grade: {
