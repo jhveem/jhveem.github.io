@@ -4,10 +4,12 @@ function add_javascript_library(url) {
 	s.setAttribute('type', 'text/javascript');
 	s.setAttribute('src', url);
 	document.getElementsByTagName('head')[0].appendChild(s);
+	return s;
 }
 
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import_test.js");
+
 /*EvaluationKIT END*/
 
 window.ALLY_CFG = {

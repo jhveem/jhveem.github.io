@@ -9,10 +9,7 @@ function add_javascript_library(url) {
 
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
-/*
-add_javascript_library("https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js");
-add_javascript_library("https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js");
-*/
+
 /*EvaluationKIT END*/
 
 window.ALLY_CFG = {

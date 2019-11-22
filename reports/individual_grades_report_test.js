@@ -36,7 +36,7 @@ let columns = {
 		median_element: null,
 		sortable_type: 'sorttable_numeric',
 		description: "This grade is calculated by canvas based on their currently submitted assignments.",
-    hidden: false,
+    hidden: true,
 		percent: true
 	},
 	final_grade: {
