@@ -247,8 +247,8 @@ function processSyllabusPage() {
     if (page.html().includes("A rating of a 3 or a 4 is required to pass for all courses. If a student earns a 0, 1, or 2 rating for any course, they must meet with their instructor and the department head to discuss different options available for the student to improve their rating in that course. A rating of a 3 or 4 is required in a course before a student can proceed on to other courses. The student is encouraged to routinely check their rating in Canvas for their current percentage in the course.")) {
         rating = true;
     } else {
-        alert("A rating of a 3 or a 4 is required to pass for all courses. If a student earns a 0, 1, or 2 rating for any course, they must meet with their instructor and the department head to discuss different options available for the student to improve their rating in that course. A rating of a 3 or 4 is required in a course before a student can proceed on to other courses. The student is encouraged to routinely check their rating in Canvas for their current percentage in the course.");
-        location.href = ENV.WIKI_PAGE_EDIT_PATH;
+        //alert("A rating of a 3 or a 4 is required to pass for all courses. If a student earns a 0, 1, or 2 rating for any course, they must meet with their instructor and the department head to discuss different options available for the student to improve their rating in that course. A rating of a 3 or 4 is required in a course before a student can proceed on to other courses. The student is encouraged to routinely check their rating in Canvas for their current percentage in the course.");
+        //location.href = ENV.WIKI_PAGE_EDIT_PATH;
     }
     page.find('p, li, h2').each(function(index) {
         let html = $(this).html();
