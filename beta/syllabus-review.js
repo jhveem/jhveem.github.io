@@ -260,4 +260,4 @@ function processSyllabusPage() {
             $(this).css('background-color', '#FDD');
         }
     });
-});
+}
