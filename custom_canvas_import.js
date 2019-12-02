@@ -122,20 +122,18 @@ if (/^\/courses\/473716\/gradebook\/speed_grader/.test(window.location.pathname)
       type: 'PUT'
     });
   }
-  waitForKeyElements(".save_rubric_button", function() {
-      $(".save_rubric_button").on("click", function() {
-          let comment = "-RUBRIC-%0A";
-          $("div#rubric_full").find("tr.rubric-criterion").each(function(index) {
-              let description = $(this).find("th.description-header").find("div.description").text();
-              console.log(description);
-              let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
-              console.log(points_val);
-              let points = $(this).find("td.criterion_points").find("div.graded-points").text();
-              console.log(points);
-              comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
-          });
-          $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
+  $(".save_rubric_button").on("click", function() {
+      let comment = "-RUBRIC-%0A";
+      $("div#rubric_full").find("tr.rubric-criterion").each(function(index) {
+          let description = $(this).find("th.description-header").find("div.description").text();
+          console.log(description);
+          let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
+          console.log(points_val);
+          let points = $(this).find("td.criterion_points").find("div.graded-points").text();
+          console.log(points);
+          comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
       });
+      $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
   });
 }
 //END rubric score comment saving
