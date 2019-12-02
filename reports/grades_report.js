@@ -233,20 +233,21 @@ function getAssignmentData(student) {
     let color = "#FFF";
     for (let a = 0; a < assignments.length; a++) {
       let assignment = assignments[a];
-      console.log(assignment.submission)
-      let submitted_at = Date.parse(assignment.submission.submitted_at);
-      if (assignment.points_possible > 0) {
-        max_submissions += 1;
-        if (assignment.submission.score !== null) {
-          submitted += 1;
+      if (assignment.submission !== undefined) {
+        let submitted_at = Date.parse(assignment.submission.submitted_at);
+        if (assignment.points_possible > 0) {
+          max_submissions += 1;
+          if (assignment.submission.score !== null) {
+            submitted += 1;
+          }
         }
-      }
-      if (assignment.submission.score === null && assignment.submission.submitted_at !== null) {
-        ungraded += 1;
-      }
-      if (Math.abs(now_date - submitted_at) < most_recent_time) {
-        most_recent_time = Math.abs(now_date - submitted_at);
-        most_recent = assignment;
+        if (assignment.submission.score === null && assignment.submission.submitted_at !== null) {
+          ungraded += 1;
+        }
+        if (Math.abs(now_date - submitted_at) < most_recent_time) {
+          most_recent_time = Math.abs(now_date - submitted_at);
+          most_recent = assignment;
+        }
       }
     }
 
