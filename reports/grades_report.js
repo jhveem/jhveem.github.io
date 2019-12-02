@@ -233,6 +233,7 @@ function getAssignmentData(student) {
     let color = "#FFF";
     for (let a = 0; a < assignments.length; a++) {
       let assignment = assignments[a];
+      console.log(assignment.submission)
       let submitted_at = Date.parse(assignment.submission.submitted_at);
       if (assignment.points_possible > 0) {
         max_submissions += 1;
