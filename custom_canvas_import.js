@@ -114,7 +114,8 @@ if (window.location.pathname == "/grades") {
 }
 
 //On speed grader page, make it so a comment is added with the rubric info whenever a rubric score is submitted
-if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
+//if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
+if (/^\/courses\/473716\/gradebook\/speed_grader/.test(window.location.pathname)) {
   $.put = function(url, data){
     return $.ajax({
       url: url,
