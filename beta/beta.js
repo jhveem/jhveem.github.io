@@ -98,7 +98,7 @@ if (/^\/courses\/[0-9]+\/users/.test(window.location.pathname)) {
       sorttable.makeSortable($("table.roster")[0]);
   });
 }
-
+/*
 if (/^\/courses\/[0-9]+\/pages/.test(window.location.pathname) && window.location.pathname.includes('syllabus')) {
     var scriptElement = document.createElement( "script" );
     scriptElement.src = "https://jhveem.github.io/beta/syllabus-review.js";
@@ -109,3 +109,4 @@ if (/^\/courses\/[0-9]+\/pages/.test(window.location.pathname) && window.locatio
     });
   }
 }
+*/

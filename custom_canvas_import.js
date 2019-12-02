@@ -70,7 +70,7 @@ $('span.avatar').hover(function() {
 //end zoom on hover
 
 /*gen report on gradebook page*/
-if (window.location.pathname.includes("/gradebook") === true) {
+if (/^\/courses\/[0-9]+\/gradebook/.test(window.location.pathname)) {
   var scriptElement = document.createElement( "script" );
   scriptElement.src = "https://jhveem.github.io/reports/reports_functions.js";
   document.body.appendChild( scriptElement );
