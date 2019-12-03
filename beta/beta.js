@@ -109,7 +109,7 @@ if (/^\/courses\/473716\/gradebook\/speed_grader/.test(window.location.pathname)
   }
   $(".save_rubric_button").on("click", function() {
       let comment = "-RUBRIC-%0A";
-      let rows = $("div#rubric_summary_container").find("tr");
+      let rows = $("div#grading").find("div#rubric_summary_container").find("tr");
       comment += ($(rows[rows.length - 1]).text().trim() + "%0A%0A");
       $("div#rubric_full").find("tr.rubric-criterion").each(function(index) {
           let description = $(this).find("th.description-header").find("div.description").text();
