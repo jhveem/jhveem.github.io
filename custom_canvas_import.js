@@ -113,30 +113,29 @@ if (window.location.pathname == "/grades") {
 	tbody.prepend("<tr><td></td><td>Completed Assignments</td><td></td><td>Final Grade</td></tr>");
 }
 
-//On speed grader page, make it so a comment is added with the rubric info whenever a rubric score is submitted
-/*if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
-if (/^\/courses\/473716\/gradebook\/speed_grader/.test(window.location.pathname)) {
-  $.put = function(url, data){
-    return $.ajax({
-      url: url,
-      type: 'PUT'
+//*On speed grader page, make it so a comment is added with the rubric info whenever a rubric score is submitted
+if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
+  let user = ENV.current_user.id;
+  if (user === 1893418) {
+    $.put = function(url, data){
+      return $.ajax({
+        url: url,
+        type: 'PUT'
+      });
+    }
+    $(".save_rubric_button").on("click", function() {
+        let comment = "-RUBRIC-%0A";
+        let rows = $("div#rubric_full").find("tr");
+        comment += ($(rows[rows.length - 2]).text().trim() + "%0A%0A");
+        $("div#rubric_full").find("tr.rubric-criterion").each(function(index) {
+            let description = $(this).find("th.description-header").find("div.description").text();
+            let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
+            let points = $(this).find("td.criterion_points").find("div.graded-points").text();
+            comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
+        });
+        $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
     });
   }
-  $(".save_rubric_button").on("click", function() {
-      let comment = "-RUBRIC-%0A";
-      let rows = $("div#rubric_summary_container").find("tr");
-      comment += ($(rows[rows.length - 1]).text().trim() + "%0A%0A");
-      $("div#rubric_full").find("tr.rubric-criterion").each(function(index) {
-          let description = $(this).find("th.description-header").find("div.description").text();
-          console.log(description);
-          let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
-          console.log(points_val);
-          let points = $(this).find("td.criterion_points").find("div.graded-points").text();
-          console.log(points);
-          comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
-      });
-      $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
-  });
 }
 //*///END rubric score comment saving
 
