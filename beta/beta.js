@@ -100,7 +100,6 @@ if (/^\/courses\/[0-9]+\/users/.test(window.location.pathname)) {
 }
 
 if (/^\/courses\/473716\/gradebook\/speed_grader/.test(window.location.pathname)) {
-  console.log("RUBRIC TEST");
   $.put = function(url, data){
     return $.ajax({
       url: url,
