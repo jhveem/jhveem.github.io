@@ -114,7 +114,7 @@ if (window.location.pathname == "/grades") {
 }
 
 //On speed grader page, make it so a comment is added with the rubric info whenever a rubric score is submitted
-//if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
+/*if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
 if (/^\/courses\/473716\/gradebook\/speed_grader/.test(window.location.pathname)) {
   $.put = function(url, data){
     return $.ajax({
@@ -138,7 +138,7 @@ if (/^\/courses\/473716\/gradebook\/speed_grader/.test(window.location.pathname)
       $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
   });
 }
-//END rubric score comment saving
+//*///END rubric score comment saving
 
 /*
 if (window.location.pathname.includes("/grades/") === true) {
