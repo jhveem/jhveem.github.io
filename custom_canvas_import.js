@@ -115,9 +115,10 @@ if (window.location.pathname == "/grades") {
 
 //*On speed grader page, make it so a comment is added with the rubric info whenever a rubric score is submitted
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
+  let courses_test = [489058]; //dental 1
   let user = parseInt(ENV.current_user.id);
-  console.log(user);
-  if (user === 1893418) {
+  let course = parseInt(ENV.course_id);
+  if (user === 1893418 || course === 489089) { //|) {
     $.put = function(url, data){
       return $.ajax({
         url: url,
@@ -125,7 +126,6 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
       });
     }
     $(".save_rubric_button").on("click", function() {
-      console.log("RUBRIC");
       let comment = "-RUBRIC-%0A";
       let rows = $("div#rubric_full").find("tr");
       comment += ($(rows[rows.length - 2]).text().trim() + "%0A%0A");

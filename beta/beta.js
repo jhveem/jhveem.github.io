@@ -99,29 +99,6 @@ if (/^\/courses\/[0-9]+\/users/.test(window.location.pathname)) {
   });
 }
 
-if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
-  let user = ENV.current_user.id;
-  if (user === 1893418) {
-    $.put = function(url, data){
-      return $.ajax({
-        url: url,
-        type: 'PUT'
-      });
-    }
-    $(".save_rubric_button").on("click", function() {
-        let comment = "-RUBRIC-%0A";
-        let rows = $("div#rubric_full").find("tr");
-        comment += ($(rows[rows.length - 2]).text().trim() + "%0A%0A");
-        $("div#rubric_full").find("tr.rubric-criterion").each(function(index) {
-            let description = $(this).find("th.description-header").find("div.description").text();
-            let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
-            let points = $(this).find("td.criterion_points").find("div.graded-points").text();
-            comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
-        });
-        $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
-    });
-  }
-}
 /*
 if (/^\/courses\/[0-9]+\/pages/.test(window.location.pathname) && window.location.pathname.includes('syllabus')) {
     var scriptElement = document.createElement( "script" );
