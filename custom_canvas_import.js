@@ -19,7 +19,7 @@ function addMenuItem(linkText, linkhref) {
 }
 
 //toggle color of submitted assignments for students
-//currently only in meats for testing
+/*currently only in meats for testing
 if (window.location.pathname.includes("/courses/473716/modules") === true) {
   async function getSubmittedAssignments(page) {
     console.log(page);
@@ -81,7 +81,7 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
   }
   formatSubmittedAssignments();
 }
-//END toggle submitted assignments
+//*///END toggle submitted assignments
 
 //zoom into picture on hover
 $('span.avatar').hover(function() {
