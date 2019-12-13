@@ -25,7 +25,7 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
     let userId = ENV.current_user.id;
     let courseId = ENV.COURSE_ID;
     let url = "/api/v1/users/"+userId+"/courses/"+courseId+"/assignments?include[]=submission&page="+page+"&per_page=100";
-    $.get(url, function(data) {
+    $.get(url, async function(data) {
       if (data.length === 100) await getSubmittedAssignments(page + 1);
       for (let a = 0; a < data.length; a++) {
         let assignment = data[a];
