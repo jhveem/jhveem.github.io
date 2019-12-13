@@ -21,7 +21,6 @@ function addMenuItem(linkText, linkhref) {
 //toggle color of submitted assignments for students
 //*currently only in meats for testing
 if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {
-  console.log(ENV.course_id);
   if (ENV.course_id === "473716" || ENV.course_id === "497780") {
     async function getSubmittedAssignments(page) {
       let userId = ENV.current_user.id;
