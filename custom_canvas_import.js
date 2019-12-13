@@ -22,6 +22,7 @@ function addMenuItem(linkText, linkhref) {
 //*currently only in meats for testing
 if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {
   if (ENV.course_id === 473716 || ENV.course_id === 497780) {
+    console.log(ENV.course_id);
     async function getSubmittedAssignments(page) {
       let userId = ENV.current_user.id;
       let courseId = ENV.COURSE_ID;
