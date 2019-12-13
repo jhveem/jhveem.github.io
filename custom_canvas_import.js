@@ -63,7 +63,6 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
                     checkFinished = false;
                 }
             });
-            console.log(finished + "/" + possible);
             if (checkFinished) {
               $(value).find('div.ig-header-admin').append('<span class="ig-type-icon"><i class="icon-Solid icon-publish"></i></span>');
             }
