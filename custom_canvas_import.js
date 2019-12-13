@@ -25,6 +25,9 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
     let userId = ENV.current_user.id;
     let courseId = ENV.COURSE_ID;
     let url = "/api/v1/users/"+userId+"/courses/"+courseId+"/assignments?include[]=submission&page="+page+"&per_page=100";
+    $(".collapse_module_link").hide();
+    $(".expand_module_link").show();
+    $(".content").hide();
     $.get(url, function(data) {
       if (data.length === 100) getSubmittedAssignments(page + 1);
       for (let a = 0; a < data.length; a++) {
@@ -38,13 +41,35 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
               let typeEl = infoEl.find('span.type');
               let type = typeEl.html();
               if (name === assignment.name) {
-                //$(value).removeClass('student-view');
+                //this makes it green, we could play around with potentially other colors, but it's a little trickier than just adding color to the icon and I haven't figured it out yet.
+                $(value).removeClass('student-view');
                 $(value).find('.module-item-status-icon').append('<span class="ig-type-icon"><i class="icon-Solid icon-publish"></i></span>');
               }
             }
           });
         }
       }
+        //see which modules are finished
+        $('.item-group-condensed').each(function(index, value) {
+
+            let quizzes = $(value).find('li.quiz');
+            quizzes.each(function(index, value) {
+                if ($(value).find('i.icon-publish').length === 0) {
+                    $(value).find('.module-item-status-icon').append('<span class="ig-type-icon"><i class="icon icon-publish"></i></span>');
+                }
+            });
+            let assignments = $(value).find('li.assignment');
+            assignments.each(function(index, value) {
+                if ($(value).find('i.icon-publish').length === 0) {
+                    $(value).find('.module-item-status-icon').append('<span class="ig-type-icon"><i class="icon icon-publish"></i></span>');
+                }
+            });
+            let possible = (quizzes.length + assignments.length);
+            let finished = $(value).find('i.icon-publish');
+            if (possible > 0 && possible === finished) {
+                $(value).find('div.ig-header-admin').append('<span class="ig-type-icon"><i class="icon-Solid icon-publish"></i></span>');
+            }
+        });
     });
   }
   let isStudent = ENV.IS_STUDENT;
