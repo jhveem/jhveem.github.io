@@ -21,7 +21,7 @@ function addMenuItem(linkText, linkhref) {
 //toggle color of submitted assignments for students
 //currently only in meats for testing
 if (window.location.pathname.includes("/courses/473716/modules") === true) {
-  function getSubmittedAssignments(page) {
+  async function getSubmittedAssignments(page) {
     let userId = ENV.current_user.id;
     let courseId = ENV.COURSE_ID;
     let url = "/api/v1/users/"+userId+"/courses/"+courseId+"/assignments?include[]=submission&page="+page+"&per_page=100";
@@ -48,6 +48,12 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
       }
         //see which modules are finished
     });
+  let isStudent = ENV.IS_STUDENT;
+  if (isStudent) {
+    $(".collapse_module_link").hide();
+    $(".expand_module_link").show();
+    $(".content").hide();
+    await getSubmittedAssignments(1);
     $('.item-group-condensed').each(function(index, value) {
         let checkFinished = true;
         let quizzes = $(value).find('li.quiz');
@@ -69,12 +75,6 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
         }
     });
   }
-  let isStudent = ENV.IS_STUDENT;
-  if (isStudent) {
-    $(".collapse_module_link").hide();
-    $(".expand_module_link").show();
-    $(".content").hide();
-    getSubmittedAssignments(1);
   }
 }
 //END toggle submitted assignments
