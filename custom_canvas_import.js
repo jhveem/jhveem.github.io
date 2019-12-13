@@ -47,26 +47,26 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
         }
       }
         //see which modules are finished
-        $('.item-group-condensed').each(function(index, value) {
-            let checkFinished = true;
-            let quizzes = $(value).find('li.quiz');
-            quizzes.each(function(index, value) {
-                if ($(value).find('i.icon-publish').length === 0) {
-                    $(value).find('.module-item-status-icon').append('<span class="ig-type-icon"><i class="icon icon-publish"></i></span>');
-                    checkFinished = false;
-                }
-            });
-            let assignments = $(value).find('li.assignment');
-            assignments.each(function(index, value) {
-                if ($(value).find('i.icon-publish').length === 0) {
-                    $(value).find('.module-item-status-icon').append('<span class="ig-type-icon"><i class="icon icon-publish"></i></span>');
-                    checkFinished = false;
-                }
-            });
-            if (checkFinished) {
-              $(value).find('div.ig-header-admin').append('<span class="ig-type-icon"><i class="icon-Solid icon-publish"></i></span>');
+    });
+    $('.item-group-condensed').each(function(index, value) {
+        let checkFinished = true;
+        let quizzes = $(value).find('li.quiz');
+        quizzes.each(function(index, value) {
+            if ($(value).find('i.icon-publish').length === 0) {
+                $(value).find('.module-item-status-icon').append('<span class="ig-type-icon"><i class="icon icon-publish"></i></span>');
+                checkFinished = false;
             }
         });
+        let assignments = $(value).find('li.assignment');
+        assignments.each(function(index, value) {
+            if ($(value).find('i.icon-publish').length === 0) {
+                $(value).find('.module-item-status-icon').append('<span class="ig-type-icon"><i class="icon icon-publish"></i></span>');
+                checkFinished = false;
+            }
+        });
+        if (checkFinished) {
+          $(value).find('div.ig-header-admin').append('<span class="ig-type-icon"><i class="icon-Solid icon-publish"></i></span>');
+        }
     });
   }
   let isStudent = ENV.IS_STUDENT;
