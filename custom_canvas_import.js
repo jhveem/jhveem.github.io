@@ -22,6 +22,7 @@ function addMenuItem(linkText, linkhref) {
 //currently only in meats for testing
 if (window.location.pathname.includes("/courses/473716/modules") === true) {
   async function getSubmittedAssignments(page) {
+    console.log(page);
     let userId = ENV.current_user.id;
     let courseId = ENV.COURSE_ID;
     let url = "/api/v1/users/"+userId+"/courses/"+courseId+"/assignments?include[]=submission&page="+page+"&per_page=100";
