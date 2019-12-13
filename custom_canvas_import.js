@@ -63,6 +63,7 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
             });
             let possible = (quizzes.length + assignments.length);
             let finished = $(value).find('i.icon-publish').length;
+            console.log(finished + "/" + possible);
             if (possible > 0 && possible === finished) {
                 $(value).find('div.ig-header-admin').append('<span class="ig-type-icon"><i class="icon-Solid icon-publish"></i></span>');
             }
