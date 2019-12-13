@@ -26,7 +26,7 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
     let courseId = ENV.COURSE_ID;
     let url = "/api/v1/users/"+userId+"/courses/"+courseId+"/assignments?include[]=submission&page="+page+"&per_page=100";
     $.get(url, function(data) {
-      if (data.length === 100) getSubmittedAssignments(page + 1);
+      if (data.length === 100) await getSubmittedAssignments(page + 1);
       for (let a = 0; a < data.length; a++) {
         let assignment = data[a];
         if (assignment.submission.submitted_at !== null) {
@@ -46,6 +46,7 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
           });
         }
       }
+      return true;
         //see which modules are finished
     });
   let isStudent = ENV.IS_STUDENT;
