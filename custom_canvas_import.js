@@ -21,12 +21,12 @@ function addMenuItem(linkText, linkhref) {
 //toggle color of submitted assignments for students
 //currently only in meats for testing
 if (window.location.pathname.includes("/courses/473716/modules") === true) {
-  function getSubmittedAssignments(page) {
+  async function getSubmittedAssignments(page) {
     let userId = ENV.current_user.id;
     let courseId = ENV.COURSE_ID;
     let url = "/api/v1/users/"+userId+"/courses/"+courseId+"/assignments?include[]=submission&page="+page+"&per_page=100";
-    $.get(url, function(data) {
-      if (data.length === 100) getSubmittedAssignments(page + 1);
+    $.get(url, async function(data) {
+      if (data.length === 100) await getSubmittedAssignments(page + 1);
       for (let a = 0; a < data.length; a++) {
         let assignment = data[a];
         if (assignment.submission.submitted_at !== null) {
@@ -54,7 +54,7 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
     $(".collapse_module_link").hide();
     $(".expand_module_link").show();
     $(".content").hide();
-    getSubmittedAssignments(1);
+    await getSubmittedAssignments(1);
     $('.item-group-condensed').each(function(index, value) {
         let checkFinished = true;
         let quizzes = $(value).find('li.quiz');
