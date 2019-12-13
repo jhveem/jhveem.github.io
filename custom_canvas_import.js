@@ -38,7 +38,8 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
               let typeEl = infoEl.find('span.type');
               let type = typeEl.html();
               if (name === assignment.name) {
-                $(value).removeClass('student-view');
+                //$(value).removeClass('student-view');
+                $(value).find('.module-item-status-icon').append('<span class="ig-type-icon"><i class="icon-Solid icon-publish"></i></span>');
               }
             }
           });
