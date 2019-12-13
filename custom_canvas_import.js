@@ -48,6 +48,7 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
       }
         //see which modules are finished
     });
+  }
   let isStudent = ENV.IS_STUDENT;
   if (isStudent) {
     $(".collapse_module_link").hide();
@@ -74,7 +75,6 @@ if (window.location.pathname.includes("/courses/473716/modules") === true) {
           $(value).find('div.ig-header-admin').append('<span class="ig-type-icon"><i class="icon-Solid icon-publish"></i></span>');
         }
     });
-  }
   }
 }
 //END toggle submitted assignments
