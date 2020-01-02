@@ -175,6 +175,28 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
 }
 //*///END rubric score comment saving
 
+//Specific to Animal Sciences, this is hiding certain modules that students who are in specific sections do not need to see
+if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {
+  if (ENV.course_id === "488475") {
+    let isStudent = ENV.IS_STUDENT;
+    if (isStudent) {
+        let modules = $('.item-group-condensed');
+        let newStudent = $(modules[1]).find('div.ig-row').length === 1;
+        if (newStudent === false) {
+            $(modules[1]).hide();
+        }
+        $('.item-group-condensed').each(function(index, value) {
+            let prereq = $(value).find('.ig-header').find('.prerequisites').text();
+            if (prereq.includes('Computer Policy') && newStudent === false) {
+                $(value).hide();
+            }
+            if (prereq.includes('Welcome') && newStudent === true) {
+                $(value).hide();
+            }
+        });
+    }
+  }
+}
 /*
 if (window.location.pathname.includes("/grades/") === true) {
     let course = ENV.courses_with_grades[0].id;
