@@ -149,10 +149,10 @@ if (window.location.pathname == "/grades") {
 
 //*On speed grader page, make it so a comment is added with the rubric info whenever a rubric score is submitted
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
-  let courses_test = [489058]; //dental 1
+  let courses_test = [489058, 489089]; //dental 1
   let user = parseInt(ENV.current_user.id);
   let course = parseInt(ENV.course_id);
-  if (user === 1893418 || course === 489089) { //|) {
+  if (user === 1893418 || courses_test.includes(course)) {
     $.put = function(url, data){
       return $.ajax({
         url: url,
@@ -172,6 +172,16 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
       $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
     });
   }
+}
+//this adds a link to speed grader on the canvas assignment grading page to make it easier to access
+if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
+  let pieces = window.location.pathname.match(/^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/);
+  let speed_grader_link = '<br><a class="assess_submission_link Button Button--small Button--link" href="/courses/'+pieces[1]+'/gradebook/speed_grader?assignment_id='+pieces[2]+'&student_id='+pieces[3]+'"><i class="icon-rubric" aria-hidden="true"></i> Speed Grader</a>';
+  $(".submission-details-header__rubric--can-grade").append(speed_grader_link);
+  console.log(speed_grader_link);
+  $(".save_rubric_button").on("click", function() {
+      console.log("TEST 1");
+  });
 }
 //*///END rubric score comment saving
 
