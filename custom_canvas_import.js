@@ -20,7 +20,7 @@ function addMenuItem(linkText, linkhref) {
 
 
 //zoom into picture on hover
-$('.avatar').hover(function() {
+$('span.avatar').hover(function() {
     let large = $(this).clone();
     large.css('width', '250px');
     large.css('height', '250px');
