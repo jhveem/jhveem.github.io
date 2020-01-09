@@ -9,6 +9,7 @@ function add_javascript_library(url) {
 
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
+add_javascript_library("https://jhveem.github.io/custom_canvas_import_beta.js");
 
 /*EvaluationKIT END*/
 
