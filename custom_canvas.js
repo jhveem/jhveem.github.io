@@ -1,3 +1,4 @@
+//THIS MUST BE UPDATE IN THE THEMES SECTION OF CANVAS
 /*EvaluationKIT START*/
 function add_javascript_library(url) {
 	var s = document.createElement("script");

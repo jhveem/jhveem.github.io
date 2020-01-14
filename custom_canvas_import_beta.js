@@ -1,7 +1,6 @@
 
 //toggle color of submitted assignments for students
 //*currently only in meats for testing
-    console.log("module test");
 if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {
   if (ENV.course_id === "473716" || ENV.course_id === "497780") {
     async function getSubmittedAssignments(page) {
@@ -71,7 +70,7 @@ if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {
 
 //*On speed grader page, make it so a comment is added with the rubric info whenever a rubric score is submitted
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
-  let courses_test = [489058, 489089]; //dental 1
+  let courses_test = [489058, 489089, 489702]; //dental assisting I and III & microcontrollers I
   let user = parseInt(ENV.current_user.id);
   let course = parseInt(ENV.course_id);
   if (user === 1893418 || courses_test.includes(course)) {
