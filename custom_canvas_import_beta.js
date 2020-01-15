@@ -95,3 +95,13 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
   }
 }
 //*///END rubric score comment saving
+
+//Just for IV Therapy, changes 2019 short term to 2019/2020 short term
+//remove in July
+if (/^\/courses\/489538/.test(window.location.pathname)) {
+    console.log('test');
+    let _section = $('#section-tabs-header-subtitle');
+    let _text = _section.text();
+    let _new = _text.replace('2019', '2019/2020');
+    _section.text(_new);
+}
