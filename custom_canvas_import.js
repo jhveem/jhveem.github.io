@@ -85,10 +85,6 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
   let pieces = window.location.pathname.match(/^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/);
   let speed_grader_link = '<br><a class="assess_submission_link Button Button--small Button--link" href="/courses/'+pieces[1]+'/gradebook/speed_grader?assignment_id='+pieces[2]+'&student_id='+pieces[3]+'"><i class="icon-rubric" aria-hidden="true"></i> Speed Grader</a>';
   $(".submission-details-header__rubric--can-grade").append(speed_grader_link);
-  console.log(speed_grader_link);
-  $(".save_rubric_button").on("click", function() {
-      console.log("TEST 1");
-  });
 }
 
 //Specific to Animal Sciences, this is hiding certain modules that students who are in specific sections do not need to see
