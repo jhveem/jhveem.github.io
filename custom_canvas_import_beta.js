@@ -69,17 +69,17 @@ if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {
 //*///END toggle submitted assignments
 
 //*On speed grader page, make it so a comment is added with the rubric info whenever a rubric score is submitted
-  $.put = function(url, data){
-    return $.ajax({
-      url: url,
-      type: 'PUT'
-    });
-  }
+let rubric_courses_test = [489058, 489089, 489702]; //dental assisting I and III & microcontrollers I
+$.put = function(url, data){
+  return $.ajax({
+    url: url,
+    type: 'PUT'
+  });
+}
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
-  let courses_test = [489058, 489089, 489702]; //dental assisting I and III & microcontrollers I
   let user = parseInt(ENV.current_user.id);
   let course = parseInt(ENV.course_id);
-  if (user === 1893418 || courses_test.includes(course)) {
+  if (user === 1893418 || rubric_courses_test.includes(course)) {
     $(".save_rubric_button").on("click", function() {
       let comment = "-RUBRIC-%0A";
       let rows = $("div#rubric_full").find("tr");
@@ -99,7 +99,7 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
   let course = parseInt(pieces[1]);
   let assignment = parseInt(pieces[2]);
   let user = parseInt(pieces[3]);
-  if (user === 1893418 || courses_test.includes(course)) {
+  if (user === 1893418 || rubric_courses_test.includes(course)) {
     $(".save_rubric_button").on("click", function() {
         let comment = "-RUBRIC-%0A";
         let rows = $("div.react-rubric table").find("tr");
