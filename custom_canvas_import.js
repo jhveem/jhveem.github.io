@@ -18,6 +18,10 @@ function addMenuItem(linkText, linkhref) {
 	$('#section-tabs').append(itemHtml);
 }
 
+async function delay(ms) {
+  // return await for better async stack trace support in case of errors.
+  return await new Promise(resolve => setTimeout(resolve, ms));
+}
 
 //zoom into picture on hover
 $('span.avatar').hover(function() {
@@ -86,6 +90,35 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
   let speed_grader_link = '<br><a class="assess_submission_link Button Button--small Button--link" href="/courses/'+pieces[1]+'/gradebook/speed_grader?assignment_id='+pieces[2]+'&student_id='+pieces[3]+'"><i class="icon-rubric" aria-hidden="true"></i> Speed Grader</a>';
   $(".submission-details-header__rubric--can-grade").append(speed_grader_link);
 }
+//END SPEED GRADER LINK
+
+
+//adds current year to assignment submissions submitted at date
+async function getElement(selectorText, iframe="") {
+    let element;
+    if (iframe === "") {
+        element = $(selectorText);
+    } else {
+        element = $(iframe).contents().find(selectorText);
+    }
+    if (element.length > 0) {
+        return element;
+    } else {
+        await delay(1000);
+        return getElement(selectorText, iframe);
+    }
+}
+async function setAssignmentSubmittedDateHeader(selectorText, iframe="") {
+    let header = await getElement(selectorText, iframe);
+    header.html(header.html().replace(/ubmitted ([a-z|A-Z]+) ([0-9]+) at/, "ubmitted $1 $2, 2020 at"));
+}
+if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
+    setHeadersetAssignmentSubmittedDateHeader("span.submission-details-header__time");
+    setHeadersetAssignmentSubmittedDateHeader("div.quiz-submission.headless", "#preview_frame");
+}
+//END ADDING YEAR TO SUBMISSIONS
+
+
 
 //Specific to Animal Sciences, this is hiding certain modules that students who are in specific sections do not need to see
 if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {

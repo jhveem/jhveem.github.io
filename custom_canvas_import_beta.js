@@ -76,6 +76,7 @@ $.put = function(url, data){
     type: 'PUT'
   });
 }
+
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
   let user = parseInt(ENV.current_user.id);
   let course = parseInt(ENV.course_id);
@@ -88,12 +89,14 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
         let description = $(this).find("th.description-header").find("div.description").text();
         let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
         let points = $(this).find("td.criterion_points").find("div.graded-points").text();
+        description = description.replace("This criterion is linked to a Learning Outcome", "");
         comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
       });
       $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
     });
   }
 }
+
 if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
   let pieces = window.location.pathname.match(/^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/);
   let course = parseInt(pieces[1]);
@@ -101,16 +104,17 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
   let user = parseInt(pieces[3]);
   if (user === 1893418 || rubric_courses_test.includes(course)) {
     $(".save_rubric_button").on("click", function() {
-        let comment = "-RUBRIC-%0A";
-        let rows = $("div.react-rubric table").find("tr");
-        comment += ($(rows[rows.length -1]).text().trim() + "%0A%0A");
-        $("div.react-rubric").find("tr.rubric-criterion").each(function(index) {
-            let description = $(this).find("th.description-header").find("div.description").text();
-            let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
-            let points = $(this).find("td.criterion_points").find("div.graded-points").text();
-            comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
-        });
-        $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
+      let comment = "-RUBRIC-%0A";
+      let rows = $("div.react-rubric table").find("tr");
+      comment += ($(rows[rows.length -1]).text().trim() + "%0A%0A");
+      $("div.react-rubric").find("tr.rubric-criterion").each(function(index) {
+        let description = $(this).find("th.description-header").find("div.description").text();
+        let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
+        let points = $(this).find("td.criterion_points").find("div.graded-points").text();
+        description = description.replace("This criterion is linked to a Learning Outcome", "");
+        comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
+      });
+      $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
     });
   }
 }
