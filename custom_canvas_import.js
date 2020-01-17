@@ -113,8 +113,8 @@ async function setAssignmentSubmittedDateHeader(selectorText, iframe="") {
     header.html(header.html().replace(/ubmitted ([a-z|A-Z]+) ([0-9]+) at/, "ubmitted $1 $2, 2020 at"));
 }
 if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
-    setHeadersetAssignmentSubmittedDateHeader("span.submission-details-header__time");
-    setHeadersetAssignmentSubmittedDateHeader("div.quiz-submission.headless", "#preview_frame");
+    setAssignmentSubmittedDateHeader("span.submission-details-header__time");
+    setAssignmentSubmittedDateHeader("div.quiz-submission.headless", "#preview_frame");
 }
 //END ADDING YEAR TO SUBMISSIONS
 
