@@ -124,7 +124,7 @@ async function parseCommentHTML() {
     let element = await getElement(".comment, .comments");
     element.each(function() {
         var html = $(this).html();
-        html = html.replace(/&lt;([a-z|0-9]+)&gt;/g, "<$1>");
+        html = html.replace(/&lt;([a-z|0-9]+)(\/{0,1})&gt;/g, "<$1$2>");
         $(this).html(html);
     });
 }
