@@ -129,6 +129,7 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
       let criteria_id = "criteria_" + Math.round(Math.random() * 100000000);
       let toggle = '%0A<h3 class="element_toggler btech-toggler" role="button" aria-controls="'+criteria_id+'" aria-expanded="false" aria-label="Toggler toggle list visibility"><i class="fal fa-comments" aria-hidden="true"></i><strong>Individual Criteria</strong></h3>%0A<div id="'+criteria_id+'" style="display: none;">';
       comment = header + toggle + comment + '%0A</div>';
+      console.log(comment);
       $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
     });
   }
