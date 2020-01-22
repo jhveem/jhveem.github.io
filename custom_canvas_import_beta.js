@@ -116,6 +116,8 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
         let points = $(this).find("td.criterion_points").find("div.graded-points").text();
         points = points.replace("/", "").replace(" pts", "").replace("Points", "");
         totalCrit += 1;
+        points = ("" + points).trim();
+        points_val = ("" + points_val).trim();
         console.log(points + " : " + points_val);
         if (points === points_val) {
           totalMax += 1;
