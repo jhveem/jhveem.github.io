@@ -126,8 +126,7 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
         comment += (description + "%0A" + points_val + "/" + points + "%0A%0A");
       });
       header += ("TOTAL CRITERIA AT FULL POINTS: %0A" + totalMax + "/" + totalCrit + "%0A%0A");
-      comment = header + '%0A<div class="btech-comment-collapse"%0A' + comment + '%0A</div>';
-      console.log(comment);
+      comment = header + '%0A<div class="btech-comment-collapse">%0A' + comment + '%0A</div>';
       $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
     });
   }
