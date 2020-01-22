@@ -125,6 +125,9 @@ async function parseCommentHTML() {
     element.each(function() {
         var html = $(this).html();
         html = html.replace(/&lt;(\/{0,1}.+?)&gt;/g, "<$1>");
+        let criteria_id = "criteria_" + Math.round(Math.random() * 100000000);
+        let toggle_header = '%0A<h3 class="element_toggler btech-toggler" role="button" aria-controls="'+criteria_id+'" aria-expanded="false" aria-label="Toggler toggle list visibility"><i class="fal fa-comments" aria-hidden="true"></i><strong>Individual Criteria</strong></h3>%0A';
+        //find div.btech-comment-collapse, prepend the toggle_header, set visibility to none, add id of criteria_id
         $(this).html(html);
     });
 }
