@@ -126,7 +126,8 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
         comment += (description + "%0A" + points_val + "/" + points + "%0A%0A");
       });
       header += ("TOTAL CRITERIA AT FULL POINTS: %0A" + totalMax + "/" + totalCrit + "%0A%0A");
-      header + '<h3 class="element_toggler btech-toggler" role="button" aria-controls="group_communication" aria-expanded="false" aria-label="Toggler toggle list visibility"><i class="fal fa-comments" aria-hidden="true"></i><strong>Individual Criteria</strong></h3><div id="criteria" style="display: none;">';
+      let criteria_id = "criteria_" + Math.random() * 100000;
+      header += '<h3 class="element_toggler btech-toggler" role="button" aria-controls="'+criteria_id+'" aria-expanded="false" aria-label="Toggler toggle list visibility"><i class="fal fa-comments" aria-hidden="true"></i><strong>Individual Criteria</strong></h3><div id="'+criteria_id+'" style="display: none;">';
       comment = header + comment;
       comment += '</div>'
       $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
