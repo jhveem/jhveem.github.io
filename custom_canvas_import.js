@@ -128,7 +128,7 @@ async function parseCommentHTML() {
         $(this).html(html);
     });
 }
-parseCommentHTML();
+//parseCommentHTML();
 //END HTML TAGS IN COMMENTS
 
 //Specific to Animal Sciences, this is hiding certain modules that students who are in specific sections do not need to see
