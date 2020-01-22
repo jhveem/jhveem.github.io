@@ -116,13 +116,14 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
         let points = $(this).find("td.criterion_points").find("div.graded-points").text();
         points = points.replace("/", "").replace(" pts", "").replace("Points", "");
         totalCrit += 1;
+        console.log(points + " : " + points_val);
         if (points === points_val) {
           totalMax += 1;
         }
         description = description.replace("This criterion is linked to a Learning Outcome", "");
         comment += (description + "%0A" + points_val + "/" + points + "%0A%0A");
       });
-      header += ("TOTAL" + totalMax + "/" + totalCrit);
+      header += ("TOTAL CRITERIA AT FULL POINTS: %0A" + totalMax + "/" + totalCrit + "%0A%0A");
       comment = header + comment;
       $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
     });
