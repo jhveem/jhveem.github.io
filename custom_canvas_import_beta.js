@@ -111,8 +111,8 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
         let description = $(this).find("th.description-header").find("div.description").text();
         let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
         let points = $(this).find("td.criterion_points").find("div.graded-points").text();
-        console.log(points);
         console.log(points_val);
+        console.log(points.replace("/", "").replace(" pts", ""));
         description = description.replace("This criterion is linked to a Learning Outcome", "");
         comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
       });
