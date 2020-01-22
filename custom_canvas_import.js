@@ -121,7 +121,7 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
 
 //ALLOW FOR HTML TAGS IN COMMENTS
 async function parseCommentHTML() {
-    let element = await getElement(".comment, .comments");
+    let element = await getElement("span.comment, tr.comments");
     element.each(function() {
         var html = $(this).html();
         html = html.replace(/&lt;(\/{0,1}[a-z|0-9]+)&gt;/g, "<$1>");
