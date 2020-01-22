@@ -132,6 +132,7 @@ async function parseCommentHTML() {
 
     let collapses = $(this).find('div.btech-comment-collapse');
     collapses.each(function() {
+      console.log("COLLAPSE");
       let criteria_id = "criteria_" + Math.round(Math.random() * 100000000);
       let toggleHeader = '%0A<h3 class="element_toggler btech-toggler" role="button" aria-controls="'+criteria_id+'" aria-expanded="false" aria-label="Toggler toggle list visibility"><i class="fal fa-comments" aria-hidden="true"></i><strong>Individual Criteria</strong></h3>%0A';
       $(this).insertBefore(toggleHeader);
