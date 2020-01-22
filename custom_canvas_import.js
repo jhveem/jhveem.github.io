@@ -124,12 +124,11 @@ async function parseCommentHTML() {
     let element = await getElement(".comment, .comments");
     element.each(function() {
         var html = $(this).html();
-        html = html.replace(/&lt;/g, "<");
-        html = html.replace(/&gt;/g, ">");
+        html = html.replace(/&lt;[a-z]+&gt;/g, "<$1>");
         $(this).html(html);
     });
 }
-//parseCommentHTML();
+parseCommentHTML();
 //END HTML TAGS IN COMMENTS
 
 //Specific to Animal Sciences, this is hiding certain modules that students who are in specific sections do not need to see
