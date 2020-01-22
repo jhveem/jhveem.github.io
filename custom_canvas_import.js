@@ -23,6 +23,21 @@ async function delay(ms) {
   return await new Promise(resolve => setTimeout(resolve, ms));
 }
 
+async function getElement(selectorText, iframe="") {
+    let element;
+    if (iframe === "") {
+        element = $(selectorText);
+    } else {
+        element = $(iframe).contents().find(selectorText);
+    }
+    if (element.length > 0) {
+        return element;
+    } else {
+        await delay(1000);
+        return getElement(selectorText, iframe);
+    }
+}
+
 //zoom into picture on hover
 $('span.avatar').hover(function() {
     let large = $(this).clone();
@@ -94,20 +109,6 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
 
 
 //adds current year to assignment submissions submitted at date
-async function getElement(selectorText, iframe="") {
-    let element;
-    if (iframe === "") {
-        element = $(selectorText);
-    } else {
-        element = $(iframe).contents().find(selectorText);
-    }
-    if (element.length > 0) {
-        return element;
-    } else {
-        await delay(1000);
-        return getElement(selectorText, iframe);
-    }
-}
 async function setAssignmentSubmittedDateHeader(selectorText, iframe="") {
     let header = await getElement(selectorText, iframe);
     header.html(header.html().replace(/ubmitted ([a-z|A-Z]+) ([0-9]+) at/, "ubmitted $1 $2, 2020 at"));
@@ -118,7 +119,18 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
 }
 //END ADDING YEAR TO SUBMISSIONS
 
-
+//ALLOW FOR HTML TAGS IN COMMENTS
+async function parseCommentHTML() {
+    let element = await getElement(".comment, .comments");
+    element.each(function() {
+        var html = $(this).html();
+        html = html.replace(/&lt;/g, "<");
+        html = html.replace(/&gt;/g, ">");
+        $(this).html(html);
+    });
+}
+parseCommentHTML();
+//END HTML TAGS IN COMMENTS
 
 //Specific to Animal Sciences, this is hiding certain modules that students who are in specific sections do not need to see
 if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {
