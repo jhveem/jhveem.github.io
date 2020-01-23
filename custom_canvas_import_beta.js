@@ -105,11 +105,11 @@ function genRubricComment(course, assignment, user, rowSelector, rubricSelector)
 }
 
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
-  let user = parseInt(ENV.current_user.id);
+  let currentUser = parseInt(ENV.current_user.id);
   let course = parseInt(ENV.course_id);
   let user = ENV.RUBRIC_ASSESSMENT.assessment_user_id;
   let assignment = ENV.assignment_id;
-  if (user === 1893418 || rubric_courses_test.includes(course)) {
+  if (currentUser === 1893418 || rubric_courses_test.includes(course)) {
     $(".save_rubric_button").on("click", function() {
       genRubricComment(course, assignment, user, "div#rubric_full", "div#rubric_full")
       /*
@@ -130,11 +130,12 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
 }
 
 if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
+  let currentUser = parseInt(ENV.current_user.id);
   let pieces = window.location.pathname.match(/^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/);
   let course = parseInt(pieces[1]);
   let assignment = parseInt(pieces[2]);
   let user = parseInt(pieces[3]);
-  if (user === 1893418 || rubric_courses_test.includes(course)) {
+  if (currentUser === 1893418 || rubric_courses_test.includes(course)) {
     $(".save_rubric_button").on("click", function() {
       genRubricComment(course, assignment, user, "div.react-rubric table", "div.react-rubric");
     });
