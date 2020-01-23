@@ -78,19 +78,30 @@ $.put = function(url, data){
 }
 
 function genRubricComment() {
-  let description = $(this).find("th.description-header").find("div.description").text();
-  let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
-  let points = $(this).find("td.criterion_points").find("div.graded-points").text();
-  points = points.replace("/", "").replace(" pts", "").replace("Points", "");
-  totalCrit += 1;
-  points = ("" + points).trim();
-  points_val = ("" + points_val).trim();
-  console.log(points + " : " + points_val);
-  if (points === points_val) {
-    totalMax += 1;
-  }
-  description = description.replace("This criterion is linked to a Learning Outcome", "");
-  comment += (description + "%0A" + points_val + "/" + points + "%0A");
+  let comment = "";
+  let header = "<h2><b>RUBRIC</b></h2>";
+  let rows = $("div.react-rubric table").find("tr");
+  let totalMax = 0;
+  let totalCrit = 0;
+  header += ($(rows[rows.length -1]).text().trim() + "%0A");
+  $("div.react-rubric").find("tr.rubric-criterion").each(function(index) {
+    let description = $(this).find("th.description-header").find("div.description").text();
+    let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
+    let points = $(this).find("td.criterion_points").find("div.graded-points").text();
+    points = points.replace("/", "").replace(" pts", "").replace("Points", "");
+    totalCrit += 1;
+    points = ("" + points).trim();
+    points_val = ("" + points_val).trim();
+    console.log(points + " : " + points_val);
+    if (points === points_val) {
+      totalMax += 1;
+    }
+    description = description.replace("This criterion is linked to a Learning Outcome", "");
+    comment += (description + "%0A" + points_val + "/" + points + "%0A");
+  });
+  header += ("TOTAL CRITERIA AT FULL POINTS: %0A" + totalMax + "/" + totalCrit);
+  comment = header + '%0A<div class="btech-comment-collapse">%0A' + comment + '%0A</div>';
+  $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
 }
 
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
@@ -119,18 +130,7 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
   let assignment = parseInt(pieces[2]);
   let user = parseInt(pieces[3]);
   if (user === 1893418 || rubric_courses_test.includes(course)) {
-    $(".save_rubric_button").on("click", function() {
-      let comment = "";
-      let header = "<h2><b>RUBRIC</b></h2>";
-      let rows = $("div.react-rubric table").find("tr");
-      let totalMax = 0;
-      let totalCrit = 0;
-      header += ($(rows[rows.length -1]).text().trim() + "%0A");
-      $("div.react-rubric").find("tr.rubric-criterion").each(genRubricComment);
-      header += ("TOTAL CRITERIA AT FULL POINTS: %0A" + totalMax + "/" + totalCrit);
-      comment = header + '%0A<div class="btech-comment-collapse">%0A' + comment + '%0A</div>';
-      $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
-    });
+    $(".save_rubric_button").on("click", genRubricComment);
   }
 }
 //*///END rubric score comment saving
