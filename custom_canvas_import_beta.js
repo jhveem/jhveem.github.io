@@ -92,7 +92,6 @@ function genRubricComment(course, assignment, user, rowSelector, rubricSelector)
     totalCrit += 1;
     points = ("" + points).trim();
     points_val = ("" + points_val).trim();
-    console.log(points + " : " + points_val);
     if (points === points_val) {
       totalMax += 1;
     }
