@@ -77,7 +77,7 @@ $.put = function(url, data){
   });
 }
 
-function genRubricComment() {
+function genRubricComment(course, assignment, user) {
   let comment = "";
   let header = "<h2><b>RUBRIC</b></h2>";
   let rows = $("div.react-rubric table").find("tr");
@@ -130,7 +130,9 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
   let assignment = parseInt(pieces[2]);
   let user = parseInt(pieces[3]);
   if (user === 1893418 || rubric_courses_test.includes(course)) {
-    $(".save_rubric_button").on("click", genRubricComment);
+    $(".save_rubric_button").on("click", function() {
+      genRubricComment(course, assignment, user);
+    });
   }
 }
 //*///END rubric score comment saving
