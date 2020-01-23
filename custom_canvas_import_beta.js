@@ -105,7 +105,7 @@ function genRubricComment(course, assignment, user, rowSelector, rubricSelector,
   //comment = comment.replace(/</g, "&lt;");
   //comment = comment.replace(/>/g, "&gt;");
   console.log(comment);
-  $.put("https://btech.beta.instructure.com/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
+  $.put("/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
 }
 
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
