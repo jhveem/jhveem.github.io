@@ -105,9 +105,9 @@ function genRubricComment(course, assignment, user, rowSelector, rubricSelector,
 
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
   let currentUser = parseInt(ENV.current_user.id);
+  let course = parseInt(ENV.course_id);
   if (currentUser === 1893418 || rubric_courses_test.includes(course)) {
     $(".save_rubric_button").on("click", function() {
-      let course = parseInt(ENV.course_id);
       let user = ENV.RUBRIC_ASSESSMENT.assessment_user_id;
       let assignment = ENV.assignment_id;
       genRubricComment(course, assignment, user, "div#rubric_full", "div#rubric_full", 2);
