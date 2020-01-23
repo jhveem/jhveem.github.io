@@ -77,14 +77,14 @@ $.put = function(url, data){
   });
 }
 
-function genRubricComment(course, assignment, user) {
+function genRubricComment(course, assignment, user, rowSelector, rubricSelector) {
   let comment = "";
   let header = "<h2><b>RUBRIC</b></h2>";
-  let rows = $("div.react-rubric table").find("tr");
+  let rows = $(rowSelector).find("tr");
   let totalMax = 0;
   let totalCrit = 0;
   header += ($(rows[rows.length -1]).text().trim() + "%0A");
-  $("div.react-rubric").find("tr.rubric-criterion").each(function(index) {
+  $(rubricSelector).find("tr.rubric-criterion").each(function(index) {
     let description = $(this).find("th.description-header").find("div.description").text();
     let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
     let points = $(this).find("td.criterion_points").find("div.graded-points").text();
@@ -107,8 +107,12 @@ function genRubricComment(course, assignment, user) {
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
   let user = parseInt(ENV.current_user.id);
   let course = parseInt(ENV.course_id);
+  let user = ENV.RUBRIC_ASSESSMENT.assessment_user_id;
+  let assignment = ENV.assignment_id;
   if (user === 1893418 || rubric_courses_test.includes(course)) {
     $(".save_rubric_button").on("click", function() {
+      genRubricComment(course, assignment, user, "div#rubric_full", "div#rubric_full")
+      /*
       let comment = "-RUBRIC-%0A";
       let rows = $("div#rubric_full").find("tr");
       comment += ($(rows[rows.length - 2]).text().trim() + "%0A%0A");
@@ -120,6 +124,7 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
         comment += (description + "%0A" + points_val + points.replace("Points", "") + "%0A%0A");
       });
       $.put("https://btech.beta.instructure.com/api/v1/courses/"+ENV.course_id+"/assignments/"+ENV.assignment_id+"/submissions/"+ENV.RUBRIC_ASSESSMENT.assessment_user_id+"?comment[text_comment]="+comment,{} );
+      */
     });
   }
 }
@@ -131,7 +136,7 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
   let user = parseInt(pieces[3]);
   if (user === 1893418 || rubric_courses_test.includes(course)) {
     $(".save_rubric_button").on("click", function() {
-      genRubricComment(course, assignment, user);
+      genRubricComment(course, assignment, user, "div.react-rubric table", "div.react-rubric");
     });
   }
 }
