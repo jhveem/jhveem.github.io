@@ -100,11 +100,6 @@ function genRubricComment(course, assignment, user, rowSelector, rubricSelector,
   });
   header += ("TOTAL CRITERIA AT FULL POINTS: %0A" + totalMax + "/" + totalCrit);
   comment = header + '%0A<div class="btech-comment-collapse">%0A' + comment + '%0A</div>';
-  console.log(course + ":" + assignment + ":" + user);
-  //clean it up to send
-  //comment = comment.replace(/</g, "&lt;");
-  //comment = comment.replace(/>/g, "&gt;");
-  console.log(comment);
   $.put("/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user+"?comment[text_comment]="+comment,{} );
 }
 
