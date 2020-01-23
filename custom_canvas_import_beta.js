@@ -77,13 +77,13 @@ $.put = function(url, data){
   });
 }
 
-function genRubricComment(course, assignment, user, rowSelector, rubricSelector) {
+function genRubricComment(course, assignment, user, rowSelector, rubricSelector, offset=1) {
   let comment = "";
   let header = "<h2><b>RUBRIC</b></h2>";
   let rows = $(rowSelector).find("tr");
   let totalMax = 0;
   let totalCrit = 0;
-  header += ($(rows[rows.length -1]).text().trim() + "%0A");
+  header += ($(rows[rows.length - offset]).text().trim() + "%0A");
   $(rubricSelector).find("tr.rubric-criterion").each(function(index) {
     let description = $(this).find("th.description-header").find("div.description").text();
     let points_val = $(this).find("td.criterion_points").find("div.graded-points").find("input").val();
@@ -115,7 +115,7 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
       let course = parseInt(ENV.course_id);
       let user = ENV.RUBRIC_ASSESSMENT.assessment_user_id;
       let assignment = ENV.assignment_id;
-      genRubricComment(course, assignment, user, "div#rubric_full", "div#rubric_full")
+      genRubricComment(course, assignment, user, "div#rubric_full", "div#rubric_full", 2);
       /*
       let comment = "-RUBRIC-%0A";
       let rows = $("div#rubric_full").find("tr");
