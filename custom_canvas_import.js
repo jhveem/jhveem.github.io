@@ -132,8 +132,8 @@ async function parseCommentHTML() {
       let criteria_id = "criteria_" + Math.round(Math.random() * 100000000);
       let toggleHeader = '<br><h3 class="element_toggler btech-toggler" role="button" aria-controls="'+criteria_id+'" aria-expanded="false" aria-label="Toggler toggle list visibility"><i class="fal fa-comments" aria-hidden="true"></i><strong>Individual Criteria</strong></h3><br>';
       $(this).attr("id",criteria_id);
-      //$(this).css("display", "none");
-      $(this).insertBefore(toggleHeader);
+      $(this).css("display", "none");
+      $(toggleHeader).insertBefore(this);
     });
   });
 }
