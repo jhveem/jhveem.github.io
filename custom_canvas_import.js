@@ -114,9 +114,6 @@ async function setAssignmentSubmittedDateHeader(selectorText, iframe="") {
     header.html(header.html().replace(/ubmitted ([a-z|A-Z]+) ([0-9]+) at/, "ubmitted $1 $2, 2020 at"));
 }
 if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
-	$("span.posted_at").each(function() {
-	$(this).html(header.html().replace(/([a-z|A-Z]+) ([0-9]+) at/, "$1 $2, 2020 at"));
-	});
     setAssignmentSubmittedDateHeader("span.submission-details-header__time");
     setAssignmentSubmittedDateHeader("div.quiz-submission.headless", "#preview_frame");
 }
@@ -124,6 +121,9 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
 
 //ALLOW FOR HTML TAGS IN COMMENTS
 async function parseCommentHTML() {
+	$("span.posted_at").each(function() {
+	$(this).html(header.html().replace(/([a-z|A-Z]+) ([0-9]+) at/, "$1 $2, 2020 at"));
+	});
   let element = await getElement("div.comment span, tr.comments");
   element.each(function() {
     var html = $(this).html();
