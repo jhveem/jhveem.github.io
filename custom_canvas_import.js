@@ -121,9 +121,6 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
 
 //ALLOW FOR HTML TAGS IN COMMENTS
 async function parseCommentHTML() {
-	$("span.posted_at").each(function() {
-	$(this).html(header.html().replace(/([a-z|A-Z]+) ([0-9]+) at/, "$1 $2, 2020 at"));
-	});
   let element = await getElement("div.comment span, tr.comments");
   element.each(function() {
     var html = $(this).html();
