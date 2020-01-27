@@ -66,6 +66,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		if (departmentId === 3824) { // DENTAL
 			feature("highlighted_grades_page_items");
 			feature("speed_grader_screen_split");
+			if (BETA) feature("rubric_attempt_data");
 		}
 	}
 });
