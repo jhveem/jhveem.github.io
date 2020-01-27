@@ -1,3 +1,4 @@
+console.log("highlights");
 if (/^\/courses\/[0-9]+\/grades\/[0-9]+$/.test(window.location.pathname)) {
   let highlightColor = "#FFC";
   $("tr.student_assignment").each(function() {
