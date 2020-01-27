@@ -1,10 +1,4 @@
 let rubric_courses_test = [489058, 489089, 489702]; //dental assisting I and III & microcontrollers I
-$.put = function(url, data){
-  return $.ajax({
-    url: url,
-    type: 'PUT'
-  });
-}
 
 function genRubricComment(course, assignment, user, rowSelector, rubricSelector, offset=1) {
   let comment = "";

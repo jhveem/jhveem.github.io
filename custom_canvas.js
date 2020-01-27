@@ -1,9 +1,10 @@
 //THIS MUST BE UPDATE IN THE THEMES SECTION OF CANVAS
 /*EvaluationKIT START*/
+var BETA = false;
 if (window.location.href.includes("btech.beta.instructure.com")) {
-	const BETA = true;
+	BETA = true;
 } else {
-	const BETA = false;
+	BETA = false;
 }
 var FEATURES = {}; //currently unused, but may be a way to better manage features
 
@@ -32,16 +33,29 @@ add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import_pilot.js");
 $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
+	let currentUser = parseInt(ENV.current_user.id);
+	//JUST ME
+  if (currentUser === 1893418) {
+
+	}
+
 	//BETA
 	if (BETA) {
 		feature("gen_rubric_comment");
 	}
+
 	//GENERAL FEATURES
 
-	//DEPARTMENT SPECIFIC IMPORTS
+	//LIMITED FEATURES
 	let rCheckInCourse = /^\/courses\/([0-9]+)/;
 	if (rCheckInCourse.test(window.location.pathname)) {
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
+		//COURSE SPECIFIC FEATURES
+		if (courseId === 489538) { //IV Therapy
+			feature("change_2019_to_2019-2020");
+		}
+		
+		//DEPARTMENT SPECIFIC IMPORTS
 		let departmentId = 0;
 		for (let d in COURSE_LIST) {
 			if (COURSE_LIST[d].includes(courseId)) {
@@ -50,12 +64,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 			}
 		}
 		if (departmentId === 3824) { // DENTAL
-			feature("highlighted_grades_page_items")
-		}
-
-		//COURSE SPECIFIC FEATURES
-		if (courseId === 489538) {
-			feature("change_2019_to_2019-2020");
+			feature("highlighted_grades_page_items");
+			feature("speed_grader_screen_split");
 		}
 	}
 });
