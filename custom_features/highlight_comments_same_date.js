@@ -1,4 +1,5 @@
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
+  console.log("HIGHLIGHTS");
   async function hoverByClass(classname,colorover,colorout="transparent"){
     console.log("TEST");
     let comments = await getElement("." + classname);
