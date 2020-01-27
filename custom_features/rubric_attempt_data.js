@@ -2,18 +2,6 @@
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
   var attempts = 0;
   async function insertAttemptsData() {
-    $(".save_rubric_button").on("click", function() {
-      attempts = 0;
-      let elements = await getElement("div.comment span.comment, tr.comments");
-      elements.each(function() {
-          let checkAttempt = $(this).html().includes("RUBRIC");
-          if (checkAttempt) {
-              attempts += 1;
-          }
-      });
-      calcAttemptsData();
-      attempts += 1;
-    });
     let details = await getElement("#submission_details");
     details.after(
       `<div id="btech-attempts-data" class="content_box">
@@ -25,6 +13,14 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
   }
 
   async function calcAttemptsData() {
+    attempts = 0;
+    let elements = await getElement("div.comment span.comment, tr.comments");
+    elements.each(function() {
+        let checkAttempt = $(this).html().includes("RUBRIC");
+        if (checkAttempt) {
+            attempts += 1;
+        }
+    });
     let rubricTotal = $("[data-selenium='rubric_total']").text();
     rubricTotal = parseInt(rubricTotal.match(/([0-9]+)/)[1]);
     let suggestedScore = Math.round(rubricTotal * ((10 - attempts) / 10));
@@ -34,4 +30,8 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
   }
 
   insertAttemptsData();
+  $(".save_rubric_button").on("click", function() {
+    calcAttemptsData();
+    attempts += 1;
+  });
 }
