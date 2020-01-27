@@ -21,12 +21,14 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
             attempts += 1;
         }
     });
-    let rubricTotal = $("[data-selenium='rubric_total']").text();
-    rubricTotal = parseInt(rubricTotal.match(/([0-9]+)/)[1]);
-    let suggestedScore = Math.round(rubricTotal * ((10 - attempts) / 10));
-    $("#btech-recorded-attempts-value").text(attempts);
-    $("#btech-rubric-score-value").text(rubricTotal);
-    $("#btech-suggested-score-value").text(suggestedScore);
+    if (attempts > 0) {
+      let rubricTotal = $("[data-selenium='rubric_total']").text();
+      rubricTotal = parseInt(rubricTotal.match(/([0-9]+)/)[1]);
+      let suggestedScore = Math.round(rubricTotal * ((11 - attempts) / 10));
+      $("#btech-recorded-attempts-value").text(attempts);
+      $("#btech-rubric-score-value").text(rubricTotal);
+      $("#btech-suggested-score-value").text(suggestedScore);
+    }
   }
 
   insertAttemptsData();
