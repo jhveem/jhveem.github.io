@@ -1,11 +1,14 @@
 //THIS MUST BE UPDATE IN THE THEMES SECTION OF CANVAS
 /*EvaluationKIT START*/
-async function add_javascript_library(url) {
-	console.log("IMPORT");
+function add_javascript_library(url) {
 	var s = document.createElement("script");
 	s.setAttribute('type', 'text/javascript');
 	s.setAttribute('src', url);
 	document.getElementsByTagName('head')[0].appendChild(s);
+}
+function add_custom_feature(feature) {
+	//feature is the name of the feature file without .js, if it's in a subfolder, include that too
+	add_javascript_library("https://jhveem.github.io/custom_features/"+feature+".js");
 }
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
@@ -19,15 +22,13 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		for (let d in COURSE_LIST) {
 			if (COURSE_LIST[d].includes(courseId)) {
 				departmentId = parseInt(d);
-				console.log(d);
 				break;
 			}
 		}
 		if (departmentId === 3824) { // DENTAL
-			console.log("DENTAL");
+			add_custom_feature("highlighted_grades_page_items")
 		}
 	}
-	console.log(COURSE_LIST);
 });
 
 /*EvaluationKIT END*/
