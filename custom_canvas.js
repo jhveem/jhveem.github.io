@@ -29,6 +29,13 @@ $.put = function(url, data){
   });
 }
 
+$.delete= function(url, data){
+  return $.ajax({
+    url: url,
+    type: 'DELETE'
+  });
+}
+
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import_pilot.js");
