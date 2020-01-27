@@ -12,7 +12,7 @@ function add_custom_feature(feature) {
 }
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
-add_javascript_library("https://jhveem.github.io/custom_canvas_import_beta.js");
+add_javascript_library("https://jhveem.github.io/custom_canvas_import_pilot.js");
 $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	//DEPARTMENT SPECIFIC IMPORTS
 	let rCheckInCourse = /^\/courses\/([0-9]+)/;
@@ -27,6 +27,10 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		}
 		if (departmentId === 3824) { // DENTAL
 			add_custom_feature("highlighted_grades_page_items")
+		}
+		//COURSE SPECIFIC FEATURES
+		if (courseId === 489538) {
+			add_custom_feature("change_2019_to_2019-2020");
 		}
 	}
 });
