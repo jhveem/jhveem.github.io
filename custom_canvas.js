@@ -1,16 +1,34 @@
 //THIS MUST BE UPDATE IN THE THEMES SECTION OF CANVAS
 /*EvaluationKIT START*/
-function add_javascript_library(url) {
+async function add_javascript_library(url) {
+	console.log("IMPORT");
 	var s = document.createElement("script");
 	s.setAttribute('type', 'text/javascript');
 	s.setAttribute('src', url);
 	document.getElementsByTagName('head')[0].appendChild(s);
-	return s;
 }
-
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import_beta.js");
+$.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
+	//DEPARTMENT SPECIFIC IMPORTS
+	let rCheckInCourse = /^\/courses\/([0-9]+)/;
+	if (rCheckInCourse.test(window.location.pathname)) {
+		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
+		let departmentId = 0;
+		for (let d in COURSE_LIST) {
+			if (COURSE_LIST[d].includes(courseId)) {
+				departmentId = parseInt(d);
+				console.log(d);
+				break;
+			}
+		}
+		if (departmentId === 3824) { // DENTAL
+			console.log("DENTAL");
+		}
+	}
+	console.log(COURSE_LIST);
+});
 
 /*EvaluationKIT END*/
 
