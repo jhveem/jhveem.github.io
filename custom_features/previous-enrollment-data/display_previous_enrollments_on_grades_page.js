@@ -27,6 +27,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                   let final_score = enrollment["final_grade"];
                   let datePieces = dateString.split('-');
                   let date = new Date(datePieces[2], parseInt(datePieces[1]) - 1, datePieces[0]);
+                  console.log(date);
                   dates.push({"date": date, "score": score, "final_score": final_score});
               }
               if (dates.length > 0) {
