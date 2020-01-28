@@ -8,6 +8,8 @@ if (window.location.href.includes("btech.beta.instructure.com")) {
 }
 var FEATURES = {}; //currently unused, but may be a way to better manage features
 
+var MONTH_NAMES_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
 function add_javascript_library(url) {
 	var s = document.createElement("script");
 	s.setAttribute('type', 'text/javascript');
@@ -15,11 +17,15 @@ function add_javascript_library(url) {
 	document.getElementsByTagName('head')[0].appendChild(s);
 }
 
-function feature(feature, data={}) {
+function feature(f, data={}) {
 	//feature is the name of the feature file without .js, if it's in a subfolder, include that too
 	//potentially flesh out these files so they're objects with methods. Then call an init function on load with the data variable having all the custom variables needed for each department
 	//if you go this route, you could save each feature in a dict with the string provided here as the key and then in the feature itself, store itself in the dict
-	add_javascript_library("https://jhveem.github.io/custom_features/"+feature+".js");
+	add_javascript_library("https://jhveem.github.io/custom_features/"+f+".js");
+}
+
+function featureBeta(f, data={}) {
+	if (BETA) feature(f, data);
 }
 
 $.put = function(url, data){
@@ -46,12 +52,9 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 
 	}
 
-	//BETA
-	if (BETA) {
-		feature("gen_rubric_comment");
-	}
-
 	//GENERAL FEATURES
+	featureBeta("gen_rubric_comment");
+	featureBeta("previous-enrollment-data/save_on_conclude");
 
 	//LIMITED FEATURES
 	let rCheckInCourse = /^\/courses\/([0-9]+)/;
@@ -64,6 +67,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		
 		//DEPARTMENT SPECIFIC IMPORTS
 		let departmentId = 0;
+		//DETERMINE CURRENT DEPARTMENT FROM DEPARTMENT LIST
 		for (let d in COURSE_LIST) {
 			if (COURSE_LIST[d].includes(courseId)) {
 				departmentId = parseInt(d);
@@ -73,8 +77,9 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		if (departmentId === 3824) { // DENTAL
 			feature("highlighted_grades_page_items");
 			feature("speed_grader_screen_split");
-			if (BETA) feature("rubric_attempt_data");
-			if (BETA) feature("highlight_comments_same_date");
+			featureBeta("rubric_attempt_data");
+			featureBeta("highlight_comments_same_date");
+			featureBeta("previous-enrollment-data/display_previous_enrollments_on_grades_page");
 		}
 	}
 });

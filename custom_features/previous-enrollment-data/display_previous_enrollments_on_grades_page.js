@@ -1,6 +1,5 @@
 if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
   //talk to alex and get the adding of data on conclusion to the jenzabar code. SHOULD be just a single line or two of code
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
   function getPreviousEnrollmentGrades() {
       let regex = /courses\/([0-9]+)\/grades\/([0-9]+)/;
       let courseId = parseInt(window.location.pathname.match(regex)[1]);
@@ -57,7 +56,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                           enrollmentTermScore = enrollmentTermScore.toFixed(2)
                       }
                       if (date !== "Current") {
-                          formattedDate = monthNames[date.getMonth()] + " " + date.getDay() + ", " + date.getFullYear();
+                          formattedDate = MONTH_NAMES_SHORT[date.getMonth()] + " " + date.getDay() + ", " + date.getFullYear();
                       }
                       let html = `<tr><th scope="row">` + formattedDate + `</th>`;
                       if(!isNaN(enrollmentTermScore)) {
