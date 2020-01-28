@@ -57,7 +57,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                           enrollmentTermScore = enrollmentTermScore.toFixed(2)
                       }
                       if (date !== "Current") {
-                          formattedDate = MONTH_NAMES_SHORT[date.getMonth()] + " " + date.getDay() + ", " + date.getFullYear();
+                          formattedDate = MONTH_NAMES_SHORT[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
                       }
                       let html = `<tr><th scope="row">` + formattedDate + `</th>`;
                       if(!isNaN(enrollmentTermScore)) {
