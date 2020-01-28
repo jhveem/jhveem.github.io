@@ -1,18 +1,19 @@
 async function hoverByClass(classname,colorover,colorout="transparent"){
-let comments = await getElement("." + classname);
-comments.each(function() {
-    $(this).mouseover(function() {
-        $("." + classname + "").each(function() {
-            $(this).css("background-color", colorover);
+    let comments = await getElement("." + classname);
+    comments.each(function() {
+        $(this).mouseover(function() {
+            $("." + classname + "").each(function() {
+                $(this).css("background-color", colorover);
+            });
+        });
+        $(this).mouseout(function() {
+            $("." + classname + "").each(function() {
+                $(this).css("background-color", "transparent");
+            });
         });
     });
-    $(this).mouseout(function() {
-        $("." + classname + "").each(function() {
-            $(this).css("background-color", "transparent");
-        });
-    });
-});
 }
+
 async function prepComments(commentSelector) {
     let comments = await getElement(commentSelector);
     let dates = [];
