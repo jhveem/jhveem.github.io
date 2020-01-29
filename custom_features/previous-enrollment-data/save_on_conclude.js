@@ -34,9 +34,9 @@ if (/^\/courses\/[0-9]+\/users\/[0-9]+/.test(window.location.pathname)) {
     function collectEnrollmentData() {
         let courseId = ENV.COURSE_ID;
         let userId = ENV.USER_ID;
-        let url = "/api/v1/courses/"+courseId+"/enrollments?user_id=" + userId;
+        let url = "/api/v1/courses/"+courseId+"/users?user_ids[]=" + userId + "&include[]=enrollments";
         $.get(url, function(data) {
-            let grades = data[0].grades;
+            let grades = data[0].enrollments[0].grades;
             STUDENT_CURRENT_SCORE = grades.current_score;
             STUDENT_FINAL_SCORE = grades.final_score;
         });
