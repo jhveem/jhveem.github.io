@@ -1,3 +1,4 @@
+//NEEDS PAGINATION ADDED
 if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
   let courseId = ENV.courses_with_grades[0].id;
   let studentId = ENV.students[0].id;
@@ -18,7 +19,6 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
               includedAssignments.push(submission.assignment_id);
           }
       }
-      console.log(includedAssignments);
       let gradesData = {};
       let assignmentGroups = ENV.assignment_groups;
       let finalScore = 0;
@@ -43,9 +43,6 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                   //console.log($("#submission_"+id).html());
               }
           }
-          console.log(score);
-          console.log(total);
-          console.log(group.group_weight);
           if (total > 0) {
               let groupPerc = (score / total);
               finalTotalScore += group.group_weight;
@@ -61,12 +58,9 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
       $("#btech-term-grade-value").text(outputScore);
   }
   $.get(url, data_obj, function(data) {
-      console.log(data);
       let enrollmentStartDate = new Date(data[0].enrollments[0].updated_at);
       let dateStringEnrollment = enrollmentStartDate.getFullYear() + "-" + ("0" + (enrollmentStartDate.getMonth() + 1)).slice(-2) + "-" + ("0" + enrollmentStartDate.getDate()).slice(-2);
       let dateStringNow = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
-      console.log(dateStringEnrollment);
-      console.log(enrollmentStartDate);
       let url = "/api/v1/courses/"+courseId+"/students/submissions";
       let data_obj = {
           "per_page": 100,
@@ -75,6 +69,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
       };
       $.get(url, data_obj, function(data, status, xhr) {
           //GET ASSIGNMENT WEIGHTS
+          //pagination!
           studentAssignmentsData = data;
           console.log(xhr.getResponseHeader("Link"));
       $("#student-grades-right-content").append(`
