@@ -78,7 +78,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
   <p>Calculate the student's grade based on assignments submitted between two dates.</p>
   <input type="date" id="btech-term-grade-start" name="term-start" value="` + dateStringEnrollment + `" min="2010-01-01" max="2020-12-31">
   <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
-  <button class="fOyUs_bGBk eHiXd_bGBk eHiXd_bXiG eHiXd_ycrn eHiXd_bNlk eHiXd_cuTS" id="btech-term-grade-button">Calculate</button>
+  <button class="Button" id="btech-term-grade-button">Calculate</button>
   <p>Grade for term: <span id="btech-term-grade-value"></span></p>
   </div>
   `);
