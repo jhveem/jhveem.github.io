@@ -28,6 +28,11 @@ function featureBeta(f, data={}) {
 	if (BETA) feature(f, data);
 }
 
+//USED TO TEST IN A SINGLE COURSE
+function featurePilot(f, courseId, pilotCourseId, data={}) {
+	if (courseId === pilotCourseId) feature(f, data);
+}
+
 $.put = function(url, data){
   return $.ajax({
     url: url,
@@ -54,16 +59,13 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 
 	//GENERAL FEATURES
 	featureBeta("gen_rubric_comment");
-	featureBeta("previous-enrollment-data/save_on_conclude");
 
 	//LIMITED FEATURES
 	let rCheckInCourse = /^\/courses\/([0-9]+)/;
 	if (rCheckInCourse.test(window.location.pathname)) {
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 		//COURSE SPECIFIC FEATURES
-		if (courseId === 489538) { //IV Therapy
-			feature("change_2019_to_2019-2020");
-		}
+		featurePilot("change_2019_to_2019-2020", courseId, 489538);
 		
 		//DEPARTMENT SPECIFIC IMPORTS
 		let departmentId = 0;
@@ -79,7 +81,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 			feature("speed_grader_screen_split");
 			featureBeta("rubric_attempt_data");
 			featureBeta("highlight_comments_same_date");
-			featureBeta("previous-enrollment-data/display_previous_enrollments_on_grades_page");
+			featureBeta("previous-enrollment-data/previous_enrollment_period_grades");
 		}
 	}
 });
