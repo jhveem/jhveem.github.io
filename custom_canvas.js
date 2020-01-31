@@ -64,11 +64,6 @@ add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import_pilot.js");
 $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	let currentUser = parseInt(ENV.current_user.id);
-	//JUST ME
-  if (currentUser === 1893418) {
-
-	}
-	featureCDD("rubrics/sortable")
 
 	//GENERAL FEATURES
 	featureBeta("gen_rubric_comment");
@@ -97,6 +92,12 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 			featureBeta("previous-enrollment-data/previous_enrollment_period_grades");
 		}
 	}
+	//JUST ME
+  if (currentUser === 1893418) {
+
+	}
+	//CDD ONLY
+	featureCDD("rubrics/sortable", currentUser);
 });
 
 /*EvaluationKIT END*/

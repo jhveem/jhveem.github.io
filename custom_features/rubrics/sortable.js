@@ -1,4 +1,5 @@
 if (window.location.pathname.includes("/rubrics") === true || window.location.pathname.includes("/assignments/") === true) {
+  console.log("RUBRICS");
   function pastToPresent(verb) {
     let newVerb = '';
     let vowels = ['a', 'e', 'i', 'o', 'u'];
