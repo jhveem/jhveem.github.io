@@ -61,6 +61,7 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
     $('table.rubric_table tbody').sortable();
   }
   function attachButton() {
+    console.log("ADDED");
     makeSortable(); //only line needed to make rubrics sortable
     //Everything below this is only for Instructional Designers. It adds stuff to auto fill rubrics but is not useful for most courses.
     $('table.rubric_table tbody').children('tr').each(function(element) {
