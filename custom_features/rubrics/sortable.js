@@ -90,6 +90,6 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
         }
       });
     });
-    waitForKeyElements('#add_learning_outcome_link', attachButton);
   }
+  waitForKeyElements('#add_learning_outcome_link', attachButton);
 }
