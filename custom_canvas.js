@@ -66,7 +66,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	let currentUser = parseInt(ENV.current_user.id);
 
 	//GENERAL FEATURES
-	featureBeta("gen_rubric_comment");
+	featureBeta("rubrics/gen_comment");
 
 	//LIMITED FEATURES
 	let rCheckInCourse = /^\/courses\/([0-9]+)/;
@@ -87,7 +87,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		if (departmentId === 3824) { // DENTAL
 			feature("highlighted_grades_page_items");
 			feature("speed_grader_screen_split");
-			featureBeta("rubric_attempt_data");
+			featureBeta("rubric/attempts_data");
 			featureBeta("highlight_comments_same_date");
 			featureBeta("previous-enrollment-data/previous_enrollment_period_grades");
 		}
