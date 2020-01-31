@@ -33,6 +33,18 @@ function featurePilot(f, courseId, pilotCourseId, data={}) {
 	if (courseId === pilotCourseId) feature(f, data);
 }
 
+function featureCDD(f, userId, data={}) {
+	let cddIds = [
+		1893418, //Josh 
+		1864953, //Danni
+		1891741, //Katie
+		1638854, //Mason
+		1922029, //Makenzie
+		1900206 //Tess
+	];
+	if (cddIds.includes(userId)) feature(f, data);
+}
+
 $.put = function(url, data){
   return $.ajax({
     url: url,
@@ -56,6 +68,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
   if (currentUser === 1893418) {
 
 	}
+	featureCDD("rubrics/sortable")
 
 	//GENERAL FEATURES
 	featureBeta("gen_rubric_comment");
@@ -81,7 +94,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 			feature("speed_grader_screen_split");
 			featureBeta("rubric_attempt_data");
 			featureBeta("highlight_comments_same_date");
-			//featureBeta("previous-enrollment-data/previous_enrollment_period_grades");
+			featureBeta("previous-enrollment-data/previous_enrollment_period_grades");
 		}
 	}
 });
