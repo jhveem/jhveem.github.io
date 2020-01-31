@@ -81,7 +81,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 			feature("speed_grader_screen_split");
 			featureBeta("rubric_attempt_data");
 			featureBeta("highlight_comments_same_date");
-			featureBeta("previous-enrollment-data/previous_enrollment_period_grades");
+			//featureBeta("previous-enrollment-data/previous_enrollment_period_grades");
 		}
 	}
 });

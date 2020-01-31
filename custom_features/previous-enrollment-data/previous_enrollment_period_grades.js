@@ -9,8 +9,18 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
       user_ids: [studentId],
       enrollment_state: ["active", "invited", "rejected", "completed", "inactive"]
   };
+    $("table#grades_summary tbody").attr("id", "btech-original-grades-body");
+    $("table#grades_summary").append("<tbody id='btech-enrollment-grades-body'></tbody>");
 
   function calcEnrollmentGrade(studentAssignmentsData, startDate, endDate) {
+      //reset display of assigment elements
+      let originalBody = $("#btech-original-grades-body");
+      originalBody.hide();
+      let newBody = $("#btech-enrollment-grades-body");
+      newBody.empty();
+      newBody.show();
+
+      //figure out which assignments should be included
       let includedAssignments = [];
       for (let i = 0; i < studentAssignmentsData.length; i++) {
           let submission = studentAssignmentsData[i];
@@ -19,6 +29,8 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
               includedAssignments.push(submission.assignment_id);
           }
       }
+
+      //Go through each assignment group and figure out the points value of the included assignments that are in those groups
       let gradesData = {};
       let assignmentGroups = ENV.assignment_groups;
       let finalScore = 0;
@@ -31,8 +43,9 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
           for (let a = 0; a < assignments.length; a++) {
               let assignment = assignments[a];
               let id = parseInt(assignment.id);
+              let submissionElement = $("#submission_"+id);
               if (includedAssignments.includes(id)) {
-                  let submissionElement = $("#submission_"+id);
+                  submissionElement.clone().appendTo(newBody);
                   let currentScoreString = submissionElement.find("td.assignment_score span.original_points").text().trim();
                   let parsedScore = parseFloat(currentScoreString);
                   if (!isNaN(parsedScore)) {
@@ -72,22 +85,40 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
           //pagination!
           studentAssignmentsData = data;
           console.log(xhr.getResponseHeader("Link"));
-      $("#student-grades-right-content").append(`
-  <div>
-  <br><br>
-  <p>Calculate the student's grade based on assignments submitted between two dates.</p>
-  <input type="date" id="btech-term-grade-start" name="term-start" value="` + dateStringEnrollment + `" min="2010-01-01" max="2020-12-31">
-  <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
-  <button class="Button" id="btech-term-grade-button">Calculate</button>
-  <p>Grade for term: <span id="btech-term-grade-value"></span></p>
-  </div>
-  `);
-      $("#btech-term-grade-button").on("click", function() {
-          let startDate = new Date($("#btech-term-grade-start").val());
-          let endDate = new Date($("#btech-term-grade-end").val());
-          calcEnrollmentGrade(studentAssignmentsData, startDate, endDate);
-      });
-          
+          $("#student-grades-right-content").append(`
+<div>
+<br><br>
+<h2>Grade for Submissions Between Dates</h2> <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
+<p>Start Date</p>
+<input type="date" id="btech-term-grade-start" name="term-start" value="` + dateStringEnrollment + `" min="2010-01-01" max="2020-12-31">
+<p>End Date</p>
+<input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
+<button class="Button" id="btech-term-grade-button">Estimate</button>
+<button class="Button" id="btech-term-reset-button">Reset</button>
+<p>Grade for term: <span id="btech-term-grade-value"></span></p>
+</div>
+`);
+          $("#btech-term-grade-button").on("click", function() {
+              let startDate = parseDate($("#btech-term-grade-start").val());
+              let endDate = parseDate($("#btech-term-grade-end").val());
+              calcEnrollmentGrade(studentAssignmentsData, startDate, endDate);
+          });
+          $("#btech-term-reset-button").on("click", function() {
+              let originalBody = $("#btech-original-grades-body");
+              originalBody.show();
+              let newBody = $("#btech-enrollment-grades-body");
+              newBody.empty();
+              newBody.hide();
+              $("#btech-term-grade-value").empty();
+          });
       });
   });
+    function parseDate(dateString) {
+        let pieces = dateString.split("-");
+        let year = parseInt(pieces[0]);
+        let month = parseInt(pieces[1] - 1);
+        let day = parseInt(pieces[2]) + 1;
+        let date = new Date(year, month, day);
+        return date;
+    }
 }
