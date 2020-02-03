@@ -41,7 +41,11 @@ function feature(f, data={}) {
 	//feature is the name of the feature file without .js, if it's in a subfolder, include that too
 	//potentially flesh out these files so they're objects with methods. Then call an init function on load with the data variable having all the custom variables needed for each department
 	//if you go this route, you could save each feature in a dict with the string provided here as the key and then in the feature itself, store itself in the dict
-	add_javascript_library("https://jhveem.github.io/custom_features/"+f+".js");
+	$.getScript("https://jhveem.github.io/custom_features/"+f+".js").done(function() {
+		if (f in FEATURES) {
+			FEATURES[f]._init(data);
+		}
+	});
 }
 
 function featureBeta(f, data={}) {

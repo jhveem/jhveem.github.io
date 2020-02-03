@@ -101,6 +101,4 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
       });
     }
   }
-
-  FEATURES[url]._init();
 }
