@@ -74,6 +74,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 		//COURSE SPECIFIC FEATURES
 		featurePilot("change_2019_to_2019-2020", courseId, 489538);
+		featurePilot("rubric/attempts_data", courseId, 498455);
+		featurePilot("highlight_comments_same_data", courseId, 498455);
 		
 		//DEPARTMENT SPECIFIC IMPORTS
 		let departmentId = 0;
