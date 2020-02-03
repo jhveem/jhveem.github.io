@@ -76,7 +76,7 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
         let toolList = $(this).find('td.criterion_description div.editing');
         let criteriaDescription = $(this).find('td.criterion_description span.description_title').text();
         toolList.find('button.fill_ratings').remove();
-        let deletIcon = toolList.find("a.delete_criterion_link");
+        let deleteIcon = toolList.find("a.delete_criterion_link");
         deleteIcon.after('<button class="fill_ratings">+</button>');
         toolList.find('.fill_ratings').click({parent: this, criteria: criteriaDescription}, function(event) {
           let parent = event.data.parent;
