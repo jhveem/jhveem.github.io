@@ -1,5 +1,4 @@
 if (window.location.pathname.includes("/rubrics") === true || window.location.pathname.includes("/assignments/") === true) {
-  console.log("RUBRICS");
   function pastToPresent(verb) {
     let newVerb = '';
     let vowels = ['a', 'e', 'i', 'o', 'u'];
@@ -36,6 +35,7 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
     output = original;
     return output;
   }
+
   function createModeratelySkilled(original) {
     let pos = original.indexOf('tudent') + 7;
     let trimmed = trimCriteria(original);
@@ -57,9 +57,11 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
     let output = [trimmed.slice(0, pos), 'was unable to ', trimmed.slice(pos)].join('');
     return output;
   }
+
   function makeSortable() {
     $('table.rubric_table tbody').sortable();
   }
+
   function attachButton() {
     console.log("ADDED");
     makeSortable(); //only line needed to make rubrics sortable
@@ -91,5 +93,11 @@ if (window.location.pathname.includes("/rubrics") === true || window.location.pa
       });
     });
   }
-  waitForKeyElements('#add_learning_outcome_link', attachButton);
+
+  async function run() {
+    await getElement("#add_learning_outcome_link");
+    attachButton();
+  }
+
+  run();
 }

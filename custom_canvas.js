@@ -10,6 +10,26 @@ var FEATURES = {}; //currently unused, but may be a way to better manage feature
 
 var MONTH_NAMES_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
+async function delay(ms) {
+    // return await for better async stack trace support in case of errors.
+    return await new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getElement(selectorText, iframe="") {
+    let element;
+    if (iframe === "") {
+        element = $(selectorText);
+    } else {
+        element = $(iframe).contents().find(selectorText);
+    }
+    if (element.length > 0) {
+        return element;
+    } else {
+        await delay(1000);
+        return getElement(selectorText, iframe);
+    }
+}
+
 function add_javascript_library(url) {
 	var s = document.createElement("script");
 	s.setAttribute('type', 'text/javascript');
@@ -72,10 +92,12 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	let rCheckInCourse = /^\/courses\/([0-9]+)/;
 	if (rCheckInCourse.test(window.location.pathname)) {
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
+
 		//COURSE SPECIFIC FEATURES
 		featurePilot("change_2019_to_2019-2020", courseId, 489538);
-		featurePilot("rubric/attempts_data", courseId, 498455);
-		featurePilot("highlight_comments_same_data", courseId, 498455);
+		featurePilot("rubrics/attempts_data", courseId, 498455);
+		featurePilot("rubrics/gen_comment", courseId, 498455);
+		featurePilot("highlight_comments_same_date", courseId, 498455);
 		
 		//DEPARTMENT SPECIFIC IMPORTS
 		let departmentId = 0;
@@ -89,15 +111,15 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		if (departmentId === 3824) { // DENTAL
 			feature("highlighted_grades_page_items");
 			feature("speed_grader_screen_split");
-			featureBeta("rubric/attempts_data");
-			featureBeta("highlight_comments_same_date");
 			featureBeta("previous-enrollment-data/previous_enrollment_period_grades");
 		}
 	}
+
 	//JUST ME
   if (currentUser === 1893418) {
 
 	}
+
 	//CDD ONLY
 	featureCDD("rubrics/sortable", currentUser);
 });
