@@ -55,10 +55,15 @@ if (/^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/.test(window.location.pathname)) 
         }
       });
       courseNames.sort();
+      let currentCourseName = $($("#breadcrumbs li")[1]).find(".ellipsible").text().trim();
       for (let i = 0; i < courseNames.length; i++) {
         let courseName = courseNames[i];
         let courseBankSelectorId = "btech-bank-course-"+courseName.replace(" ", "-");
-        courseList.append($("#"+courseBankSelectorId));
+        if (courseName === currentCourseName) {
+          courseList.prepend($("#"+courseBankSelectorId));
+        } else {
+          courseList.append($("#"+courseBankSelectorId));
+        }
       }
     }
   }
