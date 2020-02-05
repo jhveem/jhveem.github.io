@@ -1,5 +1,5 @@
 if (/^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/.test(window.location.pathname)) {
-  let url = "quizzes/question_banks_sorter";
+  let url = "quizzes/question_bank_sorter";
   FEATURES[url] = {
       _init: async function() {
           let feature = this; //allows to call the feature's methods from within functions
