@@ -59,10 +59,12 @@ if (/^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/.test(window.location.pathname)) 
       for (let i = 0; i < courseNames.length; i++) {
         let courseName = courseNames[i];
         let courseBankSelectorId = "btech-bank-course-"+courseName.replace(" ", "-");
+        let courseBankSelector = $("#"+courseBankSelectorId);
         if (courseName === currentCourseName) {
-          courseList.prepend($("#"+courseBankSelectorId));
+          courseList.prepend(courseBankSelector);
+          courseBankSelector.after("<li></li>")
         } else {
-          courseList.append($("#"+courseBankSelectorId));
+          courseList.append(courseBankSelectorId);
         }
       }
     }
