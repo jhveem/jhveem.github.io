@@ -57,7 +57,7 @@ function featurePilot(f, courseId, pilotCourseId, data={}) {
 	if (courseId === pilotCourseId) feature(f, data);
 }
 
-function featureCDD(f, userId, data={}) {
+function featureCDD(f, data={}) {
 	let cddIds = [
 		1893418, //Josh 
 		1864953, //Danni
@@ -66,6 +66,7 @@ function featureCDD(f, userId, data={}) {
 		1922029, //Makenzie
 		1900206 //Tess
 	];
+	let userId = parseInt(ENV.current_user.id);
 	if (cddIds.includes(userId)) feature(f, data);
 }
 
@@ -98,10 +99,10 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 
 		//COURSE SPECIFIC FEATURES
-		featurePilot("change_2019_to_2019-2020", courseId, 489538);
-		featurePilot("rubrics/attempts_data", courseId, 498455);
-		featurePilot("rubrics/gen_comment", courseId, 498455);
-		featurePilot("highlight_comments_same_date", courseId, 498455);
+		featurePilot("change_2019_to_2019-2020", courseId, 489538); //IV Therapy
+		featurePilot("rubrics/attempts_data", courseId, 498455); //Dental 1010 pilot
+		featurePilot("rubrics/gen_comment", courseId, 498455); //Dental 1010 pilot
+		featurePilot("highlight_comments_same_date", courseId, 498455); //Dental 1010 pilot
 		
 		//DEPARTMENT SPECIFIC IMPORTS
 		let departmentId = 0;
@@ -125,7 +126,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	}
 
 	//CDD ONLY
-	featureCDD("rubrics/sortable", currentUser);
+	featureCDD("rubrics/sortable");
+	featureCDD("quizzes/question_bank_sorter");
 });
 
 /*EvaluationKIT END*/
@@ -135,4 +137,3 @@ window.ALLY_CFG = {
     'clientId': 1164
 };
 $.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
-

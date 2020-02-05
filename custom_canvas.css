@@ -16,6 +16,26 @@
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+ul.btech-question-banks-sorter {
+  list-style-type: none;
+  display: inline-block;
+}
+ul.btech-question-banks-sorter li {
+  border-radius: 3px;
+  padding: 4px 5px;
+ cursor: pointer;
+  margin: 0 20px;
+  border-bottom: 1px dotted #ccc;
+}
+ul.btech-question-banks-sorter li:hover {
+ background-color: #eee;
+}
+
+ul.btech-question-banks-sorter li.selected{
+ background-color: #ccc;
+}
+
+
 /* Modal Content */
 .btech-modal-content {
   background-color: #fefefe;
