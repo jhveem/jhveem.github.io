@@ -19,19 +19,20 @@
 ul.btech-question-banks-sorter {
   list-style-type: none;
   display: inline-block;
+  margin: 0px;
 }
-ul.btech-question-banks-sorter li {
+ul.btech-question-banks-sorter li.course {
   border-radius: 3px;
   padding: 4px 5px;
- cursor: pointer;
+  cursor: pointer;
   margin: 0 20px;
   border-bottom: 1px dotted #ccc;
 }
-ul.btech-question-banks-sorter li:hover {
- background-color: #eee;
+ul.btech-question-banks-sorter li.course:hover {
+ background-color: #e8e8e8;
 }
 
-ul.btech-question-banks-sorter li.selected{
+ul.btech-question-banks-sorter li.course.selected{
  background-color: #ccc;
 }
 

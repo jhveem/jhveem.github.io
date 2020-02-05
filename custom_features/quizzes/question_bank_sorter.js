@@ -32,7 +32,7 @@ if (/^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/.test(window.location.pathname)) 
           let courseBankListId = "btech-bank-list-"+courseName.replace(" ", "-");
           if (!courseNames.includes(courseName)) {
             courseNames.push(courseName);
-            courseList.append("<li id='"+courseBankSelectorId+"'>"+courseName+"</li>");
+            courseList.append("<li class='btech-bank-course' id='"+courseBankSelectorId+"'>"+courseName+"</li>");
             let courseBankSelector = $("#"+courseBankSelectorId);
 
             displayLists.append("<ul class='btech-question-banks-sorter' id='"+courseBankListId+"'></ul>");
