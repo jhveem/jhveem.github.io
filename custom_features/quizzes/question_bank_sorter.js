@@ -64,7 +64,7 @@ if (/^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/.test(window.location.pathname)) 
           courseList.prepend(courseBankSelector);
           courseBankSelector.after("<li></li>")
         } else {
-          courseList.append(courseBankSelectorId);
+          courseList.append(courseBankSelector);
         }
       }
     }
