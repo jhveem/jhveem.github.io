@@ -13,7 +13,8 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
         async setAssignmentSubmittedDateHeader(selectorText, iframe="") {
             let elements = await getElement(selectorText, iframe);
             elements.each(function() {
-                this.html(this.html().replace(/([A-Z][a-z]+) ([0-9]+) at/, "$1 $2, 2020 at"));
+                let element = $(this);
+                element.html(element.html().replace(/([A-Z][a-z]+) ([0-9]+) at/, "$1 $2, 2020 at"));
             });
         }
     }
