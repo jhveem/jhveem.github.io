@@ -43,7 +43,12 @@ function feature(f, data={}) {
 	//if you go this route, you could save each feature in a dict with the string provided here as the key and then in the feature itself, store itself in the dict
 	$.getScript("https://jhveem.github.io/custom_features/"+f+".js").done(function() {
 		if (f in FEATURES) {
-			FEATURES[f]._init(data);
+			let feature = FEATURES[f];
+			//make sure it hasn't already been called to avoid messing up the page
+			if (feature.initiated === false) {
+				feature.initiated = true;
+				feature._init(data);
+			}
 		}
 	});
 }

@@ -1,11 +1,9 @@
 if (/^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/.test(window.location.pathname)) {
   let url = "quizzes/question_bank_sorter";
   FEATURES[url] = {
+    initiated: false,
     _init: async function() {
       let feature = this; //allows to call the feature's methods from within functions
-      let bankWidget = await getElement("#find_bank_dialog");
-      //bankWidget.prepend("<button id='btech-sort-question-banks'>Sort</button>");
-      let container = $("#find_bank_dialog div.find_banks");
       let bankList = $("#find_bank_dialog ul.bank_list");
       bankList.before("<table><tbody><tr id='btech-banks-table'><td style='vertical-align: top;'><ul style='position: -webkit-sticky; position:sticky; top: 0;' class='btech-question-banks-sorter' id='btech-bank-courses'></ul></td><td id='btech-bank-display'></td></tr></tbody></table>");
       var observer = new MutationObserver(function() {
@@ -16,6 +14,7 @@ if (/^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/.test(window.location.pathname)) 
       });
       observer.observe(bankList[0], {'childList': true});
     },
+
     sortList: function() {
       //let table = $("#btech-banks-table");
       let courseList = $("#btech-bank-courses");
