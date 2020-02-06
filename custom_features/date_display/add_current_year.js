@@ -6,7 +6,7 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
         async _init() {
             let feature = this;
             feature.setAssignmentSubmittedDateHeader("span.submission-details-header__time");
-            feature,setAssignmentSubmittedDateHeader("div.quiz-submission.headless", "#preview_frame");
+            feature.setAssignmentSubmittedDateHeader("div.quiz-submission.headless", "#preview_frame");
         },
         
         async setAssignmentSubmittedDateHeader(selectorText, iframe="") {
