@@ -24,25 +24,6 @@ function addMenuItem(linkText, linkhref) {
 	$('#section-tabs').append(itemHtml);
 }
 
-async function delay(ms) {
-  // return await for better async stack trace support in case of errors.
-  return await new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function getElement(selectorText, iframe="") {
-  let element;
-  if (iframe === "") {
-      element = $(selectorText);
-  } else {
-      element = $(iframe).contents().find(selectorText);
-  }
-  if (element.length > 0 && element.html().trim() !== "") {
-      return element;
-  } else {
-      await delay(1000);
-      return getElement(selectorText, iframe);
-  }
-}
 
 //zoom into picture on hover
 $('span.avatar').hover(function() {
