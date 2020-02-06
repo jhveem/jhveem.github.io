@@ -2,16 +2,17 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
   let url = "date_display/add_current_year_speed_grader"; 
   FEATURES[url] = {
     initiated: false, 
+    oldHref: "",
     async _init() { 
       let feature = this;
+      feature.oldHref = document.location.href,
       window.onload = function() {
         var
-        oldHref = document.location.href,
         bodyList = document.querySelector("#right_side"),
         observer = new MutationObserver(function(mutations) {
           mutations.forEach(function(mutation) {
-            if (oldHref != document.location.href) {
-              oldHref = document.location.href;
+            if (feature.oldHref !== document.location.href) {
+              feature.oldHref = document.location.href;
               feature.checkElements();
             }
           });
@@ -25,6 +26,7 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
       feature.checkElements();
     },
     async checkElements() {
+      console.log("CHECKING ELEMENTS");
       let feature = this;
       let list = await getElement("#submission_to_view");
       list.find("option").each(function() {
