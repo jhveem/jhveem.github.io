@@ -7,11 +7,14 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
             let feature = this;
             feature.setAssignmentSubmittedDateHeader("span.submission-details-header__time");
             feature.setAssignmentSubmittedDateHeader("div.quiz-submission.headless", "#preview_frame");
+            feature.setAssignmentSubmittedDateHeader("div.quiz-submission.headless", "div.comment_list span.posted_at");
         },
         
         async setAssignmentSubmittedDateHeader(selectorText, iframe="") {
-            let header = await getElement(selectorText, iframe);
-            header.html(header.html().replace(/ubmitted ([a-z|A-Z]+) ([0-9]+) at/, "ubmitted $1 $2, 2020 at"));
+            let elements = await getElement(selectorText, iframe);
+            elements.each(function() {
+                this.html(this.html().replace(/([A-Z][a-z]+) ([0-9]+) at/, "$1 $2, 2020 at"));
+            });
         }
     }
 }
