@@ -30,18 +30,18 @@ async function delay(ms) {
 }
 
 async function getElement(selectorText, iframe="") {
-    let element;
-    if (iframe === "") {
-        element = $(selectorText);
-    } else {
-        element = $(iframe).contents().find(selectorText);
-    }
-    if (element.length > 0) {
-        return element;
-    } else {
-        await delay(1000);
-        return getElement(selectorText, iframe);
-    }
+  let element;
+  if (iframe === "") {
+      element = $(selectorText);
+  } else {
+      element = $(iframe).contents().find(selectorText);
+  }
+  if (element.length > 0 && element.html().trim() !== "") {
+      return element;
+  } else {
+      await delay(1000);
+      return getElement(selectorText, iframe);
+  }
 }
 
 //zoom into picture on hover

@@ -96,8 +96,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	let currentUser = parseInt(ENV.current_user.id);
 
 	//GENERAL FEATURES
-	feature("date_display/add_current_year_speed_grader");
-	//feature("date_display/add_current_year");
+	//feature("date_display/add_current_year_speed_grader");
+	feature("date_display/add_current_year");
 	featureBeta("rubrics/gen_comment");
 
 	//LIMITED FEATURES
