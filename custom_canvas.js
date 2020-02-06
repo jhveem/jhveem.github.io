@@ -22,7 +22,7 @@ async function getElement(selectorText, iframe="") {
     } else {
         element = $(iframe).contents().find(selectorText);
     }
-    if (element.length > 0) {
+    if (element.length > 0 && element.html().trim() !== "") {
         return element;
     } else {
         await delay(1000);
@@ -97,7 +97,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 
 	//GENERAL FEATURES
 	feature("date_display/add_current_year_speed_grader");
-	feature("date_display/add_current_year");
+	//feature("date_display/add_current_year");
 	featureBeta("rubrics/gen_comment");
 
 	//LIMITED FEATURES

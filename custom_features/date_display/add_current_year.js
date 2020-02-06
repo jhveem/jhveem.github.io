@@ -14,7 +14,7 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
             let elements = await getElement(selectorText, iframe);
             elements.each(function() {
                 let element = $(this);
-                element.html(element.html().replace(/([A-Z][a-z]+) ([0-9]+) at/, "$1 $2, 2020 at"));
+                element.html(element.html().replace(/([A-Z][a-z]+) ([0-9]+) at/g, "$1 $2, 2020 at"));
             });
         }
     }

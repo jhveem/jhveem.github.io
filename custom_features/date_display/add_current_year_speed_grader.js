@@ -25,25 +25,17 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
       };
       feature.checkElements();
     },
-    async setAssignmentSubmittedDateHeader(selectorText, iframe="") {
-      let elements = await getElement(selectorText, iframe);
-      elements.each(function() {
-        let element = $(this);
-        element.html(element.html().replace(/([A-Z][a-z]+) ([0-9]+) at/g, "$1 $2, 2020 at"));
-      });
-    },
     async checkElements() {
       let feature = this;
-      let comments = await getElement("#comments");
-      comments.find("div.comment span.posted_at").each(function() {
-        feature.addCurrentYear(this);
-      });
-      //feature.setAssignmentSubmittedDateHeader("multiple_submissions");
+      await feature.setAssignmentSubmittedDateHeader("#multiple_submissions");
+      await feature.setAssignmentSubmittedDateHeader("#comments div.comment span.posted_at");
     },
-    addCurrentYear(element) {
-      let html = $(element).html();
-      html = html.replace(/([A-Z][a-z]+) ([0-9]+) at/, "$1 $2, 2020 at");
-      $(element).html(html);
+    async setAssignmentSubmittedDateHeader(selectorText, iframe="") {
+        let elements = await getElement(selectorText, iframe);
+        elements.each(function() {
+            let element = $(this);
+            element.html(element.html().replace(/([A-Z][a-z]+) ([0-9]+) at/g, "$1 $2, 2020 at"));
+        });
     }
   }
 }
