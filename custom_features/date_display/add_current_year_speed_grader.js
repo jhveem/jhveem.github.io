@@ -26,7 +26,6 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
       feature.checkElements();
     },
     async checkElements() {
-      console.log("CHECKING ELEMENTS");
       let feature = this;
       let list = await getElement("#submission_to_view");
       list.find("option").each(function() {
