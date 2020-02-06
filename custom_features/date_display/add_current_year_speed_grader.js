@@ -2,7 +2,7 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
   let url = "date_display/add_current_year_speed_grader"; 
   FEATURES[url] = {
     initiated: false, 
-    _init() { 
+    async _init() { 
       window.onload = function() {
         var
         oldHref = document.location.href,
