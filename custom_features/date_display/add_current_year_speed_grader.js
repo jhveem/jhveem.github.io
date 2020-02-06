@@ -27,8 +27,8 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
     },
     async checkElements() {
       let feature = this;
-      let list = await getElement("#submission_to_view");
-      list.find("option").each(function() {
+      let list = await getElement("#multiple_submissions");
+      list.each(function() {
         feature.addCurrentYear(this);
       });
       let comments = await getElement("#comments");
