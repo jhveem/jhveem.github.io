@@ -34,11 +34,11 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
     },
     async checkElements() {
       let feature = this;
-      feature.setAssignmentSubmittedDateHeader("multiple_submissions");
       let comments = await getElement("#comments");
       comments.find("div.comment span.posted_at").each(function() {
         feature.addCurrentYear(this);
       });
+      //feature.setAssignmentSubmittedDateHeader("multiple_submissions");
     },
     addCurrentYear(element) {
       let html = $(element).html();
