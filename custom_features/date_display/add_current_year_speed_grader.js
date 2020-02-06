@@ -35,7 +35,7 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
         feature.addCurrentYear(this);
       });
     },
-    addCurrentYear() {
+    addCurrentYear(element) {
       let html = $(element).html();
       html = html.replace(/([A-Z][a-z]+) ([0-9]+) at/, "$1 $2, 2020 at");
       $(element).html(html);
