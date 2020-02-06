@@ -3,6 +3,7 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
   FEATURES[url] = {
     initiated: false, 
     async _init() { 
+      let feature = this;
       window.onload = function() {
         var
         oldHref = document.location.href,
@@ -11,7 +12,7 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
           mutations.forEach(function(mutation) {
             if (oldHref != document.location.href) {
               oldHref = document.location.href;
-              checkElements();
+              feature.checkElements();
             }
           });
         });
@@ -21,16 +22,17 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
         };
         observer.observe(bodyList, config);
       };
-      checkElements();
+      feature.checkElements();
     },
     async checkElements() {
+      let feature = this;
       let list = await getElement("#submission_to_view");
       list.find("option").each(function() {
-        addCurrentYear(this);
+        feature.addCurrentYear(this);
       });
       let comments = await getElement("#comments");
       comments.find("div.comment span.posted_at").each(function() {
-        addCurrentYear(this);
+        feature.addCurrentYear(this);
       });
     },
     addCurrentYear() {
