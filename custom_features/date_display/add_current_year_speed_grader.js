@@ -23,7 +23,7 @@ if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)
       };
       checkElements();
     },
-    checkElements() {
+    async checkElements() {
       let list = await getElement("#submission_to_view");
       list.find("option").each(function() {
         addCurrentYear(this);
