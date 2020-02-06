@@ -97,7 +97,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 
 	//GENERAL FEATURES
 	feature("date_display/add_current_year_speed_grader");
-	feature("date_display/add_current_year");
+	//feature("date_display/add_current_year");
 	featureBeta("rubrics/gen_comment");
 
 	//LIMITED FEATURES
