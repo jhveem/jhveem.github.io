@@ -14,9 +14,9 @@ if (rWindowSpeedGrader.test(window.location.pathname) && rWindowSpeedGrader.test
       if (rWindowVanilla.test(window.location.pathname)) {
         feature.commentSelector = "div.comment div.comment span";
       }
-      insertAttemptsData();
+      feature.insertAttemptsData();
       $(".save_rubric_button").on("click", function() {
-        calcAttemptsData();
+        feature.calcAttemptsData();
         attempts += 1;
       });
     },
@@ -30,7 +30,7 @@ if (rWindowSpeedGrader.test(window.location.pathname) && rWindowSpeedGrader.test
         <div id="btech-suggested-score"><b>Suggested Score:</b> <span id="btech-suggested-score-value"></span></div>
         </td>
         </tr>`);
-      calcAttemptsData();
+      feature.calcAttemptsData();
     },
     async calcAttemptsData() {
       let feature = this;
