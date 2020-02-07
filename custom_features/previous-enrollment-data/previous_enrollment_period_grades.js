@@ -1,5 +1,5 @@
 if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
-    var IMPORTED_FEATURE = {
+    IMPORTED_FEATURE = {
         initiated: false,
         courseId: null,
         studentId: null,

@@ -6,7 +6,7 @@ if (window.location.href.includes("btech.beta.instructure.com")) {
 } else {
 	BETA = false;
 }
-var FEATURES = {}; //currently unused, but may be a way to better manage features
+var FEATURES = {};
 var IMPORTED_FEATURE = {};
 
 var MONTH_NAMES_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -142,6 +142,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	//CDD ONLY
 	featureCDD("rubrics/sortable");
 	featureCDD("quizzes/question_bank_sorter");
+	featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
 });
 
 /*EvaluationKIT END*/

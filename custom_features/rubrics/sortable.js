@@ -1,6 +1,5 @@
 if (window.location.pathname.includes("/rubrics") === true || window.location.pathname.includes("/assignments/") === true) {
-  let url = "rubrics/sortable";
-  FEATURES[url] = {
+  IMPORTED_FEATURE = {
     initiated: false,
     async _init() {
       await getElement("#add_learning_outcome_link");
