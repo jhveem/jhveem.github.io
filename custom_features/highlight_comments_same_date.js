@@ -22,7 +22,6 @@ async function prepComments(commentSelector) {
     if (postedAtElement.length === 1) {
         let postedAtGroups = postedAtElement.text().match(/^([A-Z][a-z]+ [0-9]+)/);
         if (postedAtGroups !== null) {
-            console.log(postedAtGroups);
             let postedAt = postedAtGroups[1].replace(" ", "-");
             let classname = "comment-date-" + postedAt;
             $(this).addClass(classname);
