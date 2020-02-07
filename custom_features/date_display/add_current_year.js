@@ -1,7 +1,5 @@
-
 if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
-    let url = "date_display/add_current_year"; 
-    FEATURES[url] = {
+    IMPORTED_FEATURE = {
         initiated: false, 
         async _init() {
             let feature = this;

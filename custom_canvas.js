@@ -64,8 +64,11 @@ function featureBeta(f, data={}) {
 }
 
 //USED TO TEST IN A SINGLE COURSE
-function featurePilot(f, courseId, pilotCourseId, data={}) {
-	if (courseId === pilotCourseId) feature(f, data);
+function featurePilot(f, courseId, pilotCourseIds, data={}) {
+	//set individual pilotCourseId to array
+	if (!Array.isArray(pilotCourseIds)) pilotCourseIds = [pilotCourseIds];
+	//check if current course is in array
+	if (pilotCourseId.includes(courseId)) feature(f, data);
 }
 
 function featureCDD(f, data={}) {
@@ -115,7 +118,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		//COURSE SPECIFIC FEATURES
 		featurePilot("change_2019_to_2019-2020", courseId, 489538); //IV Therapy
 		featurePilot("rubrics/attempts_data", courseId, 498455); //Dental 1010 pilot
-		featurePilot("rubrics/gen_comment", courseId, 498455); //Dental 1010 pilot
+		featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089, 498455]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
 		featurePilot("highlight_comments_same_date", courseId, 498455); //Dental 1010 pilot
 		
 		//DEPARTMENT SPECIFIC IMPORTS

@@ -1,6 +1,5 @@
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
-  let url = "date_display/add_current_year_speed_grader"; 
-  FEATURES[url] = {
+  IMPORTED_FEATURE = {
     initiated: false, 
     oldHref: "",
     async _init() { 
