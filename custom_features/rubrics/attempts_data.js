@@ -21,6 +21,7 @@ if (rWindowSpeedGrader.test(window.location.pathname) && rWindowSpeedGrader.test
       });
     },
     async insertAttemptsData() {
+      let feature = this;
       let details = await getElement("#rubric_holder tbody.criterions");
       details.append(
         `<tr id="btech-attempts-data" class="content_box">
