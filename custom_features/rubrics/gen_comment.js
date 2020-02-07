@@ -20,7 +20,7 @@ if (rWindowSpeedGrader.test(window.location.pathname) && rWindowSpeedGrader.test
         feature.assignmentId = parseInt(pieces[2]);
       }
       $(".save_rubric_button").on("click", function() {
-        genRubricComment(feature.courseId, feature.assignmentId, feature.studentId, "div#rubric_full", "div#rubric_full", 2);
+        feature.genRubricComment(feature.courseId, feature.assignmentId, feature.studentId, "div#rubric_full", "div#rubric_full", 2);
       });
     },
     genRubricComment(course, assignment, user, rowSelector, rubricSelector, offset=1) {
