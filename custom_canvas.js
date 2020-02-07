@@ -123,7 +123,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		//COURSE SPECIFIC FEATURES
 		featurePilot("change_2019_to_2019-2020", courseId, 489538); //IV Therapy
 		featurePilot("rubrics/attempts_data", courseId, [498455]); //Dental 1010 pilot
-		//featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
+		featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
 		featurePilot("highlight_comments_same_date", courseId, 498455); //Dental 1010 pilot
 		
 		//DEPARTMENT SPECIFIC IMPORTS
