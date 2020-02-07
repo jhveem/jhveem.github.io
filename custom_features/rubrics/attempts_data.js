@@ -17,7 +17,7 @@ if (rWindowSpeedGrader.test(window.location.pathname) && rWindowSpeedGrader.test
       feature.insertAttemptsData();
       $(".save_rubric_button").on("click", function() {
         feature.calcAttemptsData();
-        attempts += 1;
+        feature.attempts += 1;
       });
     },
     async insertAttemptsData() {
