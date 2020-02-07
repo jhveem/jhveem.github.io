@@ -3,10 +3,10 @@
   let rWindowVanilla = /^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/;
   if (rWindowSpeedGrader.test(window.location.pathname) && rWindowSpeedGrader.test(window.location.pathname)) {
     IMPORTED_FEATURE = {
+
       courseId: null,
       assignmentId: null,
       studentId: null,
-      initiated: false,
       _init() {
         let feature = this;
         if (rWindowSpeedGrader.test(window.location.pathname)) {
@@ -26,6 +26,7 @@
         });
       },
       genRubricComment(course, assignment, user, rowSelector, rubricSelector, offset=1) {
+          let feature = this;
         let comment = "";
         let header = "<h2><b>RUBRIC</b></h2>";
         let rows = $(rowSelector).find("tr");
@@ -48,7 +49,7 @@
         });
         header += ("Total Criteria at Full Points: " + totalMax + "/" + totalCrit);
         comment = header + '\n<div class="btech-comment-collapse">\n' + comment + '\n</div>';
-        let url = "/api/v1/courses/"+course+"/assignments/"+assignment+"/submissions/"+user;
+        let url = "/api/v1/courses/"+feature.courseId+"/assignments/"+feature.assignmentId+"/submissions/"+feature.studentId;
         console.log(url);
         $.put(url,{
           comment:{
