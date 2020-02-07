@@ -85,15 +85,20 @@ function featureCDD(f, data={}) {
 }
 
 $.put = function(url, data){
+	console.log("PUT");
   return $.ajax({
-    url: url,
+		url: url,
+		data: data,
     type: 'PUT'
-  });
+  }).done(function() {
+		console.log("DONE");
+	});
 }
 
 $.delete= function(url, data){
   return $.ajax({
-    url: url,
+		url: url,
+		data: data,
     type: 'DELETE'
   });
 }

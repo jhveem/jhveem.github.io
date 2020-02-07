@@ -23,14 +23,16 @@ if (rWindowSpeedGrader.test(window.location.pathname) && rWindowSpeedGrader.test
     async insertAttemptsData() {
       let feature = this;
       let details = await getElement("#rubric_holder tbody.criterions");
-      details.append(
-        `<tr id="btech-attempts-data" class="content_box">
+      details.after(
+        `<tbody class="criterions">
+        <tr id="btech-attempts-data" class="content_box">
         <td colspan="3">
         <div id="btech-recorded-attempts"><b>Recorded Attempts:</b> <span id="btech-recorded-attempts-value"></span></div>
         <div id="btech-rubric-score"><b>Rubric Score:</b> <span id="btech-rubric-score-value"></span></div>
         <div id="btech-suggested-score"><b>Suggested Score:</b> <span id="btech-suggested-score-value"></span></div>
         </td>
-        </tr>`);
+        </tr>
+        </tbody>`);
       feature.calcAttemptsData();
     },
     async calcAttemptsData() {
