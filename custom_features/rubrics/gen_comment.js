@@ -6,6 +6,7 @@
       courseId: null,
       assignmentId: null,
       studentId: null,
+      initiated: false,
       _init() {
         let feature = this;
         if (rWindowSpeedGrader.test(window.location.pathname)) {
