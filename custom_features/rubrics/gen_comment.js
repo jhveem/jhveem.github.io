@@ -1,4 +1,5 @@
 (function() {
+  IMPORTED_FEATURE = {};
   let rWindowSpeedGrader = /^\/courses\/([0-9]+)\/gradebook\/speed_grader/;
   let rWindowVanilla = /^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/;
   if (rWindowSpeedGrader.test(window.location.pathname) && rWindowSpeedGrader.test(window.location.pathname)) {
