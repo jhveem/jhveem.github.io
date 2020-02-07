@@ -7,6 +7,7 @@ if (window.location.href.includes("btech.beta.instructure.com")) {
 	BETA = false;
 }
 var FEATURES = {}; //currently unused, but may be a way to better manage features
+var IMPORTED_FEATURE = {};
 
 var MONTH_NAMES_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
@@ -41,7 +42,12 @@ function feature(f, data={}) {
 	//feature is the name of the feature file without .js, if it's in a subfolder, include that too
 	//potentially flesh out these files so they're objects with methods. Then call an init function on load with the data variable having all the custom variables needed for each department
 	//if you go this route, you could save each feature in a dict with the string provided here as the key and then in the feature itself, store itself in the dict
+	//reset IMPORTED_FEATURE;
+	IMPORTED_FEATURE = {};
 	$.getScript("https://jhveem.github.io/custom_features/"+f+".js").done(function() {
+		if (!$.isEmptyObject(IMPORTED_FEATURE)) {
+			FEATURES[f] = IMPORTED_FEATURE;
+		}
 		if (f in FEATURES) {
 			let feature = FEATURES[f];
 			//make sure it hasn't already been called to avoid messing up the page
@@ -96,15 +102,16 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	let currentUser = parseInt(ENV.current_user.id);
 
 	//GENERAL FEATURES
-	//feature("date_display/add_current_year_speed_grader");
-	feature("date_display/add_current_year");
-	featureBeta("rubrics/gen_comment");
 
-	//LIMITED FEATURES
+	//COURSE FEATURES
 	let rCheckInCourse = /^\/courses\/([0-9]+)/;
 	if (rCheckInCourse.test(window.location.pathname)) {
-		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
+		//AVAILABLE TO EVERYONE
+		feature("date_display/add_current_year_speed_grader");
+		feature("date_display/add_current_year");
+		featureBeta("rubrics/gen_comment");
 
+		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 		//COURSE SPECIFIC FEATURES
 		featurePilot("change_2019_to_2019-2020", courseId, 489538); //IV Therapy
 		featurePilot("rubrics/attempts_data", courseId, 498455); //Dental 1010 pilot
