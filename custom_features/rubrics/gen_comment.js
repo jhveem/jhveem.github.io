@@ -7,8 +7,8 @@
       courseId: null,
       assignmentId: null,
       studentId: null,
+      initiated: false,
       _init() {
-        console.log("GEN COMMENT");
         let feature = this;
         if (rWindowSpeedGrader.test(window.location.pathname)) {
           feature.courseId = parseInt(ENV.course_id);
