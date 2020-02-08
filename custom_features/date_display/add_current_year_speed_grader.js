@@ -1,3 +1,4 @@
+IMPORTED_FEATURE = {};
 if (/^\/courses\/[0-9]+\/gradebook\/speed_grader/.test(window.location.pathname)) {
   IMPORTED_FEATURE = {
     initiated: false, 

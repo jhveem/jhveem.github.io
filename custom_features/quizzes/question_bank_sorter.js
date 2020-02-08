@@ -1,3 +1,4 @@
+IMPORTED_FEATURE = {};
 if (/^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/.test(window.location.pathname)) {
   IMPORTED_FEATURE = {
     initiated: false,

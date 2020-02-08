@@ -1,3 +1,4 @@
+IMPORTED_FEATURE = {};
 if (/^\/courses\/[0-9]+/.test(window.location.pathname)) {
   let _section = $('#section-tabs-header-subtitle');
   let _text = _section.text();

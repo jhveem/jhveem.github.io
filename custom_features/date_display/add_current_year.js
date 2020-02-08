@@ -1,3 +1,4 @@
+IMPORTED_FEATURE = {};
 if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
     IMPORTED_FEATURE = {
         initiated: false, 

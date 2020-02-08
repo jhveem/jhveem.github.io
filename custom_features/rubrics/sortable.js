@@ -1,3 +1,4 @@
+IMPORTED_FEATURE = {};
 if (window.location.pathname.includes("/rubrics") === true || window.location.pathname.includes("/assignments/") === true) {
   IMPORTED_FEATURE = {
     initiated: false,

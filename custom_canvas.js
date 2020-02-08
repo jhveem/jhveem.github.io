@@ -38,15 +38,15 @@ function add_javascript_library(url) {
 	document.getElementsByTagName('head')[0].appendChild(s);
 }
 
-async function feature(f, data={}) {
+function feature(f, data={}) {
 	//feature is the name of the feature file without .js, if it's in a subfolder, include that too
 	//potentially flesh out these files so they're objects with methods. Then call an init function on load with the data variable having all the custom variables needed for each department
 	//if you go this route, you could save each feature in a dict with the string provided here as the key and then in the feature itself, store itself in the dict
 	//reset IMPORTED_FEATURE;
-	IMPORTED_FEATURE = {};
-	await $.getScript("https://jhveem.github.io/custom_features/"+f+".js").done(function() {
+	$.getScript("https://jhveem.github.io/custom_features/"+f+".js").done(function() {
 		if (!$.isEmptyObject(IMPORTED_FEATURE)) {
 			console.log(f);
+			console.log(IMPORTED_FEATURE);
 			if (!(f in FEATURES)) {
 				FEATURES[f] = IMPORTED_FEATURE;
 			}
@@ -89,14 +89,11 @@ function featureCDD(f, data={}) {
 }
 
 $.put = function(url, data){
-	console.log("PUT");
   return $.ajax({
 		url: url,
 		data: data,
     type: 'PUT'
-  }).done(function() {
-		console.log("DONE");
-	});
+  });
 }
 
 $.delete= function(url, data){

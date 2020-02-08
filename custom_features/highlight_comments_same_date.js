@@ -1,3 +1,4 @@
+IMPORTED_FEATURE = {};
 async function hoverByClass(classname,colorover,colorout="transparent"){
     let comments = await getElement("." + classname);
     comments.each(function() {
