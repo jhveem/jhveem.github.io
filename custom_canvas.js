@@ -45,17 +45,15 @@ function feature(f, data={}) {
 	//reset IMPORTED_FEATURE;
 	$.getScript("https://jhveem.github.io/custom_features/"+f+".js").done(function() {
 		if (!$.isEmptyObject(IMPORTED_FEATURE)) {
-			console.log(f);
-			console.log(IMPORTED_FEATURE);
 			if (!(f in FEATURES)) {
 				FEATURES[f] = IMPORTED_FEATURE;
 			}
 		}
 		if (f in FEATURES) {
-			console.log(f);
 			let feature = FEATURES[f];
 			//make sure it hasn't already been called to avoid messing up the page
 			if (feature.initiated === false) {
+				console.log(f);
 				feature.initiated = true;
 				feature._init(data);
 			}
