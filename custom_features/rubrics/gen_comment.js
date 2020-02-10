@@ -10,6 +10,13 @@
       initiated: false,
       _init() {
         let feature = this;
+        feature.getData();
+        $(".save_rubric_button").on("click", function() {
+          feature.genRubricComment("div#rubric_full", 2);
+        });
+      },
+
+      getData() {
         if (rWindowSpeedGrader.test(window.location.pathname)) {
           feature.courseId = parseInt(ENV.course_id);
           feature.studentId = ENV.RUBRIC_ASSESSMENT.assessment_user_id;
@@ -24,13 +31,11 @@
           feature.studentId = parseInt(pieces[3]);
           feature.assignmentId = parseInt(pieces[2]);
         }
-        $(".save_rubric_button").on("click", function() {
-          feature.genRubricComment("div#rubric_full", 2);
-        });
       },
 
       genRubricComment(rubricSelector, offset=1) {
         let feature = this;
+        feature.getData();
         let comment = "";
         let header = "<h2><b>RUBRIC</b></h2>";
         let totalMax = 0;
