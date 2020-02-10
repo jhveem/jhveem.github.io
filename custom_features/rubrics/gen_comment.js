@@ -14,6 +14,32 @@
         $(".save_rubric_button").on("click", function() {
           feature.genRubricComment("div#rubric_full", 2);
         });
+        feature.parseCommentHTML();
+      },
+
+      async parseCommentHTML() {
+        let feature = this;
+        let element = await getElement("div.comment span, tr.comments");
+        element.each(function() {
+          var html = $(this).html();
+          html = html.replace(/&lt;(\/{0,1}.+?)&gt;/g, "<$1>");
+          $(this).html(html);
+
+          let collapses = $(this).find('div.btech-comment-collapse');
+          //go through each comment
+          collapses.each(function() {
+            let parent = $(this).parent();
+            if (parent.find("h4.btech-toggler").length === 0) {
+              //make sure there's not already a toggler for this comment
+              let criteria_id = "criteria_" + Math.round(Math.random() * 100000000);
+              let toggleHeader = '<br><h4 class="element_toggler btech-toggler" role="button" aria-controls="'+criteria_id+'" aria-expanded="false" aria-label="Toggler toggle list visibility"><i class="fal fa-comments" aria-hidden="true"></i><strong>Individual Criteria</strong></h4><br>';
+              $(this).attr("id",criteria_id);
+              $(this).css("display", "none");
+              $(toggleHeader).insertBefore(this);
+            }
+          });
+        });
+        feature.createObserver();
       },
 
       getData() {
@@ -63,6 +89,7 @@
             text_comment: comment
           }
         });
+        feature.parseCommentHTML();
       }
     }
   }
