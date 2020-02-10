@@ -18,7 +18,6 @@
       },
 
       async parseCommentHTML() {
-        console.log("TEST");
         let feature = this;
         let element = await getElement("div.comment span, tr.comments");
         element.each(function() {
@@ -40,6 +39,27 @@
             }
           });
         });
+      },
+
+      async createObserver() {
+        let feature = this;
+        let selector;
+        if (rWindowSpeedGrader.test(window.location.pathname)) {
+          selector = "div#comments";
+        }
+        if (rWindowVanilla.test(window.location.pathname)) {
+          selector = "div.comment_list";
+        }
+        let element = await getElement(selector);
+        let observer = new MutationObserver(function(mutations) {
+          feature.parseCommentHTML();
+          observer.disconnect();
+        });
+        let config = {
+          childList: true,
+          subtree: true
+        };
+        observer.observe(element[0], config);
       },
 
       getData() {
@@ -89,7 +109,7 @@
             text_comment: comment
           }
         });
-        feature.parseCommentHTML();
+        feature.createObserver();
       }
     }
   }
