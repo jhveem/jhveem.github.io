@@ -156,7 +156,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     }
                 }
                 let letterGrade = gradingScheme[g][0];
-                outputScore = (outputScore * 100).toFixed(2) + "% " + letterGrade;
+                outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
             }
             $("#btech-term-grade-value").text(outputScore);
         },
