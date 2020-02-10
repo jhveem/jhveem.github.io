@@ -1,4 +1,3 @@
-//SPEED GRADER
 (function() {
   IMPORTED_FEATURE = {};
   let rWindowSpeedGrader = /^\/courses\/[0-9]+\/gradebook\/speed_grader/;

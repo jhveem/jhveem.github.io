@@ -111,7 +111,6 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
             }
 
             //Go through each assignment group and figure out the points value of the included assignments that are in those groups
-            let gradesData = {};
             let assignmentGroups = ENV.assignment_groups;
             let finalScore = 0;
             let finalTotalScore = 0;
@@ -146,7 +145,18 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
             if (isNaN(outputScore)) {
                 outputScore = "N/A";
             } else {
-                outputScore = (outputScore * 100).toFixed(2) + "%";
+                let gradingScheme = ENV.grading_scheme;
+                let ind = 0;
+                for (var g = 1; g < gradingScheme.length; g++) {
+                    let max = gradingScheme[g-1][1];
+                    let min = gradingScheme[g][1];
+                    if (outputScore >= min && outputScore < max) {
+                        ind = g;
+                        break;
+                    }
+                }
+                let letterGrade = gradingScheme[g];
+                outputScore = (outputScore * 100).toFixed(2) + "% " + letterGrade;
             }
             $("#btech-term-grade-value").text(outputScore);
         },
