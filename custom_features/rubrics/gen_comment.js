@@ -18,6 +18,7 @@
       },
 
       async parseCommentHTML() {
+        console.log("TEST");
         let feature = this;
         let element = await getElement("div.comment span, tr.comments");
         element.each(function() {
@@ -39,7 +40,6 @@
             }
           });
         });
-        feature.createObserver();
       },
 
       getData() {
