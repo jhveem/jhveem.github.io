@@ -13,6 +13,7 @@
         if (rWindowSpeedGrader.test(window.location.pathname)) {
           feature.courseId = parseInt(ENV.course_id);
           feature.studentId = ENV.RUBRIC_ASSESSMENT.assessment_user_id;
+          console.log(feature.studentId);
           feature.assignmentId = ENV.assignment_id;
         }
 
