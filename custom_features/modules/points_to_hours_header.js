@@ -14,7 +14,6 @@
                       header = headerMatch[1].trim();
                   }
                   if (header !== "") {
-                      console.log(header);
                       let items = $(this).find("ul.ig-list div.ig-row");
                       let pointsTotal = 0;
                       items.each(function() {
