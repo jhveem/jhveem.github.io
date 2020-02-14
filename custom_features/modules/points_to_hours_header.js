@@ -20,17 +20,17 @@
                           let info = $(this).find('div.ig-info');
                           let pointsElement = info.find('span.points_possible');
                           if (pointsElement.text().trim() !== "") {
-                              let points = parseInt(pointsElement.text());
+                              let points = parseFloat(pointsElement.text());
                               pointsTotal += points;
                           }
                       });
                       let hours = pointsTotal / 10;
                       hoursTotal += hours;
                       let hoursString = "Hour";
-                      if (hours !== 1) {
+                      if (hours != 1) {
                           hoursString += "s";
                       }
-                      $(headerElement.text(header + " - " + hours + " " + hoursString + " (TOTAL: " + hoursTotal + ")"));
+                      $(headerElement.text(header + " - " + hours.toFixed(1) + " " + hoursString + " (TOTAL: " + hoursTotal + ")"));
                   }
               });
           }
