@@ -30,7 +30,7 @@
                       if (hours != 1) {
                           hoursString += "s";
                       }
-                      $(headerElement.text(header + " - " + hours.toFixed(1) + " " + hoursString + " (TOTAL: " + hoursTotal + ")"));
+                      $(headerElement.text(header + " - " + hours.toFixed(1) + " " + hoursString + " (Total: " + hoursTotal + ")"));
                   }
               });
           }

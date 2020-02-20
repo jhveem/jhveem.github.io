@@ -68,11 +68,13 @@ function featureBeta(f, data={}) {
 }
 
 //USED TO TEST IN A SINGLE COURSE
-function featurePilot(f, courseId, pilotCourseIds, data={}) {
-	//set individual pilotCourseId to array
-	if (!Array.isArray(pilotCourseIds)) pilotCourseIds = [pilotCourseIds];
-	//check if current course is in array
-	if (pilotCourseIds.includes(courseId)) feature(f, data);
+function featurePilot(f, courseId=0, pilotCourseIds=0, data={}) {
+	if (courseId !== 0) { //Make sure you didn't forget to put a course Id in
+		//set individual pilotCourseId to array
+		if (!Array.isArray(pilotCourseIds)) pilotCourseIds = [pilotCourseIds];
+		//check if current course is in array
+		if (pilotCourseIds.includes(courseId)) feature(f, data);
+	}
 }
 
 function featureCDD(f, data={}) {
@@ -142,7 +144,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 			feature("previous-enrollment-data/previous_enrollment_period_grades");
 		}
 		if (departmentId === 3819) { // AMAR
-			if (IS_TEACHER) featurePilot("modules/points_to_hours_header");
+			if (IS_TEACHER) featurePilot("modules/points_to_hours_header", courseId, 470679);
 		}
 	}
 
