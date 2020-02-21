@@ -64,6 +64,7 @@ function feature(f, data={}) {
 }
 
 function featureBeta(f, data={}) {
+  console.log(f);
 	if (BETA) feature(f, data);
 }
 
