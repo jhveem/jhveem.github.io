@@ -25,10 +25,7 @@
         }
         return columnId;
       },
-      async _init() {
-        let feature = this;
-        feature.courseId = ENV.courses_with_grades[0].id;
-        feature.studentId = ENV.students[0].id;
+      async setUpElement() {
         let wrapper = await getElement("#btech-submissions-between-dates-module");
         let element = wrapper.find("#btech-student-hours");
         element.append(`
@@ -56,6 +53,13 @@
           let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data/" + feature.studentId;
           $.put(url + "?column_data[content]=" + hours);
         });
+      },
+      async _init() {
+        let feature = this;
+        feature.courseId = ENV.courses_with_grades[0].id;
+        feature.studentId = ENV.students[0].id;
+        
+        feature.setUpElement();
 
         let columnId = await feature.getColumnId();
         let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data";
