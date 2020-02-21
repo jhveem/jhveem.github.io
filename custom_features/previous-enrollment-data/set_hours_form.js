@@ -1,7 +1,6 @@
 (function () {
   IMPORTED_FEATURE = {};
   if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
-  console.log("TEST");
     IMPORTED_FEATURE = {
       courseId: 0,
       studentId: 0,
@@ -26,6 +25,7 @@
         return columnId;
       },
       async _init() {
+  console.log("TEST");
         window.STUDENT_HOURS = 2;
         let feature = this;
         feature.courseId = ENV.courses_with_grades[0].id;
