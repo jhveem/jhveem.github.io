@@ -11,6 +11,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
             this.studentId = ENV.students[0].id;
             this.studentAssignmentsData = [];
             window.STUDENT_HOURS = 0;
+            window.TOTAL_HOURS = 90;
 
             //grab the original grades and give it an id for future access
             $("table#grades_summary tbody").attr("id", "btech-original-grades-body");
@@ -159,6 +160,11 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     }
                 }
                 let letterGrade = gradingScheme[g][0];
+                if (window.STUDENT_HOURS > 0) {
+                  console.log(finalScore);
+                  console.log(finalTotalScore);
+                  outputScore = outputScore;
+                }
                 outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
             }
             $("#btech-term-grade-value").text(outputScore);
