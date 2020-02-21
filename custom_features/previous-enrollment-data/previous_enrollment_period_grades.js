@@ -129,13 +129,14 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     let assignment = assignments[a];
                     let id = parseInt(assignment.id);
                     let submissionElement = $("#submission_"+id);
-                    totalPossiblePoints += assignment.points_possible
+                    finalPointsPossible += (assignment.points_possible * group.group_weight);
                     if (includedAssignments.includes(id)) {
                         submissionElement.clone().appendTo(newBody);
                         let currentScoreString = submissionElement.find("td.assignment_score span.original_points").text().trim();
                         let parsedScore = parseFloat(currentScoreString);
                         if (!isNaN(parsedScore)) {
                             score += parseFloat(currentScoreString);
+                            finalPoints += (parseFloat(currentScoreString) * group.group_weight);
                             total += assignment.points_possible;
                         }
                     } else {
@@ -146,8 +147,6 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     let groupPerc = (score / total);
                     finalTotalScore += group.group_weight;
                     finalScore += (groupPerc * group.group_weight);
-                    finalPointsPossible += (total * group.group_weight);
-                    finalPoints += (score * group.group_weight);
                 }
             }
             let outputScore = finalScore / finalTotalScore;
