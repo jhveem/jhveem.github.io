@@ -118,6 +118,8 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
             let assignmentGroups = ENV.assignment_groups;
             let finalScore = 0;
             let finalTotalScore = 0;
+            let finalPoints = 0;
+            let finalPointsPossible = 0;
             for (let i = 0; i < assignmentGroups.length; i++) {
                 let group = assignmentGroups[i];
                 let score = 0;
@@ -127,6 +129,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     let assignment = assignments[a];
                     let id = parseInt(assignment.id);
                     let submissionElement = $("#submission_"+id);
+                    totalPossiblePoints += assignment.points_possible
                     if (includedAssignments.includes(id)) {
                         submissionElement.clone().appendTo(newBody);
                         let currentScoreString = submissionElement.find("td.assignment_score span.original_points").text().trim();
@@ -143,6 +146,8 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     let groupPerc = (score / total);
                     finalTotalScore += group.group_weight;
                     finalScore += (groupPerc * group.group_weight);
+                    finalPointsPossible += (total * group.group_weight);
+                    finalPoints += (score * group.group_weight);
                 }
             }
             let outputScore = finalScore / finalTotalScore;
@@ -161,8 +166,8 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 let letterGrade = gradingScheme[g][0];
                 if (window.STUDENT_HOURS > 0) {
-                  console.log(finalScore);
-                  console.log(finalTotalScore);
+                  console.log(finalPoints);
+                  console.log(finalPointsPossible);
                   outputScore = outputScore;
                 }
                 outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
