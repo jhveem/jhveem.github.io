@@ -41,7 +41,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
         createDateSelector(dateStringEnrollment, dateStringNow) {
             let feature = this;
             $("#student-grades-right-content").append(
-                `<div>
+                `<div id="btech-submissions-between-dates-module">
                 <br><br>
                 <h2>Grade for Submissions Between Dates</h2> <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
                 <p>Start Date</p>
