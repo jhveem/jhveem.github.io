@@ -53,6 +53,7 @@
 
         feature.hoursInput.on("change", function () {
           let hours = $(this).val();
+          console.log(hours);
           window.STUDENT_HOURS = hours;
           let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data/" + feature.studentId;
           $.put(url + "?column_data[content]=" + hours);
@@ -62,7 +63,8 @@
         await $.get(url, function (data) {
           for (let i = 0; i < data.length; i++) {
             let _id = data[i]["user_id"];
-            let _val = parseInt(data[i]["content"]);
+            let _val = parseFloat(data[i]["content"]);
+            console.log(_val);
             if (parseInt(_id) === parseInt(feature.studentId)) {
               console.log(_val);
               window.STUDENT_HOURS = _val;
