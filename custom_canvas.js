@@ -53,11 +53,9 @@ function feature(f, data={}) {
 			}
 		}
 		if (f in FEATURES) {
-      console.log(f);
 			let feature = FEATURES[f];
 			//make sure it hasn't already been called to avoid messing up the page
 			if (feature.initiated === false) {
-        console.log(feature);
 				feature.initiated = true;
 				feature._init(data);
 			}
@@ -66,7 +64,6 @@ function feature(f, data={}) {
 }
 
 function featureBeta(f, data={}) {
-  console.log(f);
 	if (BETA) feature(f, data);
 }
 

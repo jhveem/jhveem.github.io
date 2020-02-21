@@ -26,7 +26,6 @@
         return columnId;
       },
       async _init() {
-        window.STUDENT_HOURS = 2;
         let feature = this;
         feature.courseId = ENV.courses_with_grades[0].id;
         console.log(feature.courseId);
