@@ -26,6 +26,7 @@
         return columnId;
       },
       async setUpElement() {
+        let feature = this;
         let wrapper = await getElement("#btech-submissions-between-dates-module");
         let element = wrapper.find("#btech-student-hours");
         element.append(`
