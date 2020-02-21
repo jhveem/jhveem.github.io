@@ -28,36 +28,34 @@
       },
 
       async setUpElement() {
-        return new Promise((resolve, reject) => {
-          let feature = this;
-          let wrapper = await getElement("#btech-submissions-between-dates-module");
-          let element = wrapper.find("#btech-student-hours");
-          element.append(`
-            <div id='btech-add-hours-button'>
-              <button>Add Hours</button>
-            </div>
-            <div id='btech-select-hours' style='display: flex; flex-direction: row;'>
-              <span>Daily Hours: </span><input style="height:10px; width:44px;" type="number" step=".5" id="btech-student-hours-input" min="1" max="10"/>
-            </div>
-          `);
-          feature.hoursInputHolder = $("#btech-select-hours");
-          feature.hoursInput = $("#btech-student-hours-input");
-          feature.hoursButton = $("#btech-add-hours-button");
+        let feature = this;
+        let wrapper = await getElement("#btech-submissions-between-dates-module");
+        let element = wrapper.find("#btech-student-hours");
+        element.append(`
+          <div id='btech-add-hours-button'>
+            <button>Add Hours</button>
+          </div>
+          <div id='btech-select-hours' style='display: flex; flex-direction: row;'>
+            <span>Daily Hours: </span>
+            <input style="height:10px; width:44px;" type="number" step=".5" id="btech-student-hours-input" min="1" max="10"/>
+          </div>
+        `);
+        feature.hoursInputHolder = $("#btech-select-hours");
+        feature.hoursInput = $("#btech-student-hours-input");
+        feature.hoursButton = $("#btech-add-hours-button");
 
-          feature.hoursButton.on("click", function () {
-            feature.hoursInputHolder.show();
-            feature.hoursButton.hide();
-          });
-
-          feature.hoursInputHolder.hide();
+        feature.hoursButton.on("click", function () {
+          feature.hoursInputHolder.show();
           feature.hoursButton.hide();
-          feature.hoursInput.on("change", function () {
-            let hours = $(this).val();
-            window.STUDENT_HOURS = hours;
-            let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data/" + feature.studentId;
-            $.put(url + "?column_data[content]=" + hours);
-          });
-          resolve("success");
+        });
+
+        feature.hoursInputHolder.hide();
+        feature.hoursButton.hide();
+        feature.hoursInput.on("change", function () {
+          let hours = $(this).val();
+          window.STUDENT_HOURS = hours;
+          let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data/" + feature.studentId;
+          $.put(url + "?column_data[content]=" + hours);
         });
       },
 
@@ -65,8 +63,9 @@
         let feature = this;
         feature.courseId = ENV.courses_with_grades[0].id;
         feature.studentId = ENV.students[0].id;
+        await getElement("#btech-submissions-between-dates-module");
         
-        await feature.setUpElement();
+        feature.setUpElement();
 
         let columnId = await feature.getColumnId();
         let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data";
