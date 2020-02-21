@@ -118,6 +118,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
             let assignmentGroups = ENV.assignment_groups;
             let finalScore = 0;
             let finalTotalScore = 0;
+            //used for figuring out scores if using hours enrolled
             let finalPoints = 0;
             let finalPointsPossible = 0;
             for (let i = 0; i < assignmentGroups.length; i++) {
@@ -135,8 +136,13 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                         let currentScoreString = submissionElement.find("td.assignment_score span.original_points").text().trim();
                         let parsedScore = parseFloat(currentScoreString);
                         if (!isNaN(parsedScore)) {
-                            score += parseFloat(currentScoreString);
-                            finalPoints += (parseFloat(currentScoreString) * group.group_weight);
+                          let curScore = parseFloat(currentScoreString);
+                            score += curScore; 
+                            finalPoints += (curScore * group.group_weight);
+                            console.log("ASS PTS");
+                            console.log(curScore);
+                            console.log(assignment.points_possible);
+                            console.log("END");
                             total += assignment.points_possible;
                         }
                     } else {
