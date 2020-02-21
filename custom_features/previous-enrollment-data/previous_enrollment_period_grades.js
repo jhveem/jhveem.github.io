@@ -10,6 +10,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
             this.courseId = ENV.courses_with_grades[0].id;
             this.studentId = ENV.students[0].id;
             this.studentAssignmentsData = [];
+            window.STUDENT_HOURS = 0;
 
             //grab the original grades and give it an id for future access
             $("table#grades_summary tbody").attr("id", "btech-original-grades-body");
