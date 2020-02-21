@@ -6,6 +6,7 @@
       studentId: 0,
       hoursInput: null,
       hoursButton: null,
+      initiated: false,
       async getColumnId() {
         let feature = this;
         var columnId = 0;
@@ -25,7 +26,6 @@
         return columnId;
       },
       async _init() {
-  console.log("TEST");
         window.STUDENT_HOURS = 2;
         let feature = this;
         feature.courseId = ENV.courses_with_grades[0].id;
