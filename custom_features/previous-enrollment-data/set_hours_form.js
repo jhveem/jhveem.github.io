@@ -28,7 +28,6 @@
       async _init() {
         let feature = this;
         feature.courseId = ENV.courses_with_grades[0].id;
-        console.log(feature.courseId);
         feature.studentId = ENV.students[0].id;
         let wrapper = await getElement("#btech-submissions-between-dates-module");
         let element = wrapper.find("#btech-student-hours");
@@ -65,6 +64,7 @@
             let _id = data[i]["user_id"];
             let _val = parseInt(data[i]["content"]);
             if (parseInt(_id) === parseInt(feature.studentId)) {
+              console.log(_val);
               window.STUDENT_HOURS = _val;
               feature.hoursInput.val(_val);
             }
