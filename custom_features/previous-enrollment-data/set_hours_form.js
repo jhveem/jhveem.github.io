@@ -32,13 +32,13 @@
         let wrapper = await getElement("#btech-submissions-between-dates-module");
         let element = wrapper.find("#btech-student-hours");
         element.append(`
-    <div id='btech-add-hours-button'>
-    <button>Add Hours</button>
-    </div>
-    <div id='btech-select-hours' style='display: flex; flex-direction: row;'>
-    <span>Daily Hours: </span><input style="height:10px; width:44px;" type="number" step=".5" id="btech-student-hours-input" min="1" max="10"/>
-    </div>
-    `);
+          <div id='btech-add-hours-button'>
+            <button>Add Hours</button>
+          </div>
+          <div id='btech-select-hours' style='display: flex; flex-direction: row;'>
+            <span>Daily Hours: </span><input style="height:10px; width:44px;" type="number" step=".5" id="btech-student-hours-input" min="1" max="10"/>
+          </div>
+        `);
         feature.hoursInputHolder = $("#btech-select-hours");
         feature.hoursInput = $("#btech-student-hours-input");
         feature.hoursButton = $("#btech-add-hours-button");
@@ -50,23 +50,20 @@
 
         feature.hoursInputHolder.hide();
         feature.hoursButton.hide();
-
         feature.hoursInput.on("change", function () {
           let hours = $(this).val();
-          console.log(hours);
           window.STUDENT_HOURS = hours;
           let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data/" + feature.studentId;
           $.put(url + "?column_data[content]=" + hours);
         });
+
         let columnId = await feature.getColumnId();
         let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data";
         await $.get(url, function (data) {
           for (let i = 0; i < data.length; i++) {
             let _id = data[i]["user_id"];
             let _val = parseFloat(data[i]["content"]);
-            console.log(_val);
             if (parseInt(_id) === parseInt(feature.studentId)) {
-              console.log(_val);
               window.STUDENT_HOURS = _val;
               feature.hoursInput.val(_val);
             }
