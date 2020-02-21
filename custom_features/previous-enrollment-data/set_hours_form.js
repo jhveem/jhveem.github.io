@@ -4,6 +4,7 @@
     IMPORTED_FEATURE = {
       courseId: 0,
       studentId: 0,
+      hoursInputHolder: null,
       hoursInput: null,
       hoursButton: null,
       initiated: false,
@@ -25,6 +26,7 @@
         }
         return columnId;
       },
+
       async setUpElement() {
         let feature = this;
         let wrapper = await getElement("#btech-submissions-between-dates-module");
@@ -55,6 +57,7 @@
           $.put(url + "?column_data[content]=" + hours);
         });
       },
+
       async _init() {
         let feature = this;
         feature.courseId = ENV.courses_with_grades[0].id;
