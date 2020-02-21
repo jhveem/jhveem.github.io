@@ -44,6 +44,8 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 `<div id="btech-submissions-between-dates-module">
                 <br><br>
                 <h2>Grade for Submissions Between Dates</h2> <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
+                <div id="btech-student-hours">
+                </div>
                 <p>Start Date</p>
                 <input type="date" id="btech-term-grade-start" name="term-start" value="` + dateStringEnrollment + `" min="2010-01-01" max="2020-12-31">
                 <p>End Date</p>
