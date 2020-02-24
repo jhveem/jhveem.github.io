@@ -65,7 +65,7 @@
       return $.put(url, data);
   }
 
-  canvasCommentsMenuProjectsPop() {
+  function canvasCommentsMenuProjectsPop() {
     let body = $("#canvas-comments-menu-projects");
     body.empty();
     body.append(`<div id="canvas-comments-menu-projects-new" class="canvas-comments-menu-item"><i class="icon-add"></i>New Project</div>`);
