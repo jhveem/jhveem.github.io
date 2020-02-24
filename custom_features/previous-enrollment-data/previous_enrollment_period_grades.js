@@ -130,7 +130,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     let assignment = assignments[a];
                     let id = parseInt(assignment.id);
                     let submissionElement = $("#submission_"+id);
-                    finalPointsPossible += (assignment.points_possible * group.group_weight);
+                    finalPointsPossible += (assignment.points_possible * group.group_weight); //Total possible earned points in the course weighted by their type
                     if (includedAssignments.includes(id)) {
                         submissionElement.clone().appendTo(newBody);
                         let currentScoreString = submissionElement.find("td.assignment_score span.original_points").text().trim();
@@ -139,10 +139,6 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                           let curScore = parseFloat(currentScoreString);
                             score += curScore; 
                             finalPoints += (curScore * group.group_weight);
-                            console.log("ASS PTS");
-                            console.log(curScore);
-                            console.log(assignment.points_possible);
-                            console.log("END");
                             total += assignment.points_possible;
                         }
                     } else {
@@ -171,9 +167,8 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 let letterGrade = gradingScheme[g][0];
                 if (window.STUDENT_HOURS > 0) {
-                  console.log(finalPoints);
-                  console.log(finalPointsPossible);
                   outputScore = outputScore;
+                  //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                 }
                 outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
             }

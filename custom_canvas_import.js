@@ -5,12 +5,6 @@ $("head").append(s);
 
 $("head").append('<script src="https://kit.fontawesome.com/870f83fdd7.js" crossorigin="anonymous"></script>');
 
-if (/^\/courses\/[0-9]+\/users/.test(window.location.pathname)) {
-  waitForKeyElements("table.roster", function() {
-      sorttable.makeSortable($("table.roster")[0]);
-  });
-}
-
 function addMenuItem(linkText, linkhref) {
 	'use strict';
 	var itemHtml;
