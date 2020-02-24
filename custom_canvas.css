@@ -34,7 +34,7 @@
   width: 100%;
   box-sizing: border-box;
 }
-.canvas-comments-input-modal input {
+.canvas-comments-input-modal input[type=text] {
   width: 100%;
   box-sizing: border-box;
   padding: 5px;
@@ -43,9 +43,9 @@
 #canvas-comments-menu-container {
   position: fixed; /* Stay in place */
   z-index: 10000; /* Sit on top */
-  width: 150px;
+  width: 200px;
   cursor: pointer; 
-  top: 90%;
+  top: 60%;
   right: 5%;
   background-color: #333; /* Fallback color */
   color: #FFF;
