@@ -11,14 +11,18 @@
       async getColumnId() {
         let feature = this;
         var columnId = 0;
-        await $.get("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?include_hidden=true", function (data) {
-          for (let i = 0; i < data.length; i++) {
-            if (data[i]["title"] === "Hours") {
-              columnId = data[i]["id"];
-              break;
+        try {
+          await $.get("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?include_hidden=true", function (data) {
+            for (let i = 0; i < data.length; i++) {
+              if (data[i]["title"] === "Hours") {
+                columnId = data[i]["id"];
+                break;
+              }
             }
-          }
-        });
+          });
+        } catch(err) {
+          console.log(err);
+        }
         if (columnId == 0) {
           await $.post("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?column[title]=Hours&column[hidden]=true", function (data) {
             columnId = data.id;
