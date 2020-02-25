@@ -36,6 +36,34 @@ CANVAS_COMMENTS_API = {
     });
     return returnData;
   },
+  async completeTodoPage(todoId, pageType, pageId) {
+    let self = this;
+    let url = self.URL_BASE + "todos/" + todoId + "/complete";
+    let returnData = null;
+    await $.post(url, {
+      'pageType': pageType,
+      'pageId': pageId
+    }, function(data) {
+      returnData = data;
+    });
+    console.log(url);
+    console.log(returnData);
+    return returnData;
+  },
+  async uncompleteTodoPage(todoId, pageType, pageId) {
+    let self = this;
+    let url = self.URL_BASE + "todos/" + todoId + "/uncomplete";
+    let returnData = null;
+    await $.post(url, {
+      'pageType': pageType,
+      'pageId': pageId
+    }, function(data) {
+      returnData = data;
+    });
+    console.log(url);
+    console.log(returnData);
+    return returnData;
+  },
   async createComment(projectId, courseId, pageType, pageId, text) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/pages/" + pageType + "/" + pageId + "/comment";

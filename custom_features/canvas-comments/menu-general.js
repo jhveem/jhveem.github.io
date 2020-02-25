@@ -104,6 +104,13 @@
         let project  = self.projects[i];
         if (project._id === projectId) {
           todos = project.todos;
+          for (let j = 0; j < todos.length; j++) {
+            let todo = todos[j];
+            let todoElement = $(`
+              <div projectId='`+todo._id+`' class="canvas-comments-menu-item">`+todo.name+`</div>
+            `);
+            todoElement.appendTo(body);
+          }
           break;
         }
       }

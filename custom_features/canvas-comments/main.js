@@ -39,16 +39,31 @@
         //page specific menu
         let pieces = window.location.pathname.match(self.rPagesURL);
         self.courseId = parseInt(pieces[1]);
-        self.pageType = parseInt(pieces[2]);
-        self.pageId = parseInt(pieces[3]);
+        self.pageType = pieces[2];
+        self.pageId = pieces[3];
+        await self.getSavedSettings();
+        CANVAS_COMMENTS_MENU_PAGE._init();
+        CANVAS_COMMENTS_MODALS._init(CANVAS_COMMENTS_MENU_PAGE);
       } else if (self.rMainURL.test(window.location.pathname)) {
         //not in a specific page
         let pieces = window.location.pathname.match(self.rMainURL);
         self.courseId = parseInt(pieces[1]);
+        await self.getSavedSettings();
         CANVAS_COMMENTS_MENU_GENERAL._init();
         CANVAS_COMMENTS_MODALS._init(CANVAS_COMMENTS_MENU_GENERAL);
       }
     },
+    async getSavedSettings() {
+      let self = this;
+      returnData = null;
+      await $.get("/api/v1/users/"+self.userId+"/custom_data/canvas_collaboration/"+self.courseId, {
+        'ns': 'edu.btech.canvas-app'
+      }, function(data) {
+        returnData = data;
+        console.log(data);
+      });
+      return returnData;
+    }
   }
   
   //API Functions

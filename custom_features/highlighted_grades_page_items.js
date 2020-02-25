@@ -11,6 +11,9 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+$/.test(window.location.pathname)) {
           if (context === "Quizzes" && percent < .8) {
               $(this).css("background-color", highlightColor);
           }
+          if (context === "Assignments" && percent < .8) {
+              $(this).css("background-color", highlightColor);
+          }
           if (context === "Tests" && percent < .8) {
               $(this).css("background-color", highlightColor);
           }
