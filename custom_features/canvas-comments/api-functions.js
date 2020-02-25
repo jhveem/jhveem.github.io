@@ -25,8 +25,6 @@ CANVAS_COMMENTS_API = {
   async createTodo(projectId, name, pageTypes = ['']) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todo";
-    console.log(name);
-    console.log(pageTypes);
     let returnData = null;
     await $.post(url, {
       'name': name,
@@ -46,8 +44,6 @@ CANVAS_COMMENTS_API = {
     }, function(data) {
       returnData = data;
     });
-    console.log(url);
-    console.log(returnData);
     return returnData;
   },
   async uncompleteTodoPage(todoId, pageType, pageId) {
@@ -60,8 +56,6 @@ CANVAS_COMMENTS_API = {
     }, function(data) {
       returnData = data;
     });
-    console.log(url);
-    console.log(returnData);
     return returnData;
   },
   async createComment(projectId, courseId, pageType, pageId, text) {

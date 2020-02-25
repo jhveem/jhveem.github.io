@@ -1,6 +1,7 @@
 
   CANVAS_COMMENTS_MENU_PAGE = {
     modals: null, 
+    menuCurrent: 'main',
     main: CANVAS_COMMENTS,
     api: CANVAS_COMMENTS_API,
     container: $('<div toggle="false" id="canvas-comments-menu-container"></div>').appendTo('body'),
@@ -26,21 +27,21 @@
       $("#"+id).click(function(){
         $("#canvas-comments-menu-header-back").show();
         $("#canvas-comments-menu-header-toggle").hide();
-        menu.hide();
-        $("#canvas-comments-submenu").show();
         popFunction();
       });
     },
     
     menuMainPop() {
       let self = this;
+      let body = $("#canvas-comments-menu-main");
+      body.empty();
       self.menuMainItemCreate('Projects', 'collection', function() {self.menuProjectsPop()});
       self.menuMainItemCreate('Settings', 'settings', function() {self.menuSettingsPop()});
     },
 
     menuSettingsPop() {
       let self = this;
-      let body = $("#canvas-comments-submenu");
+      let body = $("#canvas-comments-menu-main");
       body.empty();
     },
 
@@ -58,14 +59,27 @@
           </div>
           <div id="canvas-comments-menu-body">
             <div id="canvas-comments-menu-main"></div>
-            <div id="canvas-comments-submenu"></div>
+            <div id="canvas-comments-menu-main"></div>
           </div>
           `);
-        $("#canvas-comments-submenu").hide();
       //Handle dragging and menu collapsing/showing
-          self.container.draggable({
+        self.container.draggable({
             handle: "#canvas-comments-menu-header",
-          })
+            stop: function() {
+              let left = parseFloat($(this).css('left')) / window.innerWidth;
+              let top = parseFloat($(this).css('top')) / window.innerHeight;
+              let url = "/api/v1/users/"+self.main.userId+"/custom_data/canvas_collaboration/"+self.main.courseId+"/menuPosition";
+              $.put(url, {
+                'ns': 'edu.btech.canvas-app',
+                'data': {
+                  'left': left,
+                  'top': top
+                } 
+              })
+              console.log(left);
+              console.log(top);
+            }
+          });
         $("#canvas-comments-menu-header-toggle")
           .click(function () {
             $("#canvas-comments-menu-body").toggle();
@@ -75,12 +89,23 @@
       $("#canvas-comments-menu-header-back").click(function() {
         $(this).hide();
         $("#canvas-comments-menu-header-toggle").show();
-        $("#canvas-comments-submenu").hide();
-        $("#canvas-comments-menu-main").show();
+        self.menuMainPop();
       });
       $("#canvas-comments-menu-body").hide();
       $(".canvas-comments-input-background").hide();
       self.menuMainPop();
+      //see if there's a currentProject,
+      for (let i = 0; i < self.projects.length; i++) {
+        let project = self.projects[i];
+        if (project._id === self.main.currentProject) {
+          self.menuTodosPop(project._id);
+          $("#canvas-comments-menu-header-back").show();
+          $("#canvas-comments-menu-header-toggle").hide();
+          $("#canvas-comments-menu-body").show();
+          return;
+        }
+      }
+      //if not, set up the general projects menu
       self.menuProjectsPop();
     },
 
@@ -109,7 +134,7 @@
 
     async menuTodosPop(projectId='') {
       let self = this;
-      let body = $("#canvas-comments-submenu");
+      let body = $("#canvas-comments-menu-main");
       body.empty();
       let todos = [];
       //get the existing todos
@@ -157,7 +182,7 @@
 
     async menuProjectsPop() {
       let self = this;
-      let body = $("#canvas-comments-submenu");
+      let body = $("#canvas-comments-menu-main");
       body.empty();
 
       for (let i = 0; i < self.projects.length; i++) {
@@ -169,6 +194,11 @@
         projectElement.click(function() {
           let projectId = $(this).attr('projectId');
           self.menuTodosPop(projectId);
+          let url = "/api/v1/users/"+self.main.userId+"/custom_data/canvas_collaboration/"+self.main.courseId+"/currentProject";
+          $.put(url, {
+            'ns': 'edu.btech.canvas-app',
+            'data': projectId
+          })
         });
       }
       self.createModalOpenMenuItem(body, "New Project", function() {

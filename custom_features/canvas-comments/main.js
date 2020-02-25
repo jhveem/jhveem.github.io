@@ -30,6 +30,10 @@
     courseId: null,
     pageType: null,
     pageId: null,
+    left: null,
+    top: null,
+    currentMenu: null,
+    currentProject: null,
     userId: ENV.current_user_id,
     rMainURL: /^\/courses\/([0-9]+)/,
     rPagesURL: /^\/courses\/([0-9]+)\/([a-z]+)\/(.+?)(\/|$|\?)/,
@@ -42,26 +46,39 @@
         self.pageType = pieces[2];
         self.pageId = pieces[3];
         await self.getSavedSettings();
-        CANVAS_COMMENTS_MENU_PAGE._init();
-        CANVAS_COMMENTS_MODALS._init(CANVAS_COMMENTS_MENU_PAGE);
+        self.currentMenu = CANVAS_COMMENTS_MENU_PAGE;
       } else if (self.rMainURL.test(window.location.pathname)) {
         //not in a specific page
         let pieces = window.location.pathname.match(self.rMainURL);
         self.courseId = parseInt(pieces[1]);
         await self.getSavedSettings();
-        CANVAS_COMMENTS_MENU_GENERAL._init();
-        CANVAS_COMMENTS_MODALS._init(CANVAS_COMMENTS_MENU_GENERAL);
+        self.currentMenu = CANVAS_COMMENTS_MENU_GENERAL;
+      }
+      self.currentMenu._init();
+      CANVAS_COMMENTS_MODALS._init(self.currentMenu);
+      if (self.left !== null && self.right !== null) {
+        self.currentMenu.container.css("left", (self.left * 100) + "%");
+        self.currentMenu.container.css("top", (self.top * 100) + "%");
       }
     },
     async getSavedSettings() {
       let self = this;
       returnData = null;
-      await $.get("/api/v1/users/"+self.userId+"/custom_data/canvas_collaboration/"+self.courseId, {
-        'ns': 'edu.btech.canvas-app'
-      }, function(data) {
-        returnData = data;
-        console.log(data);
-      });
+      try {
+        let url = "/api/v1/users/"+self.userId+"/custom_data/canvas_collaboration/"+self.courseId+"";
+        await $.get(url, {
+          'ns': 'edu.btech.canvas-app'
+        }, function(data) {
+          console.log(data.data);
+          self.currentProject = data.data.currentProject;
+          if (data.data.menuPosition !== undefined) {
+            self.left = data.data.menuPosition.left;
+            self.top = data.data.menuPosition.top;
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
       return returnData;
     }
   }
