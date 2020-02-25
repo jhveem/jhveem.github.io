@@ -11,18 +11,14 @@
       async getColumnId() {
         let feature = this;
         var columnId = 0;
-        try {
-          await $.get("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?include_hidden=true", function (data) {
-            for (let i = 0; i < data.length; i++) {
-              if (data[i]["title"] === "Hours") {
-                columnId = data[i]["id"];
-                break;
-              }
+        await $.get("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?include_hidden=true", function (data) {
+          for (let i = 0; i < data.length; i++) {
+            if (data[i]["title"] === "Hours") {
+              columnId = data[i]["id"];
+              break;
             }
-          });
-        } catch(err) {
-          console.log(err);
-        }
+          }
+        });
         if (columnId == 0) {
           await $.post("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?column[title]=Hours&column[hidden]=true", function (data) {
             columnId = data.id;
@@ -73,7 +69,7 @@
 
         let columnId = await feature.getColumnId();
         let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data";
-        await $.get(url, function (data) {
+        await $.get(url).done(function(data) {
           for (let i = 0; i < data.length; i++) {
             let _id = data[i]["user_id"];
             let _val = parseFloat(data[i]["content"]);
@@ -82,6 +78,8 @@
               feature.hoursInput.val(_val);
             }
           }
+        }).fail(function() {
+          return;
         });
         if (window.STUDENT_HOURS === 0) {
           feature.hoursInputHolder.hide();
