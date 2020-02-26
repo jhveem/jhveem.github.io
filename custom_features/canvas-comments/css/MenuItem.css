@@ -1,0 +1,17 @@
+.collaborator-menu-header {
+  text-transform: capitalize;
+}
+#canvas-collaborator-container {
+  background-color: #333;
+  color: #FFF;
+  height: 100%;
+}
+#vue-app {
+  z-index: 10000;
+}
+menu-body {
+  height: 100%;
+}
+menu-item {
+  background-color: #333;
+}
