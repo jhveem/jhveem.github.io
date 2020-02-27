@@ -121,6 +121,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
             //used for figuring out scores if using hours enrolled
             let finalPoints = 0;
             let finalPointsPossible = 0;
+            //loop assignments
             for (let i = 0; i < assignmentGroups.length; i++) {
                 let group = assignmentGroups[i];
                 let score = 0;
@@ -167,6 +168,9 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 let letterGrade = gradingScheme[g][0];
                 if (window.STUDENT_HOURS > 0) {
+                  console.log(window.STUDENT_HOURS);
+                  console.log(finalPoints);
+                  console.log(finalPossiblePoints);
                   outputScore = outputScore;
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                 }

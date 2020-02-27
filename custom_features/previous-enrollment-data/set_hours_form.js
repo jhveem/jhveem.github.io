@@ -4,7 +4,6 @@
     IMPORTED_FEATURE = {
       courseId: 0,
       studentId: 0,
-      hours: 0,
       hoursInputHolder: null,
       hoursInput: null,
       hoursButton: null,
