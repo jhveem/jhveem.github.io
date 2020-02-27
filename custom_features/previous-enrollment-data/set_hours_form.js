@@ -36,7 +36,7 @@
         let element = wrapper.find("#btech-student-hours");
         let roles = ENV.current_user_roles;
         if (roles.includes('admin') || roles.includes('teacher')) {
-          feature.isStudent = true;
+          feature.isStudent = false;
         }
         if (feature.isStudent) {
           element.append(`
