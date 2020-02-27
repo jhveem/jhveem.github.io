@@ -7,7 +7,7 @@
       hoursInputHolder: null,
       hoursInput: null,
       hoursButton: null,
-      columnId = 0,
+      columnId:  0,
       initiated: false,
       async getColumnId() {
         let feature = this;
