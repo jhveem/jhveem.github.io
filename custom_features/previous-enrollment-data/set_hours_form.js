@@ -20,10 +20,8 @@
             }
           }
         });
-        console.log(feature.columnId);
         if (feature.columnId == 0) {
           await $.post("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?column[title]=Hours&column[hidden]=true", function (data) {
-            console.log(data);
             feature.columnId = data.id;
           });
         }

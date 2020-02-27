@@ -168,9 +168,9 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 let letterGrade = gradingScheme[g][0];
                 if (window.STUDENT_HOURS > 0) {
-                  console.log(window.STUDENT_HOURS);
-                  console.log(finalPoints);
-                  console.log(finalPointsPossible);
+                  let pointsPerHour = finalPointsPossible / 90;
+                  let hoursCompleted = finalPoints / pointsPerHour;
+                  console.log(hoursCompleted);
                   outputScore = outputScore;
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                 }
