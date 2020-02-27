@@ -4,11 +4,12 @@
     IMPORTED_FEATURE = {
       courseId: 0,
       studentId: 0,
+      hours: 0,
       hoursInputHolder: null,
       hoursInput: null,
       hoursButton: null,
       columnId:  0,
-      isStudent: true;
+      isStudent: true,
       initiated: false,
       async getColumnId() {
         let feature = this;
