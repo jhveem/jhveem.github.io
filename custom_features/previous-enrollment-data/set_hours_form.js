@@ -11,23 +11,21 @@
       initiated: false,
       async getColumnId() {
         let feature = this;
-        var columnId = 0;
         await $.get("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?include_hidden=true", function (data) {
           for (let i = 0; i < data.length; i++) {
             if (data[i]["title"] === "Hours") {
-              columnId = data[i]["id"];
+              feature.columnId = data[i]["id"];
               break;
             }
           }
         });
         console.log(columnId);
-        if (columnId == 0) {
+        if (feature.columnId == 0) {
           await $.post("/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns?column[title]=Hours&column[hidden]=true", function (data) {
             console.log(data);
-            columnId = data.id;
+            feature.columnId = data.id;
           });
         }
-        return columnId;
       },
 
       async setUpElement() {
@@ -70,8 +68,8 @@
         
         feature.setUpElement();
 
-        this.columnId = await feature.getColumnId();
-        let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data";
+        await feature.getColumnId();
+        let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + feature.columnId + "/data";
         try {
           await $.get(url).done(function(data) {
             for (let i = 0; i < data.length; i++) {
