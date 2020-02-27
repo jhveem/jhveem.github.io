@@ -167,16 +167,15 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     }
                 }
                 let letterGrade = gradingScheme[g][0];
+                outputScore = "<div>"+(outputScore * 100).toFixed(2) + "% (" + letterGrade + ")</div>";
                 if (window.STUDENT_HOURS > 0) {
                   let pointsPerHour = finalPointsPossible / 90;
                   let hoursCompleted = finalPoints / pointsPerHour;
-                  console.log(hoursCompleted.toFixed(2));
-                  outputScore = outputScore;
+                  outputScore += "Hourse Completed: " + hoursCompleted.toFixed(2);
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                 }
-                outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
             }
-            $("#btech-term-grade-value").text(outputScore);
+            $("#btech-term-grade-value").html(outputScore);
         },
         parseDate(dateString) {
             let pieces = dateString.split("-");
