@@ -69,7 +69,7 @@
         feature.setUpElement();
 
         await feature.getColumnId();
-        let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + feature.columnId + "/data";
+        let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + feature.columnId + "/data?include_hidden=true";
         try {
           await $.get(url).done(function(data) {
             for (let i = 0; i < data.length; i++) {
