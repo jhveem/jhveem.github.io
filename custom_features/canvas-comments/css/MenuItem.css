@@ -13,9 +13,6 @@
 #vue-app {
   z-index: 10000;
 }
-.canvas-collaborator-menu-item:hover {
-  background-color: #666;
-}
 .canvas-collaborator-menu-item {
   padding: 10px;
   border-bottom: 2px solid #000;
@@ -32,10 +29,31 @@
 .canvas-collaborator-menu-item i.icon-publish:hover {
   color: #3D5;
 }
-.canvas-collaborator-menu-item-toggle-icon {
+project-menu {
+  background-color: #444;
+  width: 95px;
+  margin-left: -125px; 
+  position: absolute; 
+  border: 2px solid #000;"
+}
+.canvas-collaborator-submenu-item {
+  width: 75px;
+  padding: 1px 10px 1px 10px;
+  border-bottom: 2px solid #000;
+  display: inline-block;
+  cursor: pointer; 
+}
+.canvas-collaborator-submenu-item-last {
+  border-bottom: 0px none #000;
+}
+.canvas-collaborator-submenu-item:hover {
+  background-color: #666;
+}
+.canvas-collaborator-submenu-toggle {
   padding-right: 10px;
   float: right;
 }
+
 menu-body {
   height: 100%;
 }

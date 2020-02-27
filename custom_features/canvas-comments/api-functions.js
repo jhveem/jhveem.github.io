@@ -91,8 +91,9 @@ CANVAS_COMMENTS_API = {
   async getComments(todoId) {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/comments";
+    console.log(url);
     let returnData = null;
-    await $.get(url, function (data) {
+    await $.get(url).done(function (data) {
       returnData = data;
     });
     return returnData;

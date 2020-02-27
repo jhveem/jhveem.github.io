@@ -10,29 +10,24 @@ let vueString = `<div id="vue-app" style="left: 0; top: 0;">
       New Project
     </div>
     <div v-for="(project) in projectList">
-      <div class="canvas-collaborator-menu-item"> 
-        <div @click="" style="display: inline-block;">
-          <i class="icon-collection"></i>
-          <i class="icon-trash" @click="deleteProject(project.data)"></i>
-          {{project.data.name}}
-        </div>
-        <div class="canvas-collaborator-menu-item-toggle-icon">
-          <i v-if="project.collapsed" :class="'icon-mini-arrow-right'" @click="toggle(project)"></i>
-          <i v-else :class="'icon-mini-arrow-down'" @click="toggle(project)"></i>
-        </div>
-      </div>
+      <project-item 
+          :project="project"
+          @new-todo="openModal('new-todo'); newTodoProject=project.data._id;" 
+        >
+      </project-item>
       <div v-if="!project.collapsed">
-        <div class="canvas-collaborator-menu-item" @click="openModal('new-todo'); newTodoProject=project.data._id;">
-          <i class="icon-add"></i>
-          New Todo 
-        </div>
         <div v-for="(todo, x) in project.data.todos">
-          <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todos" v-if="todo.pageTypes.includes(pageType)||pageType==''" @click="openModal('edit-todo'); loadComments(todo); newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;">
-            <i v-if="checkResolvedTodoPage(todo, project)" class="icon-publish icon-Solid" @click="unresolveTodo(todo)"></i>
-            <i v-else class="icon-publish" @click="resolveTodo(todo)"></i>
-            <i class="icon-trash" @click="deleteTodo(todo)"></i>
-            {{todo.name}}
-          </div>
+          <todo-item 
+              v-if="todo.pageTypes.includes(pageType)||pageType==''" 
+              :pageType="pageType" 
+              :pageId="pageId" 
+              :todo="todo" 
+              @edit-todo="openModal('edit-todo'); newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
+              @resolve-todo="resolveTodo(todo);" 
+              @unresolve-todo="unresolveTodo(todo);" 
+              @delete-todo="deleteTodo(todo);" newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;"
+            >
+          </todo-item>
         </div>
       </div>
     </div>
@@ -102,20 +97,6 @@ let APP = new Vue({
   el: '#vue-app',
   created: async function() {
     this.menuItems = this.menus.main;
-    //get information from the url
-    if (this.rPagesURL.test(window.location.pathname)) {
-      //page specific menu
-      let pieces = window.location.pathname.match(this.rPagesURL);
-      this.courseId = parseInt(pieces[1]);
-      this.pageType = pieces[2];
-      this.pageId = pieces[3];
-      //await self.getSavedSettings();
-    } else if (this.rMainURL.test(window.location.pathname)) {
-      //not in a specific page
-      let pieces = window.location.pathname.match(this.rMainURL);
-      this.courseId = parseInt(pieces[1]);
-      //await self.getSavedSettings();
-    }
 
     //get all projects for this course and add them to the menu
     /*
@@ -134,6 +115,20 @@ let APP = new Vue({
     */
   },
   mounted: async function() {
+    //get information from the url
+    if (this.rPagesURL.test(window.location.pathname)) {
+      //page specific menu
+      let pieces = window.location.pathname.match(this.rPagesURL);
+      this.courseId = parseInt(pieces[1]);
+      this.pageType = pieces[2];
+      this.pageId = pieces[3];
+      //await self.getSavedSettings();
+    } else if (this.rMainURL.test(window.location.pathname)) {
+      //not in a specific page
+      let pieces = window.location.pathname.match(this.rMainURL);
+      this.courseId = parseInt(pieces[1]);
+      //await self.getSavedSettings();
+    }
     await this.loadProjects();
   },
   data: function() { 
@@ -189,12 +184,10 @@ let APP = new Vue({
       this.updateProjectList(projects);
     },
     updateProjectList(projects) {
-      console.log(projects);
       for (let p = 0; p < projects.length; p++) {
         let project = projects[p];
         this.updateProjectInList(project);
       }
-      console.log(this.projectList);
     },
     updateProjectInList(project) {
         let data = {'collapsed': true, 'data': project};
@@ -225,29 +218,16 @@ let APP = new Vue({
         }
       }
     },
-    checkResolvedTodoPage(todo) {
-      for (let p = 0; p < todo.pages.length; p++) {
-        let page = todo.pages[p];
-        if (page.pageType === this.pageType && page.pageId === this.pageId) {
-          return true;
-        }
-      }
-      return false;
-    },
     async createTodo() {
       newTodoProject = this.newTodoProject;
       let todo = await this.api.createTodo(this.newTodoProject, this.newTodoName, this.newTodoPageTypes);
       for (let i =0; i < this.projectList.length; i++) {
         let project = this.projectList[i];
-        console.log(project.data._id);
-        console.log(newTodoProject);
         if (newTodoProject === project.data._id) {
-          console.log("ADD");
           project.data.todos.push(todo);
           break;
         }
       }
-      console.log(todo);
     },
     resolveTodo: async function(todo) {
       let pages = await this.api.resolveTodoPage(todo._id, this.pageType, this.pageId);
@@ -259,18 +239,15 @@ let APP = new Vue({
     },
     async deleteTodo(todo) {
       let project = await this.api.deleteTodoPage(todo._id);
-      console.log(project);
       this.updateProjectInList(project);
     },
     async loadComments(todo) {
       let comments = await this.api.getComments(todo._id);
       this.newCommentTodo = todo._id;
-      console.log(comments);
     },
     async createComment() {
       let comments = await this.api.createComment(this.newCommentTodo, this.newCommentText);
       this.newCommentText = '';
-      console.log(comments);
     },
     toggle: async function(obj) {
       obj.collapsed = !obj.collapsed;
