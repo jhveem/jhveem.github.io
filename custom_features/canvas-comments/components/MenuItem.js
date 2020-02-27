@@ -11,7 +11,8 @@ Vue.component('project-item', {
           </project-menu>
         </div>
         <div @click="if (project.data.todos.length > 0) toggle(project);">
-          <i v-if="project.collapsed" :class="'icon-mini-arrow-right'"></i>
+          <div v-if="project.data.todos.length == 0"></div>
+          <i v-else-if="project.collapsed" :class="'icon-mini-arrow-right'"></i>
           <i v-else :class="'icon-mini-arrow-down'"></i>
           {{project.data.name}}
         </div>

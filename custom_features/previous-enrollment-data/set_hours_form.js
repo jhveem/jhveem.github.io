@@ -69,18 +69,20 @@
 
         let columnId = await feature.getColumnId();
         let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data";
-        await $.get(url).done(function(data) {
-          for (let i = 0; i < data.length; i++) {
-            let _id = data[i]["user_id"];
-            let _val = parseFloat(data[i]["content"]);
-            if (parseInt(_id) === parseInt(feature.studentId)) {
-              window.STUDENT_HOURS = _val;
-              feature.hoursInput.val(_val);
+        try {
+          await $.get(url).done(function(data) {
+            for (let i = 0; i < data.length; i++) {
+              let _id = data[i]["user_id"];
+              let _val = parseFloat(data[i]["content"]);
+              if (parseInt(_id) === parseInt(feature.studentId)) {
+                window.STUDENT_HOURS = _val;
+                feature.hoursInput.val(_val);
+              }
             }
-          }
-        }).fail(function() {
-          return;
-        });
+          });
+        } catch (err) {
+          console.log(err);
+        }
         if (window.STUDENT_HOURS === 0) {
           feature.hoursInputHolder.hide();
           feature.hoursButton.show();

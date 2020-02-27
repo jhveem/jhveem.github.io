@@ -13,6 +13,7 @@ let vueString = `<div id="vue-app">
       <project-item 
           :project="project"
           @new-todo="openModal('new-todo'); newTodoProject=project.data._id;" 
+          @delete-project="deleteProject(project.data);"
         >
       </project-item>
       <div v-if="!project.collapsed">
