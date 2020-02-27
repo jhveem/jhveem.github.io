@@ -7,6 +7,7 @@
       hoursInputHolder: null,
       hoursInput: null,
       hoursButton: null,
+      columnId = 0,
       initiated: false,
       async getColumnId() {
         let feature = this;
@@ -56,7 +57,7 @@
         feature.hoursInput.on("change", function () {
           let hours = $(this).val();
           window.STUDENT_HOURS = hours;
-          let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data/" + feature.studentId;
+          let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + feature.columnId + "/data/" + feature.studentId;
           $.put(url + "?column_data[content]=" + hours);
         });
       },
@@ -69,7 +70,7 @@
         
         feature.setUpElement();
 
-        let columnId = await feature.getColumnId();
+        this.columnId = await feature.getColumnId();
         let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + columnId + "/data";
         try {
           await $.get(url).done(function(data) {
