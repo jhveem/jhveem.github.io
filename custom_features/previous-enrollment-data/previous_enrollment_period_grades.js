@@ -172,14 +172,17 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     }
                 }
                 let letterGrade = gradingScheme[g][0];
-                outputScore = "<div>"+(outputScore * 100).toFixed(2) + "% (" + letterGrade + ")</div>";
                 let pointsPerHour = finalPointsPossible / 90;
                 let hoursCompleted = finalPoints / pointsPerHour;
-                outputScore += "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
+                let outputHours = "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
                 if (window.STUDENT_HOURS > 0) {
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
-                  outputScore += "<div>Required Hours: " + window.STUDENT_HOURS * 60 + "</div>"
+                  let reqHours = window.STUDENT_HOURS * 60;
+                  outputHours+= "<div>Required Hours: " + reqHours + "</div>"
+                  outputScore = hoursCompleted / reqHours;
+
                 }
+                outputScore = "<div>"+(outputScore * 100).toFixed(2) + "% (" + letterGrade + ")</div>";
             }
             $("#btech-term-grade-value").html(outputScore);
         },
