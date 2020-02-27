@@ -158,13 +158,14 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
             }
             let outputScore = finalScore / finalTotalScore;
+            let outputHours = '';
             if (isNaN(outputScore)) {
                 outputScore = "N/A";
             } else {
                 let gradingScheme = ENV.grading_scheme;
                 let pointsPerHour = finalPointsPossible / 90;
                 let hoursCompleted = finalPoints / pointsPerHour;
-                let outputHours = "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
+                outputHours = "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
                 if (window.STUDENT_HOURS > 0) {
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                   let reqHours = window.STUDENT_HOURS * 60;
@@ -180,9 +181,9 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                         letterGrade = gradingScheme[g][0];
                     }
                 }
-                outputScore = "<div>"+(outputScore * 100).toFixed(2) + "% (" + letterGrade + ")</div>";
+                outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
             }
-            $("#btech-term-grade-value").html(outputScore + outputHours);
+            $("#btech-term-grade-value").html("<div>" + outputScore + "</div>" +  outputHours);
         },
         parseDate(dateString) {
             let pieces = dateString.split("-");
