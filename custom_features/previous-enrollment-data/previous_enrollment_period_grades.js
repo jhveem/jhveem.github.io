@@ -170,7 +170,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 if (window.STUDENT_HOURS > 0) {
                   let pointsPerHour = finalPointsPossible / 90;
                   let hoursCompleted = finalPoints / pointsPerHour;
-                  console.log(hoursCompleted);
+                  console.log(hoursCompleted.toFixed(2));
                   outputScore = outputScore;
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                 }
