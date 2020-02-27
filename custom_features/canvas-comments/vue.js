@@ -1,4 +1,4 @@
-let vueString = `<div id="vue-app" style="left: 0; top: 0;">
+let vueString = `<div id="vue-app">
   <h3 class="collaborator-menu-header">{{header}}</h3>` +
   //main menu
   ``+
@@ -70,8 +70,23 @@ let vueString = `<div id="vue-app" style="left: 0; top: 0;">
   </div> 
 </div>`
 +``;
-$('#main').css("margin-right", "300px");
-$('#main').append('<div id="canvas-collaborator-container" style="display: block; position: absolute; top: 0%; right: -300px; width: 300px;"></div>');
+let canvasbody = $("#application");
+canvasbody.css("margin-right", "300px");
+canvasbody.after('<div id="canvas-collaborator-container"></div>');
+$('#left-side').append("<a id='canvas-collaborator-toggler' class='btn'>Collaborator</a>")
+$("#canvas-collaborator-toggler").click(function() {
+  let mRight = canvasbody.css("margin-right");
+  if (mRight === "300px") {
+    canvasbody.css("margin-right", "0px");
+    $("#canvas-collaborator-container").hide();
+  }
+  if (mRight === "0px") {
+    canvasbody.css("margin-right", "300px");
+    $("#canvas-collaborator-container").show();
+  }
+});
+//$('#main').css("margin-right", "300px");
+//$('#main').append('<div id="canvas-collaborator-container" style="display: block; position: absolute; top: 0%; right: -300px; width: 300px;"></div>');
 $("#canvas-collaborator-container").append(vueString);
 class MenuItem {
   constructor(name, icon='', action=function(){}, submenu=[]) {

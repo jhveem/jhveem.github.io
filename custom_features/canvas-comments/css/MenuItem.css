@@ -3,15 +3,22 @@
   text-align: center;
 }
 #canvas-collaborator-container {
+  z-index: 1000000;
   background-color: #333;
   color: #FFF;
-  height: 100vh;
-  top: 0%;
+  height: 100%;
+  top: 0;
   position: fixed;
-  overflow-y: scroll;
+  display: block; 
+  top: 0; 
+  right: 0; 
+  width: 300px;
 }
 #vue-app {
-  z-index: 10000;
+  z-index: 1000000;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .canvas-collaborator-menu-item {
   padding: 10px;
@@ -62,7 +69,7 @@ menu-item {
 }
 .canvas-collaborator-modal-background {
   position: fixed; /* Stay in place */
-  z-index: 10000; /* Sit on top */
+  z-index: 100000; /* Sit on top */
   padding-top: 10px; /* Location of the box */
   left: 0;
   top: 0;
@@ -81,7 +88,7 @@ menu-item {
   height: 300px;
   top: 50%;
   left: 50%;
-  z-index: 10001;
+  z-index: 100001;
   margin: -150px 0 0 -250px;
   padding: 10px;
 }
