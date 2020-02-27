@@ -76,8 +76,6 @@
                   'top': top
                 } 
               })
-              console.log(left);
-              console.log(top);
             }
           });
         $("#canvas-comments-menu-header-toggle")
@@ -105,8 +103,6 @@
           return;
         }
       }
-      //if not, set up the general projects menu
-      self.menuProjectsPop();
     },
 
     async createModalOpenMenuItem(body, text, modalFunction) {
@@ -131,6 +127,24 @@
         todo.pages = await self.api.completeTodoPage(todo._id, self.main.pageType, self.main.pageId);
       }
     },
+    async deleteTodo(delTodo) {
+      let self = this;
+      await self.api.deleteTodoPage(delTodo._id);
+      for (let i = 0; i < self.projects.length; i++) {
+        let project = self.projects[i];
+        if (project._id === self.currentProject) {
+          for (let j = 0; j < project.todos.length; j++) {
+              let todo = project.todos[j];
+              if (todo._id === delTodo._id) {
+                project.todos.splice(j, 1);
+                break;
+              }
+          }
+          break;
+        }
+      }
+      self.menuTodosPop(self.currentProject);
+    },
 
     async menuTodosPop(projectId='') {
       let self = this;
@@ -147,25 +161,36 @@
             if (todo.pageTypes.includes(self.main.pageType)) {
               console.log(todo);
               let todoElement = $(`
-                <div projectId='`+todo._id+`' class="canvas-comments-menu-item"><i class="icon-publish"></i>`+todo.name+`</div>
+                <div projectId='`+todo._id+`' class="canvas-comments-menu-item">
+                  <i class="icon-publish"></i>
+                  <i class="icon-trash"></i>
+                  <span>`+todo.name+`</span>
+                </div>
               `);
               let currentPageData = {
                 pageType: self.main.pageType,
                 pageId: self.main.pageId,
               }
-              let icon = todoElement.find('i');
+              //see if item is finished, fill in check box if yes, then add a click event to toggle that
+              let iconCheck = todoElement.find('i.icon-publish');
               todoElement.appendTo(body);
               for (let k = 0; k < todo.pages.length; k++) {
                 let pageData = todo.pages[k];
                 if (pageData.pageType === currentPageData.pageType && pageData.pageId === currentPageData.pageId) {
                     console.log(pageData);
-                    icon.addClass('icon-Solid');
-                    console.log(icon.html());
+                    iconCheck.addClass('icon-Solid');
+                    console.log(iconCheck.html());
                     break;
                 }
               }
-              todoElement.click(function() {
-                self.toggleTodo(todo, icon);
+              iconCheck.click(function() {
+                self.toggleTodo(todo, iconCheck);
+              });
+
+              //deleting of todo items
+              let iconDelete = todoElement.find('i.icon-trash');
+              iconDelete.click(function() {
+                self.deleteTodo(todo, iconCheck);
               });
             }
           }
@@ -193,6 +218,7 @@
         projectElement.appendTo(body);
         projectElement.click(function() {
           let projectId = $(this).attr('projectId');
+          self.currentProject = projectId;
           self.menuTodosPop(projectId);
           let url = "/api/v1/users/"+self.main.userId+"/custom_data/canvas_collaboration/"+self.main.courseId+"/currentProject";
           $.put(url, {

@@ -22,6 +22,12 @@ CANVAS_COMMENTS_API = {
     });
     return returnData;
   },
+  async deleteProject(projectId) {
+    let self = this;
+    let url = self.URL_BASE + "projects/" + projectId;
+    await $.delete(url);
+    return;
+  },
   async createTodo(projectId, name, pageTypes = ['']) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todo";
@@ -34,9 +40,10 @@ CANVAS_COMMENTS_API = {
     });
     return returnData;
   },
-  async completeTodoPage(todoId, pageType, pageId) {
+  async resolveTodoPage(todoId, pageType, pageId) {
+    //the page type and page id might be unnecessary
     let self = this;
-    let url = self.URL_BASE + "todos/" + todoId + "/complete";
+    let url = self.URL_BASE + "todos/" + todoId + "/resolve";
     let returnData = null;
     await $.post(url, {
       'pageType': pageType,
@@ -46,9 +53,10 @@ CANVAS_COMMENTS_API = {
     });
     return returnData;
   },
-  async uncompleteTodoPage(todoId, pageType, pageId) {
+  async unresolveTodoPage(todoId, pageType, pageId) {
+    //the page type and page id might be unnecessary
     let self = this;
-    let url = self.URL_BASE + "todos/" + todoId + "/uncomplete";
+    let url = self.URL_BASE + "todos/" + todoId + "/unresolve";
     let returnData = null;
     await $.post(url, {
       'pageType': pageType,
@@ -58,23 +66,36 @@ CANVAS_COMMENTS_API = {
     });
     return returnData;
   },
-  async createComment(projectId, courseId, pageType, pageId, text) {
+  async deleteTodoPage(todoId) {
     let self = this;
-    let url = self.URL_BASE + "projects/" + projectId + "/pages/" + pageType + "/" + pageId + "/comment";
-    return $.post(url, {
+    let url = self.URL_BASE + "todos/" + todoId;
+    let returnData = null;
+    await $.delete(url).done(function(data) {
+      console.log("done");
+      returnData = data;
+    });
+    return returnData;
+  },
+  async createComment(todoId, text) {
+    let self = this;
+    let url = self.URL_BASE + "todos/" + todoId + "/comment";
+    let returnData = null;
+    await $.post(url, {
       'text': text,
-      'course': courseId,
       'user': ENV.current_user_id
     }, function (data) {
-      console.log(data);
+      returnData = data;
     });
+    return returnData;
   },
-  async getComments(projectId, pageType, pageId) {
+  async getComments(todoId) {
     let self = this;
-    let url = self.URL_BASE + "projects/" + projectId + "/pages/" + pageType + "/" + pageId + "/comments";
-    return $.get(url, function (data) {
-      console.log(data);
+    let url = self.URL_BASE + "todos/" + todoId + "/comments";
+    let returnData = null;
+    await $.get(url, function (data) {
+      returnData = data;
     });
+    return returnData;
   },
   async updateComment(commentId, data) {
     let self = this;

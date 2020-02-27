@@ -18,6 +18,13 @@
     }
   }
 
+  $.delete = function (url, data) {
+    return $.ajax({
+      url: url,
+      data: data,
+      type: 'DELETE'
+    });
+  }
   $.put = function (url, data) {
     return $.ajax({
       url: url,
