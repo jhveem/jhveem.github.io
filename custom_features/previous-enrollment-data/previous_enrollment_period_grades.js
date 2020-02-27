@@ -162,16 +162,6 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 outputScore = "N/A";
             } else {
                 let gradingScheme = ENV.grading_scheme;
-                let ind = 0;
-                for (var g = 1; g < gradingScheme.length; g++) {
-                    let max = gradingScheme[g-1][1];
-                    let min = gradingScheme[g][1];
-                    if (outputScore >= min && outputScore < max) {
-                        ind = g;
-                        break;
-                    }
-                }
-                let letterGrade = gradingScheme[g][0];
                 let pointsPerHour = finalPointsPossible / 90;
                 let hoursCompleted = finalPoints / pointsPerHour;
                 let outputHours = "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
@@ -181,6 +171,14 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                   outputHours+= "<div>Required Hours: " + reqHours + "</div>"
                   outputScore = hoursCompleted / reqHours;
 
+                }
+                let letterGrade = null;
+                for (var g = 1; g < gradingScheme.length; g++) {
+                    let max = gradingScheme[g-1][1];
+                    let min = gradingScheme[g][1];
+                    if (outputScore >= min && outputScore < max) {
+                        letterGrade = gradingScheme[g][0];
+                    }
                 }
                 outputScore = "<div>"+(outputScore * 100).toFixed(2) + "% (" + letterGrade + ")</div>";
             }
