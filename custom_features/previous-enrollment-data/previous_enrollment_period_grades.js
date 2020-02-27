@@ -182,7 +182,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 outputScore = "<div>"+(outputScore * 100).toFixed(2) + "% (" + letterGrade + ")</div>";
             }
-            $("#btech-term-grade-value").html(outputScore);
+            $("#btech-term-grade-value").html(outputScore + outputHours);
         },
         parseDate(dateString) {
             let pieces = dateString.split("-");
