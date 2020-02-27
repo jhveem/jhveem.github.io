@@ -23,12 +23,20 @@ let vueString = `<div id="vue-app">
               :pageType="pageType" 
               :pageId="pageId" 
               :todo="todo" 
-              @edit-todo="openModal('edit-todo'); newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
+              @edit-todo="openModal('edit-todo'); newCommentTodo=todo._id; newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
               @resolve-todo="resolveTodo(todo);" 
               @unresolve-todo="unresolveTodo(todo);" 
               @delete-todo="deleteTodo(todo);" newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;"
+              @load-comments="loadComments(todo);"
             >
           </todo-item>
+          <div v-if="todo.loadedComments !== undefined">
+            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-comment" v-for="(comment, x) in todo.loadedComments">
+              <i class="icon-discussion"></i>
+              <p>{{comment.text}}</p>
+              <p style="width: 100%; text-align=right; box-sizing=border-box;">{{comment.user}}-{{formatDate(comment.date)}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -73,6 +81,9 @@ let vueString = `<div id="vue-app">
 +``;
 let canvasbody = $("#application");
 canvasbody.css("margin-right", "300px");
+//Look at doing an html import using https://www.w3schools.com/howto/howto_html_include.asp
+//This could be useful once it's life and it's no longer more convenient to have auto updates from tampermonkey
+//OR once it's all hosted on my site and on github, then updates will be instant as well
 canvasbody.after('<div id="canvas-collaborator-container"></div>');
 $('#left-side').append("<a id='canvas-collaborator-toggler' class='btn'>Collaborator</a>")
 $("#canvas-collaborator-toggler").click(function() {
@@ -89,46 +100,9 @@ $("#canvas-collaborator-toggler").click(function() {
 //$('#main').css("margin-right", "300px");
 //$('#main').append('<div id="canvas-collaborator-container" style="display: block; position: absolute; top: 0%; right: -300px; width: 300px;"></div>');
 $("#canvas-collaborator-container").append(vueString);
-class MenuItem {
-  constructor(name, icon='', action=function(){}, submenu=[]) {
-    this.name = name;
-    this.action = action;
-    this.collapsed = true;
-    this.submenu = submenu;
-    this.icon = '';
-    if (icon !== '') {
-      this.icon = 'icon-' + icon;
-    }
-  }
-  toggle() {
-    this.collapsed = !this.collapsed;
-    if (this.collapsed) {
-
-    } else {
-
-    }
-  }
-}
 let APP = new Vue({
   el: '#vue-app',
   created: async function() {
-    this.menuItems = this.menus.main;
-
-    //get all projects for this course and add them to the menu
-    /*
-    for (let _id in this.projects) {
-      let project = this.projects[_id];
-      console.log(project);
-      this.menus[project._id + "-todos"] = [];
-      let submenu = this.menus[project._id + "-todos"];
-      this.menus.projects.push(new MenuItem(project.name, 'collection', function(){}, submenu));
-      for (let t = 0; t < project.todos.length; t++) {
-        let todo = project.todos[t];
-        submenu.push(new MenuItem(todo.name, '', function() {}, todo.name+'-comments'));
-      }
-      console.log(project.todos);
-    }
-    */
   },
   mounted: async function() {
     //get information from the url
@@ -177,19 +151,14 @@ let APP = new Vue({
       newTodoPageTypes: [],
       newTodoProject: '',
       newCommentText: '',
-      newCommentTodo: '',
-      menus: {
-        main: [
-          new MenuItem('Projects', 'collection', function(){APP.goto('projects')}),
-          new MenuItem('Settings', 'settings', function(){APP.goto('projects')}),
-        ],
-        projects: [
-          new MenuItem('New Project', 'add', function(){}),
-        ],
-      }
+      newCommentTodo: ''
     }
   },
   methods: {
+    formatDate(dateString) {
+      let date = "HI";
+      return date;
+    },
     goto: function(menuName) {
       this.menuCurrent = menuName;
       this.menuItems = this.menus[menuName];
@@ -259,7 +228,8 @@ let APP = new Vue({
     },
     async loadComments(todo) {
       let comments = await this.api.getComments(todo._id);
-      this.newCommentTodo = todo._id;
+      console.log(todo.loadedComments);
+      this.$set(todo, 'loadedComments', comments);
     },
     async createComment() {
       let comments = await this.api.createComment(this.newCommentTodo, this.newCommentText);

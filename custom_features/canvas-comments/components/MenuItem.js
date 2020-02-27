@@ -36,7 +36,7 @@ Vue.component('project-item', {
 //<i class="icon-trash"></i>
 Vue.component('todo-item', {
   template: `
-    <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todos">
+    <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todos" @click="$emit('load-comments')">
       <div class="canvas-collaborator-submenu-toggle">
         <i class="icon-discussion-reply" @click.stop="showMenu=!showMenu;"></i>
         <project-menu v-show="showMenu">
@@ -45,8 +45,8 @@ Vue.component('todo-item', {
         </project-menu>
       </div>
       <div>
-        <i v-if="checkResolvedTodoPage(todo)" class="icon-publish icon-Solid" @click="$emit('unresolve-todo');"></i>
-        <i v-else class="icon-publish" @click="$emit('resolve-todo');"></i>
+        <i v-if="checkResolvedTodoPage(todo)" class="icon-publish icon-Solid" @click.stop="$emit('unresolve-todo');"></i>
+        <i v-else class="icon-publish" @click.stop="$emit('resolve-todo');"></i>
         {{todo.name}}
       </div>
     </div>

@@ -21,6 +21,7 @@
   overflow-x: hidden;
 }
 .canvas-collaborator-menu-item {
+  box-sizing: border-box;
   padding: 10px;
   border-bottom: 2px solid #000;
   border-left: 2px solid #000;
@@ -28,6 +29,10 @@
   display: inline-block;
   width: 100%;
   cursor: pointer; 
+}
+.canvas-collaborator-menu-item-comment {
+  background-color: #FFF;
+  color: #000;
 }
 .canvas-collaborator-menu-item i {
   padding-right: 10px;
