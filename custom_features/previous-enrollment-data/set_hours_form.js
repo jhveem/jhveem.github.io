@@ -8,6 +8,7 @@
       hoursInput: null,
       hoursButton: null,
       columnId:  0,
+      isStudent: true;
       initiated: false,
       async getColumnId() {
         let feature = this;
@@ -32,32 +33,44 @@
         let feature = this;
         let wrapper = await getElement("#btech-submissions-between-dates-module");
         let element = wrapper.find("#btech-student-hours");
-        element.append(`
-          <div id='btech-add-hours-button'>
-            <button>Add Hours</button>
-          </div>
-          <div id='btech-select-hours' style='display: flex; flex-direction: row;'>
-            <span>Daily Hours: </span>
-            <input style="height:10px; width:44px;" type="number" step=".5" id="btech-student-hours-input" min="1" max="10"/>
-          </div>
-        `);
-        feature.hoursInputHolder = $("#btech-select-hours");
-        feature.hoursInput = $("#btech-student-hours-input");
-        feature.hoursButton = $("#btech-add-hours-button");
+        let roles = ENV.current_user_roles;
+        if (roles.includes('admin') || roles.includes('teacher')) {
+          feature.isStudent = true;
+        }
+        if (feature.isStudent) {
+          element.append(`
+            <div id='btech-add-hours-hours'>
+            </div>
+          `);
+          feature.studentDisplay = $("#btech-add-hours-hours");
+        } else {
+          element.append(`
+            <div id='btech-add-hours-button'>
+              <button>Add Hours</button>
+            </div>
+            <div id='btech-select-hours' style='display: flex; flex-direction: row;'>
+              <span>Daily Hours: </span>
+              <input style="height:10px; width:44px;" type="number" step=".5" id="btech-student-hours-input" min="1" max="10"/>
+            </div>
+          `);
+          feature.hoursInputHolder = $("#btech-select-hours");
+          feature.hoursInput = $("#btech-student-hours-input");
+          feature.hoursButton = $("#btech-add-hours-button");
 
-        feature.hoursButton.on("click", function () {
-          feature.hoursInputHolder.show();
+          feature.hoursButton.on("click", function () {
+            feature.hoursInputHolder.show();
+            feature.hoursButton.hide();
+          });
+
+          feature.hoursInputHolder.hide();
           feature.hoursButton.hide();
-        });
-
-        feature.hoursInputHolder.hide();
-        feature.hoursButton.hide();
-        feature.hoursInput.on("change", function () {
-          let hours = $(this).val();
-          window.STUDENT_HOURS = hours;
-          let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + feature.columnId + "/data/" + feature.studentId;
-          $.put(url + "?column_data[content]=" + hours);
-        });
+          feature.hoursInput.on("change", function () {
+            let hours = $(this).val();
+            window.STUDENT_HOURS = hours;
+            let url = "/api/v1/courses/" + feature.courseId + "/custom_gradebook_columns/" + feature.columnId + "/data/" + feature.studentId;
+            $.put(url + "?column_data[content]=" + hours);
+          });
+        }
       },
 
       async _init() {
@@ -77,7 +90,12 @@
               let _val = parseFloat(data[i]["content"]);
               if (parseInt(_id) === parseInt(feature.studentId)) {
                 window.STUDENT_HOURS = _val;
-                feature.hoursInput.val(_val);
+                if (feature.isStudent) {
+                  feature.studentDisplay.text(_val);
+
+                } else {
+                  feature.hoursInput.val(_val);
+                }
               }
             }
           });
