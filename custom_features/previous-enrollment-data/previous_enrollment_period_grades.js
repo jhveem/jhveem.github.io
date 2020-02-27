@@ -5,11 +5,16 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
         courseId: null,
         studentId: null,
         studentAssignmentsData: [],
+        hours: 90,
         async _init(params={}) {
             let feature = this;
             this.courseId = ENV.courses_with_grades[0].id;
             this.studentId = ENV.students[0].id;
             this.studentAssignmentsData = [];
+            console.log(params.hours);
+            if (params.hours !== undefined) {
+              feature.hours = params.hours;
+            }
             window.STUDENT_HOURS = 0;
             window.TOTAL_HOURS = 90;
 
@@ -168,11 +173,12 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 let letterGrade = gradingScheme[g][0];
                 outputScore = "<div>"+(outputScore * 100).toFixed(2) + "% (" + letterGrade + ")</div>";
+                let pointsPerHour = finalPointsPossible / 90;
+                let hoursCompleted = finalPoints / pointsPerHour;
+                outputScore += "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
                 if (window.STUDENT_HOURS > 0) {
-                  let pointsPerHour = finalPointsPossible / 90;
-                  let hoursCompleted = finalPoints / pointsPerHour;
-                  outputScore += "Hourse Completed: " + hoursCompleted.toFixed(2);
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
+                  outputScore += "<div>Required Hours: " + window.STUDENT_HOURS * 60 + "</div>"
                 }
             }
             $("#btech-term-grade-value").html(outputScore);
