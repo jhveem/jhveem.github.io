@@ -30,10 +30,12 @@ CANVAS_COMMENTS_API = {
   async createTodo(projectId, name, pageTypes = ['']) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todo";
+    console.log(pageTypes);
     let res = await axios.post(url, {
       'name': name,
       'pageTypes': pageTypes
     });
+    console.log(res.data);
     return res.data;
   },
   async resolveTodoPage(todoId, pageType, pageId) {

@@ -15,20 +15,18 @@ Vue.component('project-item', {
         </div>
       </div>
       <div v-if="!collapsed">
-        <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="openModal('new-todo'); newTodoProject=project.data._id;">
+        <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="$emit('new-todo');">
           <i class="icon-add"></i>
           New Todo 
         </div>
         <div v-for="(todo, x) in todos" :key="x">
           <todo-item 
               v-if="todo.pageTypes.includes(pageType)||pageType==''" 
-              :pageType="pageType" 
-              :pageId="pageId" 
               :todo="todo" 
-              @edit-todo="openModal('edit-todo'); newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
-              @resolve-todo="resolveTodo(todo);" 
-              @unresolve-todo="unresolveTodo(todo);" 
-              @delete-todo="deleteTodo(todo);"
+              @edit-todo="$emit('edit-todo', todo);" 
+              @resolve-todo="$emit('resolve-todo', todo);" 
+              @unresolve-todo="$emit('unresolve-todo', todo);" 
+              @delete-todo="$emit('delete-todo', todo);"
               @toggle-comments="toggleComments(todo);"
               @load-comments="loadComments(todo);"
             >

@@ -17,47 +17,14 @@ let vueString = `<div id="vue-app">
           :collapsed="project.collapsed"
           @toggle="toggle(project);"
           @delete-project="deleteProject(project.data);"
+          @new-project="openMod('new-project');"
           @new-todo="openModal('new-todo'); newTodoProject=project.data._id;"
+          @edit-todo="openModal('edit-todo');  newTodoPageTypes=$event.pageTypes; newTodoName=$event.name;"
+          @delete-todo="deleteTodo($event);"
+          @resolve-todo="resolveTodo($event);"
+          @unresolve-todo="unresolveTodo($event);"
         >
       </project-item>
-    </div>
-  </div>
-      `;
-      let unusedThing = `<div v-if="!project.collapsed">
-        <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="openModal('new-todo'); newTodoProject=project.data._id;">
-          <i class="icon-add"></i>
-          New Todo 
-        </div>
-        <div v-for="(todo, x) in project.data.todos">
-          <todo-item 
-              v-if="todo.pageTypes.includes(pageType)||pageType==''" 
-              :pageType="pageType" 
-              :pageId="pageId" 
-              :todo="todo" 
-              @edit-todo="openModal('edit-todo'); newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
-              @resolve-todo="resolveTodo(todo);" 
-              @unresolve-todo="unresolveTodo(todo);" 
-              @delete-todo="deleteTodo(todo);"
-              @toggle-comments="toggleComments(todo);"
-              @load-comments="loadComments(todo);"
-            >
-          </todo-item>
-          <div v-if="todo.collapsed === false && todo.loadedComments !== undefined">
-            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new-comment" @click="openModal('new-comment'); newCommentTodo=todo._id;">
-              <i class="icon-add"></i>
-              New Comment 
-            </div>
-            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-border canvas-collaborator-menu-item-comment" v-for="(comment, x) in todo.loadedComments">
-              <i class="icon-edit" style="float: right;"></i>
-              <i class="icon-trash" style="float: right;"></i>
-              <p>{{comment.text}}</p>
-              <div style="float: right; font-size: 9px;">
-                -{{comment.userName}}<br>{{formatDate(comment.date)}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   `+`
@@ -99,6 +66,44 @@ let vueString = `<div id="vue-app">
   </div> 
 </div>`
 +``;
+      let unusedThing = `<div v-if="!project.collapsed">
+        <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="openModal('new-todo'); newTodoProject=project.data._id;">
+          <i class="icon-add"></i>
+          New Todo 
+        </div>
+        <div v-for="(todo, x) in project.data.todos">
+          <todo-item 
+              v-if="todo.pageTypes.includes(pageType)||pageType==''" 
+              :pageType="pageType" 
+              :pageId="pageId" 
+              :todo="todo" 
+              @edit-todo="openModal('edit-todo'); newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
+              @resolve-todo="resolveTodo(todo);" 
+              @unresolve-todo="unresolveTodo(todo);" 
+              @delete-todo="deleteTodo(todo);"
+              @toggle-comments="toggleComments(todo);"
+              @load-comments="loadComments(todo);"
+            >
+          </todo-item>
+          <div v-if="todo.collapsed === false && todo.loadedComments !== undefined">
+            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new-comment" @click="openModal('new-comment'); newCommentTodo=todo._id;">
+              <i class="icon-add"></i>
+              New Comment 
+            </div>
+            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-border canvas-collaborator-menu-item-comment" v-for="(comment, x) in todo.loadedComments">
+              <i class="icon-edit" style="float: right;"></i>
+              <i class="icon-trash" style="float: right;"></i>
+              <p>{{comment.text}}</p>
+              <div style="float: right; font-size: 9px;">
+                -{{comment.userName}}<br>{{formatDate(comment.date)}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
 let canvasbody = $("#application");
 canvasbody.css("margin-right", "300px");
 //Look at doing an html import using https://www.w3schools.com/howto/howto_html_include.asp
@@ -229,6 +234,9 @@ new Vue({
       }
     },
     async createTodo() {
+      console.log(this.newTodoProject);
+      console.log(this.newTodoName);
+      console.log(this.newTodoPageTypes);
       let todo = await this.api.createTodo(this.newTodoProject, this.newTodoName, this.newTodoPageTypes);
       for (let i =0; i < this.projectList.length; i++) {
         let project = this.projectList[i];
@@ -249,9 +257,9 @@ new Vue({
       this.$set(todo, 'pages', pages);
     },
     async deleteTodo(todo) {
-      console.log('testing...');
       let project = await this.api.deleteTodo(todo._id);
-      this.updateProjectInList(project);
+      console.log(project);
+      //this.updateProjectInList(project);
     },
     async toggleComments(todo) {
       this.$set(todo, 'collapsed', !todo.collapsed);
