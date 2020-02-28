@@ -102,7 +102,6 @@ CANVAS_COMMENTS_API = {
   },
   async loadSettingsGeneral(userId) {
     let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general";
-    console.log(url);
     try {
       let res = await axios.get(url, {
         params: {
@@ -111,7 +110,6 @@ CANVAS_COMMENTS_API = {
       });
       let settings = res.data;
       return settings;
-      console.log(settings);
     } catch (e) {
       console.log(e);
     }
