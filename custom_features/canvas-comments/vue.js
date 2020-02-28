@@ -107,8 +107,7 @@ APP = new Vue({
     let settingsGeneralData = await this.api.loadSettingsGeneral(this.userId);
     let settingsGeneral = settingsGeneralData.data; 
     if (settingsGeneral.showMenu !== undefined) {
-      console.log(settingsGeneralData);
-      let showMenu = (settingsGeneralData.showMenu === "true");
+      let showMenu = (settingsGeneral.showMenu === "true");
       console.log(showMenu);
       this.toggleWindow(showMenu);
     }
