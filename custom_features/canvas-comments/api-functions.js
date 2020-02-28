@@ -105,7 +105,9 @@ CANVAS_COMMENTS_API = {
     console.log(url);
     try {
       let res = await axios.get(url, {
-        ns: 'edu.btech.canvas-app'
+        params: {
+          ns: 'edu.btech.canvas-app'
+        }
       });
       let settings = res.settings;
       console.log(settings);
