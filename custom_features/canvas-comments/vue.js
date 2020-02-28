@@ -105,12 +105,11 @@ APP = new Vue({
     //this.loadSettings();
     let settingsGeneralData = await this.api.loadSettingsGeneral(this.userId);
     let settingsGeneral = settingsGeneralData.data; 
-    if (settingsGeneralData.showMenu !== undefined) {
+    if (settingsGeneral.showMenu !== undefined) {
       let showMenu = parseBoolean(settingsGeneralData.showMenu);
       console.log(showMenu);
       this.toggleWindow(showMenu);
     }
-    console.log(settingsGeneral);
     this.api.loadSettingsCourse(this.userId);
     await this.loadProjects();
   },
@@ -293,6 +292,7 @@ APP = new Vue({
           show = true;
         }
       }
+      console.log(show);
       if (!show) {
         canvasbody.css("margin-right", "0px");
         $("#canvas-collaborator-container").hide();
