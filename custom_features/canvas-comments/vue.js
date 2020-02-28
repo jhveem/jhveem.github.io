@@ -77,7 +77,7 @@ let canvasbody = $("#application");
 canvasbody.after('<div id="canvas-collaborator-container"></div>');
 $('#left-side').append("<a id='canvas-collaborator-toggler' class='btn'>Collaborator</a>")
 $("#canvas-collaborator-toggler").click(function() {
-  APP.toggleWindow();
+  APP.toggleWindow(false);
 });
 //$('#main').css("margin-right", "300px");
 //$('#main').append('<div id="canvas-collaborator-container" style="display: block; position: absolute; top: 0%; right: -300px; width: 300px;"></div>');
@@ -106,7 +106,9 @@ APP = new Vue({
     let settingsGeneralData = await this.api.loadSettingsGeneral(this.userId);
     let settingsGeneral = settingsGeneralData.data; 
     if (settingsGeneralData.showMenu !== undefined) {
-      this.toggleWindow(parseBoolean(settingsGeneralData.showMenu));
+      let showMenu = parseBoolean(settingsGeneralData.showMenu);
+      console.log(showMenu);
+      this.toggleWindow(showMenu);
     }
     console.log(settingsGeneral);
     this.api.loadSettingsCourse(this.userId);
