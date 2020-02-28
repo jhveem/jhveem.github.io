@@ -151,11 +151,17 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 
 	//JUST ME
   if (currentUser === 1893418) {
-    $.get("https://btech.instructure.com/api/v1/users/1893418/custom_data/canvas_collaboration/general", {
-      'ns': 'edu.btech.canvas-app',
-  }).done(function(data) {
-      console.log(data);
-  });
+    $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function() {
+      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js").done(function() {
+        $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/api-functions.js").done(function() {
+          $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/MenuItem.js").done(function() {
+            $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/vue.js").done(function() {
+              console.log('loaded');
+            });
+          });
+        });
+      });
+    });
 	}
 
 	//CDD ONLY

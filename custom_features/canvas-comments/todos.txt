@@ -2,9 +2,7 @@ Delet Projects
 Page Specific Todos
 -maybe have this be an option when selecting pages, quizzes, etc and it hides the others and sends the pageType and pageId to the server
 --will need a way of storing and reading this, probably best way would be to still save pageType in pageTypes but then have a set aside value for the pageId that if it is not null, page id must match that
-comments
 show what percent of pages have been checked
 keep track of if you've seen a comment
 see unread comments
-dropdown list from projects to show all of the comments in that project by todolist
 comments on moduels page link to that page

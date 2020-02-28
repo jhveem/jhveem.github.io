@@ -102,8 +102,6 @@ APP = new Vue({
       this.courseId = parseInt(pieces[1]);
       //await self.getSavedSettings();
     }
-    this.api.loadSettingsGeneral(this.userId);
-    this.api.loadSettingsCourse(this.userId);
     await this.loadProjects();
   },
   data: function() { 
@@ -293,7 +291,6 @@ APP = new Vue({
         canvasbody.css("margin-right", "300px");
         $("#canvas-collaborator-container").show();
       }
-      this.api.saveSettingGeneral(this.userId, 'showMenu', show);
     }
   },
 
