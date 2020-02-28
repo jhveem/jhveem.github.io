@@ -1,3 +1,4 @@
+MONTH_NAMES_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 let vueString = `<div id="vue-app">
   <h3 class="collaborator-menu-header">{{header}}</h3>` +
   //main menu
@@ -12,29 +13,47 @@ let vueString = `<div id="vue-app">
     <div v-for="(project) in projectList">
       <project-item 
           :project="project"
-          @new-todo="openModal('new-todo'); newTodoProject=project.data._id;" 
+          :todos="project.data.todos"
+          :collapsed="project.collapsed"
+          @toggle="toggle(project);"
           @delete-project="deleteProject(project.data);"
+          @new-todo="openModal('new-todo'); newTodoProject=project.data._id;"
         >
       </project-item>
-      <div v-if="!project.collapsed">
+    </div>
+  </div>
+      `;
+      let unusedThing = `<div v-if="!project.collapsed">
+        <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="openModal('new-todo'); newTodoProject=project.data._id;">
+          <i class="icon-add"></i>
+          New Todo 
+        </div>
         <div v-for="(todo, x) in project.data.todos">
           <todo-item 
               v-if="todo.pageTypes.includes(pageType)||pageType==''" 
               :pageType="pageType" 
               :pageId="pageId" 
               :todo="todo" 
-              @edit-todo="openModal('edit-todo'); newCommentTodo=todo._id; newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
+              @edit-todo="openModal('edit-todo'); newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
               @resolve-todo="resolveTodo(todo);" 
               @unresolve-todo="unresolveTodo(todo);" 
-              @delete-todo="deleteTodo(todo);" newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;"
+              @delete-todo="deleteTodo(todo);"
+              @toggle-comments="toggleComments(todo);"
               @load-comments="loadComments(todo);"
             >
           </todo-item>
-          <div v-if="todo.loadedComments !== undefined">
-            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-comment" v-for="(comment, x) in todo.loadedComments">
-              <i class="icon-discussion"></i>
+          <div v-if="todo.collapsed === false && todo.loadedComments !== undefined">
+            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new-comment" @click="openModal('new-comment'); newCommentTodo=todo._id;">
+              <i class="icon-add"></i>
+              New Comment 
+            </div>
+            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-border canvas-collaborator-menu-item-comment" v-for="(comment, x) in todo.loadedComments">
+              <i class="icon-edit" style="float: right;"></i>
+              <i class="icon-trash" style="float: right;"></i>
               <p>{{comment.text}}</p>
-              <p style="width: 100%; text-align=right; box-sizing=border-box;">{{comment.user}}-{{formatDate(comment.date)}}</p>
+              <div style="float: right; font-size: 9px;">
+                -{{comment.userName}}<br>{{formatDate(comment.date)}}
+              </div>
             </div>
           </div>
         </div>
@@ -69,10 +88,11 @@ let vueString = `<div id="vue-app">
           <div v-for="pageType in pageTypes">
             <input type="checkbox" v-model="newTodoPageTypes" :value="pageType"/> <label> {{pageType}}</label>
           </div>
-          <br>
-          <label>Comment</label>
-          <input type="text" v-model="newCommentText" />
-          <div class="canvas-collaborator-button" @click="createComment();">Comment</div>
+        </div> 
+        <div v-if="checkModal('new-comment')">
+          <h2>Comment</h2>
+          <textarea type="text" style="height: 200px;" v-model="newCommentText" />
+          <div class="canvas-collaborator-button" @click="createComment(); closeModal();">Comment</div>
         </div> 
       </div>
     </div>
@@ -100,7 +120,7 @@ $("#canvas-collaborator-toggler").click(function() {
 //$('#main').css("margin-right", "300px");
 //$('#main').append('<div id="canvas-collaborator-container" style="display: block; position: absolute; top: 0%; right: -300px; width: 300px;"></div>');
 $("#canvas-collaborator-container").append(vueString);
-let APP = new Vue({
+new Vue({
   el: '#vue-app',
   created: async function() {
   },
@@ -122,9 +142,9 @@ let APP = new Vue({
     await this.loadProjects();
   },
   data: function() { 
-    let APP = this;
     return {
       modal: '',
+      loadedUsers: {},
       userId: ENV.current_user_id,
       menuCurrent: "projects",
       currentProject: null,
@@ -156,8 +176,9 @@ let APP = new Vue({
   },
   methods: {
     formatDate(dateString) {
-      let date = "HI";
-      return date;
+      let date = new Date(dateString);
+      let output = date.getDate() + " " + MONTH_NAMES_SHORT[date.getMonth()] + ", " + date.getFullYear();
+      return output;
     },
     goto: function(menuName) {
       this.menuCurrent = menuName;
@@ -187,6 +208,10 @@ let APP = new Vue({
         if (exists === false) {
           this.projectList.push(data);
         }
+        for (let t = 0; t < project.todos.length; t++) {
+          let todo = project.todos[t];
+          this.$set(todo, 'collapsed', true);
+        }
     },
     async createProject() {
       let project = await this.api.createProject(this.courseId, this.newProjectName);
@@ -204,12 +229,13 @@ let APP = new Vue({
       }
     },
     async createTodo() {
-      newTodoProject = this.newTodoProject;
       let todo = await this.api.createTodo(this.newTodoProject, this.newTodoName, this.newTodoPageTypes);
       for (let i =0; i < this.projectList.length; i++) {
         let project = this.projectList[i];
-        if (newTodoProject === project.data._id) {
+        if (this.newTodoProject === project.data._id) {
           project.data.todos.push(todo);
+          console.log('push');
+          this.$set(project.data, 'todos', project.data.todos);
           break;
         }
       }
@@ -223,12 +249,27 @@ let APP = new Vue({
       this.$set(todo, 'pages', pages);
     },
     async deleteTodo(todo) {
-      let project = await this.api.deleteTodoPage(todo._id);
+      console.log('testing...');
+      let project = await this.api.deleteTodo(todo._id);
       this.updateProjectInList(project);
+    },
+    async toggleComments(todo) {
+      this.$set(todo, 'collapsed', !todo.collapsed);
+      if (todo.collapsed === false) {
+        if (todo.loadedComments === undefined) {
+          this.loadComments(todo);
+        }
+      }
+      console.log(todo);
     },
     async loadComments(todo) {
       let comments = await this.api.getComments(todo._id);
-      console.log(todo.loadedComments);
+      console.log(comments);
+      for (let c = 0; c < comments.length; c++) {
+        let comment = comments[c];
+        comment.userName = await this.api.getUserName(comment.user);
+        console.log(comment.userName);
+      }
       this.$set(todo, 'loadedComments', comments);
     },
     async createComment() {

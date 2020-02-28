@@ -3,42 +3,38 @@ CANVAS_COMMENTS_API = {
   async getProjects(courseId) {
     let self = this;
     let url = self.URL_BASE + "projects/courses/" + courseId;
-    let returnData = null;
-    await $.get(url).done(function(data) {
-      returnData = data;
-    });
-    return returnData;
+    let res = await axios.get(url);
+    return res.data;
   },
   async createProject(courseId, name) {
     let self = this;
     let url = self.URL_BASE + "projects/courses/" + courseId;
     let returnData = null;
-    await $.post(url, {
+    let res = await axios.post(url, {
       'name': name,
       'course': courseId
-    }).done(function(data) {
-      console.log(data);
-      returnData = data;
     });
-    return returnData;
+    return res.data;
+  },
+  async getUserName(userId) {
+    let url = "/api/v1/users/"+userId;
+    let res = await axios.get(url);
+    return res.data.name;
   },
   async deleteProject(projectId) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId;
-    await $.delete(url);
+    await axios.delete(url);
     return;
   },
   async createTodo(projectId, name, pageTypes = ['']) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todo";
-    let returnData = null;
-    await $.post(url, {
+    let res = await axios.post(url, {
       'name': name,
       'pageTypes': pageTypes
-    }, function (data) {
-      returnData = data;
     });
-    return returnData;
+    return res.data;
   },
   async resolveTodoPage(todoId, pageType, pageId) {
     //the page type and page id might be unnecessary
@@ -66,15 +62,13 @@ CANVAS_COMMENTS_API = {
     });
     return returnData;
   },
-  async deleteTodoPage(todoId) {
+  async deleteTodo(todoId) {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId;
-    let returnData = null;
-    await $.delete(url).done(function(data) {
-      console.log("done");
-      returnData = data;
-    });
-    return returnData;
+    console.log('del');
+    let res = await axios.delete(url);
+    console.log(res);
+    return res.data;
   },
   async createComment(todoId, text) {
     let self = this;
