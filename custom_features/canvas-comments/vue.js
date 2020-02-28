@@ -295,7 +295,7 @@ APP = new Vue({
   },
 
 });
-$.get("https://btech.instructure.com/api/v1/users/1893418/custom_data/canvas_collaboration/general", {
+axios.get("https://btech.instructure.com/api/v1/users/1893418/custom_data/canvas_collaboration/general", {
   'ns': 'edu.btech.canvas-app',
 }).done(function(data) {
   console.log(data);

@@ -159,11 +159,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
         $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/api-functions.js").done(function() {
           $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/MenuItem.js").done(function() {
             $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/vue.js").done(function() {
-              $.get("https://btech.instructure.com/api/v1/users/1893418/custom_data/canvas_collaboration/general", {
-                'ns': 'edu.btech.canvas-app',
-              }).done(function(data) {
-                console.log(data);
-              });
+              
             });
           });
         });
