@@ -102,7 +102,8 @@ APP = new Vue({
       this.courseId = parseInt(pieces[1]);
       //await self.getSavedSettings();
     }
-    let settingsGeneral = this.api.loadSettingsGeneral(this.userId);
+    //this.loadSettings();
+    let settingsGeneral = await this.api.loadSettingsGeneral(this.userId);
     console.log(settingsGeneral);
     this.api.loadSettingsCourse(this.userId);
     await this.loadProjects();
