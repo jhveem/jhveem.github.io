@@ -108,7 +108,6 @@ APP = new Vue({
     let settingsGeneral = settingsGeneralData.data; 
     if (settingsGeneral.showMenu !== undefined) {
       let showMenu = (settingsGeneral.showMenu === "true");
-      console.log(showMenu);
       this.toggleWindow(showMenu);
     }
     this.api.loadSettingsCourse(this.userId);
@@ -293,7 +292,6 @@ APP = new Vue({
           show = true;
         }
       }
-      console.log(show);
       this.api.saveSettingGeneral(this.userId, 'showMenu', show);
       if (!show) {
         canvasbody.css("margin-right", "0px");

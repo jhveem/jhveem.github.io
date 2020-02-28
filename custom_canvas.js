@@ -6,7 +6,14 @@ if (window.location.href.includes("btech.beta.instructure.com")) {
 } else {
 	BETA = false;
 }
-
+var CDDIDS = [
+  1893418, //Josh 
+  1864953, //Danni
+  1891741, //Katie
+  1638854, //Mason
+  1922029, //Makenzie
+  1900206 //Tess
+];
 var IS_TEACHER = ENV.current_user_roles.includes("teacher");
 
 var FEATURES = {};
@@ -78,16 +85,9 @@ function featurePilot(f, courseId=0, pilotCourseIds=0, data={}) {
 }
 
 function featureCDD(f, data={}) {
-	let cddIds = [
-		1893418, //Josh 
-		1864953, //Danni
-		1891741, //Katie
-		1638854, //Mason
-		1922029, //Makenzie
-		1900206 //Tess
-	];
+	
 	let userId = parseInt(ENV.current_user.id);
-	if (cddIds.includes(userId)) feature(f, data);
+	if (CDDIDS.includes(userId)) feature(f, data);
 }
 
 $.put = function(url, data){
@@ -153,18 +153,20 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	}
 
 	//JUST ME
-  if (currentUser === 1893418) {
-    $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function() {
-      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js").done(function() {
-        $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/api-functions.js").done(function() {
-          $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/MenuItem.js").done(function() {
-            $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/vue.js").done(function() {
-              
+  if (CDDIDS.includes(currentUser)) {
+    if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
+      $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function() {
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js").done(function() {
+          $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/api-functions.js").done(function() {
+            $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/MenuItem.js").done(function() {
+              $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/vue.js").done(function() {
+                
+              });
             });
           });
         });
       });
-    });
+    }
 	}
 
 	//CDD ONLY
