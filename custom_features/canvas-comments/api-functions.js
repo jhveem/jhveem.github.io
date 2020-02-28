@@ -121,7 +121,7 @@ CANVAS_COMMENTS_API = {
   async saveSettingGeneral(userId, setting, val) {
     let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general/"+setting+"?ns=edu.btech.canvas-app&data="+val;
     try {
-      await axios.put(url);
+      await $.put(url);
     } catch (e) {
       console.log(e);
     }
