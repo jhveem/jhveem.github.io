@@ -77,8 +77,9 @@ let canvasbody = $("#application");
 canvasbody.after('<div id="canvas-collaborator-container"></div>');
 $('#left-side').append("<a id='canvas-collaborator-toggler' class='btn'>Collaborator</a>")
 $("#canvas-collaborator-toggler").click(function() {
-  APP.toggleWindow(false);
+  APP.toggleWindow();
 });
+$("#canvas-collaborator-container").hide();
 //$('#main').css("margin-right", "300px");
 //$('#main').append('<div id="canvas-collaborator-container" style="display: block; position: absolute; top: 0%; right: -300px; width: 300px;"></div>');
 $("#canvas-collaborator-container").append(vueString);
