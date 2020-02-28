@@ -109,7 +109,8 @@ CANVAS_COMMENTS_API = {
           ns: 'edu.btech.canvas-app'
         }
       });
-      let settings = res.settings;
+      let settings = res.data;
+      return settings;
       console.log(settings);
     } catch (e) {
       console.log(e);

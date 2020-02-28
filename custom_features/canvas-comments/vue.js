@@ -85,7 +85,7 @@ $("#canvas-collaborator-container").append(vueString);
 APP = new Vue({
   el: '#vue-app',
   created: async function() {
-    $("#canvas-collaborator-container").hide();
+
   },
   mounted: async function() {
     //get information from the url
@@ -102,7 +102,8 @@ APP = new Vue({
       this.courseId = parseInt(pieces[1]);
       //await self.getSavedSettings();
     }
-    this.api.loadSettingsGeneral(this.userId);
+    let settingsGeneral = this.api.loadSettingsGeneral(this.userId);
+    console.log(settingsGeneral);
     this.api.loadSettingsCourse(this.userId);
     await this.loadProjects();
   },
