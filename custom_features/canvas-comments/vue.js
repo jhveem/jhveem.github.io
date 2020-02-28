@@ -102,6 +102,8 @@ APP = new Vue({
       this.courseId = parseInt(pieces[1]);
       //await self.getSavedSettings();
     }
+    this.api.loadSettingsGeneral(this.userId);
+    this.api.loadSettingsCourse(this.userId);
     await this.loadProjects();
   },
   data: function() { 
@@ -291,12 +293,8 @@ APP = new Vue({
         canvasbody.css("margin-right", "300px");
         $("#canvas-collaborator-container").show();
       }
+      this.api.saveSettingGeneral(this.userId, 'showMenu', show);
     }
   },
 
-});
-axios.get("https://btech.instructure.com/api/v1/users/1893418/custom_data/canvas_collaboration/general", {
-  'ns': 'edu.btech.canvas-app',
-}).done(function(data) {
-  console.log(data);
 });

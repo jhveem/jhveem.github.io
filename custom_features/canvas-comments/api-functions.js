@@ -105,10 +105,8 @@ CANVAS_COMMENTS_API = {
     console.log(url);
     try {
       let res = await axios.get(url, {
-        'ns': 'edu.btech.canvas-app'
-      }, {
-        'Content-Type': 'application/json'
-      });;
+        ns: 'edu.btech.canvas-app'
+      });
       let settings = res.settings;
       console.log(settings);
     } catch (e) {
@@ -124,10 +122,8 @@ CANVAS_COMMENTS_API = {
     data[setting] = val;
     try {
       await axios.put(url, {
-        'ns': 'edu.btech.canvas-app',
-        'data': 'test' 
-      }, {
-        'Content-Type': 'application/json'
+        ns: 'edu.btech.canvas-app',
+        data: data 
       });
     } catch (e) {
       console.log(e);
@@ -139,8 +135,8 @@ CANVAS_COMMENTS_API = {
     data[setting] = val;
     try {
       axios.put(url, {
-        'ns': 'edu.btech.canvas-app',
-        'data': data
+        ns: 'edu.btech.canvas-app',
+        data: data
       });
     } catch (err) {
       console.log(err);
