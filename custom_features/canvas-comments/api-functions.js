@@ -123,7 +123,7 @@ CANVAS_COMMENTS_API = {
     let data = {};
     data[setting] = val;
     try {
-      await axios.put(url, {
+      await axios.put(url, {}, {
         params: {
           ns: 'edu.btech.canvas-app',
           data: data 
