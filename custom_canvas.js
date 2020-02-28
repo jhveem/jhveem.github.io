@@ -142,7 +142,10 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 			feature("highlighted_grades_page_items");
 			feature("speed_grader_screen_split");
 			feature("previous-enrollment-data/previous_enrollment_period_grades");
-			if (IS_TEACHER) featureBeta("previous-enrollment-data/set_hours_form");
+      if (IS_TEACHER) featureBeta("previous-enrollment-data/set_hours_form");
+      if (currentUser === 1225484 || currentUser === 817257) {
+        feature("previous-enrollment-data/set_hours_form");
+      }
 		}
 		if (departmentId === 3819) { // AMAR
 			if (IS_TEACHER) featurePilot("modules/points_to_hours_header", courseId, 470679);
@@ -156,7 +159,11 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
         $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/api-functions.js").done(function() {
           $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/MenuItem.js").done(function() {
             $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/vue.js").done(function() {
-              console.log('loaded');
+              $.get("https://btech.instructure.com/api/v1/users/1893418/custom_data/canvas_collaboration/general", {
+                'ns': 'edu.btech.canvas-app',
+              }).done(function(data) {
+                console.log(data);
+              });
             });
           });
         });
