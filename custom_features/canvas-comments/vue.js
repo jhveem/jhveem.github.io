@@ -103,7 +103,11 @@ APP = new Vue({
       //await self.getSavedSettings();
     }
     //this.loadSettings();
-    let settingsGeneral = await this.api.loadSettingsGeneral(this.userId);
+    let settingsGeneralData = await this.api.loadSettingsGeneral(this.userId);
+    let settingsGeneral = settingsGeneralData.data; 
+    if (settingsGeneralData.showMenu !== undefined) {
+      this.toggleWindow(settingsGeneralData.showMenu);
+    }
     console.log(settingsGeneral);
     this.api.loadSettingsCourse(this.userId);
     await this.loadProjects();
