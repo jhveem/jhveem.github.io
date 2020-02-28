@@ -4,7 +4,7 @@
 }
 #canvas-collaborator-container {
   z-index: 1000000;
-  background-color: #333;
+  background-color: #000;
   color: #FFF;
   height: 100%;
   top: 0;
@@ -26,6 +26,7 @@
   box-sizing: border-box;
   padding: 10px;
   border: 2px solid #000;
+  background-color: #333;
   display: inline-block;
   width: 100%;
   cursor: pointer; 
@@ -36,6 +37,11 @@
   border-left: 2px solid #000;
   margin-left: 10px;
   width: calc(100% - 10px);
+}
+.canvas-collaborator-menu-item-new {
+  background-color: #555;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 .canvas-collaborator-menu-item-new-comment {
   border-left: 2px solid #000;
@@ -52,9 +58,12 @@
   cursor: text; 
 }
 .canvas-collaborator-menu-item i {
-  color: #888;
+  color: #999;
   padding-right: 10px;
   cursor: pointer;
+}
+.canvas-collaborator-menu-item-new i {
+  color: #FFF;
 }
 .canvas-collaborator-menu-item i:hover {
   color: #FFF;

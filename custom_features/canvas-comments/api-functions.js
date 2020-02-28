@@ -30,12 +30,10 @@ CANVAS_COMMENTS_API = {
   async createTodo(projectId, name, pageTypes = ['']) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todo";
-    console.log(pageTypes);
     let res = await axios.post(url, {
       'name': name,
       'pageTypes': pageTypes
     });
-    console.log(res.data);
     return res.data;
   },
   async resolveTodoPage(todoId, pageType, pageId) {
@@ -67,9 +65,7 @@ CANVAS_COMMENTS_API = {
   async deleteTodo(todoId) {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId;
-    console.log('del');
     let res = await axios.delete(url);
-    console.log(res);
     return res.data;
   },
   async createComment(todoId, text) {
@@ -87,16 +83,67 @@ CANVAS_COMMENTS_API = {
   async getComments(todoId) {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/comments";
-    console.log(url);
     let returnData = null;
     await $.get(url).done(function (data) {
       returnData = data;
     });
     return returnData;
   },
+  async deleteComment(commentId) {
+    let self = this;
+    let url = self.URL_BASE + "comments/" + commentId;
+    let res = await axios.delete(url);
+    return res.data;
+  },
   async updateComment(commentId, data) {
     let self = this;
     let url = self.URL_BASE + "comments/" + commentId;
-    return $.put(url, data);
-  }
+    return axios.put(url, data);
+  },
+  async loadSettingsGeneral(userId) {
+    let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general";
+    console.log(url);
+    try {
+      let res = await axios.get(url, {
+        'ns': 'edu.btech.canvas-app'
+      }, {
+        'Content-Type': 'application/json'
+      });;
+      let settings = res.settings;
+      console.log(settings);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  async loadSettingsCourse() {
+
+  },
+  async saveSettingGeneral(userId, setting, val) {
+    let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general";
+    let data = {};
+    data[setting] = val;
+    try {
+      await axios.put(url, {
+        'ns': 'edu.btech.canvas-app',
+        'data': 'test' 
+      }, {
+        'Content-Type': 'application/json'
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  saveSettingCourse(userId, setting, val) {
+    let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/"+this.courseId;
+    let data = {};
+    data[setting] = val;
+    try {
+      axios.put(url, {
+        'ns': 'edu.btech.canvas-app',
+        'data': data
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
 }

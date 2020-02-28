@@ -6,7 +6,7 @@ let vueString = `<div id="vue-app">
   //projects menu
   `
   <div v-if="menuCurrent ==='projects'">
-    <div class="canvas-collaborator-menu-item" @click="openModal('new-project')">
+    <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new" @click="openModal('new-project')">
       <i class="icon-add"></i>
       New Project
     </div>
@@ -15,14 +15,18 @@ let vueString = `<div id="vue-app">
           :project="project"
           :todos="project.data.todos"
           :collapsed="project.collapsed"
+          :userNames="userNames"
           @toggle="toggle(project);"
           @delete-project="deleteProject(project.data);"
           @new-project="openMod('new-project');"
-          @new-todo="openModal('new-todo'); newTodoProject=project.data._id;"
-          @edit-todo="openModal('edit-todo');  newTodoPageTypes=$event.pageTypes; newTodoName=$event.name;"
+          @new-todo="openModal('new-todo', project); newTodoProject=project.data._id;"
+          @edit-todo="openModal('edit-todo', $event);  newTodoPageTypes=$event.pageTypes; newTodoName=$event.name;"
           @delete-todo="deleteTodo($event);"
           @resolve-todo="resolveTodo($event);"
           @unresolve-todo="unresolveTodo($event);"
+          @toggle-comments="toggleComments($event);"
+          @new-comment="openModal('new-comment', $event); newCommentTodo=$event._id;"
+          @delete-comment="deleteComment($event['todo'], $event['comment']);"
         >
       </project-item>
     </div>
@@ -59,75 +63,29 @@ let vueString = `<div id="vue-app">
         <div v-if="checkModal('new-comment')">
           <h2>Comment</h2>
           <textarea type="text" style="height: 200px;" v-model="newCommentText" />
-          <div class="canvas-collaborator-button" @click="createComment(); closeModal();">Comment</div>
+          <div class="canvas-collaborator-button" @click="createComment(modalObject); closeModal();">Comment</div>
         </div> 
       </div>
     </div>
   </div> 
 </div>`
 +``;
-      let unusedThing = `<div v-if="!project.collapsed">
-        <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="openModal('new-todo'); newTodoProject=project.data._id;">
-          <i class="icon-add"></i>
-          New Todo 
-        </div>
-        <div v-for="(todo, x) in project.data.todos">
-          <todo-item 
-              v-if="todo.pageTypes.includes(pageType)||pageType==''" 
-              :pageType="pageType" 
-              :pageId="pageId" 
-              :todo="todo" 
-              @edit-todo="openModal('edit-todo'); newTodoPageTypes=todo.pageTypes; newTodoName=todo.name;" 
-              @resolve-todo="resolveTodo(todo);" 
-              @unresolve-todo="unresolveTodo(todo);" 
-              @delete-todo="deleteTodo(todo);"
-              @toggle-comments="toggleComments(todo);"
-              @load-comments="loadComments(todo);"
-            >
-          </todo-item>
-          <div v-if="todo.collapsed === false && todo.loadedComments !== undefined">
-            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new-comment" @click="openModal('new-comment'); newCommentTodo=todo._id;">
-              <i class="icon-add"></i>
-              New Comment 
-            </div>
-            <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-border canvas-collaborator-menu-item-comment" v-for="(comment, x) in todo.loadedComments">
-              <i class="icon-edit" style="float: right;"></i>
-              <i class="icon-trash" style="float: right;"></i>
-              <p>{{comment.text}}</p>
-              <div style="float: right; font-size: 9px;">
-                -{{comment.userName}}<br>{{formatDate(comment.date)}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-`;
 let canvasbody = $("#application");
-canvasbody.css("margin-right", "300px");
 //Look at doing an html import using https://www.w3schools.com/howto/howto_html_include.asp
 //This could be useful once it's life and it's no longer more convenient to have auto updates from tampermonkey
 //OR once it's all hosted on my site and on github, then updates will be instant as well
 canvasbody.after('<div id="canvas-collaborator-container"></div>');
 $('#left-side').append("<a id='canvas-collaborator-toggler' class='btn'>Collaborator</a>")
 $("#canvas-collaborator-toggler").click(function() {
-  let mRight = canvasbody.css("margin-right");
-  if (mRight === "300px") {
-    canvasbody.css("margin-right", "0px");
-    $("#canvas-collaborator-container").hide();
-  }
-  if (mRight === "0px") {
-    canvasbody.css("margin-right", "300px");
-    $("#canvas-collaborator-container").show();
-  }
+  APP.toggleWindow();
 });
 //$('#main').css("margin-right", "300px");
 //$('#main').append('<div id="canvas-collaborator-container" style="display: block; position: absolute; top: 0%; right: -300px; width: 300px;"></div>');
 $("#canvas-collaborator-container").append(vueString);
-new Vue({
+APP = new Vue({
   el: '#vue-app',
   created: async function() {
+    $("#canvas-collaborator-container").hide();
   },
   mounted: async function() {
     //get information from the url
@@ -144,12 +102,14 @@ new Vue({
       this.courseId = parseInt(pieces[1]);
       //await self.getSavedSettings();
     }
+    this.api.loadSettingsGeneral(this.userId);
+    this.api.loadSettingsCourse(this.userId);
     await this.loadProjects();
   },
   data: function() { 
     return {
       modal: '',
-      loadedUsers: {},
+      userNames: {},
       userId: ENV.current_user_id,
       menuCurrent: "projects",
       currentProject: null,
@@ -171,6 +131,7 @@ new Vue({
         'project level'
       ],
       projectList: [],
+      modalObject: {},
       newProjectName: '',
       newTodoName: '',
       newTodoPageTypes: [],
@@ -180,11 +141,6 @@ new Vue({
     }
   },
   methods: {
-    formatDate(dateString) {
-      let date = new Date(dateString);
-      let output = date.getDate() + " " + MONTH_NAMES_SHORT[date.getMonth()] + ", " + date.getFullYear();
-      return output;
-    },
     goto: function(menuName) {
       this.menuCurrent = menuName;
       this.menuItems = this.menus[menuName];
@@ -206,7 +162,9 @@ new Vue({
         for (let i =0; i < this.projectList.length; i++) {
           let checkProject = this.projectList[i];
           if (checkProject.data._id === project._id) {
-            checkProject.data = project;
+            for (let key in project) {
+              this.$set(checkProject.data, key, project[key]);
+            }
             exists = true;
           }
         }
@@ -234,15 +192,13 @@ new Vue({
       }
     },
     async createTodo() {
-      console.log(this.newTodoProject);
-      console.log(this.newTodoName);
-      console.log(this.newTodoPageTypes);
+      let newTodoProject = this.newTodoProject; //set because it gets voided before await createTodo finishes
       let todo = await this.api.createTodo(this.newTodoProject, this.newTodoName, this.newTodoPageTypes);
+      todo.collapsed = true;
       for (let i =0; i < this.projectList.length; i++) {
         let project = this.projectList[i];
-        if (this.newTodoProject === project.data._id) {
+        if (newTodoProject === project.data._id) {
           project.data.todos.push(todo);
-          console.log('push');
           this.$set(project.data, 'todos', project.data.todos);
           break;
         }
@@ -258,8 +214,7 @@ new Vue({
     },
     async deleteTodo(todo) {
       let project = await this.api.deleteTodo(todo._id);
-      console.log(project);
-      //this.updateProjectInList(project);
+      this.updateProjectInList(project);
     },
     async toggleComments(todo) {
       this.$set(todo, 'collapsed', !todo.collapsed);
@@ -268,38 +223,78 @@ new Vue({
           this.loadComments(todo);
         }
       }
-      console.log(todo);
+    },
+    async setUserName(comment) {
+      if (this.userNames[comment.user] === undefined) {
+        comment.userName = await this.api.getUserName(comment.user);
+        this.userNames[comment.user] = comment.userName;
+      } else {
+        comment.userName = this.userNames[comment.user];
+      }
+      return;
     },
     async loadComments(todo) {
       let comments = await this.api.getComments(todo._id);
-      console.log(comments);
       for (let c = 0; c < comments.length; c++) {
         let comment = comments[c];
-        comment.userName = await this.api.getUserName(comment.user);
-        console.log(comment.userName);
+        await this.setUserName(comment);
       }
       this.$set(todo, 'loadedComments', comments);
     },
-    async createComment() {
-      let comments = await this.api.createComment(this.newCommentTodo, this.newCommentText);
+    async createComment(todo) {
+      let comment = await this.api.createComment(this.newCommentTodo, this.newCommentText);
+      await this.setUserName(comment);
+      todo.loadedComments.push(comment);
       this.newCommentText = '';
+    },
+    async deleteComment(todo, comment) {
+      for (let t = 0; t < todo.loadedComments.length; t++) {
+        let checkComment = todo.loadedComments[t];
+        if (comment._id === checkComment._id) {
+          todo.loadedComments.splice(t, 1);
+        }
+      }
     },
     toggle: async function(obj) {
       obj.collapsed = !obj.collapsed;
     },
-    openModal(name) {
+    openModal(name, modalObject) {
       this.modal=name;
+      this.modalObject = modalObject;
     },
     checkModal(name) {
       return this.modal===name;
     },
     closeModal() {
+      this.modalObject = {};
       this.modal = '';
       this.newTodoProject = '';
       this.newTodoName = '';
       this.newTodoPageTypes = [];
       this.newProjectName = '';
       this.newCommentTodo = '';
-    },
+    },  
+    toggleWindow(show=null) {
+      let canvasbody = $("#application");
+      if (show === null) {
+        let mRight = canvasbody.css("margin-right");
+        if (mRight === "300px") {
+          show = false;
+        }
+        if (mRight === "0px") {
+          show = true;
+        }
+      }
+      if (!show) {
+        canvasbody.css("margin-right", "0px");
+        $("#canvas-collaborator-container").hide();
+      }
+      if (show) {
+        canvasbody.css("margin-right", "300px");
+        $("#canvas-collaborator-container").show();
+      }
+      this.api.saveSettingGeneral(this.userId, 'showMenu', show);
+    }
   },
+
 });

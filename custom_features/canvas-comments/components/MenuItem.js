@@ -15,9 +15,9 @@ Vue.component('project-item', {
         </div>
       </div>
       <div v-if="!collapsed">
-        <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="$emit('new-todo');">
+        <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new canvas-collaborator-menu-item-todo" @click="$emit('new-todo');">
           <i class="icon-add"></i>
-          New Todo 
+          New To Do 
         </div>
         <div v-for="(todo, x) in todos" :key="x">
           <todo-item 
@@ -27,8 +27,10 @@ Vue.component('project-item', {
               @resolve-todo="$emit('resolve-todo', todo);" 
               @unresolve-todo="$emit('unresolve-todo', todo);" 
               @delete-todo="$emit('delete-todo', todo);"
-              @toggle-comments="toggleComments(todo);"
+              @toggle-comments="$emit('toggle-comments', todo);"
               @load-comments="loadComments(todo);"
+              @new-comment="$emit('new-comment', $event);"
+              @delete-comment="$emit('delete-comment', $event);"
             >
           </todo-item>
         </div>
@@ -74,6 +76,7 @@ Vue.component('project-item', {
 //<i class="icon-trash"></i>
 Vue.component('todo-item', {
   template: `
+  <div>
     <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="$emit('edit-todo');">
       <div class="canvas-collaborator-submenu-delete">
         <i class="icon-trash" @click.stop="$emit('delete-todo');"></i>
@@ -86,6 +89,18 @@ Vue.component('todo-item', {
         {{todo.name}}
       </div>
     </div>
+    <div v-if="todo.collapsed === false && todo.loadedComments !== undefined">
+      <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new canvas-collaborator-menu-item-new-comment" @click="$emit('new-comment', todo);">
+        <i class="icon-add"></i>
+        New Comment 
+      </div>
+      <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-border canvas-collaborator-menu-item-comment" v-for="(comment, x) in todo.loadedComments">
+        <comment-item :todo="todo" :comment="comment"
+            @delete-comment="$emit('delete-comment', $event);"
+          ></comment-item>
+      </div>
+    </div>
+  </div>
   `,
   created: function() {
     if (this.rPagesURL.test(window.location.pathname)) {
@@ -128,3 +143,52 @@ Vue.component('todo-item', {
     }
   }
 })
+
+Vue.component('comment-item', {
+  template: `
+    <div>
+        <i class="icon-edit" style="float: right;"></i>
+        <i class="icon-trash" style="float: right;" @click="$emit('delete-comment', {'comment': comment, 'todo': todo});"></i>
+        <p>{{comment.text}}</p>
+        <div style="float: right; font-size: 9px;">
+          -{{comment.userName}}<br>{{formatDate(comment.date)}}
+        </div>
+    </div>
+    `,
+  data: function() {
+    return {
+      rMainURL: /^\/courses\/([0-9]+)/,
+      rPagesURL: /^\/courses\/([0-9]+)\/([a-z]+)\/(.+?)(\/|$|\?)/,
+      showMenu: false,
+      pageType: '',
+      pageId: ''
+    }
+  },
+  props: [
+    'todo',
+    'comment',
+  ],
+  created: function() {
+    if (this.rPagesURL.test(window.location.pathname)) {
+      //page specific menu
+      let pieces = window.location.pathname.match(this.rPagesURL);
+      this.courseId = parseInt(pieces[1]);
+      this.pageType = pieces[2];
+      this.pageId = pieces[3];
+      //await self.getSavedSettings();
+    } else if (this.rMainURL.test(window.location.pathname)) {
+      //not in a specific page
+      let pieces = window.location.pathname.match(this.rMainURL);
+      this.courseId = parseInt(pieces[1]);
+      //await self.getSavedSettings();
+    }
+
+  },
+  methods: {
+    formatDate(dateString) {
+      let date = new Date(dateString);
+      let output = date.getDate() + " " + MONTH_NAMES_SHORT[date.getMonth()] + ", " + date.getFullYear();
+      return output;
+    },
+  }
+});
