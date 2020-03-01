@@ -85,11 +85,11 @@ CANVAS_COMMENTS_API = {
   async getComments(todoId, pageType='', pageId='') {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/comments";
+    if (pageType !== '' || pageId !== '') {
+      url = self.URL_BASE + "todos/" + todoId + "/comments/pages/"+pageType+"/"+pageId;
+    }
     let returnData = null;
-    let res = await axios.get(url, {
-      pageType: pageType,
-      pageId: pageId
-    });
+    let res = await axios.get(url);
     return res.data;
   },
   async deleteComment(commentId) {
