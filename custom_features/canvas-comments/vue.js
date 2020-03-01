@@ -240,14 +240,6 @@ APP = new Vue({
       }
       return;
     },
-    async loadCommentsPage(todo) {
-      let comments = await this.api.getCommentsPage(todo._id, this.pageType, this.pageId);
-      for (let c = 0; c < comments.length; c++) {
-        let comment = comments[c];
-        await this.setUserName(comment);
-      }
-      this.$set(todo, 'loadedComments', comments);
-    },
     async loadComments(todo) {
       let comments = await this.api.getComments(todo._id, this.pageType, this.pageId);
       for (let c = 0; c < comments.length; c++) {
