@@ -241,6 +241,8 @@ APP = new Vue({
       return;
     },
     async loadComments(todo) {
+      console.log(this.pageType);
+      console.log(this.pageId);
       let comments = await this.api.getComments(todo._id, this.pageType, this.pageId);
       for (let c = 0; c < comments.length; c++) {
         let comment = comments[c];
