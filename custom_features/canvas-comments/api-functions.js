@@ -86,13 +86,11 @@ CANVAS_COMMENTS_API = {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/comments";
     let returnData = null;
-    await $.get(url, {
+    let res = await axios.get(url, {
       pageType: pageType,
       pageId: pageId
-    }).done(function (data) {
-      returnData = data;
     });
-    return returnData;
+    return res.data;
   },
   async deleteComment(commentId) {
     let self = this;
