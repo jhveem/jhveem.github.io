@@ -82,18 +82,9 @@ CANVAS_COMMENTS_API = {
     });
     return returnData;
   },
-  async getComments(todoId) {
+  async getComments(todoId, pageType='', pageId='') {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/comments";
-    let returnData = null;
-    await $.get(url).done(function (data) {
-      returnData = data;
-    });
-    return returnData;
-  },
-  async getCommentsPage(todoId, pageType='', pageId='') {
-    let self = this;
-    let url = self.URL_BASE + "todos/" + todoId + "/comments/pages/"+pageType+"/"+pageId;
     let returnData = null;
     await $.get(url, {
       pageType: pageType,
