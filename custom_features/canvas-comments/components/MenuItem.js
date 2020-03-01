@@ -11,7 +11,7 @@ Vue.component('project-item', {
         <div>
           <i v-if="project.collapsed" :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle');"></i>
           <i v-else :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle');"></i>
-          <b>{{project.data.name}}</b>
+          <b>{{project.name}}</b>
         </div>
       </div>
       <div v-if="!collapsed">
@@ -89,7 +89,7 @@ Vue.component('todo-item', {
         {{todo.name}}
       </div>
     </div>
-    <div v-if="todo.collapsed === false && todo.loadedComments !== undefined">
+    <div v-if="todo.collapsed === false">
       <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new canvas-collaborator-menu-item-new-comment" @click="$emit('new-comment', todo);">
         <i class="icon-add"></i>
         New Comment 

@@ -27,6 +27,12 @@ CANVAS_COMMENTS_API = {
     await axios.delete(url);
     return;
   },
+  async getTodos( projectId) {
+    let self = this;
+    let url = self.URL_BASE + "projects/" + projectId + "/todos";
+    let res = await axios.get(url);
+    return res.data;
+  },
   async createTodo(projectId, name, pageTypes = ['']) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todo";
@@ -65,8 +71,8 @@ CANVAS_COMMENTS_API = {
   async deleteTodo(todoId) {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId;
-    let res = await axios.delete(url);
-    return res.data;
+    await axios.delete(url);
+    return;
   },
   async createComment(todoId, text, pageType, pageId) {
     let self = this;

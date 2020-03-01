@@ -10,16 +10,16 @@ let vueString = `<div id="vue-app">
       <i class="icon-add"></i>
       New Project
     </div>
-    <div v-for="(project) in projectList">
+    <div v-for="(project) in loadedProjects">
       <project-item 
           :project="project"
-          :todos="project.data.todos"
+          :todos="project.loadedTodos"
           :collapsed="project.collapsed"
           :userNames="userNames"
           @toggle="toggle(project);"
-          @delete-project="deleteProject(project.data);"
+          @delete-project="deleteProject(project);"
           @new-project="openMod('new-project');"
-          @new-todo="openModal('new-todo', project); newTodoProject=project.data._id;"
+          @new-todo="openModal('new-todo', project); newTodoProject=project._id;"
           @edit-todo="openModal('edit-todo', $event);  newTodoPageTypes=$event.pageTypes; newTodoName=$event.name;"
           @delete-todo="deleteTodo($event);"
           @resolve-todo="resolveTodo($event);"
@@ -127,17 +127,13 @@ APP = new Vue({
       pageId: '',
       header: 'projects',
       menuItems: [],
-      projects: {
-        'test': 'test',
-        'test1': 'test1'
-      },
+      loadedProjects: [],
       pageTypes: [
         'quizzes',
         'assignments',
         'pages',
         'project level'
       ],
-      projectList: [],
       modalObject: {},
       newProjectName: '',
       newTodoName: '',
@@ -164,24 +160,23 @@ APP = new Vue({
       }
     },
     updateProjectInList(project) {
-        let data = {'collapsed': true, 'data': project};
-        let exists = false;
-        for (let i =0; i < this.projectList.length; i++) {
-          let checkProject = this.projectList[i];
-          if (checkProject.data._id === project._id) {
-            for (let key in project) {
-              this.$set(checkProject.data, key, project[key]);
-            }
-            exists = true;
+      let exists = false;
+      for (let i =0; i < this.loadedProjects.length; i++) {
+        let checkProject = this.loadedProjects[i];
+        if (checkProject._id === project._id) {
+          for (let key in project) {
+            this.$set(checkProject, key, project[key]);
           }
+          exists = true;
         }
-        if (exists === false) {
-          this.projectList.push(data);
-        }
-        for (let t = 0; t < project.todos.length; t++) {
-          let todo = project.todos[t];
-          this.$set(todo, 'collapsed', true);
-        }
+      }
+      //if this is the first time loading this project, get its todos and set its collapsed to tru
+      if (exists === false) {
+        project.loadedTodos = [];
+        project.collapsed = true;
+        this.loadedProjects.push(project);
+        this.setProjectTodos(project);
+      }
     },
     async createProject() {
       let project = await this.api.createProject(this.courseId, this.newProjectName);
@@ -190,23 +185,36 @@ APP = new Vue({
     async deleteProject(project) {
       await this.api.deleteProject(project._id);
       //remove project from list
-      for (let i =0; i < this.projectList.length; i++) {
-        let checkProject = this.projectList[i];
-        if (project._id === checkProject.data._id) {
-          this.projectList.splice(i, 1);
+      for (let i =0; i < this.loadedProjects.length; i++) {
+        let checkProject = this.loadedProjects[i];
+        if (project._id === checkProject._id) {
+          this.loadedProjects.splice(i, 1);
           break;
         }
       }
+    },
+    async setProjectTodos(project) {
+      let todos = await this.getTodos(project);
+      console.log(project.loadedTodos);
+      for (let t = 0; t < todos.length; t++) {
+        let todo = todos[t];
+        todo['collapsed'] = true;
+        todo['loadedComments'] = [];
+      }
+      this.$set(project, 'loadedTodos', todos);
+    },
+    async getTodos(project) {
+      let todos = await this.api.getTodos(project._id);
+      return todos;
     },
     async createTodo() {
       let newTodoProject = this.newTodoProject; //set because it gets voided before await createTodo finishes
       let todo = await this.api.createTodo(this.newTodoProject, this.newTodoName, this.newTodoPageTypes);
       todo.collapsed = true;
-      for (let i =0; i < this.projectList.length; i++) {
-        let project = this.projectList[i];
-        if (newTodoProject === project.data._id) {
-          project.data.todos.push(todo);
-          this.$set(project.data, 'todos', project.data.todos);
+      for (let i =0; i < this.loadedProjects.length; i++) {
+        let project = this.loadedProjects[i];
+        if (newTodoProject === project._id) {
+          project.loadedTodos.push(todo);
           break;
         }
       }
@@ -220,13 +228,27 @@ APP = new Vue({
       this.$set(todo, 'pages', pages);
     },
     async deleteTodo(todo) {
-      let project = await this.api.deleteTodo(todo._id);
-      this.updateProjectInList(project);
+      //some kind of check to make sure this worked
+      for (let p = 0; p < this.loadedProjects.length; p++) {
+        let project = this.loadedProjects[p];
+        if (project._id === todo.projectId) {
+          let todos = project.loadedTodos;
+          for (let t = 0; t < todos.length; t++) {
+            if (todos[t]._id === todo._id) {
+              todos.splice(t, 1);
+              break;
+            }
+          }
+          break;
+        }
+      }
+      await this.api.deleteTodo(todo._id);
     },
     async toggleComments(todo) {
+      console.log(todo);
       this.$set(todo, 'collapsed', !todo.collapsed);
       if (todo.collapsed === false) {
-        if (todo.loadedComments === undefined) {
+        if (todo.loadedComments.length === 0) {
           this.loadComments(todo);
         }
       }

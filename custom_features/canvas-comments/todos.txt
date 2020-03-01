@@ -1,8 +1,9 @@
-Delet Projects
 Page Specific Todos
 -maybe have this be an option when selecting pages, quizzes, etc and it hides the others and sends the pageType and pageId to the server
---will need a way of storing and reading this, probably best way would be to still save pageType in pageTypes but then have a set aside value for the pageId that if it is not null, page id must match that
 show what percent of pages have been checked
 keep track of if you've seen a comment
-see unread comments
+option to see unread comments
 comments on moduels page link to that page
+telegraph that things are loading (projects, todos, comments)
+assign todos & comments to users
+highlight pieces of the page and link them to a comment AND highlight first but then have to leave a comment to save it
