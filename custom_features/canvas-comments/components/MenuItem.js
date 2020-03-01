@@ -19,7 +19,7 @@ Vue.component('project-item', {
           <i class="icon-add"></i>
           New To Do 
         </div>
-        <div v-for="(todo, x) in todos" :key="x">
+        <div v-for="(todo, x) in project.loadedTodos" :key="x">
           <todo-item 
               v-if="todo.pageTypes.includes(pageType)||pageType==''" 
               :todo="todo" 
@@ -77,7 +77,7 @@ Vue.component('project-item', {
 Vue.component('todo-item', {
   template: `
   <div>
-    <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="$emit('edit-todo');">
+    <div v-bind:class="{'canvas-collaborator-menu-item-assigned': true}" class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="$emit('edit-todo');">
       <div class="canvas-collaborator-submenu-delete">
         <i class="icon-trash" @click.stop="$emit('delete-todo');"></i>
       </div>
@@ -133,6 +133,7 @@ Vue.component('todo-item', {
   ],
   methods: {
     checkResolvedTodoPage(todo, pageType, pageId) {
+      console.log(todo);
       for (let p = 0; p < todo.pages.length; p++) {
         let page = todo.pages[p];
         if (page.pageType === this.pageType && page.pageId === this.pageId) {

@@ -70,8 +70,8 @@
 .canvas-collaborator-menu-item-comment i:hover {
   color: #000;
 }
-.canvas-collaborator-menu-item i.icon-publish:hover {
-  color: #3D5;
+.canvas-collaborator-menu-item-assigned {
+  background-color: #363;
 }
 project-menu {
   background-color: #444;

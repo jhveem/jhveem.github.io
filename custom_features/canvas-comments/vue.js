@@ -195,7 +195,6 @@ APP = new Vue({
     },
     async setProjectTodos(project) {
       let todos = await this.getTodos(project);
-      console.log(project.loadedTodos);
       for (let t = 0; t < todos.length; t++) {
         let todo = todos[t];
         todo['collapsed'] = true;
@@ -210,6 +209,7 @@ APP = new Vue({
     async createTodo() {
       let newTodoProject = this.newTodoProject; //set because it gets voided before await createTodo finishes
       let todo = await this.api.createTodo(this.newTodoProject, this.newTodoName, this.newTodoPageTypes);
+      todo.assignments = ["1893418"];
       todo.collapsed = true;
       for (let i =0; i < this.loadedProjects.length; i++) {
         let project = this.loadedProjects[i];
@@ -219,13 +219,19 @@ APP = new Vue({
         }
       }
     },
-    resolveTodo: async function(todo) {
-      let pages = await this.api.resolveTodoPage(todo._id, this.pageType, this.pageId);
-      this.$set(todo, 'pages', pages);
+    async resolveTodo(todo) {
+      await this.api.resolveTodoPage(todo._id, this.pageType, this.pageId);
+      todo.pages.push({'pageType': this.pageType, 'pageId': this.pageId});
     },
-    unresolveTodo: async function(todo) {
-      let pages = await this.api.unresolveTodoPage(todo._id, this.pageType, this.pageId);
-      this.$set(todo, 'pages', pages);
+    async unresolveTodo(todo) {
+      await this.api.unresolveTodoPage(todo._id, this.pageType, this.pageId);
+      for (let p = 0; p < todo.pages.length; p++) {
+        let page = todo.pages[p];
+        if (page.pageType === this.pageType && page.pageId === this.pageId) {
+          todo.pages.splice(p, 1);
+          break;
+        }
+      }
     },
     async deleteTodo(todo) {
       //some kind of check to make sure this worked
@@ -245,7 +251,6 @@ APP = new Vue({
       await this.api.deleteTodo(todo._id);
     },
     async toggleComments(todo) {
-      console.log(todo);
       this.$set(todo, 'collapsed', !todo.collapsed);
       if (todo.collapsed === false) {
         if (todo.loadedComments.length === 0) {
@@ -263,8 +268,6 @@ APP = new Vue({
       return;
     },
     async loadComments(todo) {
-      console.log(this.pageType);
-      console.log(this.pageId);
       let comments = await this.api.getComments(todo._id, this.pageType, this.pageId);
       for (let c = 0; c < comments.length; c++) {
         let comment = comments[c];

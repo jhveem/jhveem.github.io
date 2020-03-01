@@ -47,7 +47,7 @@ CANVAS_COMMENTS_API = {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/resolve";
     let returnData = null;
-    await $.post(url, {
+    await $.put(url, {
       'pageType': pageType,
       'pageId': pageId
     }, function(data) {
@@ -59,14 +59,18 @@ CANVAS_COMMENTS_API = {
     //the page type and page id might be unnecessary
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/unresolve";
-    let returnData = null;
-    await $.post(url, {
+    await axios.put(url, {
       'pageType': pageType,
       'pageId': pageId
-    }, function(data) {
-      returnData = data;
     });
-    return returnData;
+    return;
+  },
+  async assignTodoPage(todoId, assignments) {
+    let self = this;
+    let url = self.URL_BASE + "todos/" + todoId + "/unresolve";
+    await axios.put(url, {
+      'assignments': assignments
+    });
   },
   async deleteTodo(todoId) {
     let self = this;
