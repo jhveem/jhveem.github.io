@@ -74,7 +74,7 @@ CANVAS_COMMENTS_API = {
     let returnData = null;
     await $.post(url, {
       'text': text,
-      'user': ENV.current_user_id
+      'user': ENV.current_user_id,
       'pageType': pageType,
       'pageId': pageId
     }, function (data) {
