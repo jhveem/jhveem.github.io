@@ -20,8 +20,6 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.canvas-collaborator-menu-item-border {
-}
 .canvas-collaborator-menu-item {
   box-sizing: border-box;
   padding: 10px;
@@ -80,7 +78,7 @@ project-menu {
   width: 95px;
   margin-left: -125px; 
   position: absolute; 
-  border: 2px solid #000;"
+  border: 2px solid #000;
 }
 .canvas-collaborator-submenu-item {
   width: 75px;
