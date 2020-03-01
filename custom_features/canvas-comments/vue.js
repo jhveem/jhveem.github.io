@@ -263,7 +263,7 @@ APP = new Vue({
       this.$set(todo, 'loadedComments', comments);
     },
     async createComment(todo) {
-      let comment = await this.api.createComment(this.newCommentTodo, this.newCommentText);
+      let comment = await this.api.createComment(this.newCommentTodo, this.newCommentText, this.pageType, this.pageId);
       await this.setUserName(comment);
       todo.loadedComments.push(comment);
       this.newCommentText = '';

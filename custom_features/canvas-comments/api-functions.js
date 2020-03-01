@@ -68,13 +68,15 @@ CANVAS_COMMENTS_API = {
     let res = await axios.delete(url);
     return res.data;
   },
-  async createComment(todoId, text) {
+  async createComment(todoId, text, pageType, pageId) {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/comment";
     let returnData = null;
     await $.post(url, {
       'text': text,
       'user': ENV.current_user_id
+      'pageType': pageType,
+      'pageId': pageId
     }, function (data) {
       returnData = data;
     });
@@ -89,11 +91,14 @@ CANVAS_COMMENTS_API = {
     });
     return returnData;
   },
-  async getCommentsPage(todoId, pageType, pageId) {
+  async getCommentsPage(todoId, pageType='', pageId='') {
     let self = this;
     let url = self.URL_BASE + "todos/" + todoId + "/comments/pages/"+pageType+"/"+pageId;
     let returnData = null;
-    await $.get(url).done(function (data) {
+    await $.get(url, {
+      pageType: pageType,
+      pageId: pageId
+    }).done(function (data) {
       returnData = data;
     });
     return returnData;
