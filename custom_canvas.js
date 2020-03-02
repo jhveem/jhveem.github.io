@@ -148,7 +148,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
       }
 		}
 		if (departmentId === 3819) { // AMAR
-			if (IS_TEACHER) featurePilot("modules/points_to_hours_header", courseId, 470679);
+			//if (IS_TEACHER) featurePilot("modules/points_to_hours_header", courseId, 470679);
 		}
 	}
 
@@ -157,10 +157,16 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
       $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function() {
         $.getScript("https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js").done(function() {
-          $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/api-functions.js").done(function() {
-            $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/MenuItem.js").done(function() {
-              $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/vue.js").done(function() {
-                
+          $.getScript("https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js").done(function() {
+            $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/api-functions.js").done(function() {
+              $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/MenuItem.js").done(function() {
+                $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/Modals.js").done(function() {
+                  $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/ChosenSelect.js").done(function() {
+                    $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/vue.js").done(function() {
+                      
+                    });
+                  });
+                });
               });
             });
           });
@@ -181,4 +187,4 @@ window.ALLY_CFG = {
     'baseUrl': 'https://prod.ally.ac',
     'clientId': 1164
 };
-$.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
+$.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');;
