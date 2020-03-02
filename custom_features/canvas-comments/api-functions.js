@@ -16,6 +16,11 @@ CANVAS_COMMENTS_API = {
     });
     return res.data;
   },
+  async updateProject(projectId, updatePackage) {
+    let self = this;
+    let url = self.URL_BASE + "projects/" + projectId;
+    await axios.put(url, updatePackage);
+  },
   async getUserName(userId) {
     let url = "/api/v1/users/"+userId;
     let res = await axios.get(url);
@@ -33,14 +38,21 @@ CANVAS_COMMENTS_API = {
     let res = await axios.get(url);
     return res.data;
   },
-  async createTodo(projectId, name, pageTypes = ['']) {
+  async createTodo(projectId, name, pageTypes = [''], assignments = ['']) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todo";
+    if (typeof assignments === 'string') assignments = [assignments];
     let res = await axios.post(url, {
       'name': name,
-      'pageTypes': pageTypes
+      'pageTypes': pageTypes,
+      'assignments': assignments
     });
     return res.data;
+  },
+  async updateTodo(todoId, updatePackage) {
+    let self = this;
+    let url = self.URL_BASE + "todos/" + todoId;
+    await axios.put(url, updatePackage);
   },
   async resolveTodoPage(todoId, pageType, pageId) {
     //the page type and page id might be unnecessary
@@ -65,9 +77,9 @@ CANVAS_COMMENTS_API = {
     });
     return;
   },
-  async assignTodoPage(todoId, assignments) {
+  async assignTodo(todoId, assignments) {
     let self = this;
-    let url = self.URL_BASE + "todos/" + todoId + "/unresolve";
+    let url = self.URL_BASE + "todos/" + todoId + "/assignment";
     await axios.put(url, {
       'assignments': assignments
     });

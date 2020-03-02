@@ -4,7 +4,7 @@
 Vue.component('project-item', {
   template: `
     <div>
-      <div class="canvas-collaborator-menu-item" @click="$emit('edit-project');"> 
+      <div class="canvas-collaborator-menu-item" @click="$emit('edit-project', project);"> 
         <div class="canvas-collaborator-submenu-delete">
           <i class="icon-trash" @click.stop="$emit('delete-project');"></i>
         </div>
@@ -77,7 +77,7 @@ Vue.component('project-item', {
 Vue.component('todo-item', {
   template: `
   <div>
-    <div v-bind:class="{'canvas-collaborator-menu-item-assigned': true}" class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="$emit('edit-todo');">
+    <div v-bind:class="{'canvas-collaborator-menu-item-assigned': isAssigned}" class="canvas-collaborator-menu-item canvas-collaborator-menu-item-todo" @click="$emit('edit-todo');">
       <div class="canvas-collaborator-submenu-delete">
         <i class="icon-trash" @click.stop="$emit('delete-todo');"></i>
       </div>
@@ -118,6 +118,11 @@ Vue.component('todo-item', {
     }
 
   },
+  computed: {
+    isAssigned: function() {
+      return this.todo.assignments.includes(ENV.current_user_id);
+    }
+  },
   data: function() {
     return {
       rMainURL: /^\/courses\/([0-9]+)/,
@@ -133,7 +138,6 @@ Vue.component('todo-item', {
   ],
   methods: {
     checkResolvedTodoPage(todo, pageType, pageId) {
-      console.log(todo);
       for (let p = 0; p < todo.pages.length; p++) {
         let page = todo.pages[p];
         if (page.pageType === this.pageType && page.pageId === this.pageId) {
