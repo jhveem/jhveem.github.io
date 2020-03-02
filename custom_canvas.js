@@ -148,7 +148,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
       }
 		}
 		if (departmentId === 3819) { // AMAR
-			//if (IS_TEACHER) featurePilot("modules/points_to_hours_header", courseId, 470679);
+			if (IS_TEACHER) featurePilot("modules/points_to_hours_header", courseId, 470679);
 		}
 	}
 

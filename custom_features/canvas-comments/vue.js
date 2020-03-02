@@ -324,11 +324,15 @@ APP = new Vue({
         let comment = comments[c];
         await this.setUserName(comment);
       }
+      console.log(comments);
       this.$set(todo, 'loadedComments', comments);
     },
     async createComment(todo) {
       let comment = await this.api.createComment(this.newCommentTodo, this.newCommentText, this.pageType, this.pageId);
       await this.setUserName(comment);
+      if (todo.loadedComments === undefined) {
+        todo.loadedComments = [];
+      }
       todo.loadedComments.push(comment);
       this.newCommentText = '';
     },
