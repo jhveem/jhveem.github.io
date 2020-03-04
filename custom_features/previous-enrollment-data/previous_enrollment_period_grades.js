@@ -171,8 +171,8 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 let gradingScheme = ENV.grading_scheme;
                 let pointsPerHour = finalPointsPossible / 90;
                 let hoursCompleted = finalPoints / pointsPerHour;
-                outputHours += "</div>Ungraded as zero: " + outputUngradedAsZeroScore.toFixed(2) + "</div>";
                 outputHours = "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
+                outputHours += "</div>Ungraded as zero: " + outputUngradedAsZeroScore.toFixed(2) + "</div>";
                 if (window.STUDENT_HOURS > 0) {
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                   let reqHours = window.STUDENT_HOURS * 60;
