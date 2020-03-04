@@ -85,7 +85,6 @@ function featurePilot(f, courseId=0, pilotCourseIds=0, data={}) {
 }
 
 function featureCDD(f, data={}) {
-	
 	let userId = parseInt(ENV.current_user.id);
 	if (CDDIDS.includes(userId)) feature(f, data);
 }
@@ -111,7 +110,7 @@ add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import_pilot.js");
 $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	let currentUser = parseInt(ENV.current_user.id);
-
+  const IS_ME = (currentUser === 1893418);
 	//GENERAL FEATURES
 
 	//COURSE FEATURES
