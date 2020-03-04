@@ -59,7 +59,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
                 <button class="Button" id="btech-term-grade-button">Estimate</button>
                 <button class="Button" id="btech-term-reset-button">Reset</button>
-                <p>Grade for term: <span id="btech-term-grade-value"></span></p>
+                <div id="btech-term-grade-value"></div>
                 </div>`
             );
             $("#btech-term-grade-button").on("click", function() {
@@ -168,11 +168,11 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 outputScore = "N/A";
             } else {
                 let gradingScheme = ENV.grading_scheme;
-                outputHours += "</div>Ungraded as zero: " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%</div>";
+                outputHours += "</div><b>Ungraded as zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%</div>";
                 if (window.STUDENT_HOURS > 0) {
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                   let reqHours = window.STUDENT_HOURS * 60;
-                  outputHours+= "<div>Required Hours: " + reqHours + "</div>"
+                  outputHours+= "<div><b>Required Hours:</b> " + reqHours + "</div>"
                   outputScore = hoursCompleted / reqHours;
 
                 }
@@ -186,7 +186,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
             }
-            $("#btech-term-grade-value").html("<div>" + outputScore + "</div>" +  outputHours);
+            $("#btech-term-grade-value").html("<div><b>Term Grade:</b> " + outputScore + "</div>" +  outputHours);
         },
         parseDate(dateString) {
             let pieces = dateString.split("-");
