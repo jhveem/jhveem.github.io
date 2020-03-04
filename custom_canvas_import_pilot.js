@@ -1,6 +1,6 @@
 
 //toggle color of submitted assignments for students
-//*currently only in meats for testing
+/*currently only in meats for testing
 if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {
   if (ENV.course_id === "473716" || ENV.course_id === "497780") {
     async function getSubmittedAssignments(page) {
