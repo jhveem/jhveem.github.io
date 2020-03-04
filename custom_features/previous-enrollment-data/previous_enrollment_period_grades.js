@@ -138,7 +138,6 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                     let assignment = assignments[a];
                     let id = parseInt(assignment.id);
                     let submissionElement = $("#submission_"+id);
-                    finalPointsPossible += (assignment.points_possible * group.group_weight); //Total possible earned points in the course weighted by their type
                     ungradedAsZeroTotal += assignment.points_possible;
                     if (includedAssignments.includes(id)) {
                         submissionElement.clone().appendTo(newBody);
@@ -169,10 +168,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 outputScore = "N/A";
             } else {
                 let gradingScheme = ENV.grading_scheme;
-                let pointsPerHour = finalPointsPossible / 90;
-                let hoursCompleted = finalPoints / pointsPerHour;
-                outputHours = "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
-                outputHours += "</div>Ungraded as zero: " + outputUngradedAsZeroScore.toFixed(2) + "</div>";
+                outputHours += "</div>Ungraded as zero: " + (outputUngradedAsZeroScore * 100).toFixed(2) + "</div>";
                 if (window.STUDENT_HOURS > 0) {
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                   let reqHours = window.STUDENT_HOURS * 60;
