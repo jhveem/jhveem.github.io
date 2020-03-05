@@ -168,7 +168,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 outputScore = "N/A";
             } else {
                 let gradingScheme = ENV.grading_scheme;
-                outputHours += "</div><b>Ungraded as zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%</div>";
+                outputHours += "</div><b>Ungraded as Zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%</div>";
                 if (window.STUDENT_HOURS > 0) {
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                   let reqHours = window.STUDENT_HOURS * 60;
