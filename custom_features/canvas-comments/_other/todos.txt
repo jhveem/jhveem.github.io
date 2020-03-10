@@ -1,3 +1,4 @@
+be able to stretch the menu
 show what percent of pages have been checked
 keep track of if you've seen a comment
 see unread comments
@@ -15,14 +16,8 @@ edit comments
 project level comments?
 link pages? say you've got a copy of a page you're working on, create a list of linked pages on the project level where anything form one would save to the other.
 
-Comment tags to make searching for comments from the main page easy. IE tag for question that's too easy. Then when you're showing teachers easy questions, pull up comments with too easy tag and get linked to that page.
--add project level tags data
--provide list of tags or add new tag.
-
 Need an all option for page types...
 
-
-Toggle see only unresolved or see all
 Save collapsed vs open options in user settings for the project as a whole
 
 When not in a course, pull up list of all courses where you have unresolved todos.
