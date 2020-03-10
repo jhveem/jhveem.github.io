@@ -44,14 +44,15 @@ CANVAS_COMMENTS_API = {
     let res = await axios.get(url);
     return res.data;
   },
-  async createTodo(projectId, name, pageTypes = [''], assignments = ['']) {
+  async createTodo(projectId, name, pageTypes = [''], assignments = [''], pageId = '') {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todo";
     if (typeof assignments === 'string') assignments = [assignments];
     let res = await axios.post(url, {
       'name': name,
       'pageTypes': pageTypes,
-      'assignments': assignments
+      'assignments': assignments,
+      'pageId': pageId
     });
     return res.data;
   },

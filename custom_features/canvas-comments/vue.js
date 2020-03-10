@@ -12,22 +12,22 @@ let vueString = `<div id="vue-app">
     </div>
     <div v-for="(project) in loadedProjects">
       <project-item 
-          :project="project"
-          :todos="project.loadedTodos"
-          :collapsed="project.collapsed"
-          :user-names="userNames"
-          @toggle="toggle(project);"
-          @delete-project="deleteProject(project);"
-          @edit-project="openModal('edit-project', $event);"
-          @new-todo="openModal('new-todo', project); newTodoProject=project._id;"
-          @edit-todo="openModal('edit-todo', $event);"
-          @delete-todo="deleteTodo($event);"
-          @resolve-todo="resolveTodo($event);"
-          @unresolve-todo="unresolveTodo($event);"
-          @toggle-comments="toggleComments($event);"
-          @new-comment="openModal('new-comment', $event); newCommentTodo=$event._id;"
-          @delete-comment="deleteComment($event['todo'], $event['comment']);"
-        >
+        :project="project"
+        :todos="project.loadedTodos"
+        :collapsed="project.collapsed"
+        :user-names="userNames"
+        @toggle="toggle(project);"
+        @delete-project="deleteProject(project);"
+        @edit-project="openModal('edit-project', $event);"
+        @new-todo="openModal('new-todo', project); newTodoProject=project._id;"
+        @edit-todo="openModal('edit-todo', $event);"
+        @delete-todo="deleteTodo($event);"
+        @resolve-todo="resolveTodo($event);"
+        @unresolve-todo="unresolveTodo($event);"
+        @toggle-comments="toggleComments($event);"
+        @new-comment="openModal('new-comment', $event); newCommentTodo=$event._id;"
+        @delete-comment="deleteComment($event['todo'], $event['comment']);"
+      >
       </project-item>
     </div>
   </div>
@@ -42,32 +42,31 @@ let vueString = `<div id="vue-app">
           <input type="text" v-model="newProjectName"></input>
           <div class="canvas-collaborator-button" @click="createProject(); closeModal();">Save</div>
         </div>
-        <div v-if="checkModal('new-todo')">
-          <h2>Create Project</h2>
-          <label>Name</label>
-          <input type="text" v-model="newTodoName" />
-          <chosen-select :default="pageType" data-placeholder="View on page type..." class="canvas-collaborator-chosen-select" v-model="newTodoPageTypes" multiple>
-            <option v-for="pageType in pageTypes" :value="pageType">{{pageType}}</option>
-          </chosen-select>
-          <chosen-select data-placeholder="Assign to..." v-model="newTodoAssignments" multiple>
-            <option v-for="user in projectMembers" :value="user">{{userNames[user]}}</option>
-          </chosen-select>
-          <br>
-          <div class="canvas-collaborator-button" @click="createTodo(); closeModal();">Save</div>
-        </div> 
         <div v-if="checkModal('edit-project')">
           <edit-project
             :project="modalObject"
-            >
+          >
           </edit-project>
         </div>
+        <div v-if="checkModal('new-todo')">
+          <new-todo
+            :current-page-type="pageType"
+            :page-types="pageTypes"
+            :user-names="userNames"
+            :project-members="projectMembers"
+            :project-id="newTodoProject"
+            @create-todo="createTodo($event); closeModal();"
+          >
+          </new-todo>
+        </div> 
         <div v-if="checkModal('edit-todo')">
           <edit-todo 
+            :current-page-type="pageType"
             :todo="modalObject"
             :page-types="pageTypes"
             :user-names="userNames"
             :project-members="projectMembers"
-            >
+          >
           </edit-todo>
         </div>
         <div v-if="checkModal('new-comment')">
@@ -234,16 +233,21 @@ APP = new Vue({
       this.$set(project, 'loadedTodos', todos);
     },
     async getTodos(project) {
-      let todos = await this.api.getTodos(project._id);
+      let todos = await this.api.getTodosPage(project._id, this.pageType, this.pageId);
       return todos;
     },
-    async createTodo() {
-      let newTodoProject = this.newTodoProject; //set because it gets voided before await createTodo finishes
-      let todo = await this.api.createTodo(this.newTodoProject, this.newTodoName, this.newTodoPageTypes, this.newTodoAssignments);
+    async createTodo(todoData) {
+      let pageId = '';
+      if (todoData.pageSpecific) {
+        pageId = this.pageId; 
+        todoData.pageTypes = [this.pageType];
+      }
+      let todo = await this.api.createTodo(todoData.projectId, todoData.name, todoData.pageTypes, todoData.assignments, pageId);
+      todo.loadedComments = [];
       todo.collapsed = true;
       for (let i =0; i < this.loadedProjects.length; i++) {
         let project = this.loadedProjects[i];
-        if (newTodoProject === project._id) {
+        if (todoData.projectId === project._id) {
           project.loadedTodos.push(todo);
           break;
         }
@@ -251,10 +255,17 @@ APP = new Vue({
     },
     async updateTodo(todo) {
       //possible base this off of modal object
+      if (todo.pageSpecific) {
+        todo.pageTypes = [this.pageType];
+        todo.pageId = this.pageId;
+      } else {
+        todo.pageId = '';
+      }
       let updatePackage = {
         name: todo.name,
+        assignments: todo.assignments,
         pageTypes: todo.pageTypes,
-        assignments: todo.assignments
+        pageId: todo.pageId
       };
       await this.api.updateTodo(todo._id, updatePackage);
     },
@@ -324,7 +335,6 @@ APP = new Vue({
         let comment = comments[c];
         await this.setUserName(comment);
       }
-      console.log(comments);
       this.$set(todo, 'loadedComments', comments);
     },
     async createComment(todo) {
@@ -350,6 +360,9 @@ APP = new Vue({
     openModal(name, modalObject) {
       this.modal=name;
       this.modalObject = modalObject;
+      if (name === 'edit-todo') {
+        this.modalObject.pageSpecific = !(modalObject.pageId === '');
+      }
     },
     checkModal(name) {
       return this.modal===name;
@@ -363,7 +376,6 @@ APP = new Vue({
       }
       this.modalObject = {};
       this.modal = '';
-      this.newTodoProject = '';
       this.newTodoName = '';
       this.newTodoPageTypes = [];
       this.newProjectName = '';

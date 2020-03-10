@@ -21,7 +21,6 @@ Vue.component('project-item', {
         </div>
         <div v-for="(todo, x) in project.loadedTodos" :key="x">
           <todo-item 
-              v-if="todo.pageTypes.includes(pageType)||pageType==''" 
               :todo="todo" 
               @edit-todo="$emit('edit-todo', todo);" 
               @resolve-todo="$emit('resolve-todo', todo);" 
