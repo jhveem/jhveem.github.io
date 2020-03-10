@@ -16,14 +16,35 @@ Vue.component('new-todo', {
       <h2>Create Todo</h2>
       <label>Name</label>
       <input type="text" v-model="todoName" />
-      <input type="checkbox" v-model="pageSpecific"/><label>Page Specific Todo?</label>
+      <div v-if="pageId!==''"><input type="checkbox" v-model="pageSpecific"/><label>Page Specific Todo?</label></div>
       <br>
-      <chosen-select v-if="!pageSpecific" :default="currentPageType" data-placeholder="View on page type..." class="canvas-collaborator-chosen-select" v-model="todoPageTypes" multiple>
-        <option v-for="pageType in pageTypes" :value="pageType">{{pageType}}</option>
-      </chosen-select>
-      <chosen-select data-placeholder="Assign to..." v-model="todoAssignments" multiple>
-        <option v-for="user in projectMembers" :value="user">{{userNames[user]}}</option>
-      </chosen-select>
+      <select-2 
+        v-if="!pageSpecific" 
+        :options="pageTypes"
+        :default="currentPageType"
+        placeholder="View on page type..." 
+        v-model="todoPageTypes" 
+        multiple=true
+       >
+      </select-2>
+      <br>
+      <select-2 
+        :options="projectMembers"
+        :output-dictionary="userNames"
+        placeholder="Assign to..." 
+        v-model="todoAssignments" 
+        multiple=true
+       >
+      </select-2>
+      <br>
+      <select-2 
+        :options="projectTags"
+        :new-tags="true"
+        placeholder="Add a tag"
+        v-model="todoTags"
+        multiple=true
+      >
+      </select-2>
       <br>
       <div class="canvas-collaborator-button" 
         @click="$emit('create-todo', {
@@ -31,7 +52,8 @@ Vue.component('new-todo', {
           name: todoName, 
           pageTypes: todoPageTypes, 
           assignments: todoAssignments,
-          projectId: project._id 
+          tags: todoTags,
+          projectId: project._id,
         });"
       >
         Save
@@ -47,7 +69,11 @@ Vue.component('new-todo', {
     project: Object,
     projectMembers: {
       type: Array
-    }
+    },
+    projectTags: {
+      type: Array
+    },
+    pageId: String,
   },
   data: function() {
     return {
@@ -55,6 +81,7 @@ Vue.component('new-todo', {
       todoName: '',
       todoAssignments: [],
       todoPageTypes: [],
+      todoTags: [],
     }
   },
 });
@@ -64,49 +91,49 @@ Vue.component('edit-todo', {
       <h2>Edit Todo</h2>
       <label>Name</label>
       <input type="text" v-model="todo.name" />
-      <input type="checkbox" @click="todo.pageSpecific = !todo.pageSpecific; pageSpecific = todo.pageSpecific;" v-model="todo.pageSpecific"/><label>Page Specific Todo?</label>
+      <div v-if="pageId!==''"><input type="checkbox" @click="todo.pageSpecific = !todo.pageSpecific; pageSpecific = todo.pageSpecific;" v-model="todo.pageSpecific"/><label>Page Specific Todo?</label></div>
       <br>
-      <chosen-select id="collaborator-edit-todos-page-types" v-if="!pageSpecific" data-placeholder="View on page type..." class="canvas-collaborator-chosen-select" v-model="todo.pageTypes" multiple>
-        <option v-for="pageType in pageTypes" :value="pageType">{{pageType}}</option>
-      </chosen-select>
-      <chosen-select id="collaborator-edit-todo-assignments" data-placeholder="Assign to..." v-model="todo.assignments" multiple>
-        <option v-for="user in projectMembers" :value="user">{{userNames[user]}}</option>
-      </chosen-select>
-      <chosen-select id="collaborator-edit-todo-tags" data-placeholder="Tags" v-model="todo.tags" multiple>
-        <option v-for="tag in project.tags" :value="tag">{{tag}}</option>
-      </chosen-select>
+      <select-2 
+        :options="pageTypes"
+        v-if="!pageSpecific" 
+        placeholder="View on page type..." 
+        v-model="todo.pageTypes" 
+        multiple=true
+       >
+      </select-2>
+      <br>
+      <select-2 
+        :options="projectMembers"
+        :output-dictionary="userNames"
+        placeholder="Assign to..." 
+        v-model="todo.assignments" 
+        multiple=true
+       >
+      </select-2>
+      <br>
+      <select-2 
+        :options="projectTags"
+        :name="'Tags'"
+        :new-tags="true"
+        :placeholder="'Add a tag'"
+        v-model="todo.tags"
+        multiple=true
+      >
+      </select-2>
     </div> 
   `,
-  mounted: function() {
-    let app = this;
-    $(".chosen-container").on('keyup',function(event) {
-      if(event.which === 13) {
-        let id = $(this).attr('id');
-        let newVal = $(event.target).val();
-        $(event.target).val('');
-        if (id === 'collaborator_edit_todo_tags_chosen') {
-          app.$emit('add-tag', newVal);
-          $("#collaborator-edit-todo-tags").blur();
-          $("#collaborator-edit-todo-tags").trigger("chosen:updated");
-          $("#collaborator-edit-todo-tags").trigger("liszt:updated");
-          $(event.target).blur();
-          $(event.target).trigger("chosen:updated");
-          $(event.target).trigger("liszt:updated");
-          $("#"+id).blur();
-          $("#"+id).trigger("chosen:updated");
-          $("#"+id).trigger("liszt:updated");
-        }
-      }
-    });
-  },
   props: { 
     todo: Object, 
     userNames: Object,
     currentPageType: String,
     project: Object,
+    projectTags: {
+      type: Array
+    },
     pageTypes: {
       type: Array
     },
+    pageId: String,
     projectMembers: {
       type: Array
     } 

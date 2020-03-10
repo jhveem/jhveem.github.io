@@ -57,11 +57,12 @@ let vueString = `<div id="vue-app">
           <new-todo
             :current-page-type="pageType"
             :page-types="pageTypes"
+            :page-id="pageId"
             :user-names="userNames"
             :project="modalTodoProject"
             :project-members="projectMembers"
+            :project-tags="modalTodoProject.tags"
             @create-todo="createTodo($event); closeModal();"
-            @add-tag="modalTodoProject.push($event);"
           >
           </new-todo>
         </div> 
@@ -70,11 +71,11 @@ let vueString = `<div id="vue-app">
             :current-page-type="pageType"
             :todo="modalObject"
             :page-types="pageTypes"
+            :page-id="pageId"
             :user-names="userNames"
             :project="modalTodoProject"
             :project-members="projectMembers"
             :project-tags="modalTodoProject.tags"
-            @add-tag="modalTodoProject.tags.push($event);"
           >
           </edit-todo>
         </div>
@@ -196,7 +197,9 @@ APP = new Vue({
       let projects = await this.api.getProjects(this.courseId);
       for (let p in projects) {
         let project = projects[p];
-        console.log(project);
+        if (project.tags === undefined) {
+          project['tags'] = {};
+        }
       }
       this.updateProjectList(projects);
     },
@@ -257,8 +260,6 @@ APP = new Vue({
       this.$set(project, 'loadedTodos', todos);
     },
     async getTodos(project) {
-      console.log(this.pageType);
-      console.log(this.pageId);
       let todos;
       if (this.pageType !== '') {
         todos = await this.api.getTodosPage(project._id, this.pageType, this.pageId);
@@ -296,7 +297,8 @@ APP = new Vue({
         name: todo.name,
         assignments: todo.assignments,
         pageTypes: todo.pageTypes,
-        pageId: todo.pageId
+        pageId: todo.pageId,
+        tags: todo.tags
       };
       await this.api.updateTodo(todo._id, updatePackage);
     },
