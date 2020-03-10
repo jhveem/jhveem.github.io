@@ -5,5 +5,5 @@ keep track of if you've seen a comment
 option to see unread comments
 comments on moduels page link to that page
 telegraph that things are loading (projects, todos, comments)
-assign todos & comments to users
 highlight pieces of the page and link them to a comment AND highlight first but then have to leave a comment to save it
+due date / goal date (figure out wording)
