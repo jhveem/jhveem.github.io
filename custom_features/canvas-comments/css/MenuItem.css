@@ -154,6 +154,13 @@ menu-item {
   float: left;
 }
 
+.chosen-drop ul.chosen-results li.highlighted {
+  background-color: #333;
+  background-image: none;
+}
+
+
+
 .radial-progress-container {
   position: relative;
 }

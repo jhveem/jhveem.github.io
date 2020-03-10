@@ -21,16 +21,18 @@ Vue.component('project-item', {
         </div>
         <div v-for="(todo, x) in project.loadedTodos" :key="x">
           <todo-item 
-              :todo="todo" 
-              @edit-todo="$emit('edit-todo', todo);" 
-              @resolve-todo="$emit('resolve-todo', todo);" 
-              @unresolve-todo="$emit('unresolve-todo', todo);" 
-              @delete-todo="$emit('delete-todo', todo);"
-              @toggle-comments="$emit('toggle-comments', todo);"
-              @load-comments="loadComments(todo);"
-              @new-comment="$emit('new-comment', $event);"
-              @delete-comment="$emit('delete-comment', $event);"
-            >
+            v-if="settings.showResolved || (!settings.showResolved && !checkResolvedTodoPage(todo, pageType, pageId))"
+            :todo="todo" 
+            :settings="settings"
+            @edit-todo="$emit('edit-todo', todo);" 
+            @resolve-todo="$emit('resolve-todo', todo);" 
+            @unresolve-todo="$emit('unresolve-todo', todo);" 
+            @delete-todo="$emit('delete-todo', todo);"
+            @toggle-comments="$emit('toggle-comments', todo);"
+            @load-comments="loadComments(todo);"
+            @new-comment="$emit('new-comment', $event);"
+            @delete-comment="$emit('delete-comment', $event);"
+          >
           </todo-item>
         </div>
       </div>
@@ -48,7 +50,8 @@ Vue.component('project-item', {
   props: [
     'project',
     'todos',
-    'collapsed'
+    'collapsed',
+    'settings'
   ],
   created: function() {
     if (this.rPagesURL.test(window.location.pathname)) {
@@ -70,6 +73,15 @@ Vue.component('project-item', {
     toggle: async function(obj) {
       obj.collapsed = !obj.collapsed;
     },
+    checkResolvedTodoPage(todo, pageType, pageId) {
+      for (let p = 0; p < todo.pages.length; p++) {
+        let page = todo.pages[p];
+        if (page.pageType === this.pageType && page.pageId === this.pageId) {
+          return true;
+        }
+      }
+      return false;
+    }
   }
 });
 //<i class="icon-trash"></i>
@@ -196,3 +208,14 @@ Vue.component('comment-item', {
     },
   }
 });
+
+Vue.component('settings', {
+  template: `
+    <div>
+      <input type="checkbox" v-model="settings.showResolved"/><span> Show Resolved</span>
+    </div>
+  `,
+  props: [
+    'settings',
+  ]
+})

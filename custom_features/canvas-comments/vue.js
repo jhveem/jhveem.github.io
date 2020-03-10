@@ -1,6 +1,10 @@
 MONTH_NAMES_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 let vueString = `<div id="vue-app">
-  <h3 class="collaborator-menu-header">{{header}}</h3>` +
+  <div>
+  <i class="icon-settings" style="float: right; margin-right: 20px; padding-top: 10px; cursor: pointer;" @click="openModal('settings');"></i>
+  <h3 class="collaborator-menu-header">{{header}}</h3>
+  </div>
+  ` +
   //main menu
   ``+
   //projects menu
@@ -16,6 +20,7 @@ let vueString = `<div id="vue-app">
         :todos="project.loadedTodos"
         :collapsed="project.collapsed"
         :user-names="userNames"
+        :settings="userSettings"
         @toggle="toggle(project);"
         @delete-project="deleteProject(project);"
         @edit-project="openModal('edit-project', $event);"
@@ -32,9 +37,9 @@ let vueString = `<div id="vue-app">
     </div>
   </div>
   `+`
-  <div v-if="modal!==''">
+  <div v-show="modal!==''">
     <div class='canvas-collaborator-modal-background'>
-      <div class='canvas-collaborator-modal'>
+      <div id='canvas-collaborator-modal' class='canvas-collaborator-modal'>
         <i style="float: right; cursor: pointer;" class="icon-end" @click="closeModal()"></i>
         <div v-if="checkModal('new-project')">
           <h2>Create Project</h2>
@@ -74,6 +79,12 @@ let vueString = `<div id="vue-app">
           <textarea type="text" style="height: 200px;" v-model="newCommentText" />
           <div class="canvas-collaborator-button" @click="createComment(modalObject); closeModal();">Comment</div>
         </div> 
+        <div v-if="checkModal('settings')">
+          <settings
+            :settings="userSettings"
+          >
+          </settings>
+        </div>
       </div>
     </div>
   </div> 
@@ -94,9 +105,6 @@ $("#canvas-collaborator-container").hide();
 $("#canvas-collaborator-container").append(vueString);
 APP = new Vue({
   el: '#vue-app',
-  created: async function() {
-
-  },
   mounted: async function() {
     //get information from the url
     if (this.rPagesURL.test(window.location.pathname)) {
@@ -119,6 +127,9 @@ APP = new Vue({
       let showMenu = (settingsGeneral.showMenu === "true");
       this.toggleWindow(showMenu);
     }
+    if (settingsGeneral.userData !== undefined) {
+      this.userSettings = settingsGeneral.userSettings;
+    }
     this.api.loadSettingsCourse(this.userId);
     await this.loadProjects();
     for (let i = 0; i < this.projectMembers.length; i++) {
@@ -126,9 +137,13 @@ APP = new Vue({
       this.loadUserName(userId);
     }
     this.$set(this, 'pageTypes', this.pageTypes);
+    $("#canvas-collaborator-modal").draggable();
   },
   data: function() { 
     return {
+      userSettings: {
+        showResolved: false
+      },
       modal: '',
       userNames: {},
       userId: ENV.current_user_id,
@@ -373,6 +388,9 @@ APP = new Vue({
       }
       if (this.modal === 'edit-todo') {
         this.updateTodo(this.modalObject);
+      }
+      if (this.modal === 'settings') {
+        this.api.saveSettingGeneral(this.userId, 'userSettings', this.userSettings);
       }
       this.modalObject = {};
       this.modal = '';
