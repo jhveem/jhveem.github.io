@@ -17,11 +17,13 @@
             let items = $(this).find("ul.ig-list div.ig-row");
             let pointsTotal = 0;
             items.each(function () {
-              let info = $(this).find('div.ig-info');
-              let pointsElement = info.find('span.points_possible');
-              if (pointsElement.text().trim() !== "") {
-                let points = parseFloat(pointsElement.text());
-                pointsTotal += points;
+            if ($(this).hasClass('ig-published')) {
+                let info = $(this).find('div.ig-info');
+                let pointsElement = info.find('span.points_possible');
+                if (pointsElement.text().trim() !== "") {
+                  let points = parseFloat(pointsElement.text());
+                  pointsTotal += points;
+                }
               }
             });
             let hours = pointsTotal / 10;

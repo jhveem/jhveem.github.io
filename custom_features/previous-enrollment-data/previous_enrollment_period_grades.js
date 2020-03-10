@@ -59,7 +59,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
                 <button class="Button" id="btech-term-grade-button">Estimate</button>
                 <button class="Button" id="btech-term-reset-button">Reset</button>
-                <p>Grade for term: <span id="btech-term-grade-value"></span></p>
+                <div id="btech-term-grade-value"></div>
                 </div>`
             );
             $("#btech-term-grade-button").on("click", function() {
@@ -126,17 +126,19 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
             //used for figuring out scores if using hours enrolled
             let finalPoints = 0;
             let finalPointsPossible = 0;
+            let finalUngradedAsZero = 0;
             //loop assignments
             for (let i = 0; i < assignmentGroups.length; i++) {
                 let group = assignmentGroups[i];
                 let score = 0;
                 let total = 0;
+                let ungradedAsZeroTotal = 0;
                 let assignments = group.assignments;
                 for (let a = 0; a < assignments.length; a++) {
                     let assignment = assignments[a];
                     let id = parseInt(assignment.id);
                     let submissionElement = $("#submission_"+id);
-                    finalPointsPossible += (assignment.points_possible * group.group_weight); //Total possible earned points in the course weighted by their type
+                    ungradedAsZeroTotal += assignment.points_possible;
                     if (includedAssignments.includes(id)) {
                         submissionElement.clone().appendTo(newBody);
                         let currentScoreString = submissionElement.find("td.assignment_score span.original_points").text().trim();
@@ -153,23 +155,24 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 if (total > 0) {
                     let groupPerc = (score / total);
+                    let groupUngradedAsZeroPerc = (score / ungradedAsZeroTotal);
                     finalTotalScore += group.group_weight;
                     finalScore += (groupPerc * group.group_weight);
+                    finalUngradedAsZero += (groupUngradedAsZeroPerc * group.group_weight);
                 }
             }
             let outputScore = finalScore / finalTotalScore;
+            let outputUngradedAsZeroScore = finalUngradedAsZero / finalTotalScore;
             let outputHours = '';
             if (isNaN(outputScore)) {
                 outputScore = "N/A";
             } else {
                 let gradingScheme = ENV.grading_scheme;
-                let pointsPerHour = finalPointsPossible / 90;
-                let hoursCompleted = finalPoints / pointsPerHour;
-                outputHours = "<div>Hourse Completed: " + hoursCompleted.toFixed(2) + "</div>";
+                outputHours += "</div><b>Ungraded as Zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%</div>";
                 if (window.STUDENT_HOURS > 0) {
                   //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
                   let reqHours = window.STUDENT_HOURS * 60;
-                  outputHours+= "<div>Required Hours: " + reqHours + "</div>"
+                  outputHours+= "<div><b>Required Hours:</b> " + reqHours + "</div>"
                   outputScore = hoursCompleted / reqHours;
 
                 }
@@ -183,7 +186,7 @@ if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
                 }
                 outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
             }
-            $("#btech-term-grade-value").html("<div>" + outputScore + "</div>" +  outputHours);
+            $("#btech-term-grade-value").html("<div><b>Term Grade:</b> " + outputScore + "</div>" +  outputHours);
         },
         parseDate(dateString) {
             let pieces = dateString.split("-");

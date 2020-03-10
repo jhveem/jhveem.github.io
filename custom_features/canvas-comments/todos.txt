@@ -2,8 +2,37 @@ Page Specific Todos
 -maybe have this be an option when selecting pages, quizzes, etc and it hides the others and sends the pageType and pageId to the server
 show what percent of pages have been checked
 keep track of if you've seen a comment
-option to see unread comments
+see unread comments
 comments on moduels page link to that page
 telegraph that things are loading (projects, todos, comments)
 highlight pieces of the page and link them to a comment AND highlight first but then have to leave a comment to save it
 due date / goal date (figure out wording)
+
+NEED page level todos.
+modals should be draggable and stretchaable.
+merge todos so all their comments join together
+-on edit page have a MERGE option and that pulls up a list of all todos on that project
+edit comments
+BUG: new todo and comment causes an error. Comment saves, but it doesn't display until page refresh.
+
+REALLY COOL: if we could somehow check what videos are playing, link a comment to a time stamp, and click a play button in the comment to play that video at that time.
+
+project level comments?
+link pages? say you've got a copy of a page you're working on, create a list of linked pages on the project level where anything form one would save to the other.
+
+Comment tags to make searching for comments from the main page easy. IE tag for question that's too easy. Then when you're showing teachers easy questions, pull up comments with too easy tag and get linked to that page.
+-add project level tags data
+-provide list of tags or add new tag.
+
+Need an all option for page types...
+
+
+Toggle see only unresolved or see all
+Save collapsed vs open options in user settings for the project as a whole
+
+When not in a course, pull up list of all courses where you have unresolved todos.
+-save the last page you were working on in that course
+
+
+Save named formattings for page so you can highlight text and apply it.
+-IE grab a header and click header and it'll auto apply. Or grab a foot note and click foot note.
