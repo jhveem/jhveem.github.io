@@ -1,0 +1,3 @@
+
+new todo and comment causes an error. Comment saves, but it doesn't display until page refresh.
+If you add a page type on a todo and then remove it, or remove a prefiltered one, it breaks that todo item (and the project)

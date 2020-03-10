@@ -36,3 +36,6 @@ When not in a course, pull up list of all courses where you have unresolved todo
 
 Save named formattings for page so you can highlight text and apply it.
 -IE grab a header and click header and it'll auto apply. Or grab a foot note and click foot note.
+
+
+If you add a page type on a todo and then remove it, or remove a prefiltered one, it breaks that todo item (and the project)
