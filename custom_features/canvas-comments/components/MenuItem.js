@@ -131,7 +131,6 @@ Vue.component('todo-item', {
   },
   computed: {
     isAssigned: function() {
-      console.log(this.todo);
       if (this.todo.assignments === null) {
         this.todo.assignments = [''];
       }
