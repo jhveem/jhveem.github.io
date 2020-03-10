@@ -24,8 +24,8 @@ let vueString = `<div id="vue-app">
         @toggle="toggle(project);"
         @delete-project="deleteProject(project);"
         @edit-project="openModal('edit-project', $event);"
-        @new-todo="openModal('new-todo', project); newTodoProject=project._id;"
-        @edit-todo="openModal('edit-todo', $event);"
+        @new-todo="openModal('new-todo', project); modalTodoProject = project;"
+        @edit-todo="openModal('edit-todo', $event); modalTodoProject = project;"
         @delete-todo="deleteTodo($event);"
         @resolve-todo="resolveTodo($event);"
         @unresolve-todo="unresolveTodo($event);"
@@ -58,9 +58,10 @@ let vueString = `<div id="vue-app">
             :current-page-type="pageType"
             :page-types="pageTypes"
             :user-names="userNames"
+            :project="modalTodoProject"
             :project-members="projectMembers"
-            :project-id="newTodoProject"
             @create-todo="createTodo($event); closeModal();"
+            @add-tag="modalTodoProject.push($event);"
           >
           </new-todo>
         </div> 
@@ -70,7 +71,10 @@ let vueString = `<div id="vue-app">
             :todo="modalObject"
             :page-types="pageTypes"
             :user-names="userNames"
+            :project="modalTodoProject"
             :project-members="projectMembers"
+            :project-tags="modalTodoProject.tags"
+            @add-tag="modalTodoProject.tags.push($event);"
           >
           </edit-todo>
         </div>
@@ -160,14 +164,15 @@ APP = new Vue({
       pageTypes: [
         'quizzes',
         'assignments',
-        'pages',
-        'project level'
+        'pages'
       ],
       modalObject: {},
       newProjectName: '',
+      modalTodoProject: {},
       newTodoName: '',
       newTodoPageTypes: [],
       newTodoProject: '',
+      projectTags: [],
       newTodoAssignments: [],
       newCommentText: '',
       newCommentTodo: '',
@@ -189,6 +194,10 @@ APP = new Vue({
     },
     loadProjects: async function() {
       let projects = await this.api.getProjects(this.courseId);
+      for (let p in projects) {
+        let project = projects[p];
+        console.log(project);
+      }
       this.updateProjectList(projects);
     },
     updateProjectList(projects) {
@@ -248,7 +257,14 @@ APP = new Vue({
       this.$set(project, 'loadedTodos', todos);
     },
     async getTodos(project) {
-      let todos = await this.api.getTodosPage(project._id, this.pageType, this.pageId);
+      console.log(this.pageType);
+      console.log(this.pageId);
+      let todos;
+      if (this.pageType !== '') {
+        todos = await this.api.getTodosPage(project._id, this.pageType, this.pageId);
+      } else {
+        todos = await this.api.getTodosProject(project._id);
+      }
       return todos;
     },
     async createTodo(todoData) {

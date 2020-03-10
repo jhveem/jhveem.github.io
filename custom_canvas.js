@@ -152,7 +152,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	}
 
 	//JUST ME
-  if (CDDIDS.includes(currentUser)) { //} && !IS_ME) {
+  if (CDDIDS.includes(currentUser) && !IS_ME) {
     if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
       $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function() {
         $.getScript("https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js").done(function() {

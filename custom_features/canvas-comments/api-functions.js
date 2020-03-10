@@ -38,6 +38,12 @@ CANVAS_COMMENTS_API = {
     let res = await axios.get(url);
     return res.data;
   },
+  async getTodosProject(projectId) {
+    let self = this;
+    let url = self.URL_BASE + "projects/" + projectId + "/todos/project";
+    let res = await axios.get(url);
+    return res.data;
+  },
   async getTodosPage(projectId, pageType, pageId) {
     let self = this;
     let url = self.URL_BASE + "projects/" + projectId + "/todos/pages/"+pageType+"/"+pageId;
