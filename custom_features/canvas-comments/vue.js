@@ -133,6 +133,15 @@ APP = new Vue({
     console.log(settingsGeneral);
     if (settingsGeneral.userSettings !== undefined) {
       this.userSettings = settingsGeneral.userSettings;
+      for (var setting in this.userSettings) {
+        let value = this.userSettings[key];
+        if (value === "true") {
+          this.userSettings[key] = true;
+        } 
+        if (value === "false") {
+          this.userSettings[key] = false;
+        } 
+      }
       console.log(this.userSettings);
     }
     this.api.loadSettingsCourse(this.userId);
