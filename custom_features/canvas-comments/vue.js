@@ -130,7 +130,9 @@ APP = new Vue({
       let showMenu = (settingsGeneral.showMenu === "true");
       this.toggleWindow(showMenu);
     }
-    console.log(settingsGeneral);
+    if (settingsGeneral.openTabs !== undefined) {
+      this.openTabs = settingsGeneral.openTabs;
+    }
     if (settingsGeneral.userSettings !== undefined) {
       this.userSettings = settingsGeneral.userSettings;
       for (var setting in this.userSettings) {
@@ -142,7 +144,6 @@ APP = new Vue({
           this.userSettings[setting] = false;
         } 
       }
-      console.log(this.userSettings);
     }
     this.api.loadSettingsCourse(this.userId);
     /* This needs to happen async so the stuff that matters isn't caught up on it
@@ -165,6 +166,7 @@ APP = new Vue({
       userSettings: {
         showResolved: true, 
       },
+      openTabs: [],
       canvasQuizzes: [],
       canvasPages: [],
       canvasAssignments: [],
@@ -434,6 +436,10 @@ APP = new Vue({
     },
     toggle: async function(obj) {
       obj.collapsed = !obj.collapsed;
+      if (obj.collapsed === true) {
+        console.log(obj);
+        console.log(obj._id);
+      }
     },
     openModal(name, modalObject) {
       this.modal=name;
