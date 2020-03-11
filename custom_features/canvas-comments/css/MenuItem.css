@@ -77,7 +77,7 @@
   color: #000;
 }
 .canvas-collaborator-menu-item-assigned {
-  border-left: 10px #E44;
+  border-left: 10px solid #E44;
 }
 project-menu {
   background-color: #444;
