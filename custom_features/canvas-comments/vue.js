@@ -19,7 +19,6 @@ let vueString = `<div id="vue-app">
         :project="project"
         :open-tabs="openTabs"
         :todos="project.loadedTodos"
-        :collapsed="project.collapsed"
         :user-names="userNames"
         :settings="userSettings"
         @toggle="toggle($event);"
@@ -30,7 +29,6 @@ let vueString = `<div id="vue-app">
         @delete-todo="deleteTodo($event);"
         @resolve-todo="resolveTodo($event);"
         @unresolve-todo="unresolveTodo($event);"
-        @toggle-comments="toggleComments($event);"
         @new-comment="openModal('new-comment', $event); newCommentTodo=$event._id;"
         @delete-comment="deleteComment($event['todo'], $event['comment']);"
       >
@@ -248,10 +246,9 @@ APP = new Vue({
           exists = true;
         }
       }
-      //if this is the first time loading this project, get its todos and set its collapsed to tru
+      //might be able to get rid of this, because we're no longer adding additional variable of collapsed, so we can read straight from the projects variable
       if (exists === false) {
         project.loadedTodos = [];
-        project.collapsed = true;
         this.loadedProjects.push(project);
         this.setProjectTodos(project);
       }
@@ -282,7 +279,6 @@ APP = new Vue({
       let todos = await this.getTodos(project);
       for (let t = 0; t < todos.length; t++) {
         let todo = todos[t];
-        todo['collapsed'] = true;
         todo['loadedComments'] = [];
       }
       this.$set(project, 'loadedTodos', todos);
@@ -308,7 +304,6 @@ APP = new Vue({
       }
       let todo = await this.api.createTodo(todoData.projectId, todoData.name, todoData.pageTypes, todoData.assignments, pageId);
       todo.loadedComments = [];
-      todo.collapsed = true;
       for (let i =0; i < this.loadedProjects.length; i++) {
         let project = this.loadedProjects[i];
         if (todoData.projectId === project._id) {
@@ -392,14 +387,6 @@ APP = new Vue({
       }
       await this.api.deleteTodo(todo._id);
     },
-    async toggleComments(todo) {
-      this.$set(todo, 'collapsed', !todo.collapsed);
-      if (todo.collapsed === false) {
-        if (todo.loadedComments.length === 0) {
-          this.loadComments(todo);
-        }
-      }
-    },
     async loadUserName(userId) {
       let userName = '';
       if (this.userNames[userId] === undefined) {
@@ -442,7 +429,6 @@ APP = new Vue({
       }
     },
     async toggle(obj) {
-      obj.collapsed = !obj.collapsed;
       if (this.openTabs.includes(obj._id)) { //if it's already open, remove it
         this.openTabs = this.openTabs.filter(function(e) { return e !== obj._id });
       } else { //add it

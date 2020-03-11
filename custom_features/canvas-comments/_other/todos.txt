@@ -26,6 +26,7 @@ add in project resolving on both a course level and a page level
 -this will make projects look IDENTICAL to todos, so may need some way to distinguish them (different left border color?)
 allow for some formatting in comments, at the very least hyperlinks.
 comments on comments etc (most people call these replies...)
+collapse all button for project level and course level
 
 don't actually delete anything, but add a delete on date to items. Server then checks to see if it's after that date and then really deletes it. This way you can restore projects, todos, comments, etc.
 -only pull projects, todos, comments where delete date is null
