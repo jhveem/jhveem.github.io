@@ -149,7 +149,6 @@ APP = new Vue({
     let settingsCourseData = await this.api.loadSettingsCourse(this.userId, this.courseId);
     if (settingsCourseData !== undefined) {
       let settingsCourse = settingsCourseData.data; 
-      console.log(settingsCourse);
       if (settingsCourse.openTabs !== undefined && settingsCourse.openTabs !== '') {
         this.openTabs = settingsCourse.openTabs;
       }
@@ -450,7 +449,6 @@ APP = new Vue({
         this.openTabs.push(obj._id);
       }
       this.api.saveSettingCourse(this.userId, this.courseId, 'openTabs', this.openTabs);
-      console.log(this.openTabs);
     },
     openModal(name, modalObject) {
       this.modal=name;

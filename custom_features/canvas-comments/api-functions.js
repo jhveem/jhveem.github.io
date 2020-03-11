@@ -174,7 +174,6 @@ CANVAS_COMMENTS_API = {
       }
     }
     let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general/"+setting+"?ns=edu.btech.canvas-app";
-    console.log(url);
     try {
       await $.put(url, {
         ns: 'edu.btech.canvas-app',
@@ -192,7 +191,6 @@ CANVAS_COMMENTS_API = {
       }
     }
     let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/" + courseId + "/"+setting+"?ns=edu.btech.canvas-app";
-    console.log(url);
     try {
       await $.put(url, {
         ns: 'edu.btech.canvas-app',
