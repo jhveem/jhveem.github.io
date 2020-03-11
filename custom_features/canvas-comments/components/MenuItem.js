@@ -5,7 +5,7 @@ Vue.component('project-item', {
   template: `
     <div>
       <div>
-      <div style="border-left: 10px solid #49E" class="canvas-collaborator-menu-item" @click="$emit('edit-project', project);"> 
+      <div style="border-left: 10px solid #49E" class="canvas-collaborator-menu-item canvas-collaborator-menu-item-project" @click="$emit('edit-project', project);"> 
         <div class="canvas-collaborator-submenu-delete">
           <i class="icon-trash" @click.stop="$emit('delete-project');"></i>
         </div>

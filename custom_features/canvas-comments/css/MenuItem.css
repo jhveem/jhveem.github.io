@@ -34,6 +34,10 @@
   box-shadow: 2px 2px 1px #888;
 }
 .canvas-collaborator-menu-item-todo {
+  padding-left: 0px;
+  border-left: 10px solid #49E;
+}
+.canvas-collaborator-menu-item-todo {
   margin-left: 10px;
   padding-left: 0px;
   border-left: 10px solid #49E;
