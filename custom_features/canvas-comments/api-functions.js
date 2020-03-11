@@ -163,7 +163,7 @@ CANVAS_COMMENTS_API = {
       console.log(e);
     }
   },
-  saveSettingCourse(userId, setting, val) {
+  async saveSettingCourse(userId, setting, val) {
     let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/"+this.courseId;
     let data = {};
     data[setting] = val;
@@ -176,4 +176,22 @@ CANVAS_COMMENTS_API = {
       console.log(err);
     }
   },
+  async getCoursePages(courseId) {
+    let url = "/api/v1/courses/" + courseId + "/pages?per_page=100";
+    let res = await axios.get(url);
+    let data = res.data;
+    return data;
+  },
+  async getCourseAssignments(courseId) {
+    let url = "/api/v1/courses/" + courseId + "/assignments?per_page=100";
+    let res = await axios.get(url);
+    let data = res.data;
+    return data;
+  },
+  async getCourseQuizzes(courseId) {
+    let url = "/api/v1/courses/" + courseId + "/quizzes?per_page=100";
+    let res = await axios.get(url);
+    let data = res.data;
+    return data;
+  }
 }

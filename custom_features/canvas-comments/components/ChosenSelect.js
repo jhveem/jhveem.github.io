@@ -54,6 +54,8 @@ Vue.component('select-2', {
   },
   methods: {
     formatOptions() {
+      console.log(this.options);
+      console.log(typeof(this.options));
       this.select2data.push({ id: '', text: 'Select' })
       for (let key in this.options) {
         let text=this.options[key];

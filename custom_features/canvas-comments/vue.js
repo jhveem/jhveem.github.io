@@ -136,6 +136,9 @@ APP = new Vue({
       this.userSettings = settingsGeneral.userSettings;
     }
     this.api.loadSettingsCourse(this.userId);
+    this.canvasQuizzes = await this.api.getCourseQuizzes(this.courseId);
+    this.canvasPages = await this.api.getCoursePages(this.courseId);
+    this.canvasAssignments = await this.api.getCourseAssignments(this.courseId);
     await this.loadProjects();
     for (let i = 0; i < this.projectMembers.length; i++) {
       let userId = this.projectMembers[i];
@@ -143,12 +146,17 @@ APP = new Vue({
     }
     this.$set(this, 'pageTypes', this.pageTypes);
     $("#canvas-collaborator-modal").draggable();
+
+    //get page/quiz/assignment info for progress data
   },
   data: function() { 
     return {
       userSettings: {
-        showResolved: false
+        showResolved: true, 
       },
+      canvasQuizzes: [],
+      canvasPages: [],
+      canvasAssignments: [],
       modal: '',
       userNames: {},
       userId: ENV.current_user_id,
@@ -162,11 +170,11 @@ APP = new Vue({
       header: 'projects',
       menuItems: [],
       loadedProjects: [],
-      pageTypes: [
-        'quizzes',
-        'assignments',
-        'pages'
-      ],
+      pageTypes: { 
+        quizzes: 'quizzes',
+        assignments: 'assignments',
+        pages: 'pages'
+      },
       modalObject: {},
       newProjectName: '',
       modalTodoProject: {},
@@ -266,6 +274,12 @@ APP = new Vue({
       } else {
         todos = await this.api.getTodosProject(project._id);
       }
+      for (let t in todos) {
+        let todo = todos[t];
+        console.log("TODO");
+        console.log(todo.pages);
+        this.calcTodoProgress(todo);
+      }
       return todos;
     },
     async createTodo(todoData) {
@@ -320,6 +334,29 @@ APP = new Vue({
           break;
         }
       }
+    },
+    async calcTodoProgress(todo) {
+      let counts = {};
+      counts['quizzes'] = (this.canvasQuizzes.length);
+      counts['pages'] = (this.canvasPages.length);
+      counts['assignments'] = (this.canvasAssignments.length);
+      let resolved = {};
+      resolved['quizzes'] = 0;
+      resolved['pages'] = 0;
+      resolved['assignments'] = 0;
+      let total = 0;
+      let resolvedTotal = 0;
+      for (let pd in todo.pages) {
+        let pageData = todo.pages[pd];
+        resolved[pageData.pageType] += 1;
+      }
+      for (let p in todo.pageTypes) {
+        let type = todo.pageTypes[p];
+        total += counts[type];
+        resolvedTotal += resolved[type];
+      }
+      todo.progress = ((resolvedTotal / total) * 100).toFixed(2);
+      console.log(todo.progress);
     },
     async deleteTodo(todo) {
       //some kind of check to make sure this worked

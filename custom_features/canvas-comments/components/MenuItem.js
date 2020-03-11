@@ -4,7 +4,8 @@
 Vue.component('project-item', {
   template: `
     <div>
-      <div class="canvas-collaborator-menu-item" @click="$emit('edit-project', project);"> 
+      <div>
+      <div style="border-left: 10px solid #49E" class="canvas-collaborator-menu-item" @click="$emit('edit-project', project);"> 
         <div class="canvas-collaborator-submenu-delete">
           <i class="icon-trash" @click.stop="$emit('delete-project');"></i>
         </div>
@@ -14,6 +15,7 @@ Vue.component('project-item', {
           <b>{{project.name}}</b>
         </div>
       </div>
+
       <div v-if="!collapsed">
         <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new canvas-collaborator-menu-item-todo" @click="$emit('new-todo');">
           <i class="icon-add"></i>
