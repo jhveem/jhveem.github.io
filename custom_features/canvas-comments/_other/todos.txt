@@ -10,6 +10,14 @@ modals should be stretchaable.
 merge todos so all their comments join together
 -on edit page have a MERGE option and that pulls up a list of all todos on that project
 Save collapsed vs open options in user settings for the project as a whole
+create a second row for projects and put, delete, stats, edit, etc all on that row. On click just change the color.
+-probably the same for todos
+Something to make comments stand out? Maybe this won't be an issue once todos also have the side border
+Some kind of cool slide out animation when you click on collaborator
+user settings aren't saving
+user setting to only see assigned to me (doesn't display projects you don't have at least one todo or comment assigned to you)
+-possibly 3 options where one is strict, only your stuff, one list not, shows assigned to you AND assigned to noone, and then one is show all
+show people's images of who its assigned to on second line of todos
 
 When not in a course, pull up list of all courses where you have unresolved todos.
 -save the last page you were working on in that course
