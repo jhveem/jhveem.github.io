@@ -136,9 +136,11 @@ APP = new Vue({
       this.userSettings = settingsGeneral.userSettings;
     }
     this.api.loadSettingsCourse(this.userId);
+    /* This needs to happen async so the stuff that matters isn't caught up on it
     this.canvasQuizzes = await this.api.getCourseQuizzes(this.courseId);
     this.canvasPages = await this.api.getCoursePages(this.courseId);
     this.canvasAssignments = await this.api.getCourseAssignments(this.courseId);
+    */
     await this.loadProjects();
     for (let i = 0; i < this.projectMembers.length; i++) {
       let userId = this.projectMembers[i];
