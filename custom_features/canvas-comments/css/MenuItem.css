@@ -25,7 +25,6 @@
 .canvas-collaborator-menu-item {
   box-sizing: border-box;
   padding: 10px;
-  border: 2px none #000;
   background-color: #FFF;
   display: inline-block;
   width: 100%;
@@ -35,7 +34,6 @@
   box-shadow: 2px 2px 1px #888;
 }
 .canvas-collaborator-menu-item-todo {
-  border-left: 2px none #000;
   margin-left: 10px;
   width: calc(100% - 10px);
 }
@@ -49,12 +47,10 @@
   color: #49E;
 }
 .canvas-collaborator-menu-item-new-comment {
-  border-left: 2px none #000;
   margin-left: 20px;
   width: calc(100% - 20px);
 }
 .canvas-collaborator-menu-item-comment {
-  border-left: 2px none #000;
   background-color: #FFF;
   color: #000;
   margin-left: 20px;
@@ -88,17 +84,12 @@ project-menu {
   width: 95px;
   margin-left: -125px; 
   position: absolute; 
-  border: 2px none #000;
 }
 .canvas-collaborator-submenu-item {
   width: 75px;
   padding: 1px 10px 1px 10px;
-  border-bottom: 2px none #000;
   display: inline-block;
   cursor: pointer; 
-}
-.canvas-collaborator-submenu-item-last {
-  border-bottom: 0px none #000;
 }
 .canvas-collaborator-submenu-item:hover {
   background-color: #666;
