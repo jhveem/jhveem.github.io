@@ -158,27 +158,25 @@ CANVAS_COMMENTS_API = {
   async saveSettingGeneral(userId, setting, val) {
     let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general/"+setting+"?ns=edu.btech.canvas-app";
     console.log(url);
-    let data = {}
-    data[setting] = val;
     try {
       await $.put(url, {
+        ns: 'edu.btech.canvas-app',
         data: val,
       });
     } catch (e) {
       console.log(e);
     }
   },
-  async saveSettingCourse(userId, setting, val) {
-    let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/"+this.courseId;
-    let data = {};
-    data[setting] = val;
+  async saveSettingCourse(userId, courseId, setting, val) {
+    let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/" + courseId + "/"+setting+"?ns=edu.btech.canvas-app";
+    console.log(url);
     try {
-      axios.put(url, {
+      await $.put(url, {
         ns: 'edu.btech.canvas-app',
-        data: data
+        data: val,
       });
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
     }
   },
   async getCoursePages(courseId) {

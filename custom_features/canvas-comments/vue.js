@@ -130,9 +130,6 @@ APP = new Vue({
       let showMenu = (settingsGeneral.showMenu === "true");
       this.toggleWindow(showMenu);
     }
-    if (settingsGeneral.openTabs !== undefined) {
-      this.openTabs = settingsGeneral.openTabs;
-    }
     if (settingsGeneral.userSettings !== undefined) {
       this.userSettings = settingsGeneral.userSettings;
       for (var setting in this.userSettings) {
@@ -145,7 +142,13 @@ APP = new Vue({
         } 
       }
     }
-    this.api.loadSettingsCourse(this.userId);
+
+    let settingsCourseData = await this.api.loadSettingsCourse(this.userId);
+    let settingsCourse = settingsCourseData.data; 
+    console.log(settingsCourse);
+    if (settingsCourse.openTabs !== undefined) {
+      this.openTabs = settingsCourse.openTabs;
+    }
     /* This needs to happen async so the stuff that matters isn't caught up on it
     this.canvasQuizzes = await this.api.getCourseQuizzes(this.courseId);
     this.canvasPages = await this.api.getCoursePages(this.courseId);
@@ -437,10 +440,11 @@ APP = new Vue({
     async toggle(obj) {
       obj.collapsed = !obj.collapsed;
       if (obj.collapsed === true) {
-        this.openTabs.push(obj._id);
-      } else {
         this.openTabs = this.openTabs.filter(function(e) { return e !== obj._id });
+      } else {
+        this.openTabs.push(obj._id);
       }
+      this.api.saveSettingCourse(this.userId, this.courseId, 'openTabs', this.openTabs);
       console.log(this.openTabs);
     },
     openModal(name, modalObject) {
