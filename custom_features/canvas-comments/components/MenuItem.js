@@ -10,8 +10,8 @@ Vue.component('project-item', {
           <i class="icon-trash" @click.stop="$emit('delete-project');"></i>
         </div>
         <div>
-          <i v-if="openTabs.includes(project._id)" :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle');"></i>
-          <i v-else :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle');"></i>
+          <i v-if="openTabs.includes(project._id)" :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle');"></i>
+          <i v-else :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle');"></i>
           <b>{{project.name}}</b>
         </div>
       </div>
