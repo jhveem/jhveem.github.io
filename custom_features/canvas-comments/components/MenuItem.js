@@ -10,8 +10,8 @@ Vue.component('project-item', {
           <i class="icon-trash" @click.stop="$emit('delete-project');"></i>
         </div>
         <div>
-          <i v-if="openTabs.includes(project._id)" :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle');"></i>
-          <i v-else :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle');"></i>
+          <i v-if="openTabs.includes(project._id)" :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle', project);"></i>
+          <i v-else :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle', project);"></i>
           <b>{{project.name}}</b>
         </div>
       </div>
@@ -26,11 +26,12 @@ Vue.component('project-item', {
             v-if="settings.showResolved || (!settings.showResolved && !checkResolvedTodoPage(todo, pageType, pageId))"
             :todo="todo" 
             :settings="settings"
+            :open-tabs="openTabs"
             @edit-todo="$emit('edit-todo', todo);" 
             @resolve-todo="$emit('resolve-todo', todo);" 
             @unresolve-todo="$emit('unresolve-todo', todo);" 
             @delete-todo="$emit('delete-todo', todo);"
-            @toggle-comments="$emit('toggle-comments', todo);"
+            @toggle="$emit('toggle', $event);"
             @load-comments="loadComments(todo);"
             @new-comment="$emit('new-comment', $event);"
             @delete-comment="$emit('delete-comment', $event);"
@@ -96,14 +97,14 @@ Vue.component('todo-item', {
         <i class="icon-trash" @click.stop="$emit('delete-todo');"></i>
       </div>
       <div>
-        <i v-if="todo.collapsed" :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle-comments')"></i>
-        <i v-else :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle-comments')"></i>
+        <i v-if="openTabs.includes(project._id)" :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle', todo)"></i>
+        <i v-else :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle', todo)"></i>
         <i v-if="checkResolvedTodoPage(todo)" class="icon-publish icon-Solid" @click.stop="$emit('unresolve-todo');"></i>
         <i v-else class="icon-publish" @click.stop="$emit('resolve-todo');"></i>
         {{todo.name}}
       </div>
     </div>
-    <div v-if="todo.collapsed === false">
+    <div v-if="openTabs.includes(project._id)">
       <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new canvas-collaborator-menu-item-new-comment" @click="$emit('new-comment', todo);">
         <i class="icon-add"></i>
         New Comment 
@@ -152,6 +153,7 @@ Vue.component('todo-item', {
   props: [
     'todo',
     'project',
+    'openTabs'
   ],
   methods: {
     checkResolvedTodoPage(todo, pageType, pageId) {

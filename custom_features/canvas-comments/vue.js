@@ -22,7 +22,7 @@ let vueString = `<div id="vue-app">
         :collapsed="project.collapsed"
         :user-names="userNames"
         :settings="userSettings"
-        @toggle="toggle(project);"
+        @toggle="toggle($event);"
         @delete-project="deleteProject(project);"
         @edit-project="openModal('edit-project', $event);"
         @new-todo="openModal('new-todo', project); modalTodoProject = project;"
