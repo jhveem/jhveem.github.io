@@ -444,9 +444,9 @@ APP = new Vue({
     },
     async toggle(obj) {
       obj.collapsed = !obj.collapsed;
-      if (obj.collapsed === true) {
+      if (this.openTabs.includes(obj._id)) { //if it's already open, remove it
         this.openTabs = this.openTabs.filter(function(e) { return e !== obj._id });
-      } else {
+      } else { //add it
         this.openTabs.push(obj._id);
       }
       this.api.saveSettingCourse(this.userId, this.courseId, 'openTabs', this.openTabs);
