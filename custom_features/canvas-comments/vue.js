@@ -134,12 +134,12 @@ APP = new Vue({
     if (settingsGeneral.userSettings !== undefined) {
       this.userSettings = settingsGeneral.userSettings;
       for (var setting in this.userSettings) {
-        let value = this.userSettings[key];
+        let value = this.userSettings[setting];
         if (value === "true") {
-          this.userSettings[key] = true;
+          this.userSettings[setting] = true;
         } 
         if (value === "false") {
-          this.userSettings[key] = false;
+          this.userSettings[setting] = false;
         } 
       }
       console.log(this.userSettings);
