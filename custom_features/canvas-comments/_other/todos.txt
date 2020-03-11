@@ -1,16 +1,21 @@
-be able to stretch the menu
+Can't edit comments!
 show what percent of pages have been checked
-keep track of if you've seen a comment
-see unread comments
-comments on moduels page link to that page
 telegraph that things are loading (projects, todos, comments)
-highlight pieces of the page and link them to a comment AND highlight first but then have to leave a comment to save it
-due date / goal date (figure out wording)
-
 modals should be stretchaable.
 merge todos so all their comments join together
 -on edit page have a MERGE option and that pulls up a list of all todos on that project
-edit comments
+Save collapsed vs open options in user settings for the project as a whole
+
+When not in a course, pull up list of all courses where you have unresolved todos.
+-save the last page you were working on in that course
+
+
+be able to stretch the menu
+keep track of if you've seen a comment
+see unread comments
+comments on moduels page link to that page
+highlight pieces of the page and link them to a comment AND highlight first but then have to leave a comment to save it
+due date / goal date (figure out wording)
 
 
 project level comments?
@@ -18,10 +23,6 @@ link pages? say you've got a copy of a page you're working on, create a list of 
 
 Need an all option for page types...
 
-Save collapsed vs open options in user settings for the project as a whole
-
-When not in a course, pull up list of all courses where you have unresolved todos.
--save the last page you were working on in that course
 
 
 
