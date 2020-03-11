@@ -16,7 +16,7 @@ Vue.component('project-item', {
         </div>
       </div>
 
-      <div v-if="project._id in openTabs">
+      <div v-if="(project._id in openTabs)">
         <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new canvas-collaborator-menu-item-todo" @click="$emit('new-todo');">
           <i class="icon-add"></i>
           New To Do 
