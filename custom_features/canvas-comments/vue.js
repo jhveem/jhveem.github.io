@@ -118,15 +118,14 @@ APP = new Vue({
       this.courseId = parseInt(pieces[1]);
       this.pageType = pieces[2];
       this.pageId = pieces[3];
-      //await self.getSavedSettings();
     } else if (this.rMainURL.test(window.location.pathname)) {
       //not in a specific page
       let pieces = window.location.pathname.match(this.rMainURL);
       this.courseId = parseInt(pieces[1]);
-      //await self.getSavedSettings();
     }
     //this.loadSettings();
     let settingsGeneralData = await this.api.loadSettingsGeneral(this.userId);
+    console.log(settingsGeneralData);
     let settingsGeneral = settingsGeneralData.data; 
     if (settingsGeneral.showMenu !== undefined) {
       let showMenu = (settingsGeneral.showMenu === "true");
