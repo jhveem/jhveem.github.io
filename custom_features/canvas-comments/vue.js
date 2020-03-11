@@ -125,16 +125,13 @@ APP = new Vue({
     }
     //this.loadSettings();
     let settingsGeneralData = await this.api.loadSettingsGeneral(this.userId);
-    console.log(settingsGeneralData);
     let settingsGeneral = settingsGeneralData.data; 
-    console.log(settingsGeneral);
     if (settingsGeneral.showMenu !== undefined) {
       let showMenu = (settingsGeneral.showMenu === "true");
       this.toggleWindow(showMenu);
     }
-    if (settingsGeneral.userData !== undefined) {
+    if (settingsGeneral.userSettings !== undefined) {
       this.userSettings = settingsGeneral.userSettings;
-      console.log(this.userSettings);
     }
     this.api.loadSettingsCourse(this.userId);
     /* This needs to happen async so the stuff that matters isn't caught up on it
