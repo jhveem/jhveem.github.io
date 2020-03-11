@@ -145,7 +145,7 @@ APP = new Vue({
       }
     }
 
-    let settingsCourseData = await this.api.loadSettingsCourse(this.userId);
+    let settingsCourseData = await this.api.loadSettingsCourse(this.userId, this.courseId);
     if (settingsCourseData !== undefined) {
       let settingsCourse = settingsCourseData.data; 
       console.log(settingsCourse);
