@@ -434,12 +434,14 @@ APP = new Vue({
         }
       }
     },
-    toggle: async function(obj) {
+    async toggle(obj) {
       obj.collapsed = !obj.collapsed;
       if (obj.collapsed === true) {
-        console.log(obj);
-        console.log(obj._id);
+        this.openTabs.push(obj._id);
+      } else {
+        this.openTabs = this.openTabs.filter(function(e) { return e !== obj._id });
       }
+      console.log(this.openTabs);
     },
     openModal(name, modalObject) {
       this.modal=name;
