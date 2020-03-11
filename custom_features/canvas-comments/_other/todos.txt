@@ -1,3 +1,8 @@
+Move all of this to its own repo
+Set up import to only import a single file
+reorganize the server to have two servers (test and live)
+set up front end to have two front ends (test and live)
+
 Can't edit comments!
 show what percent of pages have been checked
 telegraph that things are loading (projects, todos, comments)
