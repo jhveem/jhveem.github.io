@@ -125,29 +125,33 @@ APP = new Vue({
     }
     //this.loadSettings();
     let settingsGeneralData = await this.api.loadSettingsGeneral(this.userId);
-    let settingsGeneral = settingsGeneralData.data; 
-    if (settingsGeneral.showMenu !== undefined) {
-      let showMenu = (settingsGeneral.showMenu === "true");
-      this.toggleWindow(showMenu);
-    }
-    if (settingsGeneral.userSettings !== undefined) {
-      this.userSettings = settingsGeneral.userSettings;
-      for (var setting in this.userSettings) {
-        let value = this.userSettings[setting];
-        if (value === "true") {
-          this.userSettings[setting] = true;
-        } 
-        if (value === "false") {
-          this.userSettings[setting] = false;
-        } 
+    if (settingsGeneralData !== undefined) {
+      let settingsGeneral = settingsGeneralData.data; 
+      if (settingsGeneral.showMenu !== undefined) {
+        let showMenu = (settingsGeneral.showMenu === "true");
+        this.toggleWindow(showMenu);
+      }
+      if (settingsGeneral.userSettings !== undefined) {
+        this.userSettings = settingsGeneral.userSettings;
+        for (var setting in this.userSettings) {
+          let value = this.userSettings[setting];
+          if (value === "true") {
+            this.userSettings[setting] = true;
+          } 
+          if (value === "false") {
+            this.userSettings[setting] = false;
+          } 
+        }
       }
     }
 
     let settingsCourseData = await this.api.loadSettingsCourse(this.userId);
-    let settingsCourse = settingsCourseData.data; 
-    console.log(settingsCourse);
-    if (settingsCourse.openTabs !== undefined) {
-      this.openTabs = settingsCourse.openTabs;
+    if (settingsCourseData !== undefined) {
+      let settingsCourse = settingsCourseData.data; 
+      console.log(settingsCourse);
+      if (settingsCourse.openTabs !== undefined) {
+        this.openTabs = settingsCourse.openTabs;
+      }
     }
     /* This needs to happen async so the stuff that matters isn't caught up on it
     this.canvasQuizzes = await this.api.getCourseQuizzes(this.courseId);
