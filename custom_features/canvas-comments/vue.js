@@ -17,6 +17,7 @@ let vueString = `<div id="vue-app">
     <div v-for="(project) in loadedProjects">
       <project-item 
         :project="project"
+        :open-tabs="openTabs"
         :todos="project.loadedTodos"
         :collapsed="project.collapsed"
         :user-names="userNames"
