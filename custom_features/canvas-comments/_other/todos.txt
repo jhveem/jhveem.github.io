@@ -10,7 +10,6 @@ modals should be stretchaable.
 merge todos so all their comments join together
 -on edit page have a MERGE option and that pulls up a list of all todos on that project
 -choose which one to keep resolved or if either or if both are resolved
-Save collapsed vs open options in user settings for the project as a whole
 create a second row for projects and put, delete, stats, edit, etc all on that row. On click just change the color.
 -probably the same for todos
 Something to make comments stand out? Maybe this won't be an issue once todos also have the side border
