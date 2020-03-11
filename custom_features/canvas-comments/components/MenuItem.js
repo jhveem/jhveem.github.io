@@ -97,14 +97,14 @@ Vue.component('todo-item', {
         <i class="icon-trash" @click.stop="$emit('delete-todo');"></i>
       </div>
       <div>
-        <i v-if="openTabs.includes(project._id)" :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle', todo)"></i>
+        <i v-if="openTabs.includes(todo._id)" :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle', todo)"></i>
         <i v-else :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle', todo)"></i>
         <i v-if="checkResolvedTodoPage(todo)" class="icon-publish icon-Solid" @click.stop="$emit('unresolve-todo');"></i>
         <i v-else class="icon-publish" @click.stop="$emit('resolve-todo');"></i>
         {{todo.name}}
       </div>
     </div>
-    <div v-if="openTabs.includes(project._id)">
+    <div v-if="openTabs.includes(todo._id)">
       <div class="canvas-collaborator-menu-item canvas-collaborator-menu-item-new canvas-collaborator-menu-item-new-comment" @click="$emit('new-comment', todo);">
         <i class="icon-add"></i>
         New Comment 
