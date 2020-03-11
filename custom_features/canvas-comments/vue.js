@@ -150,7 +150,7 @@ APP = new Vue({
     if (settingsCourseData !== undefined) {
       let settingsCourse = settingsCourseData.data; 
       console.log(settingsCourse);
-      if (settingsCourse.openTabs !== undefined) {
+      if (settingsCourse.openTabs !== undefined && settingsCourse.openTabs !== '') {
         this.openTabs = settingsCourse.openTabs;
       }
     }
