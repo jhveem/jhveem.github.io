@@ -156,9 +156,14 @@ CANVAS_COMMENTS_API = {
 
   },
   async saveSettingGeneral(userId, setting, val) {
-    let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general?ns=edu.btech.canvas-app&data["+setting+"]="+val;
+    let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general/"+setting+"?ns=edu.btech.canvas-app";
+    console.log(url);
+    let data = {}
+    data[setting] = val;
     try {
-      await $.put(url);
+      await $.put(url, {
+        data: val,
+      });
     } catch (e) {
       console.log(e);
     }
