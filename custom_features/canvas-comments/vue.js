@@ -151,7 +151,7 @@ APP = new Vue({
       let settingsCourse = settingsCourseData.data; 
       console.log(settingsCourse);
       if (settingsCourse.openTabs !== undefined && settingsCourse.openTabs !== '[]' && settingsCourse.openTabs !== '') {
-        this.openTabs = settingsCourse.openTabs;
+        //this.openTabs = settingsCourse.openTabs;
       }
     }
     /* This needs to happen async so the stuff that matters isn't caught up on it
