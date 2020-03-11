@@ -97,8 +97,8 @@ Vue.component('todo-item', {
         <i class="icon-trash" @click.stop="$emit('delete-todo');"></i>
       </div>
       <div>
-        <i v-if="openTabs.includes(todo._id)" :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle', todo)"></i>
-        <i v-else :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle', todo)"></i>
+        <i v-if="openTabs.includes(todo._id)" :class="'icon-mini-arrow-down'" @click.stop="$emit('toggle', todo)"></i>
+        <i v-else :class="'icon-mini-arrow-right'" @click.stop="$emit('toggle', todo)"></i>
         <i v-if="checkResolvedTodoPage(todo)" class="icon-publish icon-Solid" @click.stop="$emit('unresolve-todo');"></i>
         <i v-else class="icon-publish" @click.stop="$emit('resolve-todo');"></i>
         {{todo.name}}
