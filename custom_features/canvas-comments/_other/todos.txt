@@ -9,6 +9,7 @@ telegraph that things are loading (projects, todos, comments)
 modals should be stretchaable.
 merge todos so all their comments join together
 -on edit page have a MERGE option and that pulls up a list of all todos on that project
+-choose which one to keep resolved or if either or if both are resolved
 Save collapsed vs open options in user settings for the project as a whole
 create a second row for projects and put, delete, stats, edit, etc all on that row. On click just change the color.
 -probably the same for todos
@@ -19,6 +20,13 @@ user setting to only see assigned to me (doesn't display projects you don't have
 -possibly 3 options where one is strict, only your stuff, one list not, shows assigned to you AND assigned to noone, and then one is show all
 show people's images of who its assigned to on second line of todos
 -remove background color if it's assigned to you. Looks like crap.
+show number of todos when projects collapsed (resolved and not)
+show number of comments when todo is collapsed (resolved and not)
+add in comment resolving
+add in project resolving on both a course level and a page level
+-this will make projects look IDENTICAL to todos, so may need some way to distinguish them (different left border color?)
+allow for some formatting in comments, at the very least hyperlinks.
+comments on comments etc (most people call these replies...)
 
 When not in a course, pull up list of all courses where you have unresolved todos.
 -save the last page you were working on in that course

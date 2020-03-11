@@ -278,8 +278,6 @@ APP = new Vue({
       }
       for (let t in todos) {
         let todo = todos[t];
-        console.log("TODO");
-        console.log(todo.pages);
         this.calcTodoProgress(todo);
       }
       return todos;
@@ -358,7 +356,6 @@ APP = new Vue({
         resolvedTotal += resolved[type];
       }
       todo.progress = ((resolvedTotal / total) * 100).toFixed(2);
-      console.log(todo.progress);
     },
     async deleteTodo(todo) {
       //some kind of check to make sure this worked
