@@ -35,6 +35,8 @@
 }
 .canvas-collaborator-menu-item-todo {
   margin-left: 10px;
+  padding-left: 0px;
+  border-left: 10px solid #49E;
   width: calc(100% - 10px);
 }
 .canvas-collaborator-menu-item-new {
