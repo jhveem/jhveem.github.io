@@ -12,7 +12,7 @@ var CDDIDS = [
   1891741, //Katie
   1638854, //Mason
   1922029, //Makenzie
-  1900206 //Tess
+  1807337, //Jon
 ];
 var IS_TEACHER = ENV.current_user_roles.includes("teacher");
 
