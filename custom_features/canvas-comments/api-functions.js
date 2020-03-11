@@ -167,6 +167,11 @@ CANVAS_COMMENTS_API = {
     }
   },
   async saveSettingGeneral(userId, setting, val) {
+    if (Array.isArray(val)) {
+      if (val.length === 0) {
+        val = '';
+      }
+    }
     let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/general/"+setting+"?ns=edu.btech.canvas-app";
     console.log(url);
     try {
@@ -179,7 +184,11 @@ CANVAS_COMMENTS_API = {
     }
   },
   async saveSettingCourse(userId, courseId, setting, val) {
-    console.log(val);
+    if (Array.isArray(val)) {
+      if (val.length === 0) {
+        val = '';
+      }
+    }
     let url = "/api/v1/users/"+userId+"/custom_data/canvas_collaboration/" + courseId + "/"+setting+"?ns=edu.btech.canvas-app";
     console.log(url);
     try {
