@@ -154,23 +154,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	//JUST ME
   if (CDDIDS.includes(currentUser)) {
     if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
-      $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function() {
-        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js").done(function() {
-          $.getScript("https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js").done(function() {
-            $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/api-functions.js").done(function() {
-              $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/MenuItem.js").done(function() {
-                $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/Modals.js").done(function() {
-                  $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/components/ChosenSelect.js").done(function() {
-                    $.getScript("https://jhveem.xyz/jhveem.github.io/custom_features/canvas-comments/vue.js").done(function() {
-                      
-                    });
-                  });
-                });
-              });
-            });
-          });
-        });
-      });
+      $.getScript("https://jhveem.xyz/collaborator/import.js");
     }
 	}
 
