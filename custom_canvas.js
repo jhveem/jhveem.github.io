@@ -161,7 +161,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	//CDD ONLY
 	featureCDD("rubrics/sortable");
 	featureCDD("quizzes/question_bank_sorter");
-	featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
+  featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
+  featureCDD("help_tab");
 });
 
 /*EvaluationKIT END*/

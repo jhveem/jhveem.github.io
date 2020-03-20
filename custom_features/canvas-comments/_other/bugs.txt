@@ -1,1 +1,0 @@
-new todo and comment causes an error. Comment saves, but it doesn't display until page refresh.
