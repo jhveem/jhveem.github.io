@@ -13,6 +13,7 @@ var CDDIDS = [
   1638854, //Mason
   1922029, //Makenzie
   1807337, //Jon
+  1950359, //Morgan
 ];
 var IS_TEACHER = ENV.current_user_roles.includes("teacher");
 
@@ -152,11 +153,16 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	}
 
 	//JUST ME
-  if (CDDIDS.includes(currentUser)) {
+  if (CDDIDS.includes(currentUser) && !IS_ME) {
     if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
       $.getScript("https://jhveem.xyz/collaborator/import.js");
     }
-	}
+  }
+  if (IS_ME) {
+    if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
+      $.getScript("https://jhveem.xyz/collaborator-beta/import-beta.js");
+    }
+  }
 
 	//CDD ONLY
 	featureCDD("rubrics/sortable");

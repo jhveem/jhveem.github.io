@@ -1,4 +1,3 @@
-
 (function () {
   if ($("#btech-help").length === 0) {
     $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function() {
