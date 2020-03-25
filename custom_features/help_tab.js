@@ -15,7 +15,7 @@
               z-index:1000; 
               transition: 0.5s; 
               background-color: #A00012;
-              border: 2px solid #E04444;
+              border: 2px solid #D61310;
               padding: 10px 20px;
               color: #FFF;
               border-radius: 5px; 
