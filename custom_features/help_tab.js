@@ -14,7 +14,7 @@
               bottom: 20px; 
               z-index:1000; 
               transition: 0.5s; 
-              background-color: #D04444;
+              background-color: #A00012;
               border: 2px solid #E04444;
               padding: 10px 20px;
               color: #FFF;
@@ -190,7 +190,7 @@
         template: `
           <div>
             <h2 @click="show = !show" style="
-              background-color: #D04444;
+              background-color: #A00012;
               border-radius: 4px;
               color: #FFF;
               cursor: pointer;
