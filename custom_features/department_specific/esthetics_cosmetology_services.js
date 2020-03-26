@@ -1,6 +1,8 @@
   (function () {
     IMPORTED_FEATURE = {};
+    console.log('test');
     if (/^\/courses\/[0-9]+\/assignments\/[0-9]+/.test(window.location.pathname)) {
+      console.log("TEST");
       //THIS IS A TEMPLATE/TUTORIAL FOR HOW TO ADD A CUSTOM FEATURE
       IMPORTED_FEATURE = {
         initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
@@ -41,8 +43,6 @@
             $("#btech-services-modal").append(`
 <p>Thank you! Your instructor will review your submission and update your grade.</p>
 `);
-            console.log(select.val());
-            console.log(id);
           });
           //THIS IS TkHE NAME OF THE FUNCTION CALLED FROM feature() ON THE custom_canvas.js PAGE
         },
