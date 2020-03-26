@@ -153,6 +153,9 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     if (departmentId === 3847) {
       if (IS_TEACHER) featureBeta("previous-enrollment-data/set_hours_form");
     }
+    if (departmentId === 3841) { //cosmetology
+      feature("department_specific/esthetics_cosmetology_services");
+    }
 	}
 
 	//JUST ME
@@ -180,4 +183,4 @@ window.ALLY_CFG = {
     'baseUrl': 'https://prod.ally.ac',
     'clientId': 1164
 };
-$.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');;
+$.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
