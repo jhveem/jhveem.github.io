@@ -1,8 +1,6 @@
   (function () {
     IMPORTED_FEATURE = {};
-    console.log('test');
     if (/^\/courses\/[0-9]+\/assignments\/[0-9]+/.test(window.location.pathname)) {
-      console.log("TEST");
       //THIS IS A TEMPLATE/TUTORIAL FOR HOW TO ADD A CUSTOM FEATURE
       IMPORTED_FEATURE = {
         initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
