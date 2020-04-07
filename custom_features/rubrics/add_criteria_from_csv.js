@@ -204,7 +204,7 @@
       existingCriteria = data.data;
     });
     await getElement("#add_learning_outcome_link");
-    $('table.rubric_table tbody span#add_criterion_holder a#add_learning_outcome_link').before("<a class='icon-plus' style='cursor: pointer; margin-left: 10px;' id='add_learning_outcome_from_excel_import'>Criterion Importer</a>");
+    $('table.rubric_table tbody span#add_criterion_holder a#add_learning_outcome_link').before("<a class='icon-import' style='cursor: pointer; margin-left: 10px;' id='add_learning_outcome_from_excel_import'>Import Criteria</a>");
     let importButton = $("#add_learning_outcome_from_excel_import");
     importButton.click(function () {
       openDialog();
