@@ -175,6 +175,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	featureCDD("quizzes/question_bank_sorter");
   featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
   featureCDD("help_tab");
+  featureCDD("rubrics/add_criteria_from_csv");
+  if (IS_ME) featureCDD("rubrics/create_rubric_from_csv");
 });
 
 /*EvaluationKIT END*/
