@@ -314,7 +314,7 @@
 
   function saveRubric(formData) {
     formData.authenticity_token = getCsrfToken();
-    var url = "https://btech.beta.instructure.com/api/v1/courses/" + currentCourseId + "/rubrics/" + currentRubricId;
+    var url = "/api/v1/courses/" + currentCourseId + "/rubrics/" + currentRubricId;
     $.ajax({
       'cache': false,
       'url': url,
