@@ -4,7 +4,9 @@
     initiated: false,
     _init() {
       if (assocRegex.test(window.location.pathname)) {
-        add_button();
+        $(".edit_rubric_link").click(function() {
+          add_button();
+        })
       }
     }
   }
