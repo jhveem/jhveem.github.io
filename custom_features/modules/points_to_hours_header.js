@@ -27,6 +27,7 @@
               if (feature.displayHours) {
                   modules.each(function () {
                       let module = $(this);
+                      let headerElements = $(this).find("div.ig-header span.name");
                       let headerElement = $(headerElements[0]);
                       let header = headerElement.text().trim();
                       let headerMatch = header.match(/(.*) - [0-9]+[\.]{0,1}[0-9]* [H|h]our(s){0,1}/);
