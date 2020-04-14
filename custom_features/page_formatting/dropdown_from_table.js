@@ -1,3 +1,10 @@
+/*
+  Can only be used in 2 column tables right now.
+  The last th row will be used to create header information.
+  It will also grab the Caption and put it at the top.
+  Simply add the class "btech-dropdown-table" to any table and it'll create a dropdown and hide the original table. 
+  Very uninvasive. If it doesn't work, it'll simply use the old table.
+*/
 let originalTables = $(".btech-dropdown-table");
 originalTables.each(function () {
   let originalTable = $(this);
@@ -17,7 +24,7 @@ originalTables.each(function () {
     if (cells.length > 0) {
       let option = $(cells[0]).text();
       newTableSelect.append("<option value='" + option + "'>" + option + "</option>");
-      data[option] = $(cells[1]).text();
+      data[option] = $(cells[1]).html();
     }
     cells = row.find("th");
     if (cells.length > 0) {
