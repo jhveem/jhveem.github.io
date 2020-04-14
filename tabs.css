@@ -1,0 +1,21 @@
+.tab {
+  display: inline;
+  cursor: pointer;
+  padding: 0px 15px;
+  margin: 0px;
+  border-right: 1px solid #811;
+}
+.tab:hover {
+  background-color: #A21222;
+}
+.tab-container {
+  background-color: #D22232;
+  padding: 0px;
+  margin: 0px;
+  color: #FFF;
+  list-style-type: none;
+}
+.tab-content {
+  padding: 0px 5px;
+  border: 1px solid #000;
+}

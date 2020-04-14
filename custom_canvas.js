@@ -147,7 +147,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
         feature("previous-enrollment-data/set_hours_form");
       }
 		}
-		if (departmentId === 3819) { // AMAR
+		if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
 			if (IS_TEACHER) feature("modules/points_to_hours_header");
     }
     if (departmentId === 3847) {
@@ -168,6 +168,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
       $.getScript("https://jhveem.xyz/collaborator-beta/import-beta.js");
     }
+    feature('page_formatting/dropdown_from_table');
   }
 
 	//CDD ONLY
