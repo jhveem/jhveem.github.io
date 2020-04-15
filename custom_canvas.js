@@ -121,6 +121,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		feature("date_display/add_current_year_speed_grader");
 		feature("date_display/add_current_year");
 		featureBeta("rubrics/gen_comment");
+    feature('page_formatting/dropdown_from_table');
+    if (IS_ME) feature('page_formatting/tinymce_buttons');
 
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 		//COURSE SPECIFIC FEATURES
@@ -158,7 +160,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     }
 	}
 
-	//JUST ME
+  //JUST ME
+  /*
   if (CDDIDS.includes(currentUser) && !IS_ME) {
     if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
       $.getScript("https://jhveem.xyz/collaborator/import.js");
@@ -168,8 +171,8 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     if (/^\/courses\/([0-9]+)/.test(window.location.pathname)) {
       $.getScript("https://jhveem.xyz/collaborator-beta/import-beta.js");
     }
-    feature('page_formatting/dropdown_from_table');
   }
+  */
 
 	//CDD ONLY
 	featureCDD("rubrics/sortable");
