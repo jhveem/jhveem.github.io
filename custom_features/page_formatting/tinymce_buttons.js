@@ -1,3 +1,12 @@
+async function getEditor() {
+    console.log(window.tinymce);
+    if (window.tinymce === undefined) {
+        await delay(500);
+        return getEditor();
+    } else {
+        return;
+    }
+}
 function hideOnHover() {
     let editor = window.tinymce.editors.wiki_page_body;
     let selection = editor.selection;
