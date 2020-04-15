@@ -122,7 +122,6 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		feature("date_display/add_current_year");
 		featureBeta("rubrics/gen_comment");
     feature('page_formatting/dropdown_from_table');
-    if (IS_ME) feature('page_formatting/tinymce_buttons');
 
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 		//COURSE SPECIFIC FEATURES
@@ -181,6 +180,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
   featureCDD("help_tab");
   featureCDD("rubrics/add_criteria_from_csv");
   featureCDD("rubrics/create_rubric_from_csv");
+  featureCDD('page_formatting/tinymce_buttons');
 });
 
 /*EvaluationKIT END*/

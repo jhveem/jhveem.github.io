@@ -45,7 +45,7 @@ async function _init() {
       onAction: hideOnHover
   });
   window.tinymce.editors.wiki_page_body.addShortcut("ctrl+shift+h", "description", hideOnHover);
-  addButton("HIDE ON HOVER", hideOnHover);
-  addButton("EXAMPLE BOX", exampleBox);
+  addButton("Hover Text", hideOnHover);
+  addButton("Example Box", exampleBox);
 }
 if (window.location.pathname.includes("edit")) _init();
