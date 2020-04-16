@@ -16,7 +16,7 @@ async function hideOnHover() {
   editor.execCommand("mceReplaceContent", false, "<span class='btech-hover-show'><i>{$selection}</i></span>");
 }
 
-function exampleBox() {
+async function exampleBox() {
   let editor = await getEditor();
   let selection = editor.selection;
   editor.execCommand("mceReplaceContent", false, `<table class="btech-example-table" style="width: 90%; border-collapse: collapse; border-color: gray; margin-left: auto; margin-right: auto; height: 62px;" border="0" cellpadding="10">
