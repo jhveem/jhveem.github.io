@@ -40,11 +40,8 @@ async function addButton(name, func) {
 }
 async function _init() {
   await getEditor();
-  window.tinymce.editors.wiki_page_body.addButton('customButtonHideOnHover', {
-      text: 'My Button',
-      onAction: hideOnHover
-  });
-  window.tinymce.editors.wiki_page_body.addShortcut("ctrl+shift+h", "description", hideOnHover);
+  window.tinymce.editors.wiki_page_body.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
+  window.tinymce.editors.wiki_page_body.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
   addButton("Hover Text", hideOnHover);
   addButton("Example Box", exampleBox);
 }
