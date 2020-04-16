@@ -57,8 +57,8 @@ async function _init() {
   customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'></select>")
   addColor("d22232", "Red");
   addColor("2232d2", "Blue");
-  addColor("22d232", "Green");
-  addButton("Hover Text", hideOnHover);
+  addColor("22b242", "Green");
   addButton("Example Box", exampleBox);
+  addButton("Hover Text", hideOnHover);
 }
 if (window.location.pathname.includes("edit")) _init();
