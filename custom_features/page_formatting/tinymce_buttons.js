@@ -19,7 +19,7 @@ async function hideOnHover() {
 async function exampleBox() {
   let editor = await getEditor();
   let selection = editor.selection;
-  let color = $("#btech-custom-editor-buttons-color").val();
+  let color = $("#btech-custom-editor-buttons-color").children("option:selected").val();
   editor.execCommand("mceReplaceContent", false, `<table class="btech-example-table" style="width: 90%; border-collapse: collapse; border-color: gray; margin-left: auto; margin-right: auto; height: 62px;" border="0" cellpadding="10">
 <tbody>
 <tr style="background-color: `+color+`;">
@@ -44,8 +44,8 @@ async function addButton(name, func) {
   customButtonsContainer.append(button);
 }
 function addColor(hex, name) {
-  let colorPickerList = $("#btech-custom-editor-buttons-color-list");
-  colorPickerList.append("<option value='#"+hex+"' style='background-color: #"+hex+"; color: #fff'>"+name+"</option>");
+  let colorPicker = $("#btech-custom-editor-buttons-color");
+  colorPicker.append("<option value='#"+hex+"' style='background-color: #"+hex+"; color: #fff'>"+name+"</option>");
 }
 async function _init() {
   let editor = await getEditor();
@@ -54,7 +54,7 @@ async function _init() {
   let topPart = await getElement(".mce-top-part");
   topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  customButtonsContainer.prepend("<input id='btech-custom-editor-buttons-color' list='btech-custom-editor-buttons-color-list' name='colors'></input><datalist id='btech-custom-editor-buttons-color-list'></datalist>")
+  customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'></select>")
   addColor("d22232", "Red");
   addColor("2232d2", "Blue");
   addColor("22d232", "Green");
