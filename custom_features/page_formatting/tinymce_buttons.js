@@ -1,12 +1,12 @@
 async function getEditor() {
-  console.log(window.tinymce);
   if (window.tinymce === undefined) {
     await delay(500);
     return getEditor();
   } else {
-    var editor;
-    if (editors.wiki_page_body !== undefined) editor = editors.wiki_page_body;
-    else if (editors.assignment_description !== undefined) editor = editors.assignment_description;
+    var editors = window.tinymce.editors;
+    var editor = editors[0];
+    // if (editors.wiki_page_body !== undefined) editor = editors.wiki_page_body;
+    // else if (editors.assignment_description !== undefined) editor = editors.assignment_description;
     return editor;
   }
 }
