@@ -57,7 +57,7 @@ async function _init() {
   customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'></select>")
   addColor("d22232", "Red");
   addColor("2232d2", "Blue");
-  addColor("22b242", "Green");
+  addColor("32A852", "Green");
   addButton("Example Box", exampleBox);
   addButton("Hover Text", hideOnHover);
 }
