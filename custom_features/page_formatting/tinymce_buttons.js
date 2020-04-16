@@ -58,7 +58,7 @@ async function _init() {
   addColor("d22232", "Red");
   addColor("2232d2", "Blue");
   addColor("32A852", "Green");
-  addColor("E2B208", "Gold");
+  addColor("E2A208", "Gold");
   addButton("Example Box", exampleBox);
   addButton("Hover Text", hideOnHover);
 }
