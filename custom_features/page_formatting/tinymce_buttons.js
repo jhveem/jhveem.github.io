@@ -45,7 +45,7 @@ async function addButton(name, func) {
 }
 function addColor(hex, name) {
   let colorPicker = $("#btech-custom-editor-buttons-color");
-  colorPicker.append("<option value='#"+hex+"' style='background-color: #"+hex+";'>"+name+"</option>");
+  colorPicker.append("<option value='#"+hex+"' style='background-color: #"+hex+"; color: #fff'>"+name+"</option>");
 }
 async function _init() {
   let editor = await getEditor();
