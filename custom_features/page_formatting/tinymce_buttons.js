@@ -43,6 +43,10 @@ async function addButton(name, func) {
   button.click(func);
   customButtonsContainer.append(button);
 }
+function addColor(hex, name) {
+  let colorPicker = $("#btech-custom-editor-buttons-color");
+  colorPicker.append("<option value='#"+hex+"' style='background-color: #"+hex+";'>"+name+"</option>");
+}
 async function _init() {
   let editor = await getEditor();
   editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
@@ -50,7 +54,10 @@ async function _init() {
   let topPart = await getElement(".mce-top-part");
   topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'><option value='#d22232'>Red</option><option value='#2232d2'>Blue</option></select>")
+  customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'></select>")
+  addColor("d22232", "Red");
+  addColor("2232d2", "Blue");
+  addColor("22d232", "Green");
   addButton("Hover Text", hideOnHover);
   addButton("Example Box", exampleBox);
 }
