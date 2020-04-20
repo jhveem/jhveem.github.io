@@ -16,6 +16,12 @@ async function hideOnHover() {
   editor.execCommand("mceReplaceContent", false, "<span class='btech-hover-show'><i>{$selection}</i></span>");
 }
 
+async function hoverDefinition() {
+  let editor = await getEditor();
+  let selection = editor.selection;
+  editor.execCommand("mceReplaceContent", false, "<strong class='tooltip'>{$selection}<span class='tooltiptext'>-DEFINITION-</span></strong>");
+}
+
 async function exampleBox() {
   let editor = await getEditor();
   let selection = editor.selection;
@@ -51,6 +57,7 @@ async function _init() {
   let editor = await getEditor();
   editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
   editor.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
+  editor.addShortcut("ctrl+alt+d", "the highlighted font will display a definition on hover.", exampleBox);
   let topPart = await getElement(".mce-top-part");
   topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
@@ -60,6 +67,7 @@ async function _init() {
   addColor("32A852", "Green");
   addColor("E2A208", "Gold");
   addButton("Example Box", exampleBox);
-  addButton("Hover Text", hideOnHover);
+  addButton("Hover Reveal", hideOnHover);
+  addButton("Hover Text", hoverDefinition);
 }
 if (window.location.pathname.includes("edit")) _init();
