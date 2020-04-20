@@ -55,19 +55,21 @@ function addColor(hex, name) {
 }
 async function _init() {
   let editor = await getEditor();
-  editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
-  editor.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
-  editor.addShortcut("ctrl+alt+d", "the highlighted font will display a definition on hover.", exampleBox);
   let topPart = await getElement(".mce-top-part");
-  topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
-  let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'></select>")
-  addColor("d22232", "Red");
-  addColor("2232d2", "Blue");
-  addColor("32A852", "Green");
-  addColor("E2A208", "Gold");
-  addButton("Example Box", exampleBox);
-  addButton("Hover Reveal", hideOnHover);
-  addButton("Hover Text", hoverDefinition);
+  if ($("#btech-custom-editor-buttons-container").length === 0) {
+    editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
+    editor.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
+    editor.addShortcut("ctrl+alt+d", "the highlighted font will display a definition on hover.", exampleBox);
+    topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
+    let customButtonsContainer = $("#btech-custom-editor-buttons-container");
+    customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'></select>")
+    addColor("d22232", "Red");
+    addColor("2232d2", "Blue");
+    addColor("32A852", "Green");
+    addColor("E2A208", "Gold");
+    addButton("Example Box", exampleBox);
+    addButton("Hover Reveal", hideOnHover);
+    addButton("Hover Text", hoverDefinition);
+  }
 }
 if (window.location.pathname.includes("edit")) _init();

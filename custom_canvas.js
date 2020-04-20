@@ -157,6 +157,9 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     if (departmentId === 3841) { //cosmetology
       feature("department_specific/esthetics_cosmetology_services");
     }
+    if (courseId === 425334) {
+      feature("page_formatting/tinymce_buttons");
+    }
 	}
 
   //JUST ME
