@@ -59,7 +59,7 @@ Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-shee
 </tbody>
 </table>`);
 //*/
-                    $("#google-sheet-id-container").remove();
+                    $("#google-sheet-id-container-bg").remove();
                 }
                 event.stopPropagation();
             });
