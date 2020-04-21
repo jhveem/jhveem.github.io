@@ -1,7 +1,7 @@
 async function _init() {
+  console.log("GET STUFF");
   let isEditing = window.location.pathname.includes("/edit");
   if (!isEditing) {
-    console.log("GET STUFF");
     var sheetId = '';
     let table = $(".google-sheet-based");
     table.css({
