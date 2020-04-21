@@ -45,6 +45,8 @@ async function exampleBox() {
 }
 
 async function googleSheetsTable() {
+  let editor = await getEditor();
+  let selection = editor.selection;
   $("body").append(`
 <div id="google-sheet-id-container-bg" style="position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;">
 <div id='google-sheet-id-container' style='
