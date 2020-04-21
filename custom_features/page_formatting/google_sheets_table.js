@@ -13,7 +13,7 @@ async function getEditor() {
 async function _init() {
     let isEditing = window.location.pathname.includes("/edit");
     if (isEditing) {
-        var editor = getEditor();
+        var editor = await getEditor();
         let topPart = await getElement(".mce-top-part");
         topPart.append("<div id='btech-link-to-sheet-container'></div>");
         let customButtonsContainer = $("#btech-link-to-sheet-container");
