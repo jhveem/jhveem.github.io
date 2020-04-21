@@ -122,6 +122,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		feature("date_display/add_current_year");
 		featureBeta("rubrics/gen_comment");
     feature('page_formatting/dropdown_from_table');
+    featureCDD('page_formatting/google_sheets_table');
 
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 		//COURSE SPECIFIC FEATURES
@@ -150,15 +151,13 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		}
 		if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
 			if (IS_TEACHER) feature("modules/points_to_hours_header");
+      feature("page_formatting/tinymce_buttons");
     }
     if (departmentId === 3847) {
 			feature("previous-enrollment-data/previous_enrollment_period_grades");
     }
     if (departmentId === 3841) { //cosmetology
       feature("department_specific/esthetics_cosmetology_services");
-    }
-    if (courseId === 425334) {
-      feature("page_formatting/tinymce_buttons");
     }
 	}
 
@@ -184,7 +183,6 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
   featureCDD("rubrics/add_criteria_from_csv");
   featureCDD("rubrics/create_rubric_from_csv");
   featureCDD('page_formatting/tinymce_buttons');
-  featureCDD('page_formatting/google_sheets_table');
 });
 
 /*EvaluationKIT END*/
