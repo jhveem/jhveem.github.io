@@ -184,6 +184,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
   featureCDD("rubrics/add_criteria_from_csv");
   featureCDD("rubrics/create_rubric_from_csv");
   featureCDD('page_formatting/tinymce_buttons');
+  featureCDD('page_formatting/google_sheets_table');
 });
 
 /*EvaluationKIT END*/
