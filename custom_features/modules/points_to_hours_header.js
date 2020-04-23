@@ -42,7 +42,7 @@
                                   let info = $(this).find('div.ig-info');
                                   let pointsElement = info.find('span.points_possible');
                                   if (pointsElement.text().trim() !== "") {
-                                      let points = parseFloat(pointsElement.text()).toFixed(2);
+                                      let points = parseFloat(pointsElement.text());
                                       pointsTotal += points;
                                   }
                               }
@@ -58,12 +58,12 @@
                               let displayElement = oElement.clone();
                               oElement.after(displayElement);
                               oElement.hide();
-                              displayElement.text(header + " - " + hours.toFixed(1) + " " + hoursString + " (Total: " + hoursTotal + ")");
+                              displayElement.text(header + " - " + hours.toFixed(1) + " " + hoursString + " (Total: " + hoursTotal.toFixed(1) + ")");
                           });
                       }
                   });
               }
-              $(feature.displayHoursElement).find('span.title').text($(feature.displayHoursElement).find('span.title').text().replace("#HOURSTOTAL#", hoursTotal));
+              $(feature.displayHoursElement).find('span.title').text($(feature.displayHoursElement).find('span.title').text().replace("#HOURSTOTAL#", hoursTotal.toFixed(1)));
           }
       }
   }
