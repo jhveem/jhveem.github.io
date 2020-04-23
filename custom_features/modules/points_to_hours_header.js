@@ -42,7 +42,7 @@
                                   let info = $(this).find('div.ig-info');
                                   let pointsElement = info.find('span.points_possible');
                                   if (pointsElement.text().trim() !== "") {
-                                      let points = parseFloat(pointsElement.text());
+                                      let points = parseFloat(pointsElement.text()).toFixed(2);
                                       pointsTotal += points;
                                   }
                               }

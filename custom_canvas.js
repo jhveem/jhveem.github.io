@@ -150,7 +150,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
       }
 		}
 		if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
-			if (IS_TEACHER) feature("modules/points_to_hours_header");
+			feature("modules/points_to_hours_header");
       feature("page_formatting/tinymce_buttons");
     }
     if (departmentId === 3847) {
