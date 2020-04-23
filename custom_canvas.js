@@ -122,7 +122,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		feature("date_display/add_current_year");
 		featureBeta("rubrics/gen_comment");
     feature('page_formatting/dropdown_from_table');
-    featureCDD('page_formatting/google_sheets_table');
+    feature('page_formatting/google_sheets_table');
 
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 		//COURSE SPECIFIC FEATURES

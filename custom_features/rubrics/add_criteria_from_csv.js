@@ -244,7 +244,6 @@
     try {
       createDialog();
       $('#jj_rubric_dialog').dialog({
-        'title': 'Import Rubric',
         'autoOpen': false,
         'buttons': [{
           'text': 'Create',
