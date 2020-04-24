@@ -35,7 +35,7 @@ async function _init() {
             materialNameCell.wrapInner("<a href='" + materialData[key] + "' target='#'></a>")
           } else if (key.includes("#image#")) {
             let title = key.replace("#image#", "").trim();
-            row.append("<td><strong>"+title+"</strong><img style='max-height: 200px; max-width: 200px;' src='" + materialData[key] + "'></td>");
+            row.append("<td><strong>"+title+"</strong><p><img style='max-height: 200px; max-width: 200px;' src='" + materialData[key] + "'></p></td>");
           } else {
             row.append("<td><p><strong>" + key + "</strong></p><p>" + materialData[key] + "</p></td>");
           }
