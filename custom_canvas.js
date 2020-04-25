@@ -130,7 +130,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 		featurePilot("rubrics/attempts_data", courseId, [498455]); //Dental 1010 pilot
 		featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
 		featurePilot("highlight_comments_same_date", courseId, [498455]); //Dental 1010 pilot
-    featurePilot("page_formatting/tinymce_buttons");
+    featurePilot("page_formatting/tinymce_buttons", courseId, [425334]);
 		//DEPARTMENT SPECIFIC IMPORTS
 		let departmentId = 0;
 		//DETERMINE CURRENT DEPARTMENT FROM DEPARTMENT LIST
