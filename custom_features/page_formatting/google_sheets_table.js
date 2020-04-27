@@ -21,7 +21,7 @@ async function _init() {
       dataType: "jsonp"
     }).done(function (res) {
       let rows = table.find("tr");
-      let thTag = $("<tr></tr>");
+      let thTag = $("<tr><th></th></tr>");
       let headerSet = false;
       rows.each(function () {
         let row = $(this);
