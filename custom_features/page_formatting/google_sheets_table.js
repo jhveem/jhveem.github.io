@@ -33,7 +33,7 @@ async function _init() {
           for (let k = 0; k < Object.keys(materialData).length; k++) {
             let key = Object.keys(materialData)[k];
             let rCSS = /(.+)(\{.+\})/;
-            let text = key.search(rCSS);
+            let text = key.match(rCSS);
             console.log(text);
             if (key === "#url#") {
               materialNameCell.wrapInner("<a href='" + materialData[key] + "' target='#'></a>")
