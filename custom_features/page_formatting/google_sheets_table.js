@@ -60,7 +60,11 @@ async function _init() {
               imgTag.css(css);
               row.append(tdTag);
             } else {
-              row.append("<td><p><strong>" + header + "</strong></p><p>" + materialData[key] + "</p></td>");
+              let tdTag = $("<td></td>");
+              tdTag.append("<p><strong>" + header + "</strong></p>")
+              let pTag = $("<p>" + materialData[key] + "</p>");
+              pTag.css(css);
+              row.append(pTag);
             }
           }
         }
