@@ -43,9 +43,6 @@ async function _init() {
               css = JSON.parse(text[2]);
 
             }
-            if (!headerSet && header !== "#url#") {
-              thTag.append("<th>"+header+"</th>")
-            }
             if (key === "#url#") {
               let aTag = $("<a href='" + materialData[key] + "' target='#'></a>");
               aTag.css(css);
@@ -71,6 +68,9 @@ async function _init() {
               pTag.css(css);
               tdTag.append(pTag);
               row.append(tdTag);
+            }
+            if (!headerSet && header !== "#url#") {
+              thTag.append("<th>"+header+"</th>")
             }
           }
           if (!headerSet) {
