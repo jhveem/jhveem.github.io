@@ -64,7 +64,8 @@ async function _init() {
               tdTag.append("<p><strong>" + header + "</strong></p>")
               let pTag = $("<p>" + materialData[key] + "</p>");
               pTag.css(css);
-              row.append(pTag);
+              tdTag.append(pTag);
+              row.append(tdTag);
             }
           }
         }
