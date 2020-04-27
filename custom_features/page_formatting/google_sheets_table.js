@@ -53,7 +53,7 @@ async function _init() {
                   'max-width': '200px'
                 }
               }
-              let imgTag = $("<img style= src='" + materialData[key] + "'></img>");
+              let imgTag = $("<img src='" + materialData[key] + "'></img>");
               let tdTag = $("<td></td>");
               tdTag.append("<strong>"+title+"</strong>")
               tdTag.append(imgTag);
