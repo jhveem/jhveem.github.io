@@ -47,7 +47,13 @@ async function _init() {
               materialNameCell.wrapInner(aTag);
             } else if (key.includes("#image#")) {
               let title = header.replace("#image#", "").trim();
-              let imgTag = $("<img style='max-height: 200px; max-width: 200px;' src='" + materialData[key] + "'></img>");
+              if (Object.keys(css).length === 0) {
+                css = {
+                  'max-height': '200px',
+                  'max-width': '200px'
+                }
+              }
+              let imgTag = $("<img style= src='" + materialData[key] + "'></img>");
               let tdTag = $("<td></td>");
               tdTag.append("<strong>"+title+"</strong>")
               tdTag.append(imgTag);
