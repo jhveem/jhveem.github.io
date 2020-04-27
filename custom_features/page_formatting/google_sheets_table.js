@@ -32,11 +32,12 @@ async function _init() {
           let materialData = res.data[materialName];
           for (let k = 0; k < Object.keys(materialData).length; k++) {
             let key = Object.keys(materialData)[k];
+            let header = key;
             let rCSS = /(.+)(\{.+\})/;
             let text = key.match(rCSS);
             let css = {};
             if (text !== null) {
-              key = text[1];
+              header = text[1];
               css = JSON.parse(text[2]);
 
             }
@@ -45,7 +46,7 @@ async function _init() {
               aTag.css(css);
               materialNameCell.wrapInner(aTag);
             } else if (key.includes("#image#")) {
-              let title = key.replace("#image#", "").trim();
+              let title = header.replace("#image#", "").trim();
               let imgTag = $("<img style='max-height: 200px; max-width: 200px;' src='" + materialData[key] + "'></img>");
               let tdTag = $("<td></td>");
               tdTag.append("<strong>"+title+"</strong>")
@@ -53,7 +54,7 @@ async function _init() {
               imgTag.css(css);
               row.append(tdTag);
             } else {
-              row.append("<td><p><strong>" + key + "</strong></p><p>" + materialData[key] + "</p></td>");
+              row.append("<td><p><strong>" + header + "</strong></p><p>" + materialData[key] + "</p></td>");
             }
           }
         }
