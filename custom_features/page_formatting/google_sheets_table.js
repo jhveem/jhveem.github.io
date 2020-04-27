@@ -32,6 +32,9 @@ async function _init() {
           let materialData = res.data[materialName];
           for (let k = 0; k < Object.keys(materialData).length; k++) {
             let key = Object.keys(materialData)[k];
+            let rCSS = /(.+)(\{.+\})/;
+            let text = key.search(rCSS);
+            console.log(text);
             if (key === "#url#") {
               materialNameCell.wrapInner("<a href='" + materialData[key] + "' target='#'></a>")
             } else if (key.includes("#image#")) {
