@@ -22,7 +22,7 @@ async function _init() {
     }).done(function (res) {
       let rows = table.find("tr");
       let thTag = $("<tr></tr>");
-      let headersSet = false;
+      let headerSet = false;
       rows.each(function () {
         let row = $(this);
         let materialNameCell = $(row.find('td')[0]);
