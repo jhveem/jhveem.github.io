@@ -135,13 +135,14 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected{
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 250px;
+  height: auto;
   background-color: #555;
   color: #fff;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
   position: absolute;
-  z-index: 1;
+  z-index: 10000000;
   bottom: 125%;
   left: 50%;
   margin-left: -125px;
