@@ -57,13 +57,11 @@ async function _init() {
               }
               let imgTag = $("<img src='" + materialData[key] + "'></img>");
               let tdTag = $("<td></td>");
-              tdTag.append("<strong>"+header+"</strong>")
               tdTag.append(imgTag);
               imgTag.css(css);
               row.append(tdTag);
             } else {
               let tdTag = $("<td></td>");
-              tdTag.append("<p><strong>" + header + "</strong></p>")
               let pTag = $("<p>" + materialData[key] + "</p>");
               pTag.css(css);
               tdTag.append(pTag);
