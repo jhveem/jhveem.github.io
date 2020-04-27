@@ -41,7 +41,7 @@ async function _init() {
 
             }
             if (key === "#url#") {
-              let aTag = "<a href='" + materialData[key] + "' target='#'></a>";
+              let aTag = $("<a href='" + materialData[key] + "' target='#'></a>");
               aTag.css(css);
               materialNameCell.wrapInner(aTag);
             } else if (key.includes("#image#")) {
