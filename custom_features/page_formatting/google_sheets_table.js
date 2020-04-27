@@ -21,6 +21,8 @@ async function _init() {
       dataType: "jsonp"
     }).done(function (res) {
       let rows = table.find("tr");
+      let thTag = $("<tr></tr>");
+      let headersSet = false;
       rows.each(function () {
         let row = $(this);
         let materialNameCell = $(row.find('td')[0]);
@@ -40,6 +42,9 @@ async function _init() {
               header = text[1];
               css = JSON.parse(text[2]);
 
+            }
+            if (!headerSet) {
+              thTag.append("<th>"+header+"</th>")
             }
             if (key === "#url#") {
               let aTag = $("<a href='" + materialData[key] + "' target='#'></a>");
@@ -67,6 +72,10 @@ async function _init() {
               tdTag.append(pTag);
               row.append(tdTag);
             }
+          }
+          if (!headerSet) {
+            headerSet = true;
+            table.prepend(thTag);
           }
         }
       });
