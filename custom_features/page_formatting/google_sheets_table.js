@@ -34,12 +34,24 @@ async function _init() {
             let key = Object.keys(materialData)[k];
             let rCSS = /(.+)(\{.+\})/;
             let text = key.match(rCSS);
-            console.log(text);
+            let css = {};
+            if (text !== null) {
+              key = text[1];
+              css = JSON.parse(text[2]);
+
+            }
             if (key === "#url#") {
-              materialNameCell.wrapInner("<a href='" + materialData[key] + "' target='#'></a>")
+              let aTag = "<a href='" + materialData[key] + "' target='#'></a>";
+              aTag.css(css);
+              materialNameCell.wrapInner(aTag);
             } else if (key.includes("#image#")) {
               let title = key.replace("#image#", "").trim();
-              row.append("<td><strong>"+title+"</strong><p><img style='max-height: 200px; max-width: 200px;' src='" + materialData[key] + "'></p></td>");
+              let imgTag = $("<img style='max-height: 200px; max-width: 200px;' src='" + materialData[key] + "'></img>");
+              let tdTag = $("<td></td>");
+              tdTag.append("<strong>"+title+"</strong>")
+              tdTag.append(imgTag);
+              imgTag.css(css);
+              row.append(tdTag);
             } else {
               row.append("<td><p><strong>" + key + "</strong></p><p>" + materialData[key] + "</p></td>");
             }
