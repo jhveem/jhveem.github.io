@@ -81,8 +81,10 @@ async function _init() {
           }
           if (!headerSet) {
             headerSet = true;
-            for (var i = 0; i < numColumns; i++) {
-              thTag.prepend("<th></th>");
+            if (numColumns > 0) {
+              for (var i = 0; i < numColumns; i++) {
+                thTag.prepend("<th></th>");
+              }
             }
             table.prepend(thTag);
           }
