@@ -26,8 +26,7 @@ async function _init() {
       let headerSet = false;
       rows.each(function () {
         let row = $(this);
-        row.css("height");
-        row.css("width");
+        row.removeAttr("style");
         let materialNameCell = $(row.find('td')[0]);
         materialNameCell.css({
           "width": ""
