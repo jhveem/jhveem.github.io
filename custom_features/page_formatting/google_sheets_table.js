@@ -85,8 +85,8 @@ async function _init() {
               for (var i = 0; i < numColumns; i++) {
                 thTag.prepend("<th></th>");
               }
+              table.prepend(thTag);
             }
-            table.prepend(thTag);
           }
         }
       });
