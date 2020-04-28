@@ -29,7 +29,8 @@ async function _init() {
         row.removeAttr("style");
         let materialNameCell = $(row.find('td')[0]);
         materialNameCell.css({
-          "width": ""
+          "width": "",
+          "height": ""
         });
         let materialName = materialNameCell.text().toLowerCase().trim();
         if (materialName in res.data) {
