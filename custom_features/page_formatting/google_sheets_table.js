@@ -5,6 +5,7 @@ async function _init() {
     var sheetId = '';
     let table = $(".google-sheet-based");
     table.removeAttr("style");
+    table.removeAttr("width");
     table.css({
       "layout": "auto",
     });
