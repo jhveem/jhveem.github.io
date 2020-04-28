@@ -23,14 +23,13 @@ async function _init() {
       dataType: "jsonp"
     }).done(function (res) {
       let rows = table.find("tr");
-      let thTag = $("<tr></tr>");
+      let thTag = $("<thead><tr></tr></thead>");
       let headerSet = false;
       let numColumns = $(rows[0]).find('td').length;
-      console.log(numColumns);
-      if (numColumns === 0) {
-        console.log("FOUND NO COLUMNS");
-        thTag = $(rows[0]);
-      }
+      if (table.find("thead").length) {
+        headerSet = true;
+        thTag = $(tagle.find("thead"));
+      } 
       rows.each(function () {
         let row = $(this);
         let materialNameCell = $(row.find('td')[0]);
@@ -77,17 +76,15 @@ async function _init() {
               row.append(tdTag);
             }
             if (!headerSet && header !== "#url#") {
-              thTag.append("<th>"+header+"</th>")
+              $(thTag.find("tr")).append("<th>"+header+"</th>")
             }
           }
           if (!headerSet) {
             headerSet = true;
-            if (numColumns > 0) {
-              for (var i = 0; i < numColumns; i++) {
-                thTag.prepend("<th></th>");
-              }
-              table.prepend(thTag);
+            for (var i = 0; i < numColumns; i++) {
+              $(thTag.find("tr")).prepend("<th></th>");
             }
+            $(thTag.find("tr")).prepend(thTag);
           }
         }
       });
