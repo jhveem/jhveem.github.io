@@ -25,9 +25,10 @@ async function _init() {
       let rows = table.find("tr");
       let thTag = $("<thead><tr></tr></thead>");
       let headerSet = false;
+      let headerCheck = false;
       let numColumns = $(rows[0]).find('td').length;
       if (table.find("thead").length) {
-        headerSet = true;
+        headerCheck = true;
         thTag = table.find("thead");
       } 
       rows.each(function () {
@@ -81,8 +82,11 @@ async function _init() {
           }
           if (!headerSet) {
             headerSet = true;
-            for (var i = 0; i < numColumns; i++) {
-              $(thTag.find("tr")).prepend("<th></th>");
+            if (headerCheck === false) {
+              headerCheck = true;
+              for (var i = 0; i < numColumns; i++) {
+                $(thTag.find("tr")).prepend("<th></th>");
+              }
             }
             $(thTag.find("tr")).prepend(thTag);
           }
