@@ -27,9 +27,11 @@ async function _init() {
       let headerSet = false;
       let headerCheck = false;
       let numColumns = $(rows[0]).find('td').length;
-      if (table.find("thead").length) {
+      if (table.find("thead").length > 0) {
         headerCheck = true;
         thTag = table.find("thead");
+      } else {
+        table.prepend(thTag);
       } 
       rows.each(function () {
         let row = $(this);
@@ -88,7 +90,6 @@ async function _init() {
                 thTag.find("tr").prepend("<th></th>");
               }
             }
-            thTag.find("tr").prepend(thTag);
           }
         }
       });
