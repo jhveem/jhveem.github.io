@@ -28,7 +28,7 @@ async function _init() {
       let numColumns = $(rows[0]).find('td').length;
       if (table.find("thead").length) {
         headerSet = true;
-        thTag = $(table.find("thead"));
+        thTag = table.find("thead");
       } 
       rows.each(function () {
         let row = $(this);
