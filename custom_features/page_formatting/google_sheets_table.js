@@ -85,10 +85,10 @@ async function _init() {
             if (headerCheck === false) {
               headerCheck = true;
               for (var i = 0; i < numColumns; i++) {
-                $(thTag.find("tr")).prepend("<th></th>");
+                thTag.find("tr").prepend("<th></th>");
               }
             }
-            $(thTag.find("tr")).prepend(thTag);
+            thTag.find("tr").prepend(thTag);
           }
         }
       });
