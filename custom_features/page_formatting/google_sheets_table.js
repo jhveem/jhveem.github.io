@@ -4,8 +4,8 @@ async function _init() {
   if (!isEditing) {
     var sheetId = '';
     let table = $(".google-sheet-based");
-    table.removeAttr("style");
     table.removeAttr("width");
+    table.removeAttr("height");
     table.css({
       "layout": "auto",
     });
@@ -27,7 +27,6 @@ async function _init() {
       let headerSet = false;
       rows.each(function () {
         let row = $(this);
-        row.removeAttr("style");
         let materialNameCell = $(row.find('td')[0]);
         materialNameCell.css({
           "width": "",
