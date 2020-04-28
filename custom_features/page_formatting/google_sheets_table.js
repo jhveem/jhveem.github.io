@@ -26,6 +26,9 @@ async function _init() {
       let thTag = $("<tr></tr>");
       let headerSet = false;
       let numColumns = $(rows[0]).find('td').length;
+      if (numColumns === 0) {
+        thTag = $(rows[0]);
+      }
       console.log(numColumns);
       rows.each(function () {
         let row = $(this);
