@@ -25,6 +25,8 @@ async function _init() {
       let rows = table.find("tr");
       let thTag = $("<tr><th></th></tr>");
       let headerSet = false;
+      let numColumns = $(rows[0]).find('td').length;
+      console.log(numColumns);
       rows.each(function () {
         let row = $(this);
         let materialNameCell = $(row.find('td')[0]);
@@ -76,6 +78,9 @@ async function _init() {
           }
           if (!headerSet) {
             headerSet = true;
+            for (var i = 0; i < numColumns; i++) {
+              thTag.prepend("<th></th>");
+            }
             table.prepend(thTag);
           }
         }
