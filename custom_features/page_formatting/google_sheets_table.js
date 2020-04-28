@@ -26,6 +26,7 @@ async function _init() {
       let thTag = $("<tr></tr>");
       let headerSet = false;
       let numColumns = $(rows[0]).find('td').length;
+      console.log(numColumns);
       if (numColumns === 0) {
         console.log("FOUND NO COLUMNS");
         thTag = $(rows[0]);
