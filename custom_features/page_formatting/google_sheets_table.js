@@ -23,7 +23,7 @@ async function _init() {
       dataType: "jsonp"
     }).done(function (res) {
       let rows = table.find("tr");
-      let thTag = $("<tr><th></th></tr>");
+      let thTag = $("<tr></tr>");
       let headerSet = false;
       let numColumns = $(rows[0]).find('td').length;
       console.log(numColumns);
