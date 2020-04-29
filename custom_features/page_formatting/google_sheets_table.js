@@ -6,6 +6,7 @@ async function _init() {
     let table = $(".google-sheet-based");
     table.removeAttr("width");
     table.removeAttr("height");
+    table.removeAttr("style");
     table.css({
       "layout": "auto",
     });
