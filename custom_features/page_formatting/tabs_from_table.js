@@ -4,7 +4,7 @@
       let originalTable = $(this);
       let newTable = $("<div class='btech-tabs-container'></div>");
       let newTableTabs = $("<ul style='list-style-type:none;'></ul>");
-      let newTableContent = $("<div style='padding: 10px; border-bottom: 1px solid #000; border-right: 1px solid #000; border-left: 1px solid #000;'></div>");
+      let newTableContent = $("<div style='padding: 10px;' ></div>");
       let rows = originalTable.find("tr");
       let data = {};
       let count = 0;
