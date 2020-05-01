@@ -6,9 +6,10 @@ async function _init() {
     let table = $(".google-sheet-based");
     table.removeAttr("width");
     table.removeAttr("height");
-    table.removeAttr("style");
     table.css({
       "layout": "auto",
+      "width": "",
+      "height": "",
     });
     let classes = table.attr('class').split(/\s+/);
     for (var c = 0; c < classes.length; c++) {
