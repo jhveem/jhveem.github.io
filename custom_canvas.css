@@ -15,6 +15,7 @@ ul.btech-question-banks-sorter {
   display: inline-block;
   margin: 0px;
 }
+
 ul.btech-question-banks-sorter li {
   border-radius: 3px;
   padding: 4px 5px;
@@ -22,28 +23,39 @@ ul.btech-question-banks-sorter li {
   margin: 0 20px;
   border-bottom: 1px dotted #ccc;
 }
+
 ul.btech-question-banks-sorter li.btech-bank-course:hover {
- background-color: #e8e8e8;
+  background-color: #e8e8e8;
 }
 
-ul.btech-question-banks-sorter li.btech-bank-course.selected{
- background-color: #ccc;
+ul.btech-question-banks-sorter li.btech-bank-course.selected {
+  background-color: #ccc;
 }
+
 /* end question bank organizer */
 
 /* pop up modals */
 .btech-modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 10000; /* Sit on top */
-  padding-top: 10px; /* Location of the box */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 10000;
+  /* Sit on top */
+  padding-top: 10px;
+  /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 /* Modal Content */
@@ -69,6 +81,7 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected{
   text-decoration: none;
   cursor: pointer;
 }
+
 /* END pop up modals */
 
 /* makes the course menu stay visible when scrolling. Simply delete the following two changes if anything appears to not be working.
@@ -93,17 +106,21 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected{
   padding: 3px;
   border-radius: 8px;
 }
+
 .ui-accordion-header {
   background: #f8f8f8;
   border: 1px solid #000000;
   padding: 3px;
 }
+
 .ui-accordion-header-collapsed {
   color: #444;
 }
+
 .ui-accordion-header-active {
   color: #000000;
 }
+
 .ui-accordion-content {
   padding: 3px;
 }
@@ -111,10 +128,12 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected{
 .btech-example-table {
   box-shadow: 3px 6px 6px #888;
 }
+
 .btech-example-table td {
   padding: 2px;
 }
-.btech-example-table td p{
+
+.btech-example-table td p {
   margin: 4px 0px 4px 0px;
 }
 
@@ -126,6 +145,7 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected{
 .btech-hover-show:hover {
   background-color: #FFF;
 }
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -167,12 +187,13 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected{
 }
 
 .btech-tabs-container ul {
- list-style-type: none;
- margin: 0;
- padding: 0;
- overflow: hidden;
- background-color: #333;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #d22232;
 }
+
 .btech-tabs-container ul li {
   float: left;
   color: #FFF;
@@ -181,10 +202,14 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected{
   padding: 14px 16px;
   cursor: pointer;
 }
+
 .btech-tabs-container ul li:hover {
-  background-color: #000;
+  background-color: #912;
 }
+
 .btech-tabs-container ul li.active {
- background-color: #d22232;
+  color: #000;
+  background-color: #FFF;
 }
+
 /* end collapsible divs */
