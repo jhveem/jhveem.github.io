@@ -118,12 +118,13 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
 	let rCheckInCourse = /^\/courses\/([0-9]+)/;
 	if (rCheckInCourse.test(window.location.pathname)) {
 		//AVAILABLE TO EVERYONE
-		feature("date_display/add_current_year_speed_grader");
-		feature("date_display/add_current_year");
-		featureBeta("rubrics/gen_comment");
+		feature('date_display/add_current_year_speed_grader');
+		feature('date_display/add_current_year');
+		featureBeta('rubrics/gen_comment');
     feature('page_formatting/dropdown_from_table');
     feature('page_formatting/tabs_from_table');
     feature('page_formatting/google_sheets_table');
+    feature('modules/convert_to_page');
 
 		let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
 		//COURSE SPECIFIC FEATURES
