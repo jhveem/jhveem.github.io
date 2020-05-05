@@ -1,8 +1,8 @@
 :root {
-  --tab-bg-hover-color: #666;
+  --tab-bg-hover-color: #912;
   --tab-bg-color: #555;
   --tab-active-bg-color: #d22232;
-  --tab-active-bg-hover-color: #e32;
+  --tab-active-bg-hover-color: #d22232;
   --arrow-padding: 5px;
   --arrow-height: 80px;
   --arrow-width: 25px;
@@ -82,11 +82,9 @@
 .steps li.current::after { border-left-color: var(--tab-active-bg-color); }
 
 /* Hover for completed and current */
-.steps li:hover { background-color: var(--tab-active-bg-hover-color); }
-.steps li:hover::after { border-left-color: var(--tab-active-bg-hover-color); }
-/*.steps li:hover { background-color: var(--tab-bg-hover-color); }
-.steps li:hover::after { border-left-color: var(--tab-bg-hover-color); }*/
+.steps li:hover { background-color: var(--tab-bg-hover-color); }
+.steps li:hover::after { border-left-color: var(--tab-bg-hover-color); }
 
 /* Hover for completed and current */
-/*.steps li.current:hover { background-color: var(--tab-active-bg-hover-color); }
-.steps li.current:hover::after { border-left-color: var(--tab-active-bg-hover-color); }*/
+.steps li.current:hover { background-color: var(--tab-active-bg-hover-color); }
+.steps li.current:hover::after { border-left-color: var(--tab-active-bg-hover-color); }
