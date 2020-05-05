@@ -1,0 +1,140 @@
+// https://webdesign.tutsplus.com/tutorials/mastering-general-sibling-selectors-custom-tab-navigation--cms-29193?utm_source=twitter&utm_medium=social&utm_campaign=social_twtr_tuts_web-design
+
+$p: 12px;
+$menu-items: 5;
+
+body {
+  background-color: #eee;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem;
+}
+
+.tab-arrow {
+  background: #fff;
+  border-radius: 2px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+
+  // border
+  hr {
+    background-color: #b4b4b4;
+    border: 0;
+    border-radiusL: 2px;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    transition: all 375ms ease-out;
+    width: calc(100% / #{$menu-items});
+    will-change: transform, background;
+    z-index: 1;
+
+    &:before,
+    &:after {
+      border: 32px solid #b4b4b4;
+      border-left-width: $p;
+      border-right-width: $p;
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      transition: all 375ms ease-out;
+      will-change: border-color;
+    }
+
+    &:before {
+      left: 0;
+      border-left-color: white !important;
+    }
+
+    &:after {
+      right: -$p/2;
+      border-top-color: white !important;
+      border-bottom-color: white !important;
+      border-right-color: white !important;
+    }
+  }
+
+  // text for the radio inputs
+  label {
+    cursor: pointer;
+    display: block;
+    padding: $p*2;
+    position: relative;
+    text-align: center;
+    text-transform: capitalize;
+    width: calc(100% / #{$menu-items});
+    z-index: 2;
+  }
+
+  // radio inputs
+  input {
+    cursor: pointer;
+    opacity: 0;
+    appearance: none;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: calc(100% / #{$menu-items});
+    height: 100%;
+    z-index: 2;
+
+    &:hover {
+      ~hr {
+        background: #87a5c9;
+        transition: transform 250ms cubic-bezier(0, .5, .5, 1.1), background 250ms ease-out;
+
+        &:before,
+        &:after {
+          border-color: #87a5c9;
+          transition: all 250ms ease-out;
+        }
+      }
+    }
+
+    &:active {
+      ~hr {
+        background: #0077ff;
+        transition: all 250ms ease-out;
+
+        &:before,
+        &:after {
+          border-color: #0077ff;
+          transition: all 250ms ease-out;
+        }
+      }
+    }
+
+    // loop for positioning inputs over labels
+    @for $i from 1 through $menu-items {
+      &:nth-of-type(#{$i}) {
+        left: calc(100% / #{$menu-items} * #{$i - 1});
+
+        &:checked {
+          ~hr {
+            transform: translateX(#{($i - 1) * 100%});
+          }
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+
+          ~hr,
+          ~input:checked~hr {
+            transform: translateX(#{($i - 1) * 100%});
+          }
+        }
+      }
+    }
+  }
+}
