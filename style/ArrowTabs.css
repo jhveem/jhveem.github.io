@@ -82,9 +82,9 @@
 .steps li.current::after { border-left-color: var(--tab-active-bg-color); }
 
 /* Hover for completed and current */
-.steps li:hover { background-color: var(--tab-bg-hover-color); }
-.steps li:hover::after { border-left-color: var(--tab-bg-hover-color); }
+/*.steps li:hover { background-color: var(--tab-bg-hover-color); }
+.steps li:hover::after { border-left-color: var(--tab-bg-hover-color); }*/
 
 /* Hover for completed and current */
-.steps li.current:hover { background-color: var(--tab-active-bg-hover-color); }
-.steps li.current:hover::after { border-left-color: var(--tab-active-bg-hover-color); }
+/*.steps li.current:hover { background-color: var(--tab-active-bg-hover-color); }
+.steps li.current:hover::after { border-left-color: var(--tab-active-bg-hover-color); }*/
