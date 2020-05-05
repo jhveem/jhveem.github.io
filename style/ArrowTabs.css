@@ -1,8 +1,8 @@
 :root {
   --tab-bg-hover-color: #666;
   --tab-bg-color: #555;
-  --tab-active-bg-hover-color: #d22232;
-  --tab-active-bg-color: #912;
+  --tab-active-bg-color: #d22232;
+  --tab-active-bg-hover-color: #912;
   --arrow-padding: 5px;
   --arrow-height: 80px;
   --arrow-width: 25px;
