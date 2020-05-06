@@ -5,7 +5,7 @@
       let newTable = $("<div class='btech-tabs-container'></div>");
       let newTableTabs = $("<ul style='list-style-type:none;'></ul>");
       let newTableContent = $("<div style='padding: 10px;' ></div>");
-      let rows = originalTable.find("tr");
+      let rows = originalTable.find("> tbody > tr");
       let data = {};
       let count = 0;
       let optionHeader = "";
