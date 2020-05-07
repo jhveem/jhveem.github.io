@@ -119,8 +119,8 @@ function resetTableButtons() {
   let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
   $('.btech-table-edit-button').each(function () {
     $(this).css({
-      'background-color': '',
-      'color': ''
+      'background-color': '#eee',
+      'color': '#000'
     });
     let className = $(this).attr('id').replace("-button", "");
     if (parent !== null) {
