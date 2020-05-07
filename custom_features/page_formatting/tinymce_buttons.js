@@ -101,11 +101,12 @@ async function addClassToTable(className) {
   tinyMCE.activeEditor.dom.addClass(parent, className);
 }
 
-async function addButton(name, func) {
+async function addButton(name, func, className='') {
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  let button = $("<a class='btn' style='padding: 5px; background-color: #EEE; color: #000; border: 1px solid #AAA; cursor: pointer;'>" + name + "</a>");
+  let button = $("<a class='btn "+className+"' style='padding: 5px; background-color: #EEE; color: #000; border: 1px solid #AAA; cursor: pointer;'>" + name + "</a>");
   button.click(func);
   customButtonsContainer.append(button);
+  return button;
 }
 
 function addColor(hex, name) {
@@ -141,7 +142,17 @@ async function _init() {
       let optionName = "Table->"+className.replace("btech-", "").replace("-table", ""); 
       addButton(optionName, function(){
         addClassToTable(className);
-      });
+        $('.btech-table-edit-button').each(function() {
+          $(this).css({
+          'background-color': '',
+          'color': ''
+          });
+        })
+        $(this).css({
+          'background-color': '#d22232',
+          'color': '#fff'
+        })
+      }, 'btech-table-edit-button');
     }
   }
 }
