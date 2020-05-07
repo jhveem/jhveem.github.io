@@ -118,9 +118,9 @@ async function addButton(name, func, className = '') {
   return button;
 }
 
-function addColor(hex, name) {
+function addColor(hex, name, fontColor="fff") {
   let colorPicker = $("#btech-custom-editor-buttons-color");
-  colorPicker.append("<option value='#" + hex + "' style='background-color: #" + hex + "; color: #fff'>" + name + "</option>");
+  colorPicker.append("<option value='#" + hex + "' style='background-color: #" + hex + "; color: #"+fontColor+"'>" + name + "</option>");
 }
 
 function resetTableButtons() {
@@ -162,6 +162,8 @@ async function _init() {
     addColor("2232d2", "Blue");
     addColor("32A852", "Green");
     addColor("E2A208", "Gold");
+    addColor("000", "Black");
+    addColor("fff", "White", "000")
     addButton("Example Box", exampleBox);
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
