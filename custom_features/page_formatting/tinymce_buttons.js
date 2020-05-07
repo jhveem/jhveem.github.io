@@ -103,9 +103,7 @@ function addColor(hex, name) {
 }
 async function _init() {
   let editor = await getEditor();
-  console.log(editor);
   let topPart = null;
-  console.log(tinymce);
   if (tinymce.majorVersion === "4") {
     topPart = await getElement(".mce-top-part");
   } else if (tinymce.majorVersion === "5") {
@@ -115,6 +113,7 @@ async function _init() {
     editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
     editor.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
     editor.addShortcut("ctrl+alt+d", "the highlighted font will display a definition on hover.", exampleBox);
+    editor.addShortcut("ctrl+alt+g", "Insert a table that is linked to a google sheet.", googleSheetsTable);
     topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
     customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'></select>")
