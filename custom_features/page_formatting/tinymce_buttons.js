@@ -94,16 +94,16 @@ Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-shee
 async function addClassToTable(className) {
   let node = tinyMCE.activeEditor.selection.getNode();
   let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
-  for (let  i = 0; i < tableOptions.length; i++) {
+  for (let i = 0; i < tableOptions.length; i++) {
     let className = tableOptions[i];
     tinyMCE.activeEditor.dom.removeClass(parent, className);
   }
   tinyMCE.activeEditor.dom.addClass(parent, className);
 }
 
-async function addButton(name, func, className='') {
+async function addButton(name, func, className = '') {
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  let button = $("<a class='btn "+className+"' style='padding: 5px; background-color: #EEE; color: #000; border: 1px solid #AAA; cursor: pointer;'>" + name + "</a>");
+  let button = $("<a class='btn " + className + "' style='padding: 5px; background-color: #EEE; color: #000; border: 1px solid #AAA; cursor: pointer;'>" + name + "</a>");
   button.click(func);
   customButtonsContainer.append(button);
   return button;
@@ -137,23 +137,31 @@ async function _init() {
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
     addButton("Google Sheets Table", googleSheetsTable);
-    for (let  i = 0; i < tableOptions.length; i++) {
+    for (let i = 0; i < tableOptions.length; i++) {
       let className = tableOptions[i];
-      let optionName = "Table->"+className.replace("btech-", "").replace("-table", ""); 
-      addButton(optionName, function(){
+      let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
+      addButton(optionName, function () {
         addClassToTable(className);
-        $('.btech-table-edit-button').each(function() {
-          $(this).css({
+      }, 'btech-table-edit-button ' + className + '-button');
+    }
+    //whenever you click in the editor, see if it's selected a table with one of the classes
+    tinymce.activeEditor.on("click", function () {
+      $('.btech-table-edit-button').each(function () {
+        $(this).css({
           'background-color': '',
           'color': ''
-          });
-        })
-        $(this).css({
-          'background-color': '#d22232',
-          'color': '#fff'
-        })
-      }, 'btech-table-edit-button');
-    }
+        });
+      });
+      let node = tinyMCE.activeEditor.selection.getNode();
+      let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
+      console.log(parent);
+      /*
+      $(this).css({
+        'background-color': '#d22232',
+        'color': '#fff'
+      })
+      */
+    });
   }
 }
 if (window.location.pathname.includes("edit")) _init();
