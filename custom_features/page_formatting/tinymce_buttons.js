@@ -143,7 +143,6 @@ async function _init() {
       let btn = await addButton(optionName, function () {
         addClassToTable(className);
       }, 'btech-table-edit-button');
-      console.log(btn);
       btn.attr('id', className + '-button');
     }
     //whenever you click in the editor, see if it's selected a table with one of the classes
@@ -157,7 +156,7 @@ async function _init() {
         });
         let className = $(this).attr('id').replace("-button", "");
         if (parent !== null) {
-          if (parent.hasClass(className)) {
+          if ($(parent).hasClass(className)) {
             $(this).css({
               'background-color': '#d22232',
               'color': '#fff'
