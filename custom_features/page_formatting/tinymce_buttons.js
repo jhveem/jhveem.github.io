@@ -92,7 +92,7 @@ Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-shee
 }
 async function addButton(name, func) {
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  let button = $("<a class='btn' style='padding: 5px; background-color: #EEE; border: 1px solid #AAA; cursor: pointer;'>" + name + "</a>");
+  let button = $("<a class='btn' style='padding: 5px; background-color: #EEE; color: #000; border: 1px solid #AAA; cursor: pointer;'>" + name + "</a>");
   button.click(func);
   customButtonsContainer.append(button);
 }
