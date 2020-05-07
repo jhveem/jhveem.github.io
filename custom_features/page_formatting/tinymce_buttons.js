@@ -105,9 +105,9 @@ async function _init() {
   let editor = await getEditor();
   console.log(editor);
   let topPart = null;
-  if (editor.majorVersion === 4) {
+  if (tinymce.majorVersion === 4) {
     topPart = await getElement(".mce-top-part");
-  } else if (editor.majorVersion === 5) {
+  } else if (tinymce.majorVersion === 5) {
     topPart = await getElement(".tox-toolbar-overlord");
   }
   if ( topPart !== null && $("#btech-custom-editor-buttons-container").length === 0) {
