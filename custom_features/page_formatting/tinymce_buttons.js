@@ -140,27 +140,30 @@ async function _init() {
     for (let i = 0; i < tableOptions.length; i++) {
       let className = tableOptions[i];
       let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
-      addButton(optionName, function () {
+      let btn = addButton(optionName, function () {
         addClassToTable(className);
-      }, 'btech-table-edit-button ' + className + '-button');
+      }, 'btech-table-edit-button');
+      btn.attr('id', className + '-button');
     }
     //whenever you click in the editor, see if it's selected a table with one of the classes
     tinymce.activeEditor.on("click", function () {
+      let node = tinyMCE.activeEditor.selection.getNode();
+      let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
       $('.btech-table-edit-button').each(function () {
         $(this).css({
           'background-color': '',
           'color': ''
         });
+        let className = $(this).attr('id').replace("-button", "");
+        if (parent !== null) {
+          if (parent.hasClass(className)) {
+            $(this).css({
+              'background-color': '#d22232',
+              'color': '#fff'
+            });
+          }
+        }
       });
-      let node = tinyMCE.activeEditor.selection.getNode();
-      let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
-      console.log(parent);
-      /*
-      $(this).css({
-        'background-color': '#d22232',
-        'color': '#fff'
-      })
-      */
     });
   }
 }
