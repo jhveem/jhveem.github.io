@@ -140,9 +140,10 @@ async function _init() {
     for (let i = 0; i < tableOptions.length; i++) {
       let className = tableOptions[i];
       let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
-      let btn = addButton(optionName, function () {
+      let btn = await addButton(optionName, function () {
         addClassToTable(className);
       }, 'btech-table-edit-button');
+      console.log(btn);
       btn.attr('id', className + '-button');
     }
     //whenever you click in the editor, see if it's selected a table with one of the classes
