@@ -103,6 +103,7 @@ function addColor(hex, name) {
 }
 async function _init() {
   let editor = await getEditor();
+  console.log(editor);
   let topPart = null;
   if (editor.majorVersion === 4) {
     topPart = await getElement(".mce-top-part");
