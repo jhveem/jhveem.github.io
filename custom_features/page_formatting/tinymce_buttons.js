@@ -3,11 +3,7 @@ async function getEditor() {
     await delay(500);
     return getEditor();
   } else {
-    var editors = window.tinymce.editors;
-    var editor = editors[0];
-    // if (editors.wiki_page_body !== undefined) editor = editors.wiki_page_body;
-    // else if (editors.assignment_description !== undefined) editor = editors.assignment_description;
-    return editor;
+    return tinymce.activeEditor;
   }
 }
 async function hideOnHover() {
@@ -90,6 +86,12 @@ Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-shee
     event.stopPropagation();
   });
 }
+async function addClassToTable(className) {
+  let node = tinyMCE.activeEditor.selection.getNode();
+  let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
+  tinyMCE.activeEditor.dom.addClass(parent, className);
+}
+
 async function addButton(name, func) {
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
   let button = $("<a class='btn' style='padding: 5px; background-color: #EEE; color: #000; border: 1px solid #AAA; cursor: pointer;'>" + name + "</a>");
@@ -109,7 +111,7 @@ async function _init() {
   } else if (tinymce.majorVersion === "5") {
     topPart = await getElement(".tox-toolbar-overlord");
   }
-  if ( topPart !== null && $("#btech-custom-editor-buttons-container").length === 0) {
+  if (topPart !== null && $("#btech-custom-editor-buttons-container").length === 0) {
     editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
     editor.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
     editor.addShortcut("ctrl+alt+d", "the highlighted font will display a definition on hover.", exampleBox);
@@ -125,6 +127,12 @@ async function _init() {
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
     addButton("Google Sheets Table", googleSheetsTable);
+    addButton("Table->Dropdown", function(){
+      addClassToTable('btech-dropdown-table');
+    });
+    addButton("Table->Tabs", function(){
+      addClassToTable('btech-tabs-table');
+    });
   }
 }
 if (window.location.pathname.includes("edit")) _init();
