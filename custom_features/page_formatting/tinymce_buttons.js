@@ -103,8 +103,13 @@ function addColor(hex, name) {
 }
 async function _init() {
   let editor = await getEditor();
-  let topPart = getElement(".mce-top-part");
-  if ($("#btech-custom-editor-buttons-container").length === 0) {
+  let topPart = null;
+  if (editor.majorVersion === 4) {
+    topPart = await getElement(".mce-top-part");
+  } else if (editor.majorVersion === 5) {
+    topPart = await getElement(".tox-toolbar-overlord");
+  }
+  if ( topPart !== null && $("#btech-custom-editor-buttons-container").length === 0) {
     editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
     editor.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
     editor.addShortcut("ctrl+alt+d", "the highlighted font will display a definition on hover.", exampleBox);
