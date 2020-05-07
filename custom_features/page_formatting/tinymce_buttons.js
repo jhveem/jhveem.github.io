@@ -92,13 +92,22 @@ Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-shee
   });
 }
 async function addClassToTable(className) {
+  //get the currently selected node
   let node = tinyMCE.activeEditor.selection.getNode();
+  //get the parent
   let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
-  for (let i = 0; i < tableOptions.length; i++) {
-    let className = tableOptions[i];
-    tinyMCE.activeEditor.dom.removeClass(parent, className);
+  if (parent !== null) {
+    //see if it's already got the class in question, if so remove it, otherwise remove all other classes and add that one
+    if ($(parent).hasClass(className)) {
+      tinyMCE.activeEditor.dom.removeClass(parent, className);
+    } else {
+      for (let i = 0; i < tableOptions.length; i++) {
+        let _class = tableOptions[i];
+        tinyMCE.activeEditor.dom.removeClass(parent, _class);
+      }
+      tinyMCE.activeEditor.dom.addClass(parent, className);
+    }
   }
-  tinyMCE.activeEditor.dom.addClass(parent, className);
 }
 
 async function addButton(name, func, className = '') {
