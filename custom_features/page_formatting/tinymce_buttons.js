@@ -105,6 +105,7 @@ async function _init() {
   let editor = await getEditor();
   console.log(editor);
   let topPart = null;
+  console.log(tinymce);
   if (tinymce.majorVersion === 4) {
     topPart = await getElement(".mce-top-part");
   } else if (tinymce.majorVersion === 5) {
