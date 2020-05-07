@@ -113,6 +113,26 @@ function addColor(hex, name) {
   let colorPicker = $("#btech-custom-editor-buttons-color");
   colorPicker.append("<option value='#" + hex + "' style='background-color: #" + hex + "; color: #fff'>" + name + "</option>");
 }
+
+function resetTableButtons() {
+  let node = tinyMCE.activeEditor.selection.getNode();
+  let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
+  $('.btech-table-edit-button').each(function () {
+    $(this).css({
+      'background-color': '',
+      'color': ''
+    });
+    let className = $(this).attr('id').replace("-button", "");
+    if (parent !== null) {
+      if ($(parent).hasClass(className)) {
+        $(this).css({
+          'background-color': '#d22232',
+          'color': '#fff'
+        });
+      }
+    }
+  });
+}
 async function _init() {
   let editor = await getEditor();
   let topPart = null;
@@ -142,28 +162,13 @@ async function _init() {
       let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
       let btn = await addButton(optionName, function () {
         addClassToTable(className);
+        resetTableButtons();
       }, 'btech-table-edit-button');
       btn.attr('id', className + '-button');
     }
     //whenever you click in the editor, see if it's selected a table with one of the classes
     tinymce.activeEditor.on("click", function () {
-      let node = tinyMCE.activeEditor.selection.getNode();
-      let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
-      $('.btech-table-edit-button').each(function () {
-        $(this).css({
-          'background-color': '',
-          'color': ''
-        });
-        let className = $(this).attr('id').replace("-button", "");
-        if (parent !== null) {
-          if ($(parent).hasClass(className)) {
-            $(this).css({
-              'background-color': '#d22232',
-              'color': '#fff'
-            });
-          }
-        }
-      });
+      resetTableButtons();
     });
   }
 }
