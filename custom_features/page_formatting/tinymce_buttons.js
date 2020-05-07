@@ -1,3 +1,8 @@
+tableOptions = [
+  'btech-tabs-table',
+  'btech-dropdown-table'
+]
+
 async function getEditor() {
   if (window.tinymce === undefined) {
     await delay(500);
@@ -89,6 +94,10 @@ Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-shee
 async function addClassToTable(className) {
   let node = tinyMCE.activeEditor.selection.getNode();
   let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
+  for (let  i = 0; i < tableOptions.length; i++) {
+    let className = tableOptions[i];
+    tinyMCE.activeEditor.dom.removeClass(parent, className);
+  }
   tinyMCE.activeEditor.dom.addClass(parent, className);
 }
 
@@ -127,12 +136,13 @@ async function _init() {
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
     addButton("Google Sheets Table", googleSheetsTable);
-    addButton("Table->Dropdown", function(){
-      addClassToTable('btech-dropdown-table');
-    });
-    addButton("Table->Tabs", function(){
-      addClassToTable('btech-tabs-table');
-    });
+    for (let  i = 0; i < tableOptions.length; i++) {
+      let className = tableOptions[i];
+      let optionName = "Table->"+className.replace("btech-", "").replace("-table", ""); 
+      addButton(optionName, function(){
+        addClassToTable(className);
+      });
+    }
   }
 }
 if (window.location.pathname.includes("edit")) _init();
