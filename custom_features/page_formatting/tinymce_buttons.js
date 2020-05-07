@@ -103,7 +103,7 @@ function addColor(hex, name) {
 }
 async function _init() {
   let editor = await getEditor();
-  let topPart = await getElement(".mce-top-part");
+  let topPart = getElement(".mce-top-part");
   if ($("#btech-custom-editor-buttons-container").length === 0) {
     editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
     editor.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
