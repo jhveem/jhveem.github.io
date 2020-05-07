@@ -31,7 +31,7 @@ async function exampleBox() {
 <tbody>
 <tr style="background-color: ` + color + `;">
 <td style="width: 2.5%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;</span></strong></span></td>
-<td style="width: 95%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;Example</span></strong></span></td>
+<td style="width: 95%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;Title</span></strong></span></td>
 <td style="width: 2.5%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;</span></strong></span></td>
 </tr>
 <tr style="height: 30px;">
@@ -164,7 +164,7 @@ async function _init() {
     addColor("E2A208", "Gold");
     addColor("000", "Black");
     addColor("fff", "White", "000")
-    addButton("Example Box", exampleBox);
+    addButton("Box", exampleBox);
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
     addButton("Google Sheets Table", googleSheetsTable);
