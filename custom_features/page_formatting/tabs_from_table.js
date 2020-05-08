@@ -4,7 +4,9 @@
     let originalTable = $(this);
     let themeParent = $('#btech-theme-parent');
     let newTable = $("<div class='btech-tabs-container'></div>");
-    console.log(themeParent.length);
+    if (themeParent.length === 1) {
+      newTable.css({'background-color': themeParent.css('background-color')});
+    }
     let newTableTabs = $("<ul style='list-style-type:none;'></ul>");
     let newTableContent = $("<div style='padding: 10px; background-color: #fff;' ></div>");
     let rows = originalTable.find("> tbody > tr");
