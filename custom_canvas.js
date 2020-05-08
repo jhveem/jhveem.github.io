@@ -1,4 +1,4 @@
-//THIS MUST BE UPDATE IN THE THEMES SECTION OF CANVAS
+//THIS MUST BE UPDATED IN THE THEMES SECTION OF CANVAS
 
 //check for custom theme info, will probably only run on pages, quizzes, and assignments, but who knows
 let themeParent = $('#btech-theme-parent');
