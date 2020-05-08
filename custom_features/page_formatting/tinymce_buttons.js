@@ -167,6 +167,57 @@ function addCustomThemeParent() {
     existingTheme.remove();
   }
 }
+
+function formatPage() {
+  let body = tinyMCE.activeEditor.getBody();
+  let children = $(body).children();
+  let headerNum = -1;
+  let headerName = null;
+  let alt = true;
+  $('.btech-sections').each(function() {
+    $(this).contents().unwrap();
+  });
+  $('.btech-sections-header').each(function() {
+    $(this).removeClass('.btech-sections-header');
+  });
+  for (let i = 0; i < children.length; i++) {
+    let child = $(children[i])[0];
+    //find out the header to check for
+    if (headerName === null) {
+      console.log(child.tagName.charAt(0));
+      if (child.tagName.charAt(0) === "H") {
+        console.log("FOUND");
+        headerName = child.tagName;
+      }
+    }
+    if (headerName !== null) {
+      if (child.tagName === headerName || (i === children.length - 1)) {
+        if (headerNum > -1) {
+          let arrGroup = [];
+          for (var j = headerNum; j < i; j++) {
+            console.log(j);
+            arrGroup.push($(children[j])[0]);
+          }
+          console.log("done");
+          let bgColor = "#fff";
+          if (alt) {
+            bgColor = "#eaeaea";
+          }
+          alt = !alt;
+          let header = $(children[headerNum]);
+          header.css({
+            'text-align': 'center',
+          });
+          header.addClass("btech-sections-header");
+          header.wrapInner("<span></span>");
+          $(arrGroup).wrapAll("<div class='btech-sections' style='border: 1px solid #ddd; background-color: " + bgColor + "; padding: 5px; padding-top: 15px; margin-top: 25px;'></div>");
+        }
+        headerNum = i;
+      }
+    }
+    console.log(child.tagName);
+  }
+}
 async function _init() {
   let editor = await getEditor();
   let topPart = null;
@@ -194,6 +245,7 @@ async function _init() {
     addButton("Hover Text", hoverDefinition);
     addButton("Google Sheets Table", googleSheetsTable);
     addButton("Custom Theme", addCustomThemeParent);
+    addButton("Format Page", formatPage);
     for (let i = 0; i < tableOptions.length; i++) {
       let className = tableOptions[i];
       let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
