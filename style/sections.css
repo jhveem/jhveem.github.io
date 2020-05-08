@@ -1,7 +1,7 @@
 .btech-sections .sections-header {
   text-align: center;
 }
-.btech-sections .btech-sections-header span {
+.btech-sections .btech-sections-header .btech-sections-header-content{
   position: relative; 
   top: -40px; 
   padding: 5px 15px;
