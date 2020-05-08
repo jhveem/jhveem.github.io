@@ -7,7 +7,12 @@
 /*@import 'https://kit.fontawesome.com/870f83fdd7.js';/*Not sure why this was included since it's a js file*/
 /*INCLUDE CSS FOR CANVAS COMMENTS*/
 
-
+:root {
+  --btech-theme-header-background-color: #d22232;
+  --btech-theme-header-color: #fff;
+  --btech-theme-header-hover-background-color: #912;
+  --btech-theme-header-hover-color: #fff;
+}
 
 
 
@@ -199,12 +204,12 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #d22232;
+  background-color: var(--btech-theme-header-background-color);
 }
 
 .btech-tabs-container ul li {
   float: left;
-  color: #FFF;
+  color: var(--btech-theme-header-color);
   display: block;
   text-align: center;
   padding: 14px 16px;
@@ -212,7 +217,7 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected {
 }
 
 .btech-tabs-container ul li:hover {
-  background-color: #912;
+  background-color: var(--btech-theme-header-hover-background-color);
 }
 
 .btech-tabs-container ul li.active {

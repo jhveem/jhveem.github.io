@@ -49,7 +49,7 @@
     //set up custom themes from theme parent if needed
     let themeParent = $('#btech-theme-parent');
     if (themeParent.length === 1) {
-      newTableTabs.css({'background-color': themeParent.css('background-color')});
+      //newTableTabs.css({'background-color': themeParent.css('background-color')});
     }
     //newTableContent.hide();
     originalTable.hide();
