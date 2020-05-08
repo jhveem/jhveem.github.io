@@ -178,6 +178,7 @@ function formatPage() {
     $(this).contents().unwrap();
   });
   $(body).find('.btech-sections-header').each(function() {
+    $(this).find('span').contents.unwrap();
     $(this).removeClass('.btech-sections-header');
   });
   for (let i = 0; i < children.length; i++) {
