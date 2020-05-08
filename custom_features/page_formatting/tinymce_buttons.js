@@ -184,9 +184,7 @@ function formatPage() {
     let child = $(children[i])[0];
     //find out the header to check for
     if (headerName === null) {
-      console.log(child.tagName.charAt(0));
       if (child.tagName.charAt(0) === "H") {
-        console.log("FOUND");
         headerName = child.tagName;
       }
     }
@@ -195,10 +193,8 @@ function formatPage() {
         if (headerNum > -1) {
           let arrGroup = [];
           for (var j = headerNum; j < i; j++) {
-            console.log(j);
             arrGroup.push($(children[j])[0]);
           }
-          console.log("done");
           let bgColor = "#fff";
           if (alt) {
             bgColor = "#eaeaea";
@@ -215,7 +211,6 @@ function formatPage() {
         headerNum = i;
       }
     }
-    console.log(child.tagName);
   }
 }
 async function _init() {
