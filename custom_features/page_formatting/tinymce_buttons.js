@@ -196,6 +196,9 @@ function formatPage() {
           for (var j = headerNum; j < i; j++) {
             arrGroup.push($(children[j])[0]);
           }
+          if (i === children.length - 1) {
+            arrGroup.push($(children[i])[0]);
+          }
           let bgColor = "#fff";
           if (alt) {
             bgColor = "#eaeaea";
