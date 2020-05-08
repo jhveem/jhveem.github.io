@@ -83,5 +83,5 @@
 .steps li:hover::after { border-left-color: var(--btech-theme-header-hover-background-color); }
 
 /* Hover for completed and current */
-.steps li.current:hover { background-color: var(--btech-theme-header-hover-background-color); }
-.steps li.current:hover::after { border-left-color: var(--btech-theme-header-hover-background-color); }
+.steps li.current:hover { background-color: var(--btech-theme-header-background-color); }
+.steps li.current:hover::after { border-left-color: var(--btech-theme-header-background-color); }
