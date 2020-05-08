@@ -118,9 +118,9 @@ async function addButton(name, func, className = '') {
   return button;
 }
 
-function addColor(hex, name, fontColor="fff") {
+function addColor(hex, name, fontColor = "fff") {
   let colorPicker = $("#btech-custom-editor-buttons-color");
-  colorPicker.append("<option value='#" + hex + "' style='background-color: #" + hex + "; color: #"+fontColor+"'>" + name + "</option>");
+  colorPicker.append("<option value='#" + hex + "' style='background-color: #" + hex + "; color: #" + fontColor + "'>" + name + "</option>");
 }
 
 function resetTableButtons() {
@@ -134,7 +134,7 @@ function resetTableButtons() {
     let className = $(this).attr('id').replace("-button", "");
     if (parent !== null) {
       if ($(parent).hasClass(className)) {
-        let bgColor = getComputedStyle(document.documentElement,null).getPropertyValue("--ic-brand-button--secondary-bgd-darkened-5");
+        let bgColor = getComputedStyle(document.documentElement, null).getPropertyValue("--ic-brand-button--secondary-bgd-darkened-5");
         $(this).css({
           'background-color': bgColor,
           'color': '#fff'
@@ -143,9 +143,12 @@ function resetTableButtons() {
     }
   });
 }
+
 function addCustomThemeParent() {
   let body = tinyMCE.activeEditor.getBody();
-  $(body).prepend(`
+  let existingTheme = $("#btech-theme-parent");
+  if (existingTheme.length === 0) {
+    $(body).prepend(`
     <div id="btech-theme-parent" style="border: 1px solid #000; padding: 5px;">
       <span>
         This information will all be hidden on render. Just make sure that when applying changes you have selected the entire element. (triple click or drag select from the starting # to the ending #)
@@ -160,6 +163,9 @@ function addCustomThemeParent() {
       </span>
     </div>
   `);
+  } else {
+    existingTheme.remove();
+  }
 }
 async function _init() {
   let editor = await getEditor();
