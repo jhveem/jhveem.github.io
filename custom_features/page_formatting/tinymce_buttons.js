@@ -145,7 +145,7 @@ function resetTableButtons() {
 }
 function addCustomThemeParent() {
   let body = tinyMCE.activeEditor.getBody();
-  $(body.prepend(`
+  $(body).prepend(`
     <div id="btech-theme-parent" style="border: 1px solid #000; padding: 5px;">
       <span>
         This information will all be hidden on render. Just make sure that when applying changes you have selected the entire element. (triple click or drag select from the starting # to the ending #)
@@ -159,7 +159,7 @@ function addCustomThemeParent() {
         #HEADER HOVER STYLE#
       </span>
     </div>
-  `))
+  `);
 }
 async function _init() {
   let editor = await getEditor();
