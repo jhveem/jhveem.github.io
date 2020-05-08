@@ -174,10 +174,10 @@ function formatPage() {
   let headerNum = -1;
   let headerName = null;
   let alt = true;
-  $('.btech-sections').each(function() {
+  $(body).find('.btech-sections').each(function() {
     $(this).contents().unwrap();
   });
-  $('.btech-sections-header').each(function() {
+  $(body).find('.btech-sections-header').each(function() {
     $(this).removeClass('.btech-sections-header');
   });
   for (let i = 0; i < children.length; i++) {
