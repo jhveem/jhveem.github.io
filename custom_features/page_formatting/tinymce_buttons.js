@@ -2,7 +2,6 @@ tableOptions = [
   'btech-tabs-table',
   'btech-dropdown-table'
 ];
-let themeParent = $('#btech-theme-parent');
 
 async function getEditor() {
   if (window.tinymce === undefined) {
