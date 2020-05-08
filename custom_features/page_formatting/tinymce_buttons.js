@@ -144,6 +144,24 @@ function resetTableButtons() {
     }
   });
 }
+function addCustomThemeParent() {
+  let body = tinyMCE.activeEditor.getBody();
+  $(body.prepend(`
+    <div id="btech-theme-parent" style="border: 1px solid #000; padding: 5px;">
+      <span>
+        This information will all be hidden on render. Just make sure that when applying changes you have selected the entire element. (triple click or drag select from the starting # to the ending #)
+      </span>
+      <br />
+      <span class="btech-theme-header" style="background-color: #3366ff; color: #ffffff;">
+        #HEADER STYLE# 
+      </span>
+      <br />
+      <span class="btech-theme-header-hover" style="background-color: #000080; color: #ffffff;">
+        #HEADER HOVER STYLE#
+      </span>
+    </div>
+  `))
+}
 async function _init() {
   let editor = await getEditor();
   let topPart = null;
@@ -170,6 +188,7 @@ async function _init() {
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
     addButton("Google Sheets Table", googleSheetsTable);
+    addButton("Custom Theme", addCustomThemeParent);
     for (let i = 0; i < tableOptions.length; i++) {
       let className = tableOptions[i];
       let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
