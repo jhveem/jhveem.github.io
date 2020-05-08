@@ -2,11 +2,7 @@
   let originalTables = $(".btech-tabs-table");
   originalTables.each(function () {
     let originalTable = $(this);
-    let themeParent = $('#btech-theme-parent');
     let newTable = $("<div class='btech-tabs-container'></div>");
-    if (themeParent.length === 1) {
-      newTable.css({'background-color': themeParent.css('background-color')});
-    }
     let newTableTabs = $("<ul style='list-style-type:none;'></ul>");
     let newTableContent = $("<div style='padding: 10px; background-color: #fff;' ></div>");
     let rows = originalTable.find("> tbody > tr");
@@ -50,6 +46,11 @@
     originalTable.before(newTable);
     newTable.append(newTableTabs);
     newTable.append(newTableContent);
+    //set up custom themes from theme parent if needed
+    let themeParent = $('#btech-theme-parent');
+    if (themeParent.length === 1) {
+      newTableTabs.css({'background-color': themeParent.css('background-color')});
+    }
     //newTableContent.hide();
     originalTable.hide();
   });
