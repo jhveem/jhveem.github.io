@@ -146,7 +146,7 @@ function resetTableButtons() {
 
 function addCustomThemeParent() {
   let body = tinyMCE.activeEditor.getBody();
-  let existingTheme = $("#btech-theme-parent");
+  let existingTheme = $(body).find("#btech-theme-parent");
   console.log(existingTheme.length);
   if (existingTheme.length === 0) {
     $(body).prepend(`
