@@ -1,8 +1,5 @@
 :root {
-  --tab-bg-hover-color: #912;
   --tab-bg-color: #555;
-  --tab-active-bg-color: #d22232;
-  --tab-active-bg-hover-color: #d22232;
   --arrow-padding: 5px;
   --arrow-height: 80px;
   --arrow-width: 25px;
@@ -78,13 +75,13 @@
 .steps li::after { border-left-color: var(--tab-bg-color); }
 
 /* Current */
-.steps li.current { background-color: var(--tab-active-bg-color); }
-.steps li.current::after { border-left-color: var(--tab-active-bg-color); }
+.steps li.current { background-color: var(--btech-theme-header-background-color); }
+.steps li.current::after { border-left-color: var(--btech-theme-header-background-color); }
 
 /* Hover for completed and current */
-.steps li:hover { background-color: var(--tab-bg-hover-color); }
-.steps li:hover::after { border-left-color: var(--tab-bg-hover-color); }
+.steps li:hover { background-color: var(--btech-theme-header-hover-background-color); }
+.steps li:hover::after { border-left-color: var(--btech-theme-header-hover-background-color); }
 
 /* Hover for completed and current */
-.steps li.current:hover { background-color: var(--tab-active-bg-hover-color); }
-.steps li.current:hover::after { border-left-color: var(--tab-active-bg-hover-color); }
+.steps li.current:hover { background-color: var(--btech-theme-header-hover-background-color); }
+.steps li.current:hover::after { border-left-color: var(--btech-theme-header-hover-background-color); }

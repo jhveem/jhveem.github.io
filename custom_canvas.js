@@ -193,4 +193,19 @@ window.ALLY_CFG = {
     'baseUrl': 'https://prod.ally.ac',
     'clientId': 1164
 };
+//check for custom theme info
+let themeParent = $('#btech-theme-parent');
+if (themeParent.length === 1) {
+  let header = themeParent.find('.btech-theme-header');
+  if (header.length === 1) {
+    document.documentElement.style.setProperty('--btech-theme-header-background-color', header.css('background-color'));
+    document.documentElement.style.setProperty('--btech-theme-header-color', header.css('color'));
+  }
+
+  let headerHover = themeParent.find('.btech-theme-header-hover');
+  if (headerHover.length === 1) {
+    document.documentElement.style.setProperty('--btech-theme-header-hover-background-color', headerHover.css('background-color'));
+    document.documentElement.style.setProperty('--btech-theme-header-hover-color', headerHover.css('color'));
+  }
+}
 $.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
