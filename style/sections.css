@@ -1,10 +1,8 @@
-.btech-sections .btech-theme-header {
+.btech-sections .sections-header {
   text-align: center;
 }
-.btech-sections .btech-theme-header span {
+.btech-sections .btech-sections-header span {
   position: relative; 
   top: -40px; 
   padding: 5px 15px;
-  background-color: var(--btech-theme-header-background-color);
-  color: var(--btech-theme-header-color);
 }
