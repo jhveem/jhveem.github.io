@@ -2,7 +2,9 @@
   let originalTables = $(".btech-tabs-table");
   originalTables.each(function () {
     let originalTable = $(this);
+    let themeParent = $('#btech-theme-parent');
     let newTable = $("<div class='btech-tabs-container'></div>");
+    console.log(themeParent);
     let newTableTabs = $("<ul style='list-style-type:none;'></ul>");
     let newTableContent = $("<div style='padding: 10px; background-color: #fff;' ></div>");
     let rows = originalTable.find("> tbody > tr");
