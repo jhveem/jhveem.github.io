@@ -6,10 +6,10 @@
   border-right: 1px solid #811;
 }
 .tab:hover {
-  background-color: #A21222;
+  background-color: var(--ic-brand-button--secondary-bgd-darkened-15);
 }
 .tab-container {
-  background-color: #D22232;
+  background-color: var(--ic-brand-button--secondary-bgd-darkened-5);
   padding: 0px;
   margin: 0px;
   color: #FFF;
