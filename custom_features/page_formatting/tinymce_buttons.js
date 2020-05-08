@@ -178,7 +178,7 @@ function formatPage() {
     $(this).contents().unwrap();
   });
   $(body).find('.btech-sections-header').each(function() {
-    $(this).find('span').contents().unwrap();
+    $(this).find('.btech-sections-header-content').contents().unwrap();
     $(this).removeClass('.btech-sections-header');
   });
   for (let i = 0; i < children.length; i++) {
@@ -196,9 +196,11 @@ function formatPage() {
           for (var j = headerNum; j < i; j++) {
             arrGroup.push($(children[j])[0]);
           }
+          //make sure to include the last element
           if (i === children.length - 1) {
             arrGroup.push($(children[i])[0]);
           }
+          //alternate background color
           let bgColor = "#fff";
           if (alt) {
             bgColor = "#eaeaea";
@@ -209,7 +211,7 @@ function formatPage() {
             'text-align': 'center',
           });
           header.addClass("btech-sections-header");
-          header.wrapInner("<span></span>");
+          header.wrapInner("<span class='btech-sections-header-content'></span>");
           $(arrGroup).wrapAll("<div class='btech-sections' style='border: 1px solid #ddd; background-color: " + bgColor + "; padding: 5px; padding-top: 15px; margin-top: 25px;'></div>");
         }
         headerNum = i;
