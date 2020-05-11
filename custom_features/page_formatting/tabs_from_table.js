@@ -7,7 +7,6 @@
     let newTableContent = $("<div style='padding: 10px; background-color: #fff;' ></div>");
     let rows = originalTable.find("> tbody > tr");
     let data = {};
-    let count = 0;
     let optionHeader = "";
     let valueHeader = "";
     let caption = originalTable.find("caption").html();

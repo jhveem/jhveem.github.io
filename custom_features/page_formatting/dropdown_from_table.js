@@ -13,9 +13,8 @@
     let newTable = $("<div></div>");
     let newTableSelect = $("<select style='display: inline-block;'><option style='display:none;' disabled selected value>--select one--</option></select>");
     let newTableContent = $("<div style='padding: 10px; border: 1px solid #000;'></div>");
-    let rows = originalTable.find("tr");
+    let rows = originalTable.find("> tbody > tr");
     let data = {};
-    let count = 0;
     let optionHeader = "";
     let valueHeader = "";
     let caption = originalTable.find("caption").html();
