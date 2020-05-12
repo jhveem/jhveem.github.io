@@ -33,26 +33,5 @@
       });
     });
   }
-  function addToModuleItemMenu(name, description, func) {
-    let courseId = ENV.COURSE_ID;
-    $("div.context_module").each(function () {
-      let module = $(this);
-      let moduleId = $(this).attr("data-module-id");
-      module.find("li.context_module_item").each(function () {
-        let item = $(this);
-        let type = item.find(".type_icon").attr("title");
-        if (type === "Assignment") {
-          let menu = item.find("ul.al-options");
-          let liTag = $("<li></li>");
-          let aTag = $(`<a href="" title="`+description+`"><i class="icon-forward"></i>`+name+`</a>`);
-          liTag.append(aTag);
-          menu.append(liTag);
-          aTag.click(function() {
-            func(courseId, moduleId, item)
-          });
-        }
-      });
-    });
-  }
-  addToModuleItemMenu("Convert To Page", "Remove this item from the module", convertAssignmentToPage)
+  addToModuleItemMenu("Convert To Page", "Remove this item from the module", convertAssignmentToPage, "Assignment");
 })();

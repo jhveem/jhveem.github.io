@@ -107,6 +107,29 @@ function featureCDD(f, data={}) {
 	if (CDDIDS.includes(userId)) feature(f, data);
 }
 
+
+function addToModuleItemMenu(name, description, func, type="all") {
+  let courseId = ENV.COURSE_ID;
+  $("div.context_module").each(function () {
+    let module = $(this);
+    let moduleId = $(this).attr("data-module-id");
+    module.find("li.context_module_item").each(function () {
+      let item = $(this);
+      let itemType = item.find(".type_icon").attr("title");
+      if (itemType === type || type === "all") {
+        let menu = item.find("ul.al-options");
+        let liTag = $("<li></li>");
+        let aTag = $(`<a href="" title="`+description+`"><i class="icon-forward"></i>`+name+`</a>`);
+        liTag.append(aTag);
+        menu.append(liTag);
+        aTag.click(function() {
+          func(courseId, moduleId, item)
+        });
+      }
+    });
+  });
+}
+
 $.put = function(url, data){
   return $.ajax({
 		url: url,
