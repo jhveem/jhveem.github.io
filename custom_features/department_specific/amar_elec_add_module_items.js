@@ -12,14 +12,12 @@
     await $.get(url, function (data) {
       for (let i = 0; i < data.length; i++) {
         let content = data[i].content_details;
-        console.log(data[i]);
         if (content.points_possible !== undefined && data[i].published === true) {
           score += content.points_possible;
         }
       }
     });
     let hours = Math.floor(score / 10);
-    console.log("SCORE: " + score);
     url = "/api/v1/courses/" + courseId + "/quizzes";
     let quizId;
     await $.post(url, {
