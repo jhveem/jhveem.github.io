@@ -1,5 +1,4 @@
 (function () {
-  console.log("TEST 4");
   function convertAssignmentToPage(courseId, moduleId, item) {
     event.preventDefault();
     let itemId = item.find("div.ig-admin span").attr("data-content-id");
