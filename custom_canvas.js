@@ -220,7 +220,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
       feature("modules/points_to_hours_header");
       feature("page_formatting/tinymce_buttons");
-      feature("department_specific/amar_elec_add_module_items.js"); 
+      feature("department_specific/amar_elec_add_module_items"); 
     }
     if (departmentId === 3847) {
       feature("previous-enrollment-data/previous_enrollment_period_grades");
