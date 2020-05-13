@@ -1,3 +1,12 @@
+  /*
+    There are two pieces to this tool, the first is view on the submissions page which is a table created with Vue that allows teachers and students to review the student's submissions
+    The second is the assignment page, where the student will select a service and submit it.
+    It stores points and service options in a rubric. Rubric description = service. Max points = required submissions.
+    It stores submission data in comments. Each submission is given and id and then the comment stores information like the id, the service performed, etc. 
+    When reviewed, a matching commment with the same ID is added along with whether it was confirmed or rejected.
+
+    I recommend breaking up Services into as small of chunks as is manageable because there could easily be 1000s of comments otherwise
+  */
   (function () {
     IMPORTED_FEATURE = {};
     //GRADING VIEW
@@ -9,9 +18,15 @@
           initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
           _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
             //NEEDS
+            ////TOP PRIORITY: Need to handle pagination for comments since there will be more than 100
             ////Rejection
             ////Progress report
             ////Some way to pull up submissions by date
+            ////Checks on if a student has already submitted their max number of submissions, at least a warning, probably not a hard block
+            ////Allow students to see everything except for the review tab so they can see their summary, submitted, and rejected info too
+            ////Allow the color themes to affect the color of the buttons and display in both teacher view and student view
+            ////A way to undo rejections and change them to confirmations and visa-versa. Probably just let you click a button on the confirm/rejection menu page to move it over. This will really delete that comment and create a new one with the revised status.
+            ////Option to delete a submission, which will delete that comment and all other comments with the submission id
 
             //DEMO HERE:
             //https://btech.beta.instructure.com/courses/470598
@@ -234,7 +249,8 @@ COMMENT: ` + comment + `
 
       //SUBMISSION VIEW
     } else if (/^\/courses\/[0-9]+\/assignments\/[0-9]+/.test(window.location.pathname)) {
-      //THIS IS A TEMPLATE/TUTORIAL FOR HOW TO ADD A CUSTOM FEATURE
+      //Just add in a div with the id:  btech-services-modal
+      //Change this so they just have to type #SERVICES#, no ids or anything like that
       IMPORTED_FEATURE = {
         initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
         _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
