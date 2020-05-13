@@ -16,7 +16,7 @@
           $("#rubrics table.rubric_table tr.criterion").each(function () {
             if ($(this).attr('id') !== 'criterion_blank') {
               let title = $(this).find("td.criterion_description div.description_content span.description_title").text();
-              select.append(`<option value="` + title.replace(' ', '-') + `">` + title + `</option>`);
+              select.append(`<option value="` + title + `">` + title + `</option>`);
             }
           });
           $("#btech-services-submit").css({
