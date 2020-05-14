@@ -84,7 +84,7 @@
             let studentId = parseInt(pieces[3]);
             let assignmentId = parseInt(pieces[2]);
             $.get("/api/v1/courses/" + courseId + "/assignments/" + assignmentId, function (data) {
-              if (data.description.includes("btech-services-modal")) {
+              if (data.description.includes("#SERVICES#")) {
                 let rURL = /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/
                 if (rURL.test(window.location.pathname)) {
                   $("div.submission-details-frame iframe").hide();
