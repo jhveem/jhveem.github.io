@@ -255,7 +255,6 @@ COMMENT: ` + comment + `
         initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
         _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
           let contents = $("div.user_content").html();
-          if (contents.contains('#SERVICES#')) {
             $("div.user_content").html(contents.replace("#SERVICES#", "<div id='btech-services-modal'></div>"));
             $("#btech-services-modal").empty();
             $("#btech-services-modal").append("<div id='btech-services-dropdown'></div><div id='btech-services-submit'>Submit</div>");
@@ -294,7 +293,6 @@ COMMENT: ` + comment + `
 <p>Thank you! Your instructor will review your submission and update your grade.</p>
 `);
             });
-          }
         }
       }
     }
