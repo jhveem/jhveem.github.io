@@ -155,7 +155,8 @@
                       totalProgress: function() {
                         let points = 0; 
                         let maxPoints = 0;
-                        for (criterion in this.criteria) {
+                        for (let name in this.criteria) {
+                          let criterion = this.criteria[name];
                           console.log(criterion);
                           points += criterion.points_current;
                           maxPoints += criterion.points;
