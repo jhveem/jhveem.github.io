@@ -90,6 +90,8 @@
       </div>
 
       <div v-if="menu === 'progress'">
+        <div>Progress: {{totalProgress}}</div>
+        <br>
         <div v-for="criterion in criteria">
             {{criterion.description}}: {{criterion.points_current}} / {{criterion.points}} completed ({{Math.round((criterion.points_current / criterion.points) * 100)}}%)
         </div>
@@ -149,6 +151,16 @@
                     computed: {
                       curService: function () {
                         return this.services[this.pendingServices[0]]
+                      },
+                      totalProgress: function() {
+                        let points = 0; 
+                        let maxPoints = 0;
+                        for (criterion in criteria) {
+                          console.log(criterion);
+                          points += criterion.points_current;
+                          maxPoints += criterion.points;
+                        }
+                        return points / maxPoints;
                       }
                     },
                     methods: {
