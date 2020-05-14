@@ -7,6 +7,8 @@
 
     I recommend breaking up Services into as small of chunks as is manageable because there could easily be 1000s of comments otherwise
   */
+  //DEMO HERE:
+  //https://btech.beta.instructure.com/courses/470598
   (function () {
     IMPORTED_FEATURE = {};
     //GRADING VIEW
@@ -28,8 +30,6 @@
             ////A way to undo rejections and change them to confirmations and visa-versa. Probably just let you click a button on the confirm/rejection menu page to move it over. This will really delete that comment and create a new one with the revised status.
             ////Option to delete a submission, which will delete that comment and all other comments with the submission id
 
-            //DEMO HERE:
-            //https://btech.beta.instructure.com/courses/470598
             let vueString = `
 <div style="padding:10px;" id='app-services'>
   <div class="btech-tabs-container">
@@ -254,44 +254,48 @@ COMMENT: ` + comment + `
       IMPORTED_FEATURE = {
         initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
         _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
-          $("#btech-services-modal").empty();
-          $("#btech-services-modal").append("<div id='btech-services-dropdown'></div><div id='btech-services-submit'>Submit</div>");
-          let dropdownContainer = $('#btech-services-dropdown');
-          dropdownContainer.empty();
-          dropdownContainer.append(`
+          let contents = $("div.user_content").html();
+          if (contents.contains('#SERVICES#')) {
+            $("div.user_content").html(contents.replace("#SERVICES#", "<div id='btech-services-modal'></div>"));
+            $("#btech-services-modal").empty();
+            $("#btech-services-modal").append("<div id='btech-services-dropdown'></div><div id='btech-services-submit'>Submit</div>");
+            let dropdownContainer = $('#btech-services-dropdown');
+            dropdownContainer.empty();
+            dropdownContainer.append(`
 <select></select>
 `);
-          let select = dropdownContainer.find('select');
-          $("#rubrics table.rubric_table tr.criterion").each(function () {
-            if ($(this).attr('id') !== 'criterion_blank') {
-              let title = $(this).find("td.criterion_description div.description_content span.description_title").text();
-              select.append(`<option value="` + title + `">` + title + `</option>`);
-            }
-          });
-          $("#btech-services-submit").css({
-            background: '#D00004',
-            cursor: 'pointer',
-            align: 'center',
-            'text-align': 'center',
-            width: '150px',
-            'border-radius': '2px',
-            'color': '#FFFFFF'
-          });
-          $("#btech-services-submit").click(function () {
-            let id = Math.floor(Date.now() / 1000);
-            let comment = "ID: " + id + "\nTYPE: submission\nSERVICE: " + select.val();
-            let url = "/api/v1/courses/" + ENV.COURSE_ID + "/assignments/" + ENV.ASSIGNMENT_ID + "/submissions/" + ENV.current_user_id;
-            $.put(url, {
-              comment: {
-                text_comment: comment
+            let select = dropdownContainer.find('select');
+            $("#rubrics table.rubric_table tr.criterion").each(function () {
+              if ($(this).attr('id') !== 'criterion_blank') {
+                let title = $(this).find("td.criterion_description div.description_content span.description_title").text();
+                select.append(`<option value="` + title + `">` + title + `</option>`);
               }
             });
-            $("#btech-services-modal").empty();
-            $("#btech-services-modal").append(`
+            $("#btech-services-submit").css({
+              background: '#D00004',
+              cursor: 'pointer',
+              align: 'center',
+              'text-align': 'center',
+              width: '150px',
+              'border-radius': '2px',
+              'color': '#FFFFFF'
+            });
+            $("#btech-services-submit").click(function () {
+              let id = Math.floor(Date.now() / 1000);
+              let comment = "ID: " + id + "\nTYPE: submission\nSERVICE: " + select.val();
+              let url = "/api/v1/courses/" + ENV.COURSE_ID + "/assignments/" + ENV.ASSIGNMENT_ID + "/submissions/" + ENV.current_user_id;
+              $.put(url, {
+                comment: {
+                  text_comment: comment
+                }
+              });
+              $("#btech-services-modal").empty();
+              $("#btech-services-modal").append(`
 <p>Thank you! Your instructor will review your submission and update your grade.</p>
 `);
-          });
-        },
+            });
+          }
+        }
       }
     }
   })();
