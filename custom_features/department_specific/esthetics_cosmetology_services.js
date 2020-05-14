@@ -90,7 +90,7 @@
       </div>
 
       <div v-if="menu === 'progress'">
-        <div>Progress: {{totalProgress}}</div>
+        <div>Progress: {{Math.round(totalProgress * 100)}}%</div>
         <br>
         <div v-for="criterion in criteria">
             {{criterion.description}}: {{criterion.points_current}} / {{criterion.points}} completed ({{Math.round((criterion.points_current / criterion.points) * 100)}}%)
