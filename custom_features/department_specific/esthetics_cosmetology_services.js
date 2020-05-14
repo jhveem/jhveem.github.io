@@ -62,7 +62,7 @@
       </div>
 
       <div v-if="menu == 'completed'">
-        <p>Select a Service from the dropdown below to review the completed submissions</p>
+        <p>Select a Service from the dropdown below to review completed submissions</p>
         <select v-model="selectedCompletedCriterion">
           <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
         </select>
@@ -72,6 +72,26 @@
             <p><b>Reviewer: </b>{{services[id].reviewer}}</p>
             <p><b>Comments</b><br>{{services[id].comments}}</p>
           </div>
+        </div>
+      </div>
+
+      <div v-if="menu === 'rejected'">
+        <p>Select a Service from the dropdown below to review rejected submissions</p>
+        <select v-model="selectedRejectedCriterion">
+          <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
+        </select>
+        <div v-for="id in rejectedServices">
+          <div v-if="services[id].service === selectedRejectedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
+            <p><b>Completed: </b>{{services[id].canvas_data.created_at}}</p>
+            <p><b>Reviewer: </b>{{services[id].reviewer}}</p>
+            <p><b>Comments</b><br>{{services[id].comments}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="menu === 'progress'">
+        <div v-for="criterion in criteria">
+            {{criterion.description}}: {{criterion.points_current}} / {{criterion.points}} completed ({{criterion.points_current / criterion.points}}%)
         </div>
       </div>
 
