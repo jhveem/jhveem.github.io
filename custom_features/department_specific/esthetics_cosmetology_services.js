@@ -86,7 +86,6 @@
                 let rURL = /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/
                 if (rURL.test(window.location.pathname)) {
                   $("div.submission-details-frame iframe").hide();
-                  await getElement("div.submission-details-frame");
                   $("div.submission-details-frame").append(vueString);
                   await getElement("#app-services");
                   new Vue({
