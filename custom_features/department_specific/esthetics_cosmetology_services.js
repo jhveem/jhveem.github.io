@@ -59,7 +59,7 @@
         <div v-for="i in services">
           <div v-if="services[i].service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
             <p><b>Completed: </b>{{services[i].canvas_data.created_at}}</p>
-            <p><b>Reviewer: </b>{{services[i].canvas_data.author}}</p>
+            <p><b>Reviewer: </b>{{services[i].author_data.display_name}}</p>
             <p><b>Comments</b><br>{{services[i].comments}}</p>
           </div>
         </div>
@@ -125,8 +125,8 @@
                       curService: function () {
                         return this.services[this.pendingServices[0]]
                       },
-                      totalProgress: function() {
-                        let points = 0; 
+                      totalProgress: function () {
+                        let points = 0;
                         let maxPoints = 0;
                         for (let name in this.criteria) {
                           let criterion = this.criteria[name];
@@ -201,20 +201,23 @@ COMMENT: ` + comment + `
                         this.services = [];
                         for (let c = 0; c < canvasCommentsData.length; c++) {
                           let comment = canvasCommentsData[c].comment;
-                          console.log(canvasCommentsData[c]);
+                          let authorData = canvasCommentsData[c].author;
                           let cService = this.getCommentData(comment, "SERVICE");
-                          if (cService !== "" && cService !== "undefined") {
-                            let cService = this.getCommentData(comment, "SERVICE");
-                            let cComment = this.getCommentData(comment, "COMMENT");
-                            //Check if it's a student comment or a teacher confirmation
+                          if (authorData.id !== this.studentId) {
+                            if (cService !== "" && cService !== "undefined") {
+                              let cService = this.getCommentData(comment, "SERVICE");
+                              let cComment = this.getCommentData(comment, "COMMENT");
+                              //Check if it's a student comment or a teacher confirmation
 
-                            this.services.push({
-                              service: cService,
-                              comment: cComment,
-                              date: new Date(comment.created_at),
-                              canvas_data: canvasCommentsData[c],
-                            });
-                            this.criteria[cService].points_current += 1;
+                              this.services.push({
+                                service: cService,
+                                comment: cComment,
+                                author_data: authorData,
+                                date: new Date(comment.created_at),
+                                canvas_data: canvasCommentsData[c],
+                              });
+                              this.criteria[cService].points_current += 1;
+                            }
                           }
                         }
                       },
@@ -235,44 +238,44 @@ COMMENT: ` + comment + `
         initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
         _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
           let contents = $("div.user_content").html();
-            $("div.user_content").html(contents.replace("#SERVICES#", "<div id='btech-services-modal'></div>"));
-            $("#btech-services-modal").empty();
-            $("#btech-services-modal").append("<div id='btech-services-dropdown'></div><div id='btech-services-submit'>Submit</div>");
-            let dropdownContainer = $('#btech-services-dropdown');
-            dropdownContainer.empty();
-            dropdownContainer.append(`
+          $("div.user_content").html(contents.replace("#SERVICES#", "<div id='btech-services-modal'></div>"));
+          $("#btech-services-modal").empty();
+          $("#btech-services-modal").append("<div id='btech-services-dropdown'></div><div id='btech-services-submit'>Submit</div>");
+          let dropdownContainer = $('#btech-services-dropdown');
+          dropdownContainer.empty();
+          dropdownContainer.append(`
 <select></select>
 `);
-            let select = dropdownContainer.find('select');
-            $("#rubrics table.rubric_table tr.criterion").each(function () {
-              if ($(this).attr('id') !== 'criterion_blank') {
-                let title = $(this).find("td.criterion_description div.description_content span.description_title").text();
-                select.append(`<option value="` + title + `">` + title + `</option>`);
+          let select = dropdownContainer.find('select');
+          $("#rubrics table.rubric_table tr.criterion").each(function () {
+            if ($(this).attr('id') !== 'criterion_blank') {
+              let title = $(this).find("td.criterion_description div.description_content span.description_title").text();
+              select.append(`<option value="` + title + `">` + title + `</option>`);
+            }
+          });
+          $("#btech-services-submit").css({
+            background: '#D00004',
+            cursor: 'pointer',
+            align: 'center',
+            'text-align': 'center',
+            width: '150px',
+            'border-radius': '2px',
+            'color': '#FFFFFF'
+          });
+          $("#btech-services-submit").click(function () {
+            let id = Math.floor(Date.now() / 1000);
+            let comment = "ID: " + id + "\nTYPE: submission\nSERVICE: " + select.val();
+            let url = "/api/v1/courses/" + ENV.COURSE_ID + "/assignments/" + ENV.ASSIGNMENT_ID + "/submissions/" + ENV.current_user_id;
+            $.put(url, {
+              comment: {
+                text_comment: comment
               }
             });
-            $("#btech-services-submit").css({
-              background: '#D00004',
-              cursor: 'pointer',
-              align: 'center',
-              'text-align': 'center',
-              width: '150px',
-              'border-radius': '2px',
-              'color': '#FFFFFF'
-            });
-            $("#btech-services-submit").click(function () {
-              let id = Math.floor(Date.now() / 1000);
-              let comment = "ID: " + id + "\nTYPE: submission\nSERVICE: " + select.val();
-              let url = "/api/v1/courses/" + ENV.COURSE_ID + "/assignments/" + ENV.ASSIGNMENT_ID + "/submissions/" + ENV.current_user_id;
-              $.put(url, {
-                comment: {
-                  text_comment: comment
-                }
-              });
-              $("#btech-services-modal").empty();
-              $("#btech-services-modal").append(`
+            $("#btech-services-modal").empty();
+            $("#btech-services-modal").append(`
 <p>Thank you! Your instructor will review your submission and update your grade.</p>
 `);
-            });
+          });
         }
       }
     }
