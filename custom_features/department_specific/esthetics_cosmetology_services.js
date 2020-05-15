@@ -156,6 +156,8 @@ COMMENT: ` + comment + `
                             points: this.criteria[key].points_current
                           };
                         }
+                        console.log(service);
+                        console.log(this.reviewerComment);
                         await $.put(url, {
                           comment: {
                             text_comment: this.createComment(service, this.reviewerComment)
