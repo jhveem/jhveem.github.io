@@ -86,8 +86,6 @@
         'indent': 0,
         'position': 999
       }
-    }).done(function(data) {
-      console.log(data);
     });
     url = "/api/v1/courses/" + courseId + "/quizzes/" + quizId;
     await $.put(url, {
