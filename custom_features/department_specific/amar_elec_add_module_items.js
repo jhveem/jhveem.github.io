@@ -23,7 +23,7 @@
     await $.post(url, {
       quiz: {
         title: modTitle + ': Hours Submission',
-        message: `<p><span style="font-size: 18pt;"><strong>Submit Your Hours for Module 1</strong></span></p>
+        message: `<p><span style="font-size: 18pt;"><strong>Submit Your Hours for This Module</strong></span></p>
 <p><span>Report on your progress, and be as accurate as possible. This information is not graded. It is used to help the instructor better meet the needs of the student.</span></p>
 <p><span>Please be specific when talking about labs or quizzes that took a lot less or a lot more time than listed.</span></p>`,
         'quiz_type': 'assignment',
