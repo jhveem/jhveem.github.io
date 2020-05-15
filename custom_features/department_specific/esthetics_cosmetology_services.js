@@ -229,5 +229,21 @@ COMMENT: ` + comment + `
           }
         }
       }
-   }
+
+      //SUBMISSION VIEW
+    } else if (/^\/courses\/[0-9]+\/assignments\/[0-9]+/.test(window.location.pathname)) {
+      //Just add in a div with the id:  btech-services-modal
+      //Change this so they just have to type #SERVICES#, no ids or anything like that
+      IMPORTED_FEATURE = {
+        initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
+        _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
+          let contents = $("div.user_content").html();
+          $("div.user_content").html(contents.replace("#SERVICES#", "<div id='btech-services-modal'></div>"));
+          $("#btech-services-modal").empty();
+          $("#btech-services-modal").append("");
+          //add in whatever should appear in here.
+          ////one option is a selector for teachers to select a student or a link to the student's grades page if it's the student
+        }
+      }
+    }
   })();
