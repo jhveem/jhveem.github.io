@@ -56,12 +56,8 @@
         <select v-model="selectedCompletedCriterion">
           <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
         </select>
-        <div v-for="i in services">
-          <div v-if="services[i].service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
-            <p><b>Completed: </b>{{services[i].canvas_data.created_at}}</p>
-            <p><b>Reviewer: </b>{{services[i].author_data.display_name}}</p>
-            <p><b>Comments</b><br>{{services[i].comments}}</p>
-          </div>
+        <div v-for="service in services">
+        {{service}}
         </div>
       </div>
 
@@ -122,9 +118,6 @@
                       this.loading = false;
                     },
                     computed: {
-                      curService: function () {
-                        return this.services[this.pendingServices[0]]
-                      },
                       totalProgress: function () {
                         let points = 0;
                         let maxPoints = 0;
