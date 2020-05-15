@@ -192,6 +192,7 @@ COMMENT: ` + comment + `
                             criteria[criterion.description] = criterion;
                           }
                         });
+                        console.log(criteria);
                         return criteria;
                       },
                       processComments(canvasCommentsData) {
