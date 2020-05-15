@@ -1,4 +1,3 @@
-
 /*
 if (window.location.pathname.includes("/grades/") === true) {
     let course = ENV.courses_with_grades[0].id;

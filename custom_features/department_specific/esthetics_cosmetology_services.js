@@ -41,23 +41,13 @@
       <div v-if="menu == 'review'">
         <div v-if="loading==true">Loading Content...</div>
         <div v-else>
-          <div v-if="pendingServices.length > 0">
-            <h2>Review the Following Service</h2>
-            <div  style="border: 1px solid #000; box-shadow: 3px 6px 6px #888; padding: 20px; margin-bottom: 20px;">
-              <p><b>Student: </b>{{curService.canvas_data.author_name}}</p>
-              <p><b>Service: </b>{{curService.service}}</p>
-              <p><b>Date: </b>{{curService.canvas_data.created_at}}</p>
-            </div>
-            <br>
-            <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="you may leave a comment explaining your review here"></textarea>
-            <br>
-            <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Confirm</div>
-            <div id="btech-services-reject" class="Button">Reject</div>
-            <p>{{pendingServices.length - 1}} additional services pending review</p>
-          </div>
-          <div v-else>
-            <p>There are no more services pending review.</p>
-          </div>
+          <h2>Select a service and submit to confirm a student pass off.</h2>
+          <select v-model="selectedCriterion">
+            <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
+          </select>
+          <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="you may leave a comment explaining your review here"></textarea>
+          <br>
+          <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Confirm</div>
         </div>
       </div>
 
@@ -68,20 +58,6 @@
         </select>
         <div v-for="id in completedServices">
           <div v-if="services[id].service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
-            <p><b>Completed: </b>{{services[id].canvas_data.created_at}}</p>
-            <p><b>Reviewer: </b>{{services[id].reviewer}}</p>
-            <p><b>Comments</b><br>{{services[id].comments}}</p>
-          </div>
-        </div>
-      </div>
-
-      <div v-if="menu === 'rejected'">
-        <p>Select a Service from the dropdown below to review rejected submissions</p>
-        <select v-model="selectedRejectedCriterion">
-          <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
-        </select>
-        <div v-for="id in rejectedServices">
-          <div v-if="services[id].service === selectedRejectedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
             <p><b>Completed: </b>{{services[id].canvas_data.created_at}}</p>
             <p><b>Reviewer: </b>{{services[id].reviewer}}</p>
             <p><b>Comments</b><br>{{services[id].comments}}</p>
@@ -119,7 +95,6 @@
                         menus: [
                           'review',
                           'completed',
-                          'rejected',
                           'progress'
                         ],
                         loading: true,
@@ -128,12 +103,10 @@
                         studentId: 0,
                         comments: [],
                         services: {},
-                        pendingServices: [],
                         completedServices: [],
-                        rejectedServices: [],
                         criteria: {},
+                        selectedCriterion: '',
                         selectedCompletedCriterion: '',
-                        selectedRejectedCriterion: '',
                         reviewerComment: ''
                       }
                     },
@@ -185,15 +158,12 @@ COMMENT: ` + comment + `
                             points: this.criteria[key].points_current
                           };
                         }
-                        console.log(url);
                         await $.put(url, {
                           comment: {
-                            text_comment: this.createComment(service.id, 'confirm', service.service, "")
+                            text_comment: this.createComment(service.id, 'confirm', service.service, reviewerComment); 
                           },
                           rubric_assessment: rubricData
                         });
-                        this.completedServices.push(this.pendingServices[0]);
-                        this.pendingServices.shift();
                         location.reload(true);
                       },
                       async getComments() {
@@ -231,43 +201,20 @@ COMMENT: ` + comment + `
                         this.completedServices = [];
                         this.rejectedServices = [];
                         this.pendingServices = [];
-                        this.services = {};
+                        this.services = [];
                         for (let c = 0; c < canvasCommentsData.length; c++) {
                           let comment = canvasCommentsData[c].comment;
                           let cId = this.getCommentData(comment, "ID");
                           if (cId !== "") {
-                            let cType = this.getCommentData(comment, "TYPE");
                             let cService = this.getCommentData(comment, "SERVICE");
                             let cComment = this.getCommentData(comment, "COMMENT");
-                            let cCommenter = canvasCommentsData[c].author.display_name;
                             //Check if it's a student comment or a teacher confirmation
-                            if (cType === "submission") {
-                              this.services[cId] = {
-                                id: cId,
-                                service: cService,
-                                comment: cComment,
-                                date: new Date(comment.created_at),
-                                canvas_data: canvasCommentsData[c],
-                                reviewer: ''
-                              };
-                              pendingServicesCheck.push(cId);
-                            } else if (cType === "confirm") {
-                              this.criteria[cService].points_current += 1;
-                              this.services[cId].reviewer = cCommenter;
-                              if (!this.completedServices.includes(cId)) {
-                                this.completedServices.push(cId);
-                              }
-                            } else if (cType === "reject") {
-                              if (!this.rejectedServices.includes(cId)) {
-                                this.rejectedServices.push(cId);
-                              }
-                            }
-                          }
-                        }
-                        for (let i = 0; i < pendingServicesCheck.length; i++) {
-                          let pendingServiceId = pendingServicesCheck[i];
-                          if (!this.completedServices.includes(pendingServiceId)) {
-                            this.pendingServices.push(pendingServiceId);
+                            this.services.push({
+                              service: cService,
+                              comment: cComment,
+                              date: new Date(comment.created_at),
+                              canvas_data: canvasCommentsData[c],
+                            });
                           }
                         }
                       },
