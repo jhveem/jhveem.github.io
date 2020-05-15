@@ -203,8 +203,9 @@ COMMENT: ` + comment + `
                         this.services = [];
                         for (let c = 0; c < canvasCommentsData.length; c++) {
                           let comment = canvasCommentsData[c].comment;
-                          let cId = this.getCommentData(comment, "ID");
-                          if (cId !== "") {
+                          let cService = this.getCommentData(comment, "SERVICE");
+                          if (cService !== "") {
+                            console.log(comment)
                             let cService = this.getCommentData(comment, "SERVICE");
                             let cComment = this.getCommentData(comment, "COMMENT");
                             //Check if it's a student comment or a teacher confirmation
@@ -215,6 +216,7 @@ COMMENT: ` + comment + `
                               date: new Date(comment.created_at),
                               canvas_data: canvasCommentsData[c],
                             });
+                            this.criteria[cService].points_current += 1;
                           }
                         }
                       },
