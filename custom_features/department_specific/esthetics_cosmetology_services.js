@@ -60,7 +60,7 @@
           <div v-if="service.service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
             <p><b>Completed: </b>{{service.canvas_data.created_at}}</p>
             <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
-            <blockquote>"{{service.comments}}"</blockquote>
+            <blockquote v-if="service.comments!=''">"{{service.comments}}"</blockquote>
           </div>
         </div>
       </div>
