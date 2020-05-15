@@ -146,10 +146,10 @@ COMMENT: ` + comment + `
                         return text;
                       },
                       async confirmCurrentService() {
-                        let service = this.services[this.pendingServices[0]];
+                        let service = this.selectedCriterion;
                         this.loading = true;
                         let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
-                        this.criteria[service.service].points_current += 1;
+                        this.criteria[service].points_current += 1;
                         let rubricData = {};
                         for (var key in this.criteria) {
                           rubricData[this.criteria[key].id] = {
@@ -158,7 +158,7 @@ COMMENT: ` + comment + `
                         }
                         await $.put(url, {
                           comment: {
-                            text_comment: this.createComment(service.service, reviewerComment)
+                            text_comment: this.createComment(service, reviewerComment)
                           },
                           rubric_assessment: rubricData
                         });
