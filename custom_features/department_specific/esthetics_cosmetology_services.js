@@ -41,7 +41,7 @@
       <div v-if="menu == 'review'">
         <div v-if="loading==true">Loading Content...</div>
         <div v-else>
-          <h2>Select a service and submit to confirm a student pass off.</h2>
+          <h3>Select a service and submit to confirm a student pass off.</h3>
           <select v-model="selectedCriterion">
             <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
           </select>
@@ -56,11 +56,11 @@
         <select v-model="selectedCompletedCriterion">
           <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
         </select>
-        <div v-for="id in completedServices">
-          <div v-if="services[id].service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
-            <p><b>Completed: </b>{{services[id].canvas_data.created_at}}</p>
-            <p><b>Reviewer: </b>{{services[id].reviewer}}</p>
-            <p><b>Comments</b><br>{{services[id].comments}}</p>
+        <div v-for="i in services">
+          <div v-if="services[i].service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
+            <p><b>Completed: </b>{{services[i].canvas_data.created_at}}</p>
+            <p><b>Reviewer: </b>{{services[i].canvas_data.author}}</p>
+            <p><b>Comments</b><br>{{services[i].comments}}</p>
           </div>
         </div>
       </div>
@@ -130,7 +130,6 @@
                         let maxPoints = 0;
                         for (let name in this.criteria) {
                           let criterion = this.criteria[name];
-                          console.log(criterion);
                           points += criterion.points_current;
                           maxPoints += criterion.points;
                         }
@@ -156,8 +155,6 @@ COMMENT: ` + comment + `
                             points: this.criteria[key].points_current
                           };
                         }
-                        console.log(service);
-                        console.log(this.reviewerComment);
                         await $.put(url, {
                           comment: {
                             text_comment: this.createComment(service, this.reviewerComment)
@@ -194,7 +191,6 @@ COMMENT: ` + comment + `
                             criteria[criterion.description] = criterion;
                           }
                         });
-                        console.log(criteria);
                         return criteria;
                       },
                       processComments(canvasCommentsData) {
@@ -205,9 +201,9 @@ COMMENT: ` + comment + `
                         this.services = [];
                         for (let c = 0; c < canvasCommentsData.length; c++) {
                           let comment = canvasCommentsData[c].comment;
+                          console.log(canvasCommentsData[c]);
                           let cService = this.getCommentData(comment, "SERVICE");
                           if (cService !== "" && cService !== "undefined") {
-                            console.log(comment)
                             let cService = this.getCommentData(comment, "SERVICE");
                             let cComment = this.getCommentData(comment, "COMMENT");
                             //Check if it's a student comment or a teacher confirmation
