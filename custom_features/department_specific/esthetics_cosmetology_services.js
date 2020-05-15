@@ -18,7 +18,7 @@
       if (ENV.current_user_roles.includes("teacher")) {
         IMPORTED_FEATURE = {
           initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
-          _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
+          async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
             //NEEDS
             ////TOP PRIORITY: Need to handle pagination for comments since there will be more than 100
             ////Rejection
@@ -81,149 +81,151 @@
             let courseId = parseInt(pieces[1]);
             let studentId = parseInt(pieces[3]);
             let assignmentId = parseInt(pieces[2]);
-            $.get("/api/v1/courses/" + courseId + "/assignments/" + assignmentId, async function (data) {
-              if (data.description.includes("#SERVICES#")) {
-                let rURL = /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/
-                if (rURL.test(window.location.pathname)) {
-                  $("div.submission-details-frame iframe").hide();
-                  $("div.submission-details-frame").append(vueString);
-                  await getElement("#app-services");
-                  new Vue({
-                    el: '#app-services',
-                    data: function () {
-                      return {
-                        menu: 'review',
-                        menus: [
-                          'review',
-                          'completed',
-                          'progress'
-                        ],
-                        loading: true,
-                        courseid: 0,
-                        assignmetnId: 0,
-                        studentId: 0,
-                        comments: [],
-                        services: {},
-                        completedServices: [],
-                        criteria: {},
-                        selectedCriterion: '',
-                        selectedCompletedCriterion: '',
-                        reviewerComment: ''
+            let description = '';
+            await $.get("/api/v1/courses/" + courseId + "/assignments/" + assignmentId, function (data) {
+              description = data.description;
+            });
+            if (description.includes("#SERVICES#")) {
+              let rURL = /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/
+              if (rURL.test(window.location.pathname)) {
+                $("div.submission-details-frame iframe").hide();
+                $("div.submission-details-frame").append(vueString);
+                await getElement("#app-services");
+                new Vue({
+                  el: '#app-services',
+                  data: function () {
+                    return {
+                      menu: 'review',
+                      menus: [
+                        'review',
+                        'completed',
+                        'progress'
+                      ],
+                      loading: true,
+                      courseid: 0,
+                      assignmetnId: 0,
+                      studentId: 0,
+                      comments: [],
+                      services: {},
+                      completedServices: [],
+                      criteria: {},
+                      selectedCriterion: '',
+                      selectedCompletedCriterion: '',
+                      reviewerComment: ''
+                    }
+                  },
+                  mounted: async function () {
+                    let rPieces = /^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/;
+                    let pieces = window.location.pathname.match(rPieces);
+                    this.courseId = parseInt(pieces[1]);
+                    this.studentId = parseInt(pieces[3]);
+                    this.assignmentId = parseInt(pieces[2]);
+                    this.criteria = await this.getCriteria();
+                    this.comments = await this.getComments();
+                    this.processComments(this.comments);
+                    this.loading = false;
+                  },
+                  computed: {
+                    totalProgress: function () {
+                      let points = 0;
+                      let maxPoints = 0;
+                      for (let name in this.criteria) {
+                        let criterion = this.criteria[name];
+                        points += criterion.points_current;
+                        maxPoints += criterion.points;
                       }
-                    },
-                    mounted: async function () {
-                      let rPieces = /^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/;
-                      let pieces = window.location.pathname.match(rPieces);
-                      this.courseId = parseInt(pieces[1]);
-                      this.studentId = parseInt(pieces[3]);
-                      this.assignmentId = parseInt(pieces[2]);
-                      this.criteria = await this.getCriteria();
-                      this.comments = await this.getComments();
-                      this.processComments(this.comments);
-                      this.loading = false;
-                    },
-                    computed: {
-                      totalProgress: function () {
-                        let points = 0;
-                        let maxPoints = 0;
-                        for (let name in this.criteria) {
-                          let criterion = this.criteria[name];
-                          points += criterion.points_current;
-                          maxPoints += criterion.points;
-                        }
-                        return points / maxPoints;
-                      }
-                    },
-                    methods: {
-                      createComment(service, comment) {
-                        let text = `
+                      return points / maxPoints;
+                    }
+                  },
+                  methods: {
+                    createComment(service, comment) {
+                      let text = `
 SERVICE: ` + service + `
 COMMENT: ` + comment + `
 `;
-                        return text;
-                      },
-                      async confirmCurrentService() {
-                        let service = this.selectedCriterion;
-                        this.loading = true;
-                        let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
-                        this.criteria[service].points_current += 1;
-                        let rubricData = {};
-                        for (var key in this.criteria) {
-                          rubricData[this.criteria[key].id] = {
-                            points: this.criteria[key].points_current
-                          };
-                        }
-                        await $.put(url, {
-                          comment: {
-                            text_comment: this.createComment(service, this.reviewerComment)
-                          },
-                          rubric_assessment: rubricData
-                        });
-                        location.reload(true);
-                      },
-                      async getComments() {
-                        let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId + "?include[]=submission_comments";
-                        let comments = [];
-                        await $.get(url, function (data) {
-                          comments = (data.submission_comments);
-                        });
-                        return comments;
-                      },
-                      getCommentData(comment, dataName) {
-                        let regex = new RegExp(dataName + "\:[ ]*(.+)");
-                        let data = comment.match(regex);
-                        if (data !== null) {
-                          data = data[1];
-                        } else {
-                          data = "";
-                        }
-                        return data;
-                      },
-                      async getCriteria() {
-                        let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId;
-                        let criteria = {};
-                        await $.get(url, function (data) {
-                          for (let i = 0; i < data.rubric.length; i++) {
-                            let criterion = data.rubric[i];
-                            criterion.points_current = 0;
-                            criteria[criterion.description] = criterion;
-                          }
-                        });
-                        return criteria;
-                      },
-                      processComments(canvasCommentsData) {
-                        let pendingServicesCheck = [];
-                        this.completedServices = [];
-                        this.rejectedServices = [];
-                        this.pendingServices = [];
-                        this.services = [];
-                        for (let c = 0; c < canvasCommentsData.length; c++) {
-                          let comment = canvasCommentsData[c].comment;
-                          let authorData = canvasCommentsData[c].author;
-                          let cService = this.getCommentData(comment, "SERVICE");
-                          if (authorData.id !== this.studentId) {
-                            if (cService !== "" && cService !== "undefined") {
-                              let cService = this.getCommentData(comment, "SERVICE");
-                              let cComment = this.getCommentData(comment, "COMMENT");
-                              //Check if it's a student comment or a teacher confirmation
-
-                              this.services.push({
-                                service: cService,
-                                comments: cComment,
-                                author_data: authorData,
-                                date: new Date(comment.created_at),
-                                canvas_data: canvasCommentsData[c],
-                              });
-                              this.criteria[cService].points_current += 1;
-                            }
-                          }
-                        }
-                      },
+                      return text;
                     },
-                  });
-                }
+                    async confirmCurrentService() {
+                      let service = this.selectedCriterion;
+                      this.loading = true;
+                      let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
+                      this.criteria[service].points_current += 1;
+                      let rubricData = {};
+                      for (var key in this.criteria) {
+                        rubricData[this.criteria[key].id] = {
+                          points: this.criteria[key].points_current
+                        };
+                      }
+                      await $.put(url, {
+                        comment: {
+                          text_comment: this.createComment(service, this.reviewerComment)
+                        },
+                        rubric_assessment: rubricData
+                      });
+                      location.reload(true);
+                    },
+                    async getComments() {
+                      let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId + "?include[]=submission_comments";
+                      let comments = [];
+                      await $.get(url, function (data) {
+                        comments = (data.submission_comments);
+                      });
+                      return comments;
+                    },
+                    getCommentData(comment, dataName) {
+                      let regex = new RegExp(dataName + "\:[ ]*(.+)");
+                      let data = comment.match(regex);
+                      if (data !== null) {
+                        data = data[1];
+                      } else {
+                        data = "";
+                      }
+                      return data;
+                    },
+                    async getCriteria() {
+                      let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId;
+                      let criteria = {};
+                      await $.get(url, function (data) {
+                        for (let i = 0; i < data.rubric.length; i++) {
+                          let criterion = data.rubric[i];
+                          criterion.points_current = 0;
+                          criteria[criterion.description] = criterion;
+                        }
+                      });
+                      return criteria;
+                    },
+                    processComments(canvasCommentsData) {
+                      let pendingServicesCheck = [];
+                      this.completedServices = [];
+                      this.rejectedServices = [];
+                      this.pendingServices = [];
+                      this.services = [];
+                      for (let c = 0; c < canvasCommentsData.length; c++) {
+                        let comment = canvasCommentsData[c].comment;
+                        let authorData = canvasCommentsData[c].author;
+                        let cService = this.getCommentData(comment, "SERVICE");
+                        if (authorData.id !== this.studentId) {
+                          if (cService !== "" && cService !== "undefined") {
+                            let cService = this.getCommentData(comment, "SERVICE");
+                            let cComment = this.getCommentData(comment, "COMMENT");
+                            //Check if it's a student comment or a teacher confirmation
+
+                            this.services.push({
+                              service: cService,
+                              comments: cComment,
+                              author_data: authorData,
+                              date: new Date(comment.created_at),
+                              canvas_data: canvasCommentsData[c],
+                            });
+                            this.criteria[cService].points_current += 1;
+                          }
+                        }
+                      }
+                    },
+                  },
+                });
               }
-            });
+            }
           }
         }
       }
