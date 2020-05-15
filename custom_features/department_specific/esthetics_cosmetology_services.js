@@ -138,7 +138,7 @@
                       }
                     },
                     methods: {
-                      createComment(id, type, service, comment) {
+                      createComment(service, comment) {
                         let text = `
 SERVICE: ` + service + `
 COMMENT: ` + comment + `
