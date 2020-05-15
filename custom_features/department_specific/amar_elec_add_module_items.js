@@ -9,6 +9,9 @@
   async function createQuiz(courseId, moduleId, item, modTitle) {
     let url = "/api/v1/courses/" + courseId + "/modules/" + moduleId + "/items?include[]=content_details";
     let score = 0;
+    let quizId, hours;
+    let answers = [];
+    let firstCheck = false;
     await $.get(url, function (data) {
       for (let i = 0; i < data.length; i++) {
         let content = data[i].content_details;
@@ -17,9 +20,8 @@
         }
       }
     });
-    let hours = Math.floor(score / 10);
+    hours = Math.floor(score / 10);
     url = "/api/v1/courses/" + courseId + "/quizzes";
-    let quizId;
     await $.post(url, {
       quiz: {
         title: modTitle + ': Hours Submission',
@@ -28,14 +30,13 @@
 <p><span>Please be specific when talking about labs or quizzes that took a lot less or a lot more time than listed.</span></p>`,
         'quiz_type': 'assignment',
         'allowed_attempts': -1,
-        'published': true
+        'question_count': 3,
+        'published': false 
       }
     }).done(function (data) {
       quizId = data.id;
     });
     url = "/api/v1/courses/" + courseId + "/quizzes/" + quizId + "/questions";
-    let answers = [];
-    let firstCheck = false;
     for (let i = 0; i < 5; i++) {
       let hour = i + hours - 2;
       if (hour > 0) {
@@ -85,7 +86,15 @@
         'indent': 0,
         'position': 999
       }
+    }).done(function(data) {
+      console.log(data);
     });
+    url = "/api/v1/courses/" + courseId + "/quizzes/" + quizId;
+    await $.put(url, {
+      quiz: {
+        published: true
+      }
+    })
     return;
   }
 
