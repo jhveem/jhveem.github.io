@@ -208,7 +208,7 @@ COMMENT: ` + comment + `
 
                               this.services.push({
                                 service: cService,
-                                comment: cComment,
+                                comments: cComment,
                                 author_data: authorData,
                                 date: new Date(comment.created_at),
                                 canvas_data: canvasCommentsData[c],
