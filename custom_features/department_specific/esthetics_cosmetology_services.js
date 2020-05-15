@@ -158,7 +158,7 @@ COMMENT: ` + comment + `
                         }
                         await $.put(url, {
                           comment: {
-                            text_comment: this.createComment(service, reviewerComment)
+                            text_comment: this.createComment(service, this.reviewerComment)
                           },
                           rubric_assessment: rubricData
                         });
