@@ -57,7 +57,11 @@
           <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
         </select>
         <div v-for="service in services">
-        {{service}}
+          <div v-if="service.service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
+            <p><b>Completed: </b>{{service.canvas_data.created_at}}</p>
+            <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
+            <p><b>Comments</b><br>{{service.comments}}</p>
+          </div>
         </div>
       </div>
 
