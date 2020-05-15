@@ -140,8 +140,6 @@
                     methods: {
                       createComment(id, type, service, comment) {
                         let text = `
-ID: ` + id + `
-TYPE: ` + type + `
 SERVICE: ` + service + `
 COMMENT: ` + comment + `
 `;
@@ -160,7 +158,7 @@ COMMENT: ` + comment + `
                         }
                         await $.put(url, {
                           comment: {
-                            text_comment: this.createComment(service.id, 'confirm', service.service, reviewerComment); 
+                            text_comment: this.createComment(service.service, reviewerComment)
                           },
                           rubric_assessment: rubricData
                         });
