@@ -206,7 +206,7 @@ COMMENT: ` + comment + `
                         for (let c = 0; c < canvasCommentsData.length; c++) {
                           let comment = canvasCommentsData[c].comment;
                           let cService = this.getCommentData(comment, "SERVICE");
-                          if (cService !== "") {
+                          if (cService !== "" && cService !== "undefined") {
                             console.log(comment)
                             let cService = this.getCommentData(comment, "SERVICE");
                             let cComment = this.getCommentData(comment, "COMMENT");
