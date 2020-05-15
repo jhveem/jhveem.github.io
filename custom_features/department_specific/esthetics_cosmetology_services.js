@@ -207,6 +207,7 @@ COMMENT: ` + comment + `
                             let cService = this.getCommentData(comment, "SERVICE");
                             let cComment = this.getCommentData(comment, "COMMENT");
                             //Check if it's a student comment or a teacher confirmation
+
                             this.services.push({
                               service: cService,
                               comment: cComment,
