@@ -54,6 +54,7 @@
       <div v-if="menu == 'completed'">
         <p>Select a Service from the dropdown below to review completed submissions</p>
         <select v-model="selectedCompletedCriterion">
+          <option selected disabled>-Select Service-</option>
           <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
         </select>
         <div v-for="service in services">
