@@ -146,13 +146,13 @@
                   methods: {
                     createComment(service, comment) {
                       let text = `
-SERVICE: ` + service + `
-COMMENT: ` + comment + `
-`;
+                        SERVICE: ` + service + `
+                        COMMENT: ` + comment + `
+                        `;
                       return text;
                     },
                     dateToString(date) {
-                      return date;
+                      return date.getYear();
                     },
                     async confirmCurrentService() {
                       let service = this.selectedCriterion;
