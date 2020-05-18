@@ -154,7 +154,7 @@
                     minToHoursString: function(minutes) {
                       let hours = Math.floor(minutes / 60);
                       minutes = minutes - (hours * 60);
-                      return hours + "H " + minutes + "M";
+                      return hours + "h " + minutes + "m";
                     },
                     hoursSubmittedInDate: function(date, serviceName='') {
                       let total = 0;
