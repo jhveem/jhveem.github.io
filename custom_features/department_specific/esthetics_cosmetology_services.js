@@ -259,7 +259,7 @@
                             });
                             if (!this.dates.includes(date)) {
                               this.dates.push(date);
-                              if (this.hoursSubmittedInDate(date) > 4 * 60) {
+                              if (this.hoursSubmittedInDate(date) > (4 * 60)) {
                                 this.flaggedDates.push(date);
                               }
                             }
@@ -270,6 +270,7 @@
                       for (var i = 0; i < this.dates.length; i++) {
                         console.log(this.dates[i], this.hoursSubmittedInDate(this.dates[i]));
                       }
+                      console.log(this.dates);
                       console.log("FLAGGED");
                       console.log(this.flaggedDates);
                     },
