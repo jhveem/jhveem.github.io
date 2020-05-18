@@ -152,7 +152,7 @@
                       return text;
                     },
                     dateToString(date) {
-                      date = Date.parse(date);
+                      date = new Date(Date.parse(date));
                       return date.getYear();
                     },
                     async confirmCurrentService() {
