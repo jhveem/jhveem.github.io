@@ -140,6 +140,15 @@
                         maxPoints += criterion.points;
                       }
                       return points / maxPoints;
+                    },
+                    hoursSubmittedInDate: function() {
+                      let total = 0;
+                      for (var i = 0; i < this.services.length; i++) {
+                        let service = this.services[i];
+                        console.log(service);
+                        // this.selectedCompletedCriterion this.completedCriterionDate
+                      }
+                      return total;
                     }
                   },
                   methods: {
