@@ -153,7 +153,7 @@
                   methods: {
                     minToHoursString: function(minutes) {
                       let hours = Math.floor(minutes / 60);
-                      let minutes = minutes - (hours * 60);
+                      minutes = minutes - (hours * 60);
                       return hours + "H " + minutes + "M";
                     },
                     hoursSubmittedInDate: function(date, serviceName='') {
