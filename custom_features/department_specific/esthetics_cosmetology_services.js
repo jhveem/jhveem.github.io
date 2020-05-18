@@ -160,7 +160,6 @@
                       let total = 0;
                       for (var i = 0; i < this.services.length; i++) {
                         let service = this.services[i];
-                        console.log(service);
                         if (service.service == serviceName || serviceName == '') {
                           if (date == '' || this.dateToString(date) == this.dateToString(service.canvas_data.created_at)) {
                             total += this.criteria[service.service].average_time;
@@ -273,9 +272,6 @@
                           this.flaggedDates.push(date);
                         }
                       }
-                      console.log(this.dates);
-                      console.log("FLAGGED");
-                      console.log(this.flaggedDates);
                     },
                   },
                 });
