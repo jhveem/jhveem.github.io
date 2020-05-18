@@ -35,7 +35,7 @@
   <div class="btech-tabs-container">
     <ul>
       <li v-for="menuName, key in menus" :class="{active: menu==menuName}" @click="menu=menuName">{{menuName}}</li>
-      <li :class="{active: menu=='flagged'} @click="menu='flagged'">flagged</li>
+      <li :class="{active: menu=='flagged'}" @click="menu='flagged'">flagged</li>
     </ul>
     <div style="padding: 10px;">
 
