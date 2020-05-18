@@ -259,18 +259,16 @@
                             });
                             if (!this.dates.includes(date)) {
                               this.dates.push(date);
-                              console.log(date);
-                              console.log(this.hoursSubmittedInDate(date))
-                              if (this.hoursSubmittedInDate(date) > (4 * 60)) {
-                                this.flaggedDates.push(date);
-                              }
                             }
                             this.criteria[cService].points_current += 1;
                           }
                         }
                       }
                       for (var i = 0; i < this.dates.length; i++) {
-                        console.log(this.dates[i], this.hoursSubmittedInDate(this.dates[i]));
+                        let date = this.dats[i];
+                        if (this.hoursSubmittedInDate(date) > (4 * 60)) {
+                          this.flaggedDates.push(date);
+                        }
                       }
                       console.log(this.dates);
                       console.log("FLAGGED");
