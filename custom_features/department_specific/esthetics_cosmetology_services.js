@@ -119,6 +119,7 @@
                       reviewerComment: '',
                       completedCriterionDate: '',
                       dates: [],
+                      flaggedDates: []
                     }
                   },
                   mounted: async function () {
@@ -251,12 +252,15 @@
                             });
                             if (!this.dates.includes(date)) {
                               this.dates.push(date);
+                              if (this.hoursSubmittedInDate(date) > 4) {
+                                this.flaggedDates.push(date);
+                              }
                             }
                             this.criteria[cService].points_current += 1;
                           }
                         }
                       }
-                      console.log(this.dates);
+                      console.log(this.flaggedDates);
                       for (var i = 0; i < this.dates.length; i++) {
                         console.log(this.dates[i], this.hoursSubmittedInDate(this.dates[i]));
                       }
