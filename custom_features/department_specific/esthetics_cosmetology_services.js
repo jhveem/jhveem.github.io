@@ -56,7 +56,7 @@
         <p>Select a Service from the dropdown below to review completed submissions</p>
         <select v-model="selectedCompletedCriterion">
           <option value="" disabled>-Select Service-</option>
-          <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
+          <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed) {{criterion.average_time}}</option>
         </select>
         <div v-for="service in services">
           <div v-if="service.service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
@@ -192,6 +192,13 @@ COMMENT: ` + comment + `
                       await $.get(url, function (data) {
                         for (let i = 0; i < data.rubric.length; i++) {
                           let criterion = data.rubric[i];
+                          //look to see if time data was provided
+                          criterion.average_time = 0;
+                          let rPieces = /([0-9]+) min/;
+                          let pieces = criterion.long_description.match(rPieces);
+                          if (pieces !== null) {
+                            criterion.average_time = parseInt(pieces[1]);
+                          }
                           criterion.points_current = 0;
                           criteria[criterion.description] = criterion;
                         }
