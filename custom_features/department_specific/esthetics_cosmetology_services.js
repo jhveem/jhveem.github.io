@@ -80,7 +80,7 @@
       </div>
 
       <div v-if="menu === 'flagged'">
-        <div v-for="date in flaggedDates">{{date}} ({{hoursSubmittedInDate(date)}} minutes)</div>
+        <div v-for="date in flaggedDates">{{date}} ({{minToHoursString(hoursSubmittedInDate(date))}})</div>
       </div>
 
     </div>
@@ -151,6 +151,11 @@
                     },
                   },
                   methods: {
+                    minToHoursString: function(minutes) {
+                      let hours = Math.floor(minutes / 60);
+                      let minutes = minutes - (hours * 60);
+                      return hours + "H " + minutes + "M";
+                    },
                     hoursSubmittedInDate: function(date, serviceName='') {
                       let total = 0;
                       for (var i = 0; i < this.services.length; i++) {
