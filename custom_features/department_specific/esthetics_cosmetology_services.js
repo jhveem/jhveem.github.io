@@ -78,6 +78,10 @@
         </div>
       </div>
 
+      <div v-if="flaggedDates.length > 0">
+        <div v-for="date in flaggedDates">{{date}}</div>
+      </div>
+
     </div>
   </div>
 </div>`;
@@ -252,7 +256,7 @@
                             });
                             if (!this.dates.includes(date)) {
                               this.dates.push(date);
-                              if (this.hoursSubmittedInDate(date) > 4) {
+                              if (this.hoursSubmittedInDate(date) > 4 * 60) {
                                 this.flaggedDates.push(date);
                               }
                             }
@@ -260,8 +264,6 @@
                           }
                         }
                       }
-                      console.log("FLAGGED")
-                      console.log(this.flaggedDates);
                       for (var i = 0; i < this.dates.length; i++) {
                         console.log(this.dates[i], this.hoursSubmittedInDate(this.dates[i]));
                       }
