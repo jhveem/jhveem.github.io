@@ -263,7 +263,7 @@
                         }
                       }
                       for (var i = 0; i < this.dates.length; i++) {
-                        let date = this.dats[i];
+                        let date = this.dates[i];
                         if (this.hoursSubmittedInDate(date) > (4 * 60)) {
                           this.flaggedDates.push(date);
                         }
