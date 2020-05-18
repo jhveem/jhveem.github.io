@@ -236,7 +236,7 @@
                       for (let c = 0; c < canvasCommentsData.length; c++) {
                         let comment = canvasCommentsData[c].comment;
                         let authorData = canvasCommentsData[c].author;
-                        let date = dateToString(canvasCommentsData[c].created_at);
+                        let date = this.dateToString(canvasCommentsData[c].created_at);
                         let cService = this.getCommentData(comment, "SERVICE");
                         if (authorData.id !== this.studentId) {
                           if (cService !== "" && cService !== "undefined") {
