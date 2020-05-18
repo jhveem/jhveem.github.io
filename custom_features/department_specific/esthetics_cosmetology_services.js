@@ -257,6 +257,9 @@
                         }
                       }
                       console.log(this.dates);
+                      for (var i = 0; i < this.dates.length; i++) {
+                        console.log(this.dates[i], this.hoursSubmittedInDate(this.dates[i]));
+                      }
                     },
                   },
                 });
