@@ -35,7 +35,7 @@
   <div class="btech-tabs-container">
     <ul>
       <li v-for="menuName, key in menus" :class="{active: menu==menuName}" @click="menu=menuName">{{menuName}}</li>
-      <li v-if="flaggedDates.length > 0" :class="{active: menu=='flagged'}" @click="menu='flagged'">flagged</li>
+      <li v-if="flaggedDates.length > 0" :class="{active: menu=='flagged'}" @click="menu='flagged'">flagged dates</li>
     </ul>
     <div style="padding: 10px;">
 
@@ -80,7 +80,7 @@
       </div>
 
       <div v-if="menu === 'flagged'">
-        <div v-for="date in flaggedDates">{{date}}</div>
+        <div v-for="date in flaggedDates">{{date}} ({{hoursSubmittedInDate(date)}})</div>
       </div>
 
     </div>
