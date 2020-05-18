@@ -147,7 +147,11 @@
                       for (var i = 0; i < this.services.length; i++) {
                         let service = this.services[i];
                         console.log(service);
-                        total += this.criteria[service.service].average_time;
+                        if (service.service == this.selectedCompletedCriterion || this.selectedCompletedCriterion == '') {
+                          if (this.completedCriterionDate == '' || this.dateToString(this.completedCriterionDate) == this.dateToString(service.canvas_data.created_at)) {
+                            total += this.criteria[service.service].average_time;
+                          }
+                        }
                         // this.selectedCompletedCriterion this.completedCriterionDate
                       }
                       return total;
