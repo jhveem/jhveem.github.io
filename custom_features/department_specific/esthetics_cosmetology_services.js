@@ -45,7 +45,7 @@
           <select v-model="selectedCriterion">
             <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
           </select>
-          <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="you may leave a comment explaining your review here"></textarea>
+          <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
           <br>
           <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Confirm</div>
         </div>
