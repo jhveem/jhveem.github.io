@@ -62,7 +62,7 @@
         <br>
         <div>{{completedCriterionDate}}</div>
         <div v-for="service in services">
-          <div v-if="service.service === selectedCompletedCriterion" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
+          <div v-if="service.service === selectedCompletedCriterion || service.service === ''" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
             <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
             <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
             <blockquote v-if="service.comments!=''">{{service.comments}}</blockquote>
