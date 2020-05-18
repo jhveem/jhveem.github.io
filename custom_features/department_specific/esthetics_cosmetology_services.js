@@ -60,6 +60,7 @@
         </select>
         <input type="date" v-model="completedCriterionDate" min="2018-01-01">
         <br>
+        <div>{{hoursSubmittedInDate}}</div>
         <div v-for="service in services">
           <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
             <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
