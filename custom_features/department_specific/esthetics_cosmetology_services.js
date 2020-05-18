@@ -80,7 +80,7 @@
       </div>
 
       <div v-if="menu === 'flagged'">
-        <div v-for="date in flaggedDates">{{date}} ({{hoursSubmittedInDate(date)}})</div>
+        <div v-for="date in flaggedDates">{{date}} ({{hoursSubmittedInDate(date)}} minutes)</div>
       </div>
 
     </div>
