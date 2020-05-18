@@ -60,7 +60,7 @@
         </select>
         <input type="date" v-model="completedCriterionDate" min="2018-01-01">
         <br>
-        <div>{{hoursSubmittedInDate}} minutes</div>
+        <div>{{hoursSubmittedInDate(completedCriterionDate, selectedCompletedCriterion)}} minutes</div>
         <div v-for="service in services">
           <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
             <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
@@ -117,7 +117,8 @@
                       selectedCriterion: '',
                       selectedCompletedCriterion: '',
                       reviewerComment: '',
-                      completedCriterionDate: ''
+                      completedCriterionDate: '',
+                      dates: [],
                     }
                   },
                   mounted: async function () {
@@ -142,22 +143,22 @@
                       }
                       return points / maxPoints;
                     },
-                    hoursSubmittedInDate: function() {
+                  },
+                  methods: {
+                    hoursSubmittedInDate: function(date, serviceName='') {
                       let total = 0;
                       for (var i = 0; i < this.services.length; i++) {
                         let service = this.services[i];
                         console.log(service);
-                        if (service.service == this.selectedCompletedCriterion || this.selectedCompletedCriterion == '') {
-                          if (this.completedCriterionDate == '' || this.dateToString(this.completedCriterionDate) == this.dateToString(service.canvas_data.created_at)) {
+                        if (service.service == serviceName || serviceName == '') {
+                          if (date == '' || this.dateToString(date) == this.dateToString(service.canvas_data.created_at)) {
                             total += this.criteria[service.service].average_time;
                           }
                         }
                         // this.selectedCompletedCriterion this.completedCriterionDate
                       }
                       return total;
-                    }
-                  },
-                  methods: {
+                    },
                     createComment(service, comment) {
                       let text = `
                         SERVICE: ` + service + `
@@ -228,7 +229,6 @@
                       return criteria;
                     },
                     processComments(canvasCommentsData) {
-                      let pendingServicesCheck = [];
                       this.completedServices = [];
                       this.rejectedServices = [];
                       this.pendingServices = [];
@@ -236,23 +236,27 @@
                       for (let c = 0; c < canvasCommentsData.length; c++) {
                         let comment = canvasCommentsData[c].comment;
                         let authorData = canvasCommentsData[c].author;
+                        let date = dateToString(canvasCommentsData[c].created_at);
                         let cService = this.getCommentData(comment, "SERVICE");
                         if (authorData.id !== this.studentId) {
                           if (cService !== "" && cService !== "undefined") {
                             let cService = this.getCommentData(comment, "SERVICE");
                             let cComment = this.getCommentData(comment, "COMMENT");
                             //Check if it's a student comment or a teacher confirmation
-
                             this.services.push({
                               service: cService,
                               comments: cComment,
                               author_data: authorData,
                               canvas_data: canvasCommentsData[c],
                             });
+                            if (!this.dates.contains(date)) {
+                              this.dates.push(date);
+                            }
                             this.criteria[cService].points_current += 1;
                           }
                         }
                       }
+                      console.log(this.dates);
                     },
                   },
                 });
