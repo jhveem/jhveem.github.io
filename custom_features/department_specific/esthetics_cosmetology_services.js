@@ -259,6 +259,8 @@
                             });
                             if (!this.dates.includes(date)) {
                               this.dates.push(date);
+                              console.log(date);
+                              console.log(this.hoursSubmittedInDate(date))
                               if (this.hoursSubmittedInDate(date) > (4 * 60)) {
                                 this.flaggedDates.push(date);
                               }
