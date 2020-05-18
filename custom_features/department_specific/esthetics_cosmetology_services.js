@@ -153,7 +153,7 @@
                     },
                     dateToString(date) {
                       date = new Date(Date.parse(date));
-                      return date.getYear();
+                      return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
                     },
                     async confirmCurrentService() {
                       let service = this.selectedCriterion;
