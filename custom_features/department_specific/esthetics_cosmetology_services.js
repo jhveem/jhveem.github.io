@@ -249,7 +249,7 @@
                               author_data: authorData,
                               canvas_data: canvasCommentsData[c],
                             });
-                            if (!this.dates.contains(date)) {
+                            if (!this.dates.includes(date)) {
                               this.dates.push(date);
                             }
                             this.criteria[cService].points_current += 1;
