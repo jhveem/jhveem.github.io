@@ -49,7 +49,7 @@
           </select>
           <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
           <br>
-          <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Confirm</div>
+          <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Submit</div>
         </div>
       </div>
 
@@ -170,10 +170,7 @@
                       return total;
                     },
                     createComment(service, comment) {
-                      let text = `
-                        SERVICE: ` + service + `
-                        COMMENT: ` + comment + `
-                        `;
+                      let text = `SERVICE: ` + service + `\nCOMMENT: ` + comment;
                       return text;
                     },
                     dateToString(date) {
