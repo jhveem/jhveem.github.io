@@ -43,6 +43,7 @@
         <div v-else>
           <h3>Select a service and submit to confirm a student pass off.</h3>
           <select v-model="selectedCriterion">
+            <option value="" disabled>-Select Service-</option>
             <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
           </select>
           <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
@@ -148,22 +149,24 @@ COMMENT: ` + comment + `
                     },
                     async confirmCurrentService() {
                       let service = this.selectedCriterion;
-                      this.loading = true;
-                      let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
-                      this.criteria[service].points_current += 1;
-                      let rubricData = {};
-                      for (var key in this.criteria) {
-                        rubricData[this.criteria[key].id] = {
-                          points: this.criteria[key].points_current
-                        };
+                      if (service != "") {
+                        this.loading = true;
+                        let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
+                        this.criteria[service].points_current += 1;
+                        let rubricData = {};
+                        for (var key in this.criteria) {
+                          rubricData[this.criteria[key].id] = {
+                            points: this.criteria[key].points_current
+                          };
+                        }
+                        await $.put(url, {
+                          comment: {
+                            text_comment: this.createComment(service, this.reviewerComment)
+                          },
+                          rubric_assessment: rubricData
+                        });
+                        location.reload(true);
                       }
-                      await $.put(url, {
-                        comment: {
-                          text_comment: this.createComment(service, this.reviewerComment)
-                        },
-                        rubric_assessment: rubricData
-                      });
-                      location.reload(true);
                     },
                     async getComments() {
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId + "?include[]=submission_comments";
