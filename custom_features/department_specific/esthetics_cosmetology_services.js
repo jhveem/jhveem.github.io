@@ -60,7 +60,7 @@
         </select>
         <input type="date" v-model="completedCriterionDate" min="2018-01-01">
         <br>
-        <div>{{hoursSubmittedInDate}}</div>
+        <div>{{hoursSubmittedInDate}} minutes</div>
         <div v-for="service in services">
           <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
             <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
@@ -147,6 +147,7 @@
                       for (var i = 0; i < this.services.length; i++) {
                         let service = this.services[i];
                         console.log(service);
+                        total += this.criteria[service.service].average_time;
                         // this.selectedCompletedCriterion this.completedCriterionDate
                       }
                       return total;
@@ -242,7 +243,6 @@
                               service: cService,
                               comments: cComment,
                               author_data: authorData,
-                              date: new Date(comment.created_at),
                               canvas_data: canvasCommentsData[c],
                             });
                             this.criteria[cService].points_current += 1;
