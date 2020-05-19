@@ -5,7 +5,7 @@
     IMPORTED_FEATURE = {
       initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
       courseId: '',
-      settingsEl: '',
+      settingsEl: null,
       async getSettings() {
         let feature = this;
         await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings", function (data) {
@@ -17,18 +17,32 @@
         });
         return;
       },
+      async createSettingsPage() {
+        this.settingsEl.html(`
+          <h4><strong>ABOUT</strong></h4>
+          <p>Do not edit/delete this page.</p>
+          <p>This page was created to store date for custom course features. All saved features will be lost if this page is deleted.</p>
+          <h4 id="settings-header"><strong>SETTINGS</strong></h4>
+        `);
+      },
       async getSettingData(settingId) {
-        let settings = this.settingsEl;
-        let setting = settings.find('#'+settingId);
         let val = "";
-        if (setting.length > 0) {
-          //get the name of the page to append and then grab the page
-          val = setting.text();
+        let settings = this.settingsEl;
+        if (settings !== null) {
+          let setting = settings.find('#' + settingId);
+          if (setting.length > 0) {
+            //get the name of the page to append and then grab the page
+            val = setting.text();
+          }
         }
         return val;
       },
       async updateSetting(settingId, value) {
         let setting = this.settingsEl.find("#" + settingId);
+        if (setting.length == 0) {
+          settting = $("<div id='"+settingId+"'></div>");
+          this.settingsEl.find("#settings-header").after(setting);
+        }
         setting.text(value);
       },
       async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
@@ -38,8 +52,8 @@
         feature.courseId = parseInt(pieces[1]);
 
         if (!IS_TEACHER) {
-          if (window.location.pathname === "/courses/"+feature.courseId+"/pages/btech-custom-settings") {
-            window.location.replace("/courses/"+feature.courseId);
+          if (window.location.pathname === "/courses/" + feature.courseId + "/pages/btech-custom-settings") {
+            window.location.replace("/courses/" + feature.courseId);
           }
         }
 
@@ -79,10 +93,10 @@
                 $.put("/api/v1/courses/" + feature.courseId + "/pages/btech-custom-settings", {
                   wiki_page: {
                     title: 'btech-custom-settings',
-                    body: feature.settingsEl.html(), 
+                    body: feature.settingsEl.html(),
                     published: true
                   }
-                }).done(function() {
+                }).done(function () {
                   location.reload(true);
                 });
               });
