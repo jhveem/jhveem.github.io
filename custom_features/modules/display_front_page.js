@@ -99,7 +99,7 @@
                     published: true
                   }
                 }).done(function () {
-                  location.reload(true);
+                  // location.reload(true);
                 });
               });
             });
