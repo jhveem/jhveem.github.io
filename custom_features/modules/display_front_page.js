@@ -50,6 +50,7 @@
           });
           if (IS_TEACHER) {
             let select = $("<select></select>");
+            select.append("<option selected disabled>-select a page-</option>");
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
               for (let i = 0; i < data.length; i++) {
@@ -60,16 +61,13 @@
               }
               select.on('change', function () {
                 feature.updateSetting('modules-page-header', $(this).val());
-                console.log(feature.settingsEl.html());
-                /*
                 $.put("/api/v1/courses/" + feature.courseId + "/pages/btech-custom-settings", {
                   wiki_page: {
                     title: 'btech-custom-settings',
-                    body: '',
+                    body: feature.settingsEl.html(), 
                     published: true
                   }
-                })
-                */
+                });
               });
             });
           }
