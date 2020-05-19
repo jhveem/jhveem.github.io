@@ -18,7 +18,6 @@
         return;
       },
       async getSettingData(settingId) {
-        console.log(this.settingsEl);
         let settings = this.settingsEl;
         let setting = settings.find('#'+settingId);
         let val = "";
@@ -28,8 +27,10 @@
         }
         return val;
       },
-      async updateSetting(settingId) {
-
+      async updateSetting(settingId, value) {
+        let setting = this.settingsEl.find("#" + settingId);
+        setting.text(value);
+        console.log(setting);
       },
       async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
         let feature = this;
@@ -52,7 +53,6 @@
             let select = $("<select></select>");
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
-              console.log(data);
               for (let i = 0; i < data.length; i++) {
                 let pageData = data[i];
                 if (pageData.url !== 'btech-custom-settings') {
@@ -60,6 +60,7 @@
                 }
               }
               select.on('change', function () {
+                feature.updateSetting('modules-page-header', $(this).val());
                 console.log($(this).val());
                 $.put("/api/v1/courses/" + feature.courseId + "/pages/btech-custom-settings", {
                   wiki_page: {
