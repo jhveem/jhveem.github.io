@@ -53,6 +53,7 @@ import { ENODEV } from "constants";
             modulesPage = true;
           }
         }
+        console.log(modulesPage);
         if (modulesPage) {
           console.log(feature.courseId);
           console.log("MODULE");
