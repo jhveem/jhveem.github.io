@@ -11,13 +11,13 @@
         $('body').append("<settings id='btech-custom-settings'></settings>");
         feature.settingsEl = $("#btech-custom-settings");
         feature.settingsEl.hide();
-        await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings").success(function (data) {
+        await Promise.resolve($.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings").success(function (data) {
           //if custom settings page exists, look for the appropriate header
           feature.settingsEl.html(data.body);
         }).fail(function() {
           console.log("FAIL!");
           feature.createSettingsPage();
-        });
+        }));
         return;
       },
       async createSettingsPage() {
