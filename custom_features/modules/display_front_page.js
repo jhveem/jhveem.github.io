@@ -60,7 +60,7 @@
               }
               select.on('change', function () {
                 feature.updateSetting('modules-page-header', $(this).val());
-                console.log(this.settingsEl);
+                console.log(feature.settingsEl);
                 /*
                 $.put("/api/v1/courses/" + feature.courseId + "/pages/btech-custom-settings", {
                   wiki_page: {
