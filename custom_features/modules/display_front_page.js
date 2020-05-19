@@ -7,6 +7,7 @@ if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
     //if custom settings page exists, look for the appropriate header
     let body = data.body;
     let page = $(body).find('#modules-page-header');
+    console.log(page);
     if (page.length > 0) {
       //get header on modules page and add an empty div
       let moduleModal = $(".header-bar");
