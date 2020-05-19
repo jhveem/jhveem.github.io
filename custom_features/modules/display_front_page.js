@@ -7,8 +7,8 @@
       courseId: '',
       settingsEl: '',
       async getSettings() {
+        let feature = this;
         await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings", function (data) {
-          let feature = this;
           //if custom settings page exists, look for the appropriate header
           $('body').append("<settings id='btech-custom-settings'></settings>");
           feature.settingsEl = $("#btech-custom-settings");
@@ -44,7 +44,7 @@
         moduleModal.after(moduleHeader);
         if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
           //get course id
-          let pageName = this.getSettingData('modules-page-header')
+          let pageName = await this.getSettingData('modules-page-header')
           $.get("/api/v1/courses/" + feature.courseId + "/pages/" + pageName, function (data) {
             moduleHeader.append(data.body);
           });
