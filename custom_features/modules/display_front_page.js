@@ -37,6 +37,12 @@
         let pieces = window.location.pathname.match(rPieces);
         feature.courseId = parseInt(pieces[1]);
 
+        if (!IS_TEACHER) {
+          if (window.location.pathname === "/courses/"+feature.courseId+"/pages/btech-custom-settings") {
+            window.location.replace("/courses/"+feature.courseId);
+          }
+        }
+
         await this.getSettings();
         //get header on modules page and add an empty div
         let moduleModal = $(".header-bar");
