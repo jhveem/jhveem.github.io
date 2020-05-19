@@ -67,13 +67,14 @@
                     body: feature.settingsEl.html(), 
                     published: true
                   }
+                }).done(function() {
+                  location.reload(true);
                 });
               });
             });
           }
         }
       },
-      //WHATEVER ELSE YOU WANT OT ADD IN. IT'S JUST A JAVASCRIPT OBJECT
     }
   }
 })();
