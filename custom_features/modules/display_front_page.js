@@ -55,6 +55,7 @@ import { ENODEV } from "constants";
           }
         }
         if (modulesPage) {
+          console.log("MODULE");
           //get course id
           let pageName = await this.getSettingData('modules-page-header')
           $.get("/api/v1/courses/" + feature.courseId + "/pages/" + pageName, function (data) {
