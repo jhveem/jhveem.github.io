@@ -15,6 +15,8 @@
         await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings").success(function (data) {
           //if custom settings page exists, look for the appropriate header
           feature.settingsEl.html(data.body);
+        }).catch(e => {
+          console.log(e);
         });
         return;
       },
