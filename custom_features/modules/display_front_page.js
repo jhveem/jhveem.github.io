@@ -1,5 +1,3 @@
-import { ENODEV } from "constants";
-
 (function () {
   IMPORTED_FEATURE = {};
   if (true) { //check the window location
