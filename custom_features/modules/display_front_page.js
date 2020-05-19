@@ -85,7 +85,7 @@
               for (let i = 0; i < data.length; i++) {
                 let pageData = data[i];
                 if (pageData.url !== 'btech-custom-settings') {
-                  let option = "<option value='" + pageData.url + "'>" + pageData.title + "</option>";
+                  let option = $("<option value='" + pageData.url + "'>" + pageData.title + "</option>");
                   if (pageData.url === pageName) {
                     option.attr('select', true);
                   }
