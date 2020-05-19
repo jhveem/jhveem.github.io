@@ -42,7 +42,7 @@
         console.log(setting);
         if (setting.length == 0) {
           console.log("CREATE");
-          settting = $("<div id='"+settingId+"'></div>");
+          setting = $("<div id='"+settingId+"'></div>");
           this.settingsEl.append(setting);
         }
         console.log(setting.html());
