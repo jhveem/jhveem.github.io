@@ -4,9 +4,10 @@
     //THIS IS A TEMPLATE/TUTORIAL FOR HOW TO ADD A CUSTOM FEATURE
     IMPORTED_FEATURE = {
       initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
+      courseId: '',
       settingsEl: '',
       async getSettings() {
-        await $.get("/api/v1/courses/" + courseId + "/pages/btech-custom-settings", function (data) {
+        await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings", function (data) {
           let feature = this;
           //if custom settings page exists, look for the appropriate header
           feature.settingsEl = $("<settings id='btech-custom-settings'></settings>");
@@ -28,10 +29,11 @@
 
       },
       async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
+        let feature = this;
         await this.getSettings();
         let rPieces = /^\/courses\/([0-9]+)\/modules/;
         let pieces = window.location.pathname.match(rPieces);
-        let courseId = parseInt(pieces[1]);
+        feature.courseId = parseInt(pieces[1]);
         //get header on modules page and add an empty div
         let moduleModal = $(".header-bar");
         let moduleHeader = $("<div></div>");
@@ -39,13 +41,13 @@
         if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
           //get course id
           let pageName = this.getSettingData('modules-page-header')
-          $.get("/api/v1/courses/" + courseId + "/pages/" + pageName, function (data) {
+          $.get("/api/v1/courses/" + feature.courseId + "/pages/" + pageName, function (data) {
             moduleHeader.append(data.body);
           });
           if (IS_TEACHER) {
             let select = $("<select></select>");
             moduleHeader.append(select);
-            $.get("/api/v1/courses/" + courseId + "/pages").done(function (data) {
+            $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
               console.log(data);
               for (let i = 0; i < data.length; i++) {
                 let pageData = data[i];
@@ -55,7 +57,7 @@
               }
               select.on('change', function () {
                 console.log($(this).val());
-                $.put("/api/v1/courses/" + courseId + "/pages/btech-custom-settings", {
+                $.put("/api/v1/courses/" + feature.courseId + "/pages/btech-custom-settings", {
                   wiki_page: {
                     title: 'btech-custom-settings',
                     body: '',
