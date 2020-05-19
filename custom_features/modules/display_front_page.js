@@ -87,7 +87,7 @@
                 if (pageData.url !== 'btech-custom-settings') {
                   let option = "<option value='" + pageData.url + "'>" + pageData.title + "</option>";
                   if (pageData.url === pageName) {
-                    option.select();
+                    option.attr('select', true);
                   }
                   select.append(option);
                 }
