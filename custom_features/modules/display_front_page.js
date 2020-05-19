@@ -35,7 +35,7 @@ import { ENODEV } from "constants";
       },
       async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
         let feature = this;
-        let rPieces = /^\/courses\/([0-9]+)\/modules/;
+        let rPieces = /^\/courses\/([0-9]+)/;
         let pieces = window.location.pathname.match(rPieces);
         feature.courseId = parseInt(pieces[1]);
 
