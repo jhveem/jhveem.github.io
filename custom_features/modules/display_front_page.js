@@ -14,6 +14,7 @@
           feature.settingsEl = $("#btech-custom-settings");
           feature.settingsEl.hide();
           feature.settingsEl.html(data.body);
+          console.log(feature.settingsEl.html());
         });
         return;
       },
