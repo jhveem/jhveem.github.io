@@ -15,6 +15,7 @@
           //if custom settings page exists, look for the appropriate header
           feature.settingsEl.html(data.body);
         }).fail(function() {
+          console.log("FAIL!");
           feature.createSettingsPage();
         });
         return;
