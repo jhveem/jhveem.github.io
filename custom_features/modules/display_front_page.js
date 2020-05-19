@@ -9,7 +9,7 @@ if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
   moduleModal.after(moduleHeader);
   if (IS_TEACHER) {
     moduleHeader.append("<select></select>");
-    $.get("/api/v1/courses"+courseId+"/pages").done(function(data) {
+    $.get("/api/v1/courses/"+courseId+"/pages").done(function(data) {
       console.log(data);
     });
   }
