@@ -13,7 +13,8 @@ if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
     $.get("/api/v1/courses/"+courseId+"/pages").done(function(data) {
       console.log(data);
       for (let i = 0; i < data.length; i++) {
-        select.append("<option value='"+data.url+"'>"+data.title+"</option>"); 
+        let pageData = data[i];
+        select.append("<option value='"+pageData.url+"'>"+pageData.title+"</option>"); 
       }
     });
   }
