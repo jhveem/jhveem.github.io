@@ -17,17 +17,13 @@
 
       if (ENV.current_user_roles.includes("teacher")) {
         IMPORTED_FEATURE = {
-          initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
-          async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
+          initiated: false,
+          async _init(params = {}) { 
             //NEEDS
             ////TOP PRIORITY: Need to handle pagination for comments since there will be more than 100
-            ////Rejection
-            ////Progress report
-            ////Some way to pull up submissions by date
             ////Checks on if a student has already submitted their max number of submissions, at least a warning, probably not a hard block
             ////Allow students to see everything except for the review tab so they can see their summary, submitted, and rejected info too
             ////Allow the color themes to affect the color of the buttons and display in both teacher view and student view
-            ////A way to undo rejections and change them to confirmations and visa-versa. Probably just let you click a button on the confirm/rejection menu page to move it over. This will really delete that comment and create a new one with the revised status.
             ////Option to delete a submission, which will delete that comment and all other comments with the submission id
 
             let vueString = `
