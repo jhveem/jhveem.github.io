@@ -10,8 +10,10 @@
         await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings", function (data) {
           let feature = this;
           //if custom settings page exists, look for the appropriate header
-          feature.settingsEl = $("<settings id='btech-custom-settings'></settings>");
-          let settings = feature.settingsEl.html(data.body);
+          $('body').append("<settings id='btech-custom-settings'></settings>");
+          feature.settingsEl = $("#btech-custom-settings");
+          feature.settingsEl.hide();
+          feature.settingsEl.html(data.body);
         });
         return;
       },
