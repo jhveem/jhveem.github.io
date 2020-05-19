@@ -5,11 +5,10 @@ if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
   let courseId = parseInt(pieces[1]);
   $.get("/api/v1/courses/"+courseId+"/pages/btech-custom-settings", function(data) {
     //if custom settings page exists, look for the appropriate header
-    let body = data.body;
-    console.log(body);
-    console.log($.parseHTML(body));
-    let page = $(body).find('#modules-page-header');
-    console.log(page);
+    $('body').append("<settings id='btech-custom-settings'></settings>");
+    let settings = $('settings#btech-custom-settings');
+    settings.html(data.body);
+    let page = settings.find('#modules-page-header');
     if (page.length > 0) {
       //get header on modules page and add an empty div
       let moduleModal = $(".header-bar");
