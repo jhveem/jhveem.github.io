@@ -8,12 +8,14 @@
       settingsEl: null,
       async getSettings() {
         let feature = this;
-        await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings", function (data) {
+        await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings").success(function (data) {
           //if custom settings page exists, look for the appropriate header
           $('body').append("<settings id='btech-custom-settings'></settings>");
           feature.settingsEl = $("#btech-custom-settings");
           feature.settingsEl.hide();
           feature.settingsEl.html(data.body);
+        }).error(function() {
+          feature.createSettingsPage();
         });
         return;
       },
