@@ -79,13 +79,17 @@
           });
           if (IS_TEACHER) {
             let select = $("<select></select>");
-            select.append("<option selected disabled>-select a page-</option>");
+            select.append("<option selected>-no page-</option>");
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
               for (let i = 0; i < data.length; i++) {
                 let pageData = data[i];
                 if (pageData.url !== 'btech-custom-settings') {
-                  select.append("<option value='" + pageData.url + "'>" + pageData.title + "</option>");
+                  let option = "<option value='" + pageData.url + "'>" + pageData.title + "</option>";
+                  if (pageData.url === pageName) {
+                    option.select();
+                  }
+                  select.append(option);
                 }
               }
               select.on('change', function () {
