@@ -89,6 +89,7 @@
                   let option = $("<option value='" + pageData.url + "'>" + pageData.title + "</option>");
                   if (pageData.url === pageName) {
                     select.val(pageName).prop('selected', true);
+                    console.log("THIS!")
                   }
                   select.append(option);
                 }
