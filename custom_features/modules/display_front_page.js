@@ -41,9 +41,11 @@
         let setting = this.settingsEl.find("#" + settingId);
         console.log(setting);
         if (setting.length == 0) {
+          console.log("CREATE");
           settting = $("<div id='"+settingId+"'></div>");
           this.settingsEl.append(setting);
         }
+        console.log(setting.html());
         setting.text(value);
         console.log(this.settingsEl.html());
       },
