@@ -22,7 +22,7 @@
           <h4><strong>ABOUT</strong></h4>
           <p>Do not edit/delete this page.</p>
           <p>This page was created to store date for custom course features. All saved features will be lost if this page is deleted.</p>
-          <h4 id="settings-header"><strong>SETTINGS</strong></h4>
+          <h4><strong>SETTINGS</strong></h4>
         `);
       },
       async getSettingData(settingId) {
@@ -41,7 +41,7 @@
         let setting = this.settingsEl.find("#" + settingId);
         if (setting.length == 0) {
           settting = $("<div id='"+settingId+"'></div>");
-          this.settingsEl.find("#settings-header").after(setting);
+          this.settingsEl.append(setting);
         }
         setting.text(value);
       },
