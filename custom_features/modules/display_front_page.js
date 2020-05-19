@@ -17,9 +17,11 @@ if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
 
       //get the name of the page to append and then grab the page
       let pageName = page.text();
-      $.get("/api/v1/courses/" + courseId + "/" + pageName, function (data) {
+      $.get("/api/v1/courses/" + courseId + "/pages/" + pageName, function (data) {
         frontPage.append(data.body);
       });
     }
+    //Once it's all done remove the settings tag
+    settings.remove();
   })
 }
