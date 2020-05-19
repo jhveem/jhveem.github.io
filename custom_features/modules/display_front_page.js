@@ -12,10 +12,10 @@
         feature.settingsEl = $("#btech-custom-settings");
         feature.settingsEl.hide();
         feature.createSettingsPage();
-        await $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings").success(function (data) {
+        await new Promise($.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings").success(function (data) {
           //if custom settings page exists, look for the appropriate header
           feature.settingsEl.html(data.body);
-        }).catch(e => {
+        })).catch(e => {
           console.log(e);
         });
         return;
