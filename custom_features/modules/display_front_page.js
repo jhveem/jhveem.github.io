@@ -14,8 +14,13 @@ if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
       console.log(data);
       for (let i = 0; i < data.length; i++) {
         let pageData = data[i];
-        select.append("<option value='"+pageData.url+"'>"+pageData.title+"</option>"); 
+        if (pageData.url !== 'btech-custom-settings') {
+          select.append("<option value='"+pageData.url+"'>"+pageData.title+"</option>"); 
+        }
       }
+      select.on('change', function() {
+        console.log($(this).val());
+      });
     });
   }
   $.get("/api/v1/courses/"+courseId+"/pages/btech-custom-settings", function(data) {
