@@ -87,12 +87,12 @@
                 let pageData = data[i];
                 if (pageData.url !== 'btech-custom-settings') {
                   let option = $("<option value='" + pageData.url + "'>" + pageData.title + "</option>");
-                  if (pageData.url === pageName) {
-                    select.val(pageName).prop('selected', true);
-                    console.log("THIS!")
-                  }
                   select.append(option);
                 }
+              }
+              if (pageName !== '') {
+                select.val(pageName).prop('selected', true);
+                console.log("THIS!")
               }
               select.on('change', function () {
                 feature.updateSetting('modules-page-header', $(this).val());
