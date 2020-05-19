@@ -79,7 +79,8 @@
           });
           if (IS_TEACHER) {
             let select = $("<select></select>");
-            select.append("<option selected>-no page-</option>");
+            let noPage = $("<option selected>-no page-</option>");
+            select.append(noPage);
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
               for (let i = 0; i < data.length; i++) {
@@ -88,6 +89,7 @@
                   let option = $("<option value='" + pageData.url + "'>" + pageData.title + "</option>");
                   if (pageData.url === pageName) {
                     option.attr('select', true);
+                    noPage.attr('select', false);
                   }
                   select.append(option);
                 }
