@@ -14,7 +14,6 @@
           feature.settingsEl = $("#btech-custom-settings");
           feature.settingsEl.hide();
           feature.settingsEl.html(data.body);
-          console.log(feature.settingsEl.html());
         });
         return;
       },
@@ -31,7 +30,6 @@
       async updateSetting(settingId, value) {
         let setting = this.settingsEl.find("#" + settingId);
         setting.text(value);
-        console.log(setting);
       },
       async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
         let feature = this;
@@ -62,7 +60,8 @@
               }
               select.on('change', function () {
                 feature.updateSetting('modules-page-header', $(this).val());
-                console.log($(this).val());
+                console.log(this.settingsEl);
+                /*
                 $.put("/api/v1/courses/" + feature.courseId + "/pages/btech-custom-settings", {
                   wiki_page: {
                     title: 'btech-custom-settings',
@@ -70,6 +69,7 @@
                     published: true
                   }
                 })
+                */
               });
             });
           }
