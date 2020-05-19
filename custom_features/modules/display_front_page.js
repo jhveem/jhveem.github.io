@@ -88,7 +88,7 @@
                 if (pageData.url !== 'btech-custom-settings') {
                   let option = $("<option value='" + pageData.url + "'>" + pageData.title + "</option>");
                   if (pageData.url === pageName) {
-                    select.val(pageName);
+                    select.val(pageName).prop('selected', true);
                   }
                   select.append(option);
                 }
