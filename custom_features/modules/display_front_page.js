@@ -30,10 +30,11 @@
       },
       async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
         let feature = this;
-        await this.getSettings();
         let rPieces = /^\/courses\/([0-9]+)\/modules/;
         let pieces = window.location.pathname.match(rPieces);
         feature.courseId = parseInt(pieces[1]);
+
+        await this.getSettings();
         //get header on modules page and add an empty div
         let moduleModal = $(".header-bar");
         let moduleHeader = $("<div></div>");
