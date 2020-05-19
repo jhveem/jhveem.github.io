@@ -1,3 +1,5 @@
+import { ENODEV } from "constants";
+
 (function () {
   IMPORTED_FEATURE = {};
   if (true) { //check the window location
@@ -42,7 +44,17 @@
         let moduleModal = $(".header-bar");
         let moduleHeader = $("<div></div>");
         moduleModal.after(moduleHeader);
+        let modulesPage = false;
+
         if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
+          modulesPage = true;
+        }
+        if (/^\/courses\/[0-9]+/.test(window.location.pathname)) {
+          if (ENV.COURSE.default_view === 'modules') {
+            modulesPage = true;
+          }
+        }
+        if (modulesPage) {
           //get course id
           let pageName = await this.getSettingData('modules-page-header')
           $.get("/api/v1/courses/" + feature.courseId + "/pages/" + pageName, function (data) {
