@@ -28,7 +28,7 @@
 
       },
       async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
-        await getSettings();
+        await this.getSettings();
         let rPieces = /^\/courses\/([0-9]+)\/modules/;
         let pieces = window.location.pathname.match(rPieces);
         let courseId = parseInt(pieces[1]);
