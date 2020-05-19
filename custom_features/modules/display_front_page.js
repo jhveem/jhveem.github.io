@@ -18,6 +18,7 @@
         return;
       },
       async getSettingData(settingId) {
+        console.log(this.settingsEl);
         let settings = this.settingsEl;
         let setting = settings.find('#'+settingId);
         let val = "";
