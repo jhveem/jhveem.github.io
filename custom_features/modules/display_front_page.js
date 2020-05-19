@@ -7,7 +7,7 @@ if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
     //if custom settings page exists, look for the appropriate header
     let body = data.body;
     console.log(body);
-    console.log($(body).html());
+    console.log(body.html());
     let page = $(body).find('#modules-page-header');
     console.log(page);
     if (page.length > 0) {
