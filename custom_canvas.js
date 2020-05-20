@@ -192,6 +192,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     feature('page_formatting/google_sheets_table');
     feature('modules/convert_to_page');
     featureBeta('modules/course_features');
+    featureBeta("page_formatting/tinymce_font_size");
 
     let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
     //COURSE SPECIFIC FEATURES

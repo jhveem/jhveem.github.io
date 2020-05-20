@@ -20,7 +20,6 @@
         } catch(e) {
           console.log(e);
         }
-        console.log('test');
         return;
       },
       async createSettingsPage() {
@@ -99,7 +98,6 @@
               }
               if (pageName !== '') {
                 select.val(pageName).prop('selected', true);
-                console.log("THIS!")
               }
               select.on('change', function () {
                 feature.updateSetting('modules-page-header', $(this).val());
