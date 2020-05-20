@@ -21,6 +21,7 @@
         }).catch(e => {
           console.log(e);
         });
+        console.log('test');
         return;
       },
       async createSettingsPage() {
