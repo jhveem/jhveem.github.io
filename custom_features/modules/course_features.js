@@ -73,7 +73,7 @@
         if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
           modulesPage = true;
         } else if (/^\/courses\/[0-9]+/.test(window.location.pathname)) {
-          if (ENV !== undefined) {
+          if (ENV.COURSE !== undefined) {
             if (ENV.COURSE.default_view === 'modules') {
               modulesPage = true;
             }
