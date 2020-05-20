@@ -248,13 +248,13 @@ async function _init() {
     addColor("E2A208", "Gold");
     addColor("000", "Black");
     addColor("fff", "White", "000")
-    addButton("Box", exampleBox);
+    addButtonIcon("far fa-bullhorn", exampleBox);
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
     // addButton("Google Sheets Table", googleSheetsTable);
     addButtonIcon("far fa-file-spreadsheet", googleSheetsTable);
-    addButton("Custom Theme", addCustomThemeParent);
-    addButton("Format Page", formatPage);
+    addButtonIcon("far fa-swatchbook", addCustomThemeParent);
+    addButtonIcon("far fa-stream", formatPage);
     for (let i = 0; i < tableOptions.length; i++) {
       let className = tableOptions[i];
       let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
