@@ -117,9 +117,9 @@ async function addButton(name, func, className = '') {
   customButtonsContainer.append(button);
   return button;
 }
-async function addButtonIcon(icon, func, className = '') {
+async function addButtonIcon(icon, description, func, className = '') {
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  let button = $("<div  class='" + className + "' title='test' style='padding: 2px 5px; color: #000; cursor: pointer;'><i style='font-size: 1rem;' class='mce-ico " + icon + "'></i></a>");
+  let button = $("<div  class='" + className + "' title='"+description+"' style='padding: 2px 5px; color: #000; cursor: pointer;'><i style='font-size: 1rem;' class='mce-ico " + icon + "'></i></a>");
   button.click(func);
   customButtonsContainer.append(button);
   return button;
@@ -248,13 +248,13 @@ async function _init() {
     addColor("E2A208", "Gold");
     addColor("000", "Black");
     addColor("fff", "White", "000")
-    addButtonIcon("far fa-bullhorn", exampleBox);
+    addButtonIcon("far fa-bullhorn", "Insert an information box. Can be used for warnings, examples, etc.", exampleBox);
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
     // addButton("Google Sheets Table", googleSheetsTable);
-    addButtonIcon("far fa-file-spreadsheet", googleSheetsTable);
-    addButtonIcon("far fa-swatchbook", addCustomThemeParent);
-    addButtonIcon("far fa-stream", formatPage);
+    addButtonIcon("far fa-file-spreadsheet", "Insert a table which will be linked to a google sheet. You will need the google sheet id.", googleSheetsTable);
+    addButtonIcon("far fa-swatchbook", "Create a theme for the page. The template will be inserted at the top of the page. Edit the template to apply changes throughout the page.", addCustomThemeParent);
+    addButtonIcon("far fa-stream", "Auto format the page to break the page into sections. Sections are determined by the top level heading.",formatPage);
     for (let i = 0; i < tableOptions.length; i++) {
       let className = tableOptions[i];
       let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
