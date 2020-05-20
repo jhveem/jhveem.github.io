@@ -1,21 +1,21 @@
 h2 {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;  
 }
 
 h3 {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;  
 }
 
 h4 {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 /*
 THIS IS THE CODE TO RUN TO MAKE THESE SAME STYLES APPEAR IN THE EDITOR.
-FOR AS YET UNDETERMINED REASONS, THE PX SIZE HAS TO BE SET A LITTLE BIT ABOVE WHAT YOU WANT, IT'S SOMETHING LIKE ACTUAL:
+FOR AS YET UNDETERMINED REASONS, THE PX SIZE HAS TO BE SET A LITTLE BIT ABOVE WHAT YOU WANT, IT'S SOMETHING LIKE:
 ACTUAL PX = SET PX * .75
 tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML + "h2 {font-size: 24px; font-weight: bold;} h3 {font-size: 18px; font-weight: bold;} h4 {font-size: 16px; font-weight: bold;}";
 */
