@@ -12,10 +12,13 @@
         feature.settingsEl = $("#btech-custom-settings");
         feature.settingsEl.hide();
         feature.createSettingsPage();
-        await new Promise($.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings").success(function (data) {
-          //if custom settings page exists, look for the appropriate header
-          feature.settingsEl.html(data.body);
-        })).catch(e => {
+        await new Promise(function (resolve, reject) {
+          $.get("/api/v1/courses/" + this.courseId + "/pages/btech-custom-settings").success(function (data) {
+            //if custom settings page exists, look for the appropriate header
+            feature.settingsEl.html(data.body);
+            return resolve;
+          }).fail(reject);
+        }).catch(e => {
           console.log(e);
         });
         return;
@@ -44,7 +47,7 @@
       async updateSetting(settingId, value) {
         let setting = this.settingsEl.find("#" + settingId);
         if (setting.length == 0) {
-          setting = $("<div id='"+settingId+"'></div>");
+          setting = $("<div id='" + settingId + "'></div>");
           this.settingsEl.append(setting);
         }
         setting.text(value);
