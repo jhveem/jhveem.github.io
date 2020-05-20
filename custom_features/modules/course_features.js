@@ -26,10 +26,10 @@
       async createSettingsPage() {
         let feature = this;
         feature.settingsEl.html(`
-          <h4><strong>ABOUT</strong></h4>
+          <h2>ABOUT</h2>
           <p>Do not edit/delete this page.</p>
           <p>This page was created to store date for custom course features. All saved features will be lost if this page is deleted.</p>
-          <h4><strong>SETTINGS</strong></h4>
+          <h2>SETTINGS</h2>
         `);
       },
       async getSettingData(settingId) {
