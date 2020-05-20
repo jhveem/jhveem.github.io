@@ -1,14 +1,14 @@
-h2 {
+#content h2 {
   font-size: 24px;
   font-weight: bold;  
 }
 
-h3 {
+#content h3 {
   font-size: 18px;
   font-weight: bold;  
 }
 
-h4 {
+#content h4 {
   font-size: 16px;
   font-weight: bold;
 }
