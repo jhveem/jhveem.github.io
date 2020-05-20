@@ -86,7 +86,6 @@
       new Vue({
         el: "#btech-help",
         mounted: async function() {
-          console.log("mounted");
           this.resources = [];
           let r;
 

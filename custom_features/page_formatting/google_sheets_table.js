@@ -1,5 +1,4 @@
 async function _init() {
-  console.log("GET STUFF");
   let isEditing = window.location.pathname.includes("/edit");
   if (!isEditing) {
     var sheetId = '';

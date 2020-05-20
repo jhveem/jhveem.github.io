@@ -54,7 +54,7 @@ async function getElement(selectorText, iframe = "") {
   if (element.length > 0 && element.html().trim() !== "") {
     return element;
   } else {
-    await delay(1000);
+    await delay(250);
     return getElement(selectorText, iframe);
   }
 }

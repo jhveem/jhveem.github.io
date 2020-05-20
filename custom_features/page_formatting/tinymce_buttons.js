@@ -117,6 +117,13 @@ async function addButton(name, func, className = '') {
   customButtonsContainer.append(button);
   return button;
 }
+async function addButtonIcon(icon, func, className = '') {
+  let customButtonsContainer = $("#btech-custom-editor-buttons-container");
+  let button = $("<a class='btn " + className + "' style='padding: 5px; background-color: #EEE; color: #000; border: 1px solid #AAA; cursor: pointer;'><i class='" + icon + "'></i></a>");
+  button.click(func);
+  customButtonsContainer.append(button);
+  return button;
+}
 
 function addColor(hex, name, fontColor = "fff") {
   let colorPicker = $("#btech-custom-editor-buttons-color");
@@ -244,7 +251,8 @@ async function _init() {
     addButton("Box", exampleBox);
     addButton("Hover Reveal", hideOnHover);
     addButton("Hover Text", hoverDefinition);
-    addButton("Google Sheets Table", googleSheetsTable);
+    // addButton("Google Sheets Table", googleSheetsTable);
+    addButtonIcon("far fa-file-spreadsheet", googleSheetsTable);
     addButton("Custom Theme", addCustomThemeParent);
     addButton("Format Page", formatPage);
     for (let i = 0; i < tableOptions.length; i++) {
