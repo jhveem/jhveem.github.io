@@ -17,7 +17,7 @@
             //if custom settings page exists, look for the appropriate header
             feature.settingsEl.html(data.body);
           });
-        } catch(e) {
+        } catch (e) {
           console.log(e);
         }
         return;
@@ -73,8 +73,10 @@
         if (/^\/courses\/[0-9]+\/modules/.test(window.location.pathname)) {
           modulesPage = true;
         } else if (/^\/courses\/[0-9]+/.test(window.location.pathname)) {
-          if (ENV.COURSE.default_view === 'modules') {
-            modulesPage = true;
+          if (ENV !== undefined) {
+            if (ENV.COURSE.default_view === 'modules') {
+              modulesPage = true;
+            }
           }
         }
         if (modulesPage) {
