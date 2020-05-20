@@ -9,6 +9,6 @@ async function getEditor() {
 async function _init() {
   let editor = await getEditor();
   //divides by .75 because of some weird stuff going on in the editor.
-  editor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML + "h2 {font-size: " + Math.round(18 / .75) + "px; font-weight: bold;} h3 {font-size: " + Math.round(14 / .75) + "px; font-weight: bold;} h4 {font-size: " + Math.round(12 / .75) + "px; font-weight: bold;}";
+  editor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML + "h2 {font-size: 1.5rem; font-weight: bold;} h3 {font-size: 1.25rem; font-weight: bold;} h4 {font-size: 1rem; font-weight: bold;}";
 }
 _init();
