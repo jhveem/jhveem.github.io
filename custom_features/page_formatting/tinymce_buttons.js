@@ -119,7 +119,7 @@ async function addButton(name, func, className = '') {
 }
 async function addButtonIcon(icon, func, className = '') {
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  let button = $("<a width='1rem' class='" + className + "' style='padding: 2px; color: #000; border: 1px solid #AAA; cursor: pointer;'><i class='" + icon + "'></i></a>");
+  let button = $("<a  class='" + className + "' style='width: 1.5rem; height: auto; padding: 2px; color: #000; border: 1px solid #AAA; cursor: pointer;'><i class='" + icon + "'></i></a>");
   button.click(func);
   customButtonsContainer.append(button);
   return button;
