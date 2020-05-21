@@ -57,8 +57,6 @@ function addBackground() {
 function addBackgroundClosing(bg) {
   bg.click(function () {
     $(this).remove();
-  }).children().click(function (e) {
-    return false;
   });
 }
 async function citation() {
@@ -77,6 +75,7 @@ async function citation() {
     border: 2px solid #888;
     padding: 10px 20px;
     color: #000;
+    pointer-events:none;
     border-radius: 5px;'>
     <p>Name of Original Image, Book, Article, Video, etc.*</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
