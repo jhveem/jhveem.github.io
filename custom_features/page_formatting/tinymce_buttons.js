@@ -112,6 +112,7 @@ border-radius: 5px;'>
         let citationString = ""; 
         $(".citation-author").each(function() {
           let authorEl = $(this);
+          console.log(authorEl);
           let last = authorEl.find(".last-name").text();
           let first = authorEl.find(".first-name").text();
           if (last !== "") {
