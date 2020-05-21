@@ -81,8 +81,11 @@ border-radius: 5px;'>
 <p>Name of Original Image, Book, Article, Video, etc.*</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
 <p>Name of Original Author*</p>
-<input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-first">
-<input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-last">
+<div id="citation-authors">
+<div class="citation-author">
+<input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-first" class="first-name">
+<input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-last" class="last-name">
+</div>
 <p>Date Published</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
 <p>Publisher</p>
@@ -100,12 +103,20 @@ border-radius: 5px;'>
     if (keycode == '13') {
       //*
       let name = $("#citation-name").val();
-      let author = $("#citation-author").val();
+      let authorLast = $("#citation-author-last").val();
       let publisher = $("#citation-publisher").val();
       let date = $("#citation-date-accessed").val();
       let url = $("#citation-url").val();
-      if (name != "" && author != "") {
-        let citationString = author; 
+      if (name != "" && authorLast != "") {
+        let citationString = ""; 
+        $("#citation-authors .citation-author").each(function() {
+          let authorEl = $(this);
+          let last = authorEl.find(".last-name").text();
+          let first = authorEl.find(".first-name").text();
+          if (last !== "") {
+            citationString += (last + ", " + first.charAt(0) + ". ")
+          }
+        })
         if (date !== "") {
           citationString += ("(" + date + ")");
         }
