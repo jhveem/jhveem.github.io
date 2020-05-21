@@ -239,14 +239,7 @@ async function _init() {
     topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
     customButtonsContainer.prepend(`<input type="color" id="btech-custom-editor-buttons-color" value="#d22232"/>
-    <datalist id="default-colors">
-      <option>#d22232</option>
-      <option>#2232d2</option>
-      <option>#32A852</option>
-      <option>#E2A208</option>
-      <option>#000000</option>
-      <option>#FFFFFF</option>
-    </datalist>`);
+    `);
     addButtonIcon("far fa-bullhorn", "Insert an information box. Can be used for warnings, examples, etc.", exampleBox);
     addButtonIcon("far fa-hand-point-up", "Hide text. Reveal on mouse hover.", hideOnHover);
     addButtonIcon("far fa-comment-alt-lines", "Insert text which is shown on mouse hover.", hoverDefinition);
