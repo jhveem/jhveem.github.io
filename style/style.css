@@ -1,15 +1,15 @@
 /* use rem instead of pixels because it messes everything up otherwise. 1.5, 1.2, 1 for h2, h3, h4 respectively */
-h2 {
+#content h2 {
   font-size: 1.5rem;
   font-weight: bold;  
 }
 
-h3 {
+#content h3 {
   font-size: 1.2rem;
   font-weight: bold;  
 }
 
-h4 {
+#content h4 {
   font-size: 1rem;
   font-weight: bold;
 }
