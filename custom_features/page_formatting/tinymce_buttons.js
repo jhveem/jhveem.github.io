@@ -98,9 +98,8 @@ async function citationKeypress(bg) {
           }
         })
         if (date !== "") {
-          citationString += ("(" + date + ")");
+          citationString += ("(" + date + ").");
         }
-        citationString += ". ";
         
         citationString += (name + ". ");
         if (publisher !== "") {
