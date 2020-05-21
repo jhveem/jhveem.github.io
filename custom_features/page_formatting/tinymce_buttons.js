@@ -99,7 +99,7 @@ async function citation() {
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
     `);
     console.log("v 1");
-  let addAuthor = $("#citation-add-atuhor");
+  let addAuthor = await getElement("#citation-add-atuhor");
   console.log(addAuthor);
   addAuthor.click(function() {
     console.log("ADD");
