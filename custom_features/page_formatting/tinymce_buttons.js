@@ -243,7 +243,7 @@ async function _init() {
     editor.addShortcut("ctrl+alt+g", "Insert a table that is linked to a google sheet.", googleSheetsTable);
     topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-    customButtonsContainer.prepend(`<input type="color" id="btech-custom-editor-buttons-color" value="#d22232" style="width:16px;" list="default-colors" />
+    customButtonsContainer.prepend(`<input type="color" id="btech-custom-editor-buttons-color" value="#d22232" list="default-colors" />
     <datalist id="default-colors">
       <option>#d22232</option>
       <option>#2232d2</option>
