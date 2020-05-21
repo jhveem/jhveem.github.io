@@ -108,11 +108,11 @@ border-radius: 5px;'>
         if (date !== "") {
           citationString += ("(" + date + ")");
         }
-        citationString += ".";
+        citationString += ". ";
         
-        citationString += (name + ".");
+        citationString += (name + ". ");
         if (publisher !== "") {
-          citationString += (publisher + ".")
+          citationString += (publisher + ". ")
         }
         if (url !== "") {
           citationString += ("At: "+url);
