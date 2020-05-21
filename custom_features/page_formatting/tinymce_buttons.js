@@ -95,11 +95,6 @@ border-radius: 5px;'>
 <p>URL (If Applicable)</p>
 <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
 </div>`);
-  bg.click(function () {
-    $(this).remove();
-  }).children().click(function (e) {
-    e.stopPropagation();
-  });
   $("#citation-add-atuhor").click(function() {
     console.log("ADD");
     $("#citation-authors").append(`
@@ -108,6 +103,11 @@ border-radius: 5px;'>
       <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name">
     </div>
     `);
+  });
+  bg.click(function () {
+    $(this).remove();
+  }).children().click(function (e) {
+    e.stopPropagation();
   });
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
