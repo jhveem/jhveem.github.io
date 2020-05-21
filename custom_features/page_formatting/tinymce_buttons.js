@@ -114,9 +114,9 @@ border-radius: 5px;'>
           let authorEl = $(this);
           console.log(authorEl.html());
           console.log(authorEl);
-          let last = authorEl.find(".last-name").text();
+          let last = authorEl.find(".last-name").val();
           console.log(last);
-          let first = authorEl.find(".first-name").text();
+          let first = authorEl.find(".first-name").val();
           console.log(first);
           if (last !== "") {
             citationString += (last + ", " + first.charAt(0) + ". ")
