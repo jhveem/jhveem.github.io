@@ -62,7 +62,9 @@ function addBackground() {
     border: 2px solid #888;
     padding: 10px 20px;
     color: #000;
-    border-radius: 5px;'>
+    border-radius: 5px;
+    overflow: scroll;
+    '>
     </div>
   </div>`);
   $("body").append(bg);
