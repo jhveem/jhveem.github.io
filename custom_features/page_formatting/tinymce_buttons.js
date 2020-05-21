@@ -66,6 +66,7 @@ function addBackground() {
     </div>
   </div>`);
   $("body").append(bg);
+  addBackgroundClosing(bg);
   return bg;
 }
 //This needs to be called after all children are added to the backround otherwise it'll close on click anywhere.
