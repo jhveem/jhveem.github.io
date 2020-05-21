@@ -338,10 +338,8 @@ async function _init() {
   let topPart = null;
   if (tinymce.majorVersion === "4") {
     topPart = await getElement(".mce-top-part");
-    topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
   } else if (tinymce.majorVersion === "5") {
     topPart = await getElement(".edit-header");
-    topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
   }
   if (topPart !== null && $("#btech-custom-editor-buttons-container").length === 0) {
     editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
@@ -349,6 +347,7 @@ async function _init() {
     editor.addShortcut("ctrl+alt+d", "the highlighted font will display a definition on hover.", exampleBox);
     editor.addShortcut("ctrl+alt+g", "Insert a table that is linked to a google sheet.", googleSheetsTable);
     editor.addShortcut("ctrl+alt+q", "Insert a citation.", googleSheetsTable);
+    topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
     customButtonsContainer.prepend(`<input type="color" id="btech-custom-editor-buttons-color" value="#d22232" style="width: 48px; padding: 4px; padding-right: 0px;" list="default-colors"/>
     <datalist id="default-colors">
