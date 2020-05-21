@@ -49,7 +49,7 @@ async function exampleBox() {
 
 function addBackground() {
   let bg = $(`
-  <div style="overflow: auto; position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;">
+  <div style="overflow: scroll; position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;">
     <div id='background-container' style='
     width: 500px;
     left: 50%;
