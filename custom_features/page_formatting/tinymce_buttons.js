@@ -86,6 +86,7 @@ border-radius: 5px;'>
     <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name" id="citation-author-first">
     <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
   </div>
+  <a class="btn">Add Author</a>
 </div>
 <p>Date Published</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
@@ -115,7 +116,7 @@ border-radius: 5px;'>
           let last = authorEl.find(".last-name").val();
           let first = authorEl.find(".first-name").val();
           if (last !== "") {
-            citationString += (last + ", " + first.charAt(0) + ". ")
+            citationString += (last + ", " + first.charAt(0) + " ")
           }
         })
         if (date !== "") {
