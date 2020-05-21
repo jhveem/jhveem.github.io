@@ -79,10 +79,10 @@ padding: 10px 20px;
 color: #000;
 border-radius: 5px;'>
 <p>Name of Original Image, Book, Article, Video, etc.*</p>
-<input style='width: 48%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-first-name">
-<input style='width: 48%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-last-name">
+<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
 <p>Name of Original Author*</p>
-<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author">
+<input style='width: 48%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-first">
+<input style='width: 48%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-last">
 <p>Date Published</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
 <p>Publisher</p>
