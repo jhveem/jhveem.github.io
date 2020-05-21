@@ -86,8 +86,8 @@ border-radius: 5px;'>
     <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name" id="citation-author-first">
     <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
   </div>
-  <a class="btn">Add Author</a>
 </div>
+<a class="btn" id="citation-add-author">Add Author</a>
 <p>Date Published</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
 <p>Publisher</p>
@@ -99,6 +99,14 @@ border-radius: 5px;'>
     $(this).remove();
   }).children().click(function (e) {
     e.stopPropagation();
+  });
+  $("#citation-add-atuhor").click(function() {
+    $("#citation-authors").append(`
+    <div class="citation-author">
+      <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name">
+      <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name">
+    </div>
+    `);
   });
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
