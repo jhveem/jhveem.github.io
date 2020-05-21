@@ -78,12 +78,14 @@ border: 2px solid #888;
 padding: 10px 20px;
 color: #000;
 border-radius: 5px;'>
-<p>Name of Original Image, Book, Article, Video, etc.</p>
+<p>Name of Original Image, Book, Article, Video, etc.*</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
-<p>Name of Original Author</p>
+<p>Name of Original Author*</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author">
-<p>Date Accessed</p>
+<p>Date Published</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
+<p>Publisher</p>
+<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-publisher">
 <p>URL (If Applicable)</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
 </div>`);
@@ -98,14 +100,20 @@ border-radius: 5px;'>
       //*
       let name = $("#citation-name").val();
       let author = $("#citation-author").val();
+      let publisher = $("#citation-publisher").val();
       let date = $("#citation-date-accessed").val();
       let url = $("#citation-url").val();
       if (name != "" && author != "") {
-        let citationString =name+", "+author 
+        let citationString = author; 
         if (date !== "") {
-          citationString += (" Accessed: "+date);
+          citationString += ("(" + date + ")");
         }
         citationString += ".";
+        
+        citationString += (name + ".");
+        if (publisher !== "") {
+          citationString += (publisher + ".")
+        }
         if (url !== "") {
           citationString += ("At: "+url);
         }
