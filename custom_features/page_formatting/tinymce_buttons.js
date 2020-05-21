@@ -81,8 +81,8 @@ border-radius: 5px;'>
 <p>Name of Original Image, Book, Article, Video, etc.*</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
 <p>Name of Original Author*</p>
-<input placeholder="first name" style='width: 50%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-first">
-<input placeholder="last name" style='width: 50%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-last">
+<input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-first">
+<input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-last">
 <p>Date Published</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
 <p>Publisher</p>
