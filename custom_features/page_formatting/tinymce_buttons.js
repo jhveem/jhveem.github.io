@@ -62,7 +62,6 @@ function addBackground() {
     border: 2px solid #888;
     padding: 10px 20px;
     color: #000;
-    pointer-events:none;
     border-radius: 5px;'>
     </div>
   </div>`);
