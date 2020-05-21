@@ -115,7 +115,9 @@ border-radius: 5px;'>
           console.log(authorEl.html());
           console.log(authorEl);
           let last = authorEl.find(".last-name").text();
+          console.log(last);
           let first = authorEl.find(".first-name").text();
+          console.log(first);
           if (last !== "") {
             citationString += (last + ", " + first.charAt(0) + ". ")
           }
