@@ -108,7 +108,7 @@ async function citationKeypress(bg) {
           }
         })
         if (date !== "") {
-          citationString += ("(" + date + ").");
+          citationString += ("(" + date.slice(0,4) + "). ");
         }
         
         citationString += (name + ". ");
@@ -145,7 +145,7 @@ async function citation() {
     <p>URL (If Applicable)</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
     `);
-    console.log("v 3");
+    console.log("v 4");
   let addAuthor = $("#citation-add-author");
   console.log(addAuthor);
   addAuthor.click(function() {
