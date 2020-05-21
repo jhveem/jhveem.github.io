@@ -105,8 +105,8 @@ async function citation() {
     console.log("ADD");
     $("#citation-authors").append(`
     <div class="citation-author">
-      <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name">
-      <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name">
+      <input placeholder="first name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information first-name">
+      <input placeholder="last name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information last-name">
     </div>
     `);
   });
