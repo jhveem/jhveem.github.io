@@ -340,8 +340,8 @@ async function _init() {
     topPart = await getElement(".mce-top-part");
     topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
   } else if (tinymce.majorVersion === "5") {
-    topPart = await getElement(".tox-tinymce");
-    topPart.before("<div id='btech-custom-editor-buttons-container'></div>");
+    topPart = await getElement(".edit-header");
+    topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
   }
   if (topPart !== null && $("#btech-custom-editor-buttons-container").length === 0) {
     editor.addShortcut("ctrl+alt+h", "The highlighted font will be hidden until the reader highlights it.", hideOnHover);
