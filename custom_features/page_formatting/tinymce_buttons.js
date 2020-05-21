@@ -77,7 +77,7 @@ function addBackgroundClosing(bg) {
     $(this).remove();
   });
 }
-function citationKeypress() {
+async function citationKeypress() {
   let editor = await getEditor();
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
