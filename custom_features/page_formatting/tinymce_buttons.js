@@ -238,7 +238,15 @@ async function _init() {
     editor.addShortcut("ctrl+alt+g", "Insert a table that is linked to a google sheet.", googleSheetsTable);
     topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-    customButtonsContainer.prepend(`<input type="color" id="btech-custom-editor-buttons-color" value="#d22232"/>
+    customButtonsContainer.prepend(`<input type="color" id="btech-custom-editor-buttons-color" value="#d22232" style="width: 32px;"/>
+    <datalist id="default-colors">
+      <option>#d22232</option>
+      <option>#2232d2</option>
+      <option>#32A852</option>
+      <option>#E2A208</option>
+      <option>#000000</option>
+      <option>#FFFFFF</option>
+    </datalist>
     `);
     addButtonIcon("far fa-bullhorn", "Insert an information box. Can be used for warnings, examples, etc.", exampleBox);
     addButtonIcon("far fa-hand-point-up", "Hide text. Reveal on mouse hover.", hideOnHover);
