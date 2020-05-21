@@ -87,7 +87,7 @@ async function citation() {
         <input placeholder="last name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
       </div>
     </div>
-    <a class="btn" id="citation-add-author" onclick="console.log('test')">Add Author</a>
+    <a class="btn" id="citation-add-author">Add Author</a>
     <p>Date Published</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
     <p>Publisher</p>
@@ -95,11 +95,16 @@ async function citation() {
     <p>URL (If Applicable)</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
     </div>`);
-  bg.click(function () {
-    $(this).remove();
-  }).children().click(function (e) {
-    e.stopPropagation();
+  $("#citation-add-atuhor").click(function() {
+    console.log("ADD");
+    $("#citation-authors").append(`
+    <div class="citation-author">
+      <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name">
+      <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name">
+    </div>
+    `);
   });
+  addBackgroundClosing(bg);
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
@@ -163,11 +168,6 @@ async function googleSheetsTable() {
     </div>
     </div>`);
   bg.click(function () {
-    $(this).remove();
-  }).children().click(function (e) {
-    return false;
-  });
-  $("#google-sheet-id-container-bg").click(function () {
     $(this).remove();
   }).children().click(function (e) {
     return false;
