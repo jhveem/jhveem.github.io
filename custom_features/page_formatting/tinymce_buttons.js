@@ -83,8 +83,8 @@ border-radius: 5px;'>
 <p>Name of Original Author*</p>
 <div id="citation-authors">
   <div class="citation-author">
-    <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-first" class="first-name">
-    <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author-last" class="last-name">
+    <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name" id="citation-author-first">
+    <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
   </div>
 </div>
 <p>Date Published</p>
