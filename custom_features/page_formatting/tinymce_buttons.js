@@ -53,6 +53,14 @@ function addBackground() {
   $("body").append(bg);
   return bg;
 }
+//This needs to be called after all children are added to the backround otherwise it'll close on click anywhere.
+function addBackgroundClosing(bg) {
+  bg.click(function () {
+    $(this).remove();
+  }).children().click(function (e) {
+    return false;
+  });
+}
 async function citation() {
   let editor = await getEditor();
   let bg = addBackground();
@@ -77,7 +85,7 @@ border-radius: 5px;'>
   bg.click(function () {
     $(this).remove();
   }).children().click(function (e) {
-    return false;
+    e.stopPropagation();
   });
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
