@@ -77,7 +77,7 @@ function addBackgroundClosing(bg) {
     $(this).remove();
   });
 }
-async function citationKeypress() {
+async function citationKeypress(bg) {
   let editor = await getEditor();
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -110,7 +110,7 @@ async function citationKeypress() {
           citationString += ("Retrieved from "+url);
         }
         editor.execCommand("mceReplaceContent", false, `<p>`+citationString+`</p>`);
-        $("#background-container").remove();
+        bg.remove();
       }
     }
     event.stopPropagation();
@@ -147,9 +147,9 @@ async function citation() {
       <input placeholder="last name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information last-name">
     </div>
     `);
-    citationKeypress();
+    citationKeypress(bg);
   });
-  citationKeypress();
+  citationKeypress(bg);
 }
 async function googleSheetsTable() {
   let editor = await getEditor();
