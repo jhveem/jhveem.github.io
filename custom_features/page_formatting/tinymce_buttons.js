@@ -94,7 +94,7 @@ async function citationKeypress(bg) {
           let last = authorEl.find(".last-name").val();
           let first = authorEl.find(".first-name").val();
           if (last !== "") {
-            citationString += (last + ", " + first.charAt(0) + " ")
+            citationString += (last + ", " + first.charAt(0) + ". ")
           }
         })
         if (date !== "") {
