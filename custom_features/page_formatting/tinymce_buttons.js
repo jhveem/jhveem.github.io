@@ -85,7 +85,7 @@ border-radius: 5px;'>
 <p>Date Accessed</p>
 <input style='width: 100%;' type="date" class="citation-information" id="citation-date-accessed">
 <p>URL (If Applicable)</p>
-<input style='width: 100%;' type="text" class="citation-information" id="citation-author">
+<input style='width: 100%;' type="text" class="citation-information" id="citation-url">
 </div>`);
   bg.click(function () {
     $(this).remove();
@@ -96,7 +96,11 @@ border-radius: 5px;'>
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
       //*
-      editor.execCommand("mceReplaceContent", false, `<p><i>citation</i></p>`);
+      let name = $("#citation-name").val();
+      let author = $("#citation-author").val();
+      let date = $("#citation-date-accessed").val();
+      let url = $("#citation-url").val();
+      editor.execCommand("mceReplaceContent", false, `<p><i>`+name+`, `+author+` Accessed: `+date+`. At: `+url+`</i></p>`);
       //*/
       bg.remove();
     }
