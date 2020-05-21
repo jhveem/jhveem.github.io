@@ -100,9 +100,14 @@ border-radius: 5px;'>
       let author = $("#citation-author").val();
       let date = $("#citation-date-accessed").val();
       let url = $("#citation-url").val();
-      editor.execCommand("mceReplaceContent", false, `<p><i>`+name+`, `+author+` Accessed: `+date+`. At: `+url+`</i></p>`);
+      if (name != "" && author != "") {
+        let citationString =name+", "+author+" Accessed: "+date+". At: "+url
+        editor.execCommand("mceReplaceContent", false, `<p>`+citationString+`</p>`);
+        bg.remove();
+      } else {
+
+      }
       //*/
-      bg.remove();
     }
     event.stopPropagation();
   });
