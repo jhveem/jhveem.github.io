@@ -249,8 +249,8 @@ async function _init() {
     addColor("000", "Black");
     addColor("fff", "White", "000")
     addButtonIcon("far fa-bullhorn", "Insert an information box. Can be used for warnings, examples, etc.", exampleBox);
-    addButton("Hover Reveal", hideOnHover);
-    addButton("Hover Text", hoverDefinition);
+    addButtonIcon("far fa-hand-point-up", "Hide text. Reveal on mouse hover.", hideOnHover);
+    addButtonIcon("far fa-comment-alt-lines", "Insert text which is shown on mouse hover.", hoverDefinition);
     // addButton("Google Sheets Table", googleSheetsTable);
     addButtonIcon("far fa-file-spreadsheet", "Insert a table which will be linked to a google sheet. You will need the google sheet id.", googleSheetsTable);
     addButtonIcon("far fa-swatchbook", "Create a theme for the page. The template will be inserted at the top of the page. Edit the template to apply changes throughout the page.", addCustomThemeParent);
