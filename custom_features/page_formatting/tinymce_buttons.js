@@ -127,11 +127,6 @@ async function addButtonIcon(icon, description, func, className = '') {
   return button;
 }
 
-function addColor(hex, name, fontColor = "fff") {
-  let colorPicker = $("#btech-custom-editor-buttons-color");
-  colorPicker.append("<option value='#" + hex + "' style='background-color: #" + hex + "; color: #" + fontColor + "'>" + name + "</option>");
-}
-
 function resetTableButtons() {
   let node = tinyMCE.activeEditor.selection.getNode();
   let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
