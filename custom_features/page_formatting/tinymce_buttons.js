@@ -78,6 +78,7 @@ function addBackgroundClosing(bg) {
   });
 }
 function citationKeypress() {
+  let editor = await getEditor();
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
@@ -120,7 +121,6 @@ function citationKeypress() {
   });
 }
 async function citation() {
-  let editor = await getEditor();
   let bg = addBackground();
   bg.find('#background-container').append(`
     <p>Name of Original Image, Book, Article, Video, etc.*</p>
