@@ -101,6 +101,7 @@ border-radius: 5px;'>
     e.stopPropagation();
   });
   $("#citation-add-atuhor").click(function() {
+    console.log("ADD");
     $("#citation-authors").append(`
     <div class="citation-author">
       <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name">
