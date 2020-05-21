@@ -82,7 +82,6 @@ async function citationKeypress() {
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
-      //*
       let name = $("#citation-name").val();
       let authorLast = $("#citation-author-last").val();
       let publisher = $("#citation-publisher").val();
@@ -112,10 +111,7 @@ async function citationKeypress() {
         }
         editor.execCommand("mceReplaceContent", false, `<p>`+citationString+`</p>`);
         bg.remove();
-      } else {
-
       }
-      //*/
     }
     event.stopPropagation();
   });
