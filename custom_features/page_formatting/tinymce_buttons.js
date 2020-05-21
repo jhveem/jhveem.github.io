@@ -51,11 +51,6 @@ function addBackground() {
   let bg = $(`
   <div style="position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;"></div>`);
   $("body").append(bg);
-  bg.click(function () {
-    $(this).remove();
-  }).children().click(function (e) {
-    return false;
-  });;
   return bg;
 }
 async function citation() {
@@ -79,6 +74,11 @@ border-radius: 5px;'>
 <input style='width: 100%;' type="text" class="citation-information" id="citation-name">
 <input style='width: 100%;' type="date" class="citation-information" id="citation-date-accessed" value='` + new Date() + `'>
 </div>`);
+  bg.click(function () {
+    $(this).remove();
+  }).children().click(function (e) {
+    return false;
+  });
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
@@ -111,6 +111,11 @@ async function googleSheetsTable() {
     Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-sheet-id">
     </div>
     </div>`);
+  bg.click(function () {
+    $(this).remove();
+  }).children().click(function (e) {
+    return false;
+  });
   $("#google-sheet-id-container-bg").click(function () {
     $(this).remove();
   }).children().click(function (e) {
