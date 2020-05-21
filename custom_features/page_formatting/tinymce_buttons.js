@@ -90,7 +90,7 @@ async function citation() {
         <input placeholder="last name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
       </div>
     </div>
-    <div id="citation-add-author">Add Author</div>
+    <a class='btn' id="citation-add-author">Add Author</a>
     <p>Date Published</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
     <p>Publisher</p>
