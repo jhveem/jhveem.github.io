@@ -46,7 +46,49 @@ async function exampleBox() {
 </tbody>
 </table>`);
 }
-
+function addBackground() {
+  let bg = $(`
+  <div style="position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;"></div>`);
+  $("body").append(bg);
+  bg.click(function () {
+    $(this).remove();
+  }).children().click(function (e) {
+    return false;
+  });;
+  return bg;
+}
+async function citation() {
+  let editor = await getEditor();
+  let bg = addBackground();
+  bg.append(`
+<div id='citation-container' style='
+width: 500px;
+left: 50%;
+transform: translate(-50%, -50%);
+position:fixed;
+top: 50%;
+z-index:1000;
+transition: 0.5s;
+background-color: #FFF;
+border: 2px solid #888;
+padding: 10px 20px;
+color: #000;
+border-radius: 5px;'>
+<input style='width: 100%;' type="text" class="citation-information" id="citation-author">
+<input style='width: 100%;' type="text" class="citation-information" id="citation-name">
+<input style='width: 100%;' type="date" class="citation-information" id="citation-date-accessed" value='`+new Date()+`'>
+</div>`);
+  $(".citation-information").keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13') {
+      //*
+      editor.execCommand("mceReplaceContent", false, `<p><i>citation</i></p>`);
+      //*/
+      bg.remove();
+    }
+    event.stopPropagation();
+  });
+}
 async function googleSheetsTable() {
   let editor = await getEditor();
   let selection = editor.selection;
@@ -236,6 +278,7 @@ async function _init() {
     editor.addShortcut("ctrl+alt+e", "the highlighted font will be put inside of an emphasis box.", exampleBox);
     editor.addShortcut("ctrl+alt+d", "the highlighted font will display a definition on hover.", exampleBox);
     editor.addShortcut("ctrl+alt+g", "Insert a table that is linked to a google sheet.", googleSheetsTable);
+    editor.addShortcut("ctrl+alt+q", "Insert a citation.", googleSheetsTable);
     topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
     customButtonsContainer.prepend(`<input type="color" id="btech-custom-editor-buttons-color" value="#d22232" style="width: 48px; padding: 4px; padding-right: 0px;" list="default-colors"/>
@@ -249,6 +292,7 @@ async function _init() {
     </datalist>
     `);
     addButtonIcon("far fa-bullhorn", "Insert an information box. Can be used for warnings, examples, etc.", exampleBox);
+    addButtonIcon("far fa-quote-right", "Insert a citation.", citation);
     addButtonIcon("far fa-hand-point-up", "Hide text. Reveal on mouse hover.", hideOnHover);
     addButtonIcon("far fa-comment-alt-lines", "Insert text which is shown on mouse hover.", hoverDefinition);
     // addButton("Google Sheets Table", googleSheetsTable);
