@@ -27,6 +27,8 @@ async function exampleBox() {
   let editor = await getEditor();
   let selection = editor.selection;
   let color = $("#btech-custom-editor-buttons-color").val();
+  let fontColor = "#FFFFFF";
+  console.log(color);
   editor.execCommand("mceReplaceContent", false, `<table class="btech-example-table" style="width: 90%; border-collapse: collapse; border-color: gray; margin-left: auto; margin-right: auto; height: 62px;" border="0" cellpadding="10">
 <tbody>
 <tr style="background-color: ` + color + `;">
@@ -241,13 +243,15 @@ async function _init() {
     editor.addShortcut("ctrl+alt+g", "Insert a table that is linked to a google sheet.", googleSheetsTable);
     topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-    customButtonsContainer.prepend(`<input type="color" id="html5colorpicker" value="#d22232" style="width:16px;">`);
-    addColor("d22232", "Red");
-    addColor("2232d2", "Blue");
-    addColor("32A852", "Green");
-    addColor("E2A208", "Gold");
-    addColor("000", "Black");
-    addColor("fff", "White", "000")
+    customButtonsContainer.prepend(`<input type="color" id="html5colorpicker" value="#d22232" style="width:16px;" list="default-colors">
+    <datalist id="default-colors">
+      <option>#d22232</option>
+      <option>#2232d2</option>
+      <option>#32A852</option>
+      <option>#E2A208</option>
+      <option>#000000</option>
+      <option>#FFFFFF</option>
+    </datalist>`);
     addButtonIcon("far fa-bullhorn", "Insert an information box. Can be used for warnings, examples, etc.", exampleBox);
     addButtonIcon("far fa-hand-point-up", "Hide text. Reveal on mouse hover.", hideOnHover);
     addButtonIcon("far fa-comment-alt-lines", "Insert text which is shown on mouse hover.", hoverDefinition);
