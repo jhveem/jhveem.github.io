@@ -79,7 +79,7 @@ padding: 10px 20px;
 color: #000;
 border-radius: 5px;'>
 <p>Name of Original Image, Book, Article, Video, etc.</p>
-<input style='width: 100%; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
+<input style='width: 100%; height: box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
 <p>Name of Original Author</p>
 <input style='width: 100%; box-sizing: border-box;' type="text" class="citation-information" id="citation-author">
 <p>Date Accessed</p>
@@ -101,7 +101,14 @@ border-radius: 5px;'>
       let date = $("#citation-date-accessed").val();
       let url = $("#citation-url").val();
       if (name != "" && author != "") {
-        let citationString =name+", "+author+" Accessed: "+date+". At: "+url
+        let citationString =name+", "+author 
+        if (date !== "") {
+          citationString += (" Accessed: "+date);
+        }
+        citationString += ".";
+        if (url !== "") {
+          citationString += ("At: "+url);
+        }
         editor.execCommand("mceReplaceContent", false, `<p>`+citationString+`</p>`);
         bg.remove();
       } else {
