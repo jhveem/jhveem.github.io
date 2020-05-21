@@ -49,20 +49,29 @@ async function exampleBox() {
 
 function addBackground() {
   let bg = $(`
-  <div style="overflow: scroll; position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;">
-    <div id='background-container' style='
-    width: 500px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position:fixed;
-    top: 50%;
+  <div class='btech-modal' style="
+    overflow: auto; 
+    position: fixed; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    width: 100%; 
+    height: 100%; 
+    left: 0; 
+    top: 0; 
     z-index:1000;
-    transition: 0.5s;
-    background-color: #FFF;
-    border: 2px solid #888;
-    padding: 10px 20px;
-    color: #000;
-    border-radius: 5px;
+  ">
+    <div id='background-container' style='
+      width: 500px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position:fixed;
+      top: 50%;
+      z-index:1000;
+      transition: 0.5s;
+      background-color: #FFF;
+      border: 2px solid #888;
+      padding: 10px 20px;
+      color: #000;
+      border-radius: 5px;
     '>
     </div>
   </div>`);
