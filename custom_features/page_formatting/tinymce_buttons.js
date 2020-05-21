@@ -26,7 +26,7 @@ async function hoverDefinition() {
 async function exampleBox() {
   let editor = await getEditor();
   let selection = editor.selection;
-  let color = $("#btech-custom-editor-buttons-color").children("option:selected").val();
+  let color = $("#btech-custom-editor-buttons-color").val();
   editor.execCommand("mceReplaceContent", false, `<table class="btech-example-table" style="width: 90%; border-collapse: collapse; border-color: gray; margin-left: auto; margin-right: auto; height: 62px;" border="0" cellpadding="10">
 <tbody>
 <tr style="background-color: ` + color + `;">
@@ -241,7 +241,7 @@ async function _init() {
     editor.addShortcut("ctrl+alt+g", "Insert a table that is linked to a google sheet.", googleSheetsTable);
     topPart.after("<div id='btech-custom-editor-buttons-container'></div>");
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-    customButtonsContainer.prepend("<select id='btech-custom-editor-buttons-color' name='colors'></select>")
+    customButtonsContainer.prepend(`<input type="color" id="html5colorpicker" value="#d22232" style="width:16px;">`);
     addColor("d22232", "Red");
     addColor("2232d2", "Blue");
     addColor("32A852", "Green");
