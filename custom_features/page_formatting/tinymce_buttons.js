@@ -28,7 +28,6 @@ async function exampleBox() {
   let selection = editor.selection;
   let color = $("#btech-custom-editor-buttons-color").val();
   let fontColor = "#FFFFFF";
-  console.log(color);
   editor.execCommand("mceReplaceContent", false, `<table class="btech-example-table" style="width: 90%; border-collapse: collapse; border-color: gray; margin-left: auto; margin-right: auto; height: 62px;" border="0" cellpadding="10">
 <tbody>
 <tr style="background-color: ` + color + `;">
@@ -146,11 +145,8 @@ async function citation() {
     <p>URL (If Applicable)</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
     `);
-    console.log("v 4");
   let addAuthor = $("#citation-add-author");
-  console.log(addAuthor);
   addAuthor.click(function() {
-    console.log("ADD");
     $("#citation-authors").append(`
     <div class="citation-author">
       <input placeholder="first name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information first-name">
