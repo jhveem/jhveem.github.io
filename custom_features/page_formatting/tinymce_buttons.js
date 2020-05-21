@@ -49,21 +49,8 @@ async function exampleBox() {
 
 function addBackground() {
   let bg = $(`
-  <div style="position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;"></div>`);
-  $("body").append(bg);
-  return bg;
-}
-//This needs to be called after all children are added to the backround otherwise it'll close on click anywhere.
-function addBackgroundClosing(bg) {
-  bg.click(function () {
-    $(this).remove();
-  });
-}
-async function citation() {
-  let editor = await getEditor();
-  let bg = addBackground();
-  bg.append(`
-    <div id='citation-container' style='
+  <div style="position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;">
+    <div id='background-container' style='
     width: 500px;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -77,6 +64,24 @@ async function citation() {
     color: #000;
     pointer-events:none;
     border-radius: 5px;'>
+    </div>
+  </div>`);
+  $("body").append(bg);
+  addBackgroundClosing(bg);
+  return bg;
+}
+//This needs to be called after all children are added to the backround otherwise it'll close on click anywhere.
+function addBackgroundClosing(bg) {
+  bg.click(function () {
+    $(this).remove();
+  }).children().click(function (e) {
+    return false;
+  });
+}
+async function citation() {
+  let editor = await getEditor();
+  let bg = addBackground();
+  bg.find('#background-container').append(`
     <p>Name of Original Image, Book, Article, Video, etc.*</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
     <p>Name of Original Author*</p>
@@ -93,7 +98,7 @@ async function citation() {
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-publisher">
     <p>URL (If Applicable)</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
-    </div>`);
+    `);
   $("#citation-add-atuhor").click(function() {
     console.log("ADD");
     $("#citation-authors").append(`
@@ -103,7 +108,6 @@ async function citation() {
     </div>
     `);
   });
-  addBackgroundClosing(bg);
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
