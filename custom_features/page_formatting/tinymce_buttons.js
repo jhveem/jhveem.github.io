@@ -78,9 +78,14 @@ border: 2px solid #888;
 padding: 10px 20px;
 color: #000;
 border-radius: 5px;'>
-<input style='width: 100%;' type="text" class="citation-information" id="citation-author">
+<p>Name of Original Image, Book, Article, Video, etc.</p>
 <input style='width: 100%;' type="text" class="citation-information" id="citation-name">
-<input style='width: 100%;' type="date" class="citation-information" id="citation-date-accessed" value='` + new Date() + `'>
+<p>Name of Original Author</p>
+<input style='width: 100%;' type="text" class="citation-information" id="citation-author">
+<p>Date Accessed</p>
+<input style='width: 100%;' type="date" class="citation-information" id="citation-date-accessed">
+<p>URL (If Applicable)</p>
+<input style='width: 100%;' type="text" class="citation-information" id="citation-author">
 </div>`);
   bg.click(function () {
     $(this).remove();
