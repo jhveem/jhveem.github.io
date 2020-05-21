@@ -71,10 +71,10 @@ function addBackground() {
 }
 //This needs to be called after all children are added to the backround otherwise it'll close on click anywhere.
 function addBackgroundClosing(bg) {
-  bg.click(function () {
+  bg.click(function (e) {
+    if (e.target !== this)
+      return; 
     $(this).remove();
-  }).children().click(function (e) {
-    return false;
   });
 }
 async function citation() {
