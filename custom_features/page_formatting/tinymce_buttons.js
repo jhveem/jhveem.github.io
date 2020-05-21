@@ -111,13 +111,14 @@ async function citationKeypress(bg) {
           citationString += ("(" + date.slice(0,4) + "). ");
         }
         
-        citationString += (name + ". ");
+        citationString += ("<i>" +name + "</i>. ");
         if (publisher !== "") {
           citationString += (publisher + ". ")
         }
         if (url !== "") {
           citationString += ("Retrieved from "+url);
         }
+        citationString = "<p class='btech-citation'>" + citationString + "</p>";
         editor.execCommand("mceReplaceContent", false, `<p>`+citationString+`</p>`);
         bg.remove();
       }
