@@ -46,6 +46,7 @@ async function exampleBox() {
 </tbody>
 </table>`);
 }
+
 function addBackground() {
   let bg = $(`
   <div style="position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;"></div>`);
@@ -76,7 +77,7 @@ color: #000;
 border-radius: 5px;'>
 <input style='width: 100%;' type="text" class="citation-information" id="citation-author">
 <input style='width: 100%;' type="text" class="citation-information" id="citation-name">
-<input style='width: 100%;' type="date" class="citation-information" id="citation-date-accessed" value='`+new Date()+`'>
+<input style='width: 100%;' type="date" class="citation-information" id="citation-date-accessed" value='` + new Date() + `'>
 </div>`);
   $(".citation-information").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -92,29 +93,29 @@ border-radius: 5px;'>
 async function googleSheetsTable() {
   let editor = await getEditor();
   let selection = editor.selection;
-  $("body").append(`
-<div id="google-sheet-id-container-bg" style="position:fixed; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; left: 0; top: 0; z-index:1000;">
-<div id='google-sheet-id-container' style='
-width: 500px;
-left: 50%;
-transform: translate(-50%, -50%);
-position:fixed;
-top: 50%;
-z-index:1000;
-transition: 0.5s;
-background-color: #FFF;
-border: 2px solid #888;
-padding: 10px 20px;
-color: #000;
-border-radius: 5px;'>
-Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-sheet-id">
-</div>
-</div>`);
+  let bg = addBackground();
+  bg.append(`
+    <div id='google-sheet-id-container' style='
+    width: 500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position:fixed;
+    top: 50%;
+    z-index:1000;
+    transition: 0.5s;
+    background-color: #FFF;
+    border: 2px solid #888;
+    padding: 10px 20px;
+    color: #000;
+    border-radius: 5px;'>
+    Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-sheet-id">
+    </div>
+    </div>`);
   $("#google-sheet-id-container-bg").click(function () {
     $(this).remove();
   }).children().click(function (e) {
     return false;
-  });;
+  });
   $("#google-sheet-id").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
@@ -130,7 +131,7 @@ Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-shee
 </tbody>
 </table>`);
       //*/
-      $("#google-sheet-id-container-bg").remove();
+      bg.remove();
     }
     event.stopPropagation();
   });
@@ -163,7 +164,7 @@ async function addButton(name, func, className = '') {
 }
 async function addButtonIcon(icon, description, func, className = '') {
   let customButtonsContainer = $("#btech-custom-editor-buttons-container");
-  let button = $("<div  class='" + className + "' title='"+description+"' style='padding: 4px 8px; color: #000; cursor: pointer;'><i style='font-size: 1rem;' class='mce-ico " + icon + "'></i></a>");
+  let button = $("<div  class='" + className + "' title='" + description + "' style='padding: 4px 8px; color: #000; cursor: pointer;'><i style='font-size: 1rem;' class='mce-ico " + icon + "'></i></a>");
   button.click(func);
   customButtonsContainer.append(button);
   return button;
@@ -220,10 +221,10 @@ function formatPage() {
   let headerNum = -1;
   let headerName = null;
   let alt = true;
-  $(body).find('.btech-sections').each(function() {
+  $(body).find('.btech-sections').each(function () {
     $(this).contents().unwrap();
   });
-  $(body).find('.btech-sections-header').each(function() {
+  $(body).find('.btech-sections-header').each(function () {
     $(this).find('.btech-sections-header-content').contents().unwrap();
     $(this).removeClass('.btech-sections-header');
   });
@@ -298,7 +299,7 @@ async function _init() {
     // addButton("Google Sheets Table", googleSheetsTable);
     addButtonIcon("far fa-file-spreadsheet", "Insert a table which will be linked to a google sheet. You will need the google sheet id.", googleSheetsTable);
     addButtonIcon("far fa-swatchbook", "Create a theme for the page. The template will be inserted at the top of the page. Edit the template to apply changes throughout the page.", addCustomThemeParent);
-    addButtonIcon("far fa-stream", "Auto format the page to break the page into sections. Sections are determined by the top level heading.",formatPage);
+    addButtonIcon("far fa-stream", "Auto format the page to break the page into sections. Sections are determined by the top level heading.", formatPage);
     for (let i = 0; i < tableOptions.length; i++) {
       let className = tableOptions[i];
       let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
