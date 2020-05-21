@@ -79,7 +79,8 @@ padding: 10px 20px;
 color: #000;
 border-radius: 5px;'>
 <p>Name of Original Image, Book, Article, Video, etc.*</p>
-<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
+<input style='width: 48%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-first-name">
+<input style='width: 48%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-last-name">
 <p>Name of Original Author*</p>
 <input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author">
 <p>Date Published</p>
@@ -115,7 +116,7 @@ border-radius: 5px;'>
           citationString += (publisher + ". ")
         }
         if (url !== "") {
-          citationString += ("At: "+url);
+          citationString += ("Retrieved from "+url);
         }
         editor.execCommand("mceReplaceContent", false, `<p>`+citationString+`</p>`);
         bg.remove();
