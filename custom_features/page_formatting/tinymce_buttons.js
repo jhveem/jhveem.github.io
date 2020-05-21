@@ -97,7 +97,9 @@ async function citation() {
     <p>URL (If Applicable)</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
     `);
+    console.log("v 1");
   $("#citation-add-atuhor").click(function() {
+    console.log("ADD");
     $("#citation-authors").append(`
     <div class="citation-author">
       <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name">
