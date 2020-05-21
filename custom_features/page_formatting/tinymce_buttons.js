@@ -110,7 +110,7 @@ async function citationKeypress() {
           citationString += ("Retrieved from "+url);
         }
         editor.execCommand("mceReplaceContent", false, `<p>`+citationString+`</p>`);
-        bg.remove();
+        $("#background-container").remove();
       }
     }
     event.stopPropagation();
