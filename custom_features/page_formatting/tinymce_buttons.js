@@ -79,21 +79,21 @@ padding: 10px 20px;
 color: #000;
 border-radius: 5px;'>
 <p>Name of Original Image, Book, Article, Video, etc.*</p>
-<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
+<input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
 <p>Name of Original Author*</p>
 <div id="citation-authors">
   <div class="citation-author">
-    <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name" id="citation-author-first">
-    <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
+    <input placeholder="first name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information first-name" id="citation-author-first">
+    <input placeholder="last name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
   </div>
 </div>
 <a class="btn" id="citation-add-author">Add Author</a>
 <p>Date Published</p>
-<input style='width: 100%; height: 24px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
+<input style='width: 100%; height: 40px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
 <p>Publisher</p>
-<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-publisher">
+<input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-publisher">
 <p>URL (If Applicable)</p>
-<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
+<input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
 </div>`);
   bg.click(function () {
     $(this).remove();
