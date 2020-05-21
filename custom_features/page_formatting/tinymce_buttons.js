@@ -65,45 +65,36 @@ async function citation() {
   let editor = await getEditor();
   let bg = addBackground();
   bg.append(`
-<div id='citation-container' style='
-width: 500px;
-left: 50%;
-transform: translate(-50%, -50%);
-position:fixed;
-top: 50%;
-z-index:1000;
-transition: 0.5s;
-background-color: #FFF;
-border: 2px solid #888;
-padding: 10px 20px;
-color: #000;
-border-radius: 5px;'>
-<p>Name of Original Image, Book, Article, Video, etc.*</p>
-<input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
-<p>Name of Original Author*</p>
-<div id="citation-authors">
-  <div class="citation-author">
-    <input placeholder="first name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information first-name" id="citation-author-first">
-    <input placeholder="last name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
-  </div>
-</div>
-<a class="btn" id="citation-add-author">Add Author</a>
-<p>Date Published</p>
-<input style='width: 100%; height: 40px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
-<p>Publisher</p>
-<input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-publisher">
-<p>URL (If Applicable)</p>
-<input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
-</div>`);
-  $("#citation-add-atuhor").click(function() {
-    console.log("ADD");
-    $("#citation-authors").append(`
-    <div class="citation-author">
-      <input placeholder="first name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information first-name">
-      <input placeholder="last name" style='width: 49%; height: 24px; box-sizing: border-box;' type="text" class="citation-information last-name">
+    <div id='citation-container' style='
+    width: 500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position:fixed;
+    top: 50%;
+    z-index:1000;
+    transition: 0.5s;
+    background-color: #FFF;
+    border: 2px solid #888;
+    padding: 10px 20px;
+    color: #000;
+    border-radius: 5px;'>
+    <p>Name of Original Image, Book, Article, Video, etc.*</p>
+    <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
+    <p>Name of Original Author*</p>
+    <div id="citation-authors">
+      <div class="citation-author">
+        <input placeholder="first name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information first-name" id="citation-author-first">
+        <input placeholder="last name" style='width: 49%; height: 40px; box-sizing: border-box;' type="text" class="citation-information last-name" id="citation-author-last">
+      </div>
     </div>
-    `);
-  });
+    <a class="btn" id="citation-add-author" onclick="console.log('test')">Add Author</a>
+    <p>Date Published</p>
+    <input style='width: 100%; height: 40px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
+    <p>Publisher</p>
+    <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-publisher">
+    <p>URL (If Applicable)</p>
+    <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
+    </div>`);
   bg.click(function () {
     $(this).remove();
   }).children().click(function (e) {
