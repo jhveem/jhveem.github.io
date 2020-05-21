@@ -79,13 +79,13 @@ padding: 10px 20px;
 color: #000;
 border-radius: 5px;'>
 <p>Name of Original Image, Book, Article, Video, etc.</p>
-<input style='width: 100%; height: box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
+<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
 <p>Name of Original Author</p>
-<input style='width: 100%; box-sizing: border-box;' type="text" class="citation-information" id="citation-author">
+<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-author">
 <p>Date Accessed</p>
-<input style='width: 100%; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
+<input style='width: 100%; height: 24px; box-sizing: border-box;' type="date" class="citation-information" id="citation-date-accessed">
 <p>URL (If Applicable)</p>
-<input style='width: 100%; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
+<input style='width: 100%; height: 24px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
 </div>`);
   bg.click(function () {
     $(this).remove();
