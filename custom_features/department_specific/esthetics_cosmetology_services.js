@@ -14,7 +14,7 @@
     //IF the editor, add the ability to add services
 
     if (TOOLBAR.checkEditorPage()) {
-      let btn = TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", function() {
+      let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", function() {
         let editor = TOOLBAR.editor;
         editor.execCommand("mceInsertContent", false, `<div class='btech-services' style='display: none;'>#SERVICES#</div>`);
       });
