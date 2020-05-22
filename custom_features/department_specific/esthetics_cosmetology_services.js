@@ -12,7 +12,6 @@
   (async function () {
     IMPORTED_FEATURE = {};
     //IF the editor, add the ability to add services
-
     if (TOOLBAR.checkEditorPage()) {
       await TOOLBAR.checkReady();
       function checkButtonColor(btn) {
@@ -61,61 +60,61 @@
             ////Option to delete a submission, which will delete that comment and all other comments with the submission id
 
             let vueString = `
-<div style="padding:10px;" id='app-services'>
-  <div class="btech-tabs-container">
-    <ul>
-      <li v-for="menuName, key in menus" :class="{active: menu==menuName}" @click="menu=menuName">{{menuName}}</li>
-      <li v-if="flaggedDates.length > 0" :class="{active: menu=='flagged'}" @click="menu='flagged'">flagged dates</li>
-    </ul>
-    <div style="padding: 10px;">
+              <div style="padding:10px;" id='app-services'>
+                <div class="btech-tabs-container">
+                  <ul>
+                    <li v-for="menuName, key in menus" :class="{active: menu==menuName}" @click="menu=menuName">{{menuName}}</li>
+                    <li v-if="flaggedDates.length > 0" :class="{active: menu=='flagged'}" @click="menu='flagged'">flagged dates</li>
+                  </ul>
+                  <div style="padding: 10px;">
 
-      <div v-if="menu == 'review'">
-        <div v-if="loading==true">Loading Content...</div>
-        <div v-else>
-          <h3>Select a service and submit to confirm a student pass off.</h3>
-          <select v-model="selectedCriterion">
-            <option value="" disabled>-Select Service-</option>
-            <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
-          </select>
-          <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
-          <br>
-          <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Submit</div>
-        </div>
-      </div>
+                    <div v-if="menu == 'review'">
+                      <div v-if="loading==true">Loading Content...</div>
+                      <div v-else>
+                        <h3>Select a service and submit to confirm a student pass off.</h3>
+                        <select v-model="selectedCriterion">
+                          <option value="" disabled>-Select Service-</option>
+                          <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
+                        </select>
+                        <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
+                        <br>
+                        <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Submit</div>
+                      </div>
+                    </div>
 
-      <div v-if="menu == 'completed'">
-        <p>Select a Service from the dropdown below to review completed submissions</p>
-        <select v-model="selectedCompletedCriterion">
-          <option value="">-Select Service-</option>
-          <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed) {{criterion.average_time}}</option>
-        </select>
-        <input type="date" v-model="completedCriterionDate" min="2018-01-01">
-        <br>
-        <div v-for="service in services">
-          <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
-            <h3 v-if="(selectedCompletedCriterion === '')"><b>{{service.service}}</b></h3>
-            <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
-            <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
-            <blockquote v-if="service.comments!=''">{{service.comments}}</blockquote>
-          </div>
-        </div>
-      </div>
+                    <div v-if="menu == 'completed'">
+                      <p>Select a Service from the dropdown below to review completed submissions</p>
+                      <select v-model="selectedCompletedCriterion">
+                        <option value="">-Select Service-</option>
+                        <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed) {{criterion.average_time}}</option>
+                      </select>
+                      <input type="date" v-model="completedCriterionDate" min="2018-01-01">
+                      <br>
+                      <div v-for="service in services">
+                        <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
+                          <h3 v-if="(selectedCompletedCriterion === '')"><b>{{service.service}}</b></h3>
+                          <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
+                          <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
+                          <blockquote v-if="service.comments!=''">{{service.comments}}</blockquote>
+                        </div>
+                      </div>
+                    </div>
 
-      <div v-if="menu === 'progress'">
-        <div>Progress: {{Math.round(totalProgress * 100)}}%</div>
-        <br>
-        <div v-for="criterion in criteria">
-            {{criterion.description}}: {{criterion.points_current}} / {{criterion.points}} completed ({{Math.round((criterion.points_current / criterion.points) * 100)}}%)
-        </div>
-      </div>
+                    <div v-if="menu === 'progress'">
+                      <div>Progress: {{Math.round(totalProgress * 100)}}%</div>
+                      <br>
+                      <div v-for="criterion in criteria">
+                          {{criterion.description}}: {{criterion.points_current}} / {{criterion.points}} completed ({{Math.round((criterion.points_current / criterion.points) * 100)}}%)
+                      </div>
+                    </div>
 
-      <div v-if="menu === 'flagged'">
-        <div v-for="date in flaggedDates">{{date}} ({{minToHoursString(hoursSubmittedInDate(date))}})</div>
-      </div>
+                    <div v-if="menu === 'flagged'">
+                      <div v-for="date in flaggedDates">{{date}} ({{minToHoursString(hoursSubmittedInDate(date))}})</div>
+                    </div>
 
-    </div>
-  </div>
-</div>`;
+                  </div>
+                </div>
+              </div>`;
             let rPieces = /^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/;
             let pieces = window.location.pathname.match(rPieces);
             let courseId = parseInt(pieces[1]);
@@ -307,7 +306,6 @@
           }
         }
       }
-
       //SUBMISSION VIEW
     } else if (/^\/courses\/[0-9]+\/assignments\/[0-9]+/.test(window.location.pathname)) {
       //Just add in a div with the id:  btech-services-modal
