@@ -20,11 +20,11 @@
         let services = $(body).find("#btech-services");
         if (services.length === 0) {
           btn.find('i').css({
-            'color': "#d22212"
+            'color': "#000000"
           });
         } else {
           btn.find('i').css({
-            'color': "#000000"
+            'color': "#d22212"
           });
         }
       }
