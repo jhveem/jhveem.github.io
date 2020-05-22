@@ -15,6 +15,6 @@
   font-weight: bold;
 }
 
-.btech-citation {
-  font-size: .66rem;
+#content .btech-citation {
+  font-size: .66rem !important;
 }
