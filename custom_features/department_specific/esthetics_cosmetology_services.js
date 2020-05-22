@@ -11,6 +11,20 @@
   //https://btech.beta.instructure.com/courses/470598
   (function () {
     IMPORTED_FEATURE = {};
+    //IF the editor, add the ability to add services
+
+    if (TOOLBAR.checkEditorPage()) {
+      let btn = TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", function() {
+        let editor = TOOLBAR.editor;
+        editor.execCommand("mceInsertContent", false, `<div class='btech-services' style='display: none;'>#SERVICES#</div>`);
+      });
+      btn.click(function() {
+        btn.css({
+          'background-color': "#d22212"
+        })
+      });
+    }
+
     //GRADING VIEW
     //This one has to come first so it doesn't have the submission view run on the grading page
     if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {

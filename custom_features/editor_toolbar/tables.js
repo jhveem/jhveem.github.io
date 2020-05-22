@@ -1,4 +1,6 @@
 (async function () {
+  //escape if not on the editor page
+  if (!TOOLBAR.checkEditorPage()) return;
   async function addClassToTable(className) {
     //get the currently selected node
     let node = tinyMCE.activeEditor.selection.getNode();
@@ -43,7 +45,7 @@
   for (let i = 0; i < tableOptions.length; i++) {
     let className = tableOptions[i];
     let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
-    let btn = await addButton(optionName, function () {
+    let btn = await TOOLBAR.addButton(optionName, function () {
       addClassToTable(className);
       resetTableButtons();
     }, 'btech-table-edit-button');

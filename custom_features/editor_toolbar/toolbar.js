@@ -128,9 +128,11 @@ TOOLBAR = {
     return button;
   },
   
-  
+  checkEditorPage() {
+    if (window.location.pathname.includes("edit")) return true;
+    return false;
+  },
 
-  
   async _init() {
     this.editor = await this.getEditor();
     let topPart = null;
@@ -151,4 +153,4 @@ TOOLBAR = {
     }
   }
 }
-if (window.location.pathname.includes("edit")) TOOLBAR._init();
+if (TOOLBAR.checkEditorPage()) TOOLBAR._init();

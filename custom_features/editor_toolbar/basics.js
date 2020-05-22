@@ -1,4 +1,6 @@
 (async function () {
+  //escape if not on the editor page
+  if (!TOOLBAR.checkEditorPage()) return;
   async function hideOnHover() {
     let editor = TOOLBAR.editor;
     let selection = editor.selection;
