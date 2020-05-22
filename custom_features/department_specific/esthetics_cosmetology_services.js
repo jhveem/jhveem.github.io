@@ -9,12 +9,13 @@
   */
   //DEMO HERE:
   //https://btech.beta.instructure.com/courses/470598
-  (function () {
+  (async function () {
     IMPORTED_FEATURE = {};
     //IF the editor, add the ability to add services
 
     if (TOOLBAR.checkEditorPage()) {
-      let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", function() {
+      await TOOLBAR.checkReady();
+      let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", async function() {
         let editor = TOOLBAR.editor;
         editor.execCommand("mceInsertContent", false, `<div class='btech-services' style='display: none;'>#SERVICES#</div>`);
       });
