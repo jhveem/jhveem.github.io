@@ -74,7 +74,7 @@
         <div v-else>
           <h3>Select a service and submit to confirm a student pass off.</h3>
           <select v-model="selectedCriterion">
-            <option value="" disabled>-Select Service-</option>
+            <option value="">-Select Service-</option>
             <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
           </select>
           <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
@@ -91,7 +91,6 @@
         </select>
         <input type="date" v-model="completedCriterionDate" min="2018-01-01">
         <br>
-        <div>{{hoursSubmittedInDate(completedCriterionDate, selectedCompletedCriterion)}} minutes</div>
         <div v-for="service in services">
           <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
             <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
@@ -311,14 +310,13 @@
       //SUBMISSION VIEW
     } else if (/^\/courses\/[0-9]+\/assignments\/[0-9]+/.test(window.location.pathname)) {
       //Just add in a div with the id:  btech-services-modal
-      //Change this so they just have to type #SERVICES#, no ids or anything like that
       IMPORTED_FEATURE = {
         initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
         _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
           let contents = $("div.user_content").html();
-          $("div.user_content").html(contents.replace("#SERVICES#", "<div id='btech-services-modal'></div>"));
-          $("#btech-services-modal").empty();
-          $("#btech-services-modal").append("");
+          //should start of hidden from the default css
+          $("#btech-services").empty();
+          $("#btech-services").append("");
           //add in whatever should appear in here.
           ////one option is a selector for teachers to select a student or a link to the student's grades page if it's the student
         }
