@@ -15,14 +15,33 @@
 
     if (TOOLBAR.checkEditorPage()) {
       await TOOLBAR.checkReady();
+      function checkButtonColor(btn) {
+        let body = tinyMCE.activeEditor.getBody();
+        let services = $(body).find("#btech-services");
+        if (services.length === 0) {
+          btn.css({
+            'color': "#d22212"
+          });
+        } else {
+          btn.css({
+            'color': "#d22212"
+          });
+        }
+      }
       let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", async function() {
-        let editor = TOOLBAR.editor;
-        editor.execCommand("mceInsertContent", false, `<div class='btech-services' style='display: none;'>#SERVICES#</div>`);
+        let body = tinyMCE.activeEditor.getBody();
+        let services = $(body).find("#btech-services");
+        if (services.length === 0) {
+          $(body).prepend(`
+            <div class='btech-services' style='display: none;'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS A #SERVICES# ASSIGNMENT</div>
+          `);
+        } else {
+          services.remove();
+        }
       });
+      checkButtonColor(btn);
       btn.click(function() {
-        btn.css({
-          'background-color': "#d22212"
-        })
+        checkButtonColor(btn);
       });
     }
 
