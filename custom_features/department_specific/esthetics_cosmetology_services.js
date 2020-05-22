@@ -86,7 +86,7 @@
                       <p>Select a Service from the dropdown below to review completed submissions</p>
                       <select v-model="selectedCompletedCriterion">
                         <option value="">-Select Service-</option>
-                        <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed) {{criterion.average_time}}</option>
+                        <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
                       </select>
                       <input type="date" v-model="completedCriterionDate" min="2018-01-01">
                       <br>
