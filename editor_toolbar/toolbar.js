@@ -10,7 +10,7 @@ TOOLBAR = {
   async getEditor() {
     if (window.tinymce === undefined) {
       await delay(500);
-      return getEditor();
+      return this.getEditor();
     } else {
       return tinymce.activeEditor;
     }
@@ -70,7 +70,7 @@ TOOLBAR = {
 
   
   async googleSheetsTable() {
-    let editor = await getEditor();
+    let editor = this.editor;
     let selection = editor.selection;
     let bg = addBackground();
     bg.append(`
