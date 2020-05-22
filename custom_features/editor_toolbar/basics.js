@@ -35,41 +35,45 @@
       </tbody>
       </table>`);
   }
+  function citationInsert(bg) {
+    let editor = TOOLBAR.editor;
+    let name = $("#citation-name").val();
+    let authorLast = $("#citation-author-last").val();
+    let publisher = $("#citation-publisher").val();
+    let date = $("#citation-date-accessed").val();
+    let url = $("#citation-url").val();
+    if (name != "" && authorLast != "") {
+      let citationString = "";
+      $(".citation-author").each(function () {
+        let authorEl = $(this);
+        let last = authorEl.find(".last-name").val();
+        let first = authorEl.find(".first-name").val();
+        if (last !== "") {
+          citationString += (last + ", " + first.charAt(0) + ". ")
+        }
+      })
+      if (date !== "") {
+        citationString += ("(" + date.slice(0, 4) + "). ");
+      }
+
+      citationString += ("<i>" + name + "</i>. ");
+      if (publisher !== "") {
+        citationString += (publisher + ". ")
+      }
+      if (url !== "") {
+        citationString += ("Retrieved from " + url);
+      }
+      citationString = "<p class='btech-citation'>" + citationString + "</p>";
+      editor.execCommand("mceReplaceContent", false, `<p>` + citationString + `</p>`);
+      bg.remove();
+    }
+  }
   async function citationKeypress(bg) {
     let editor = TOOLBAR.editor;
     $(".citation-information").keypress(function (event) {
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if (keycode == '13') {
-        let name = $("#citation-name").val();
-        let authorLast = $("#citation-author-last").val();
-        let publisher = $("#citation-publisher").val();
-        let date = $("#citation-date-accessed").val();
-        let url = $("#citation-url").val();
-        if (name != "" && authorLast != "") {
-          let citationString = "";
-          $(".citation-author").each(function () {
-            let authorEl = $(this);
-            let last = authorEl.find(".last-name").val();
-            let first = authorEl.find(".first-name").val();
-            if (last !== "") {
-              citationString += (last + ", " + first.charAt(0) + ". ")
-            }
-          })
-          if (date !== "") {
-            citationString += ("(" + date.slice(0, 4) + "). ");
-          }
-
-          citationString += ("<i>" + name + "</i>. ");
-          if (publisher !== "") {
-            citationString += (publisher + ". ")
-          }
-          if (url !== "") {
-            citationString += ("Retrieved from " + url);
-          }
-          citationString = "<p class='btech-citation'>" + citationString + "</p>";
-          editor.execCommand("mceReplaceContent", false, `<p>` + citationString + `</p>`);
-          bg.remove();
-        }
+        citationInsert(bg);
       }
       event.stopPropagation();
     });
@@ -93,6 +97,7 @@
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-publisher">
     <p>URL (If Applicable)</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-url">
+    <a class='btn' id="citation-submit">Create</a>
     `);
     let addAuthor = $("#citation-add-author");
     addAuthor.click(function () {
@@ -103,6 +108,10 @@
     </div>
     `);
       citationKeypress(bg);
+    });
+    let submit = $("#citation-submit");
+    submit.click(function() {
+      citationInsert(bg);
     });
     citationKeypress(bg);
   }

@@ -288,8 +288,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
   featureCDD("help_tab");
   featureCDD("rubrics/add_criteria_from_csv");
   featureCDD("rubrics/create_rubric_from_csv");
-  if (!IS_ME) featureCDD('page_formatting/tinymce_buttons');
-  if (IS_ME) feature("editor_toolbar/basics")
+  featureCDD("editor_toolbar/basics")
 });
 });
 
