@@ -33,7 +33,7 @@
         let services = $(body).find("#btech-services");
         if (services.length === 0) {
           $(body).prepend(`
-            <div id='btech-services' style='border: 1px solid #000;'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS A #SERVICES# ASSIGNMENT</div>
+            <div id='btech-services' style='border: 1px solid #000;'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS A #SERVICES# ASSIGNMENT</div><p> </p>
           `);
         } else {
           services.remove();
