@@ -73,7 +73,7 @@
     });
   }
   async function citation() {
-    let bg = addBackground();
+    let bg = TOOLBAR.addBackground();
     bg.find('#background-container').append(`
     <p>Name of Image, Book, Article, Video, etc.*</p>
     <input style='width: 100%; height: 40px; box-sizing: border-box;' type="text" class="citation-information" id="citation-name">
