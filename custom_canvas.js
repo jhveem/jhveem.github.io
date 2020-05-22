@@ -175,6 +175,7 @@ $.delete = function (url, data) {
 add_javascript_library("https://cdn.jsdelivr.net/npm/vue");
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
+$.getScript("https://jhveem.github.io/editor_toolbar/toolbar.js").done(() => {
 $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
   let currentUser = parseInt(ENV.current_user.id);
   const IS_ME = (currentUser === 1893418);
@@ -186,13 +187,13 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     //AVAILABLE TO EVERYONE
     feature('date_display/add_current_year_speed_grader');
     feature('date_display/add_current_year');
-    featureBeta('rubrics/gen_comment');
     feature('page_formatting/dropdown_from_table');
     feature('page_formatting/tabs_from_table');
     feature('page_formatting/google_sheets_table');
     feature('modules/convert_to_page');
+    feature("page_formatting/tinymce_font_size");
+    featureBeta('rubrics/gen_comment');
     featureBeta('modules/course_features');
-    featureCDD("page_formatting/tinymce_font_size");
 
     let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
     //COURSE SPECIFIC FEATURES
@@ -200,7 +201,7 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
     featurePilot("rubrics/attempts_data", courseId, [498455]); //Dental 1010 pilot
     featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
     featurePilot("highlight_comments_same_date", courseId, [498455]); //Dental 1010 pilot
-    featurePilot("page_formatting/tinymce_buttons", courseId, [425334]);
+    if (!IS_ME) featurePilot("page_formatting/tinymce_buttons", courseId, [425334]);
     //DEPARTMENT SPECIFIC IMPORTS
     let departmentId = 0;
     //DETERMINE CURRENT DEPARTMENT FROM DEPARTMENT LIST
@@ -253,7 +254,9 @@ $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
   featureCDD("help_tab");
   featureCDD("rubrics/add_criteria_from_csv");
   featureCDD("rubrics/create_rubric_from_csv");
-  featureCDD('page_formatting/tinymce_buttons');
+  if (!IS_ME) featureCDD('page_formatting/tinymce_buttons');
+  if (IS_ME) feature("editor_toolbar/basics.js")
+});
 });
 
 /*EvaluationKIT END*/
