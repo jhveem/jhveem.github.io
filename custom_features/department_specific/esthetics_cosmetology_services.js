@@ -74,7 +74,7 @@
         <div v-else>
           <h3>Select a service and submit to confirm a student pass off.</h3>
           <select v-model="selectedCriterion">
-            <option value="">-Select Service-</option>
+            <option value="" disabled>-Select Service-</option>
             <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
           </select>
           <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
@@ -86,14 +86,14 @@
       <div v-if="menu == 'completed'">
         <p>Select a Service from the dropdown below to review completed submissions</p>
         <select v-model="selectedCompletedCriterion">
-          <option value="" disabled>-Select Service-</option>
+          <option value="">-Select Service-</option>
           <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed) {{criterion.average_time}}</option>
         </select>
         <input type="date" v-model="completedCriterionDate" min="2018-01-01">
         <br>
         <div v-for="service in services">
           <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
-            <p v-if="(selectedCompletedCriterion === '')><b>{{service.service}}</b></p>
+            <p v-if="(selectedCompletedCriterion === '')"><b>{{service.service}}</b></p>
             <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
             <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
             <blockquote v-if="service.comments!=''">{{service.comments}}</blockquote>
