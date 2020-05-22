@@ -175,7 +175,7 @@ $.delete = function (url, data) {
 add_javascript_library("https://cdn.jsdelivr.net/npm/vue");
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
-$.getScript("https://jhveem.github.io/editor_toolbar/toolbar.js").done(() => {
+$.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js").done(() => {
 $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
   let currentUser = parseInt(ENV.current_user.id);
   const IS_ME = (currentUser === 1893418);
