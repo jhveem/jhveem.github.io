@@ -19,11 +19,11 @@
         let body = tinyMCE.activeEditor.getBody();
         let services = $(body).find("#btech-services");
         if (services.length === 0) {
-          btn.css({
+          btn.find('i').css({
             'color': "#d22212"
           });
         } else {
-          btn.css({
+          btn.find('i').css({
             'color': "#000000"
           });
         }
@@ -33,7 +33,7 @@
         let services = $(body).find("#btech-services");
         if (services.length === 0) {
           $(body).prepend(`
-            <div class='btech-services'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS A #SERVICES# ASSIGNMENT</div>
+            <div id='btech-services'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS A #SERVICES# ASSIGNMENT</div>
           `);
         } else {
           services.remove();
