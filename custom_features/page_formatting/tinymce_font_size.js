@@ -14,9 +14,6 @@ async function _init() {
   h2 {font-size: 1.5rem; font-weight: bold;}
   h3 {font-size: 1.2rem; font-weight: bold;}
   h4 {font-size: 1rem; font-weight: bold; display: inline;}
-  h4 ~ p {
-    display: inline;
-  }
   .btech-citation {
     font-size: .66rem;
   }
