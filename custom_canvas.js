@@ -259,7 +259,7 @@ $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js"
         feature("page_formatting/tinymce_buttons");
         feature("department_specific/amar_elec_add_module_items");
       }
-      if (departmentId === 3847) {
+      if (departmentId === 3847) { //meats
         feature("previous-enrollment-data/previous_enrollment_period_grades");
       }
       if (departmentId === 3841) { //cosmetology
@@ -274,8 +274,9 @@ $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js"
     featureCDD("help_tab");
     featureCDD("rubrics/add_criteria_from_csv");
     featureCDD("rubrics/create_rubric_from_csv");
-    featureCDD("editor_toolbar/basics")
-    featureCDD("editor_toolbar/tables")
+    featureCDD("editor_toolbar/basics");
+    featureCDD("editor_toolbar/tables");
+    featureCDD("surveys");
   });
 });
 

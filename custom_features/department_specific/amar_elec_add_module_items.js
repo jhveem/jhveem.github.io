@@ -31,7 +31,7 @@
         'quiz_type': 'assignment',
         'allowed_attempts': -1,
         'question_count': 3,
-        'published': false 
+        'published': false
       }
     }).done(function (data) {
       quizId = data.id;
