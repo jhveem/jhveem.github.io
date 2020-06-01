@@ -16,7 +16,7 @@
   if (true) {
     IMPORTED_FEATURE = {
       initiated: false,
-      _init(params = {}) {
+      async _init(params = {}) {
         let vueString = '';
         await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function(html) {
           vueString = html.replace("<template>", "").replace("</template>", "");
