@@ -121,6 +121,7 @@
                     //getAssignmentData(student);
                   }
                 }
+                console.log(app.students);
                 //getSectionData(students, course_id);
               });
             }
