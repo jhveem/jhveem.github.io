@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody border='1' id='btech-report-table-body'>
-          <tr v-for='student in students' :key='student.id'>{{student.name}}</tr>
+          <tr v-for='student in students'>{{student.name}}</tr>
         </tbody>
         <tfoot border='1' id='btech-report-table-foot'>
 
