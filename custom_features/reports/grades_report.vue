@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class='btech-modal'>
+  <div class='btech-modal-content'>
     <span class='btech-close' id='btech-close'>&times;</span>
     <h3 style='text-align: center;'>Report</h3>
     <h5 style='text-align: center;'>Click on column headers to sort by that column.</h5>
@@ -19,5 +20,6 @@
 
       </tfoot>
       </table>
+  </div>
   </div>
 </template>
