@@ -73,7 +73,7 @@
           data: function () {
             return {
               courseId: null,
-              students: {},
+              students: {'key': 'val'},
               columns: [
                 new Column('Name', ''),
                 new Column('Section', ''),
