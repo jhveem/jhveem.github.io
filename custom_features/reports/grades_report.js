@@ -91,6 +91,7 @@
           methods: {
             //
             createGradesReport() {
+              let app = this;
               let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
               url += "&enrollment_state%5B%5D=invited"
               url += "&enrollment_type%5B%5D=student"
@@ -112,8 +113,8 @@
                     }
                   }
                   if (enrollment !== null) {
-                    this.students[userId] = new Student(userId, studentData.sortable_name, this.courseId);
-                    student = this.students[userId];
+                    app.students[userId] = new Student(userId, studentData.sortable_name, this.courseId);
+                    student = app.students[userId];
                     student.data = studentData;
                     student.enrollment = enrollment;
                     student.processEnrollment();
