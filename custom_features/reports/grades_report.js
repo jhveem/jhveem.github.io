@@ -101,8 +101,6 @@
               url += "&per_page=100";
 
               $.get(url, function (data) {
-                console.log(url);
-                console.log(data);
                 for (let s = 0; s < data.length; s++) {
                   let studentData = data[s];
                   let userId= studentData.id;
@@ -114,7 +112,7 @@
                     }
                   }
                   if (enrollment !== null) {
-                    app.students[userId] = new Student(userId, studentData.sortable_name, this.courseId);
+                    Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, this.courseId));
                     student = app.students[userId];
                     student.data = studentData;
                     student.enrollment = enrollment;
