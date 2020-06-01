@@ -89,7 +89,6 @@
           },
 
           methods: {
-            //
             createGradesReport() {
               let app = this;
               let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
@@ -117,32 +116,12 @@
                     student = app.students[userId];
                     student.data = studentData;
                     student.enrollment = enrollment;
-                    student.processEnrollment();
-                    getAssignmentData(student);
+                    //getAssignmentData(student);
                   }
                 }
-                getSectionData(students, course_id);
-                //Set up the bottom data including averages, medians, and other information
-                report_foot.append("<tr><td border=0 height=10></td></tr>");
-                let average_row = $('<tr id="btech-modal-average"></tr>').appendTo(report_foot);
-                let median_row = $('<tr id="btech-modal-median"></tr>').appendTo(report_foot);
-                median_row.append('<td style="padding:10px;" colspan=2>MEDIAN</td>');
-                average_row.append('<td style="padding:10px;" colspan=2>AVERAGE</td>');
-                for (let key in columns) {
-                  if (columns[key].average == true) {
-                    average_row.append(columns[key].average_element);
-                    median_row.append(columns[key].median_element);
-                  }
-                }
-
-                report_foot.append("<tr><td border=0 height=10></td></tr>");
-                let final_row = $('<tr id="btech-modal-report-summary"></tr>').appendTo(report_foot);
-                final_row.append("<td style='padding:10px;' colspan=2 title='A projection of the number of days it will take the average student to complete this course based on the time it has take students to reach their current progress.'>PROJECTED AVERAGE DAYS TO COMPLETION</td>");
-                final_row.append("<td style='padding:10px; text-align:center;' id='btech-days-to-completion' style='text-align:center;'></td>");
-
+                //getSectionData(students, course_id);
               });
             }
-            //
           }
         })
       },
