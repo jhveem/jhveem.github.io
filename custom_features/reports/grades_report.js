@@ -22,12 +22,12 @@
           vueString = html.replace("<template>", "").replace("</template>", "");
         }, 'text');
         let canvasbody = $("#application");
-        canvasbody.after('<div id="canvas-grades-report"></div>');
-        $("#canvas-grades-report").append(vueString);
-        $("#canvas-grades-report").hide();
+        canvasbody.after('<div id="canvas-grades-report-vue"></div>');
+        $("#canvas-grades-report-vue").append(vueString);
+        $("#canvas-grades-report-vue").hide();
       },
       APP: new Vue({
-        el: '#canvas-grades-report',
+        el: '#canvas-grades-report-vue',
         mounted: function() {
 
         },
