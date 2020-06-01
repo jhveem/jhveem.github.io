@@ -11,7 +11,7 @@
       </table>
       <thead border='1' id='btech-report-table-head'>
         <tr>
-          <th v-for='column in columns'>{{column.name}}</th>
+          <th v-for='column in columns'>test</th>
         </tr>
       </thead>
       <tbody border='1' id='btech-report-table-body'>
