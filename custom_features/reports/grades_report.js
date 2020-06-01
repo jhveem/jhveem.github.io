@@ -101,6 +101,8 @@
               url += "&per_page=100";
 
               $.get(url, function (data) {
+                console.log(url);
+                console.log(data);
                 for (let s = 0; s < data.length; s++) {
                   let studentData = data[s];
                   let userId= studentData.id;
