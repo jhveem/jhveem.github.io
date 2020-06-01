@@ -46,7 +46,7 @@
   }
 
   async function googleSheetsTable() {
-    let editor = this.editor;
+    let editor = TOOLBAR.editor;
     let selection = editor.selection;
     let bg = addBackground();
     bg.append(`
