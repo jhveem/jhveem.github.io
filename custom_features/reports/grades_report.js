@@ -24,7 +24,6 @@
         let canvasbody = $("#application");
         canvasbody.after('<div id="canvas-grades-report-vue"></div>');
         $("#canvas-grades-report-vue").append(vueString);
-        $("#canvas-grades-report-vue").hide();
       },
       APP: new Vue({
         el: '#canvas-grades-report-vue',
