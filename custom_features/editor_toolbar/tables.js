@@ -1,4 +1,8 @@
 (async function () {
+  tableOptions = [
+    'btech-tabs-table',
+    'btech-dropdown-table'
+  ];
   //escape if not on the editor page
   if (!TOOLBAR.checkEditorPage()) return;
   async function addClassToTable(className) {
