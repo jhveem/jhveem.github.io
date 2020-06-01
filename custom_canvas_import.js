@@ -17,7 +17,6 @@ var s = document.createElement("script");
 s.type = "text/javascript";
 s.src = "https://jhveem.github.io/external-libraries/sorttable.js";
 $("head").append(s);
-
 $("head").append('<script src="https://kit.fontawesome.com/870f83fdd7.js" crossorigin="anonymous"></script>');
 
 function addMenuItem(linkText, linkhref) {
@@ -102,12 +101,6 @@ if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.l
   $(".submission-details-header__rubric--can-grade").append(speed_grader_link);
 }
 //END SPEED GRADER LINK
-
-
-
-//ALLOW FOR HTML TAGS IN COMMENTS
-;
-//END HTML TAGS IN COMMENTS
 
 //Specific to Animal Sciences, this is hiding certain modules that students who are in specific sections do not need to see
 if (/^\/courses\/[0-9]+\/modules$/.test(window.location.pathname)) {

@@ -35,6 +35,7 @@
       </tbody>
       </table>`);
   }
+
   function citationInsert(bg) {
     let editor = TOOLBAR.editor;
     let name = $("#citation-name").val();
@@ -110,7 +111,7 @@
       citationKeypress(bg);
     });
     let submit = $("#citation-submit");
-    submit.click(function() {
+    submit.click(function () {
       citationInsert(bg);
     });
     citationKeypress(bg);
@@ -167,6 +168,28 @@
       }
     }
   }
+
+  function replaceExternalFiles() {
+    let body = tinyMCE.activeEditor.getBody();
+    let bodyText = $(body).html();
+    let externalLinks = [...bodyText.matchAll(/src=\"(.)+?courses\/([0-9]+)\/files\/([0-9]+)/g)];
+    let courseId = parseInt(window.location.pathname.match(/courses\/([0-9]+)/)[1]);
+    $.get("/api/v1/courses/" + courseId + "/folders").done(function (data) {
+      console.log(data);
+      for (let d = 0; d < data.length; d++) {
+        let folderData = data[d];
+        if (folderData.name == "course files") {
+
+          url = "/api/v1/folders/" + data[d].id + "/copy_file?source_file_id=" + 95008571 + "&on_duplicate=rename";
+          $.post(url).done(function (data) {
+            console.log(data);
+          });
+          break;
+        }
+      }
+    });
+  }
+
   function addCustomThemeParent() {
     let body = tinyMCE.activeEditor.getBody();
     let existingTheme = $(body).find("#btech-theme-parent");

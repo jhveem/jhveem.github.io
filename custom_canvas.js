@@ -245,6 +245,7 @@ $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js"
           break;
         }
       }
+      featurePilot("previous-enrollment-data/previous_enrollment_period_grades", courseId, [511596]);
       if (departmentId === 3824) { // DENTAL
         feature("highlighted_grades_page_items");
         feature("speed_grader_screen_split");
@@ -277,6 +278,7 @@ $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js"
     featureCDD("editor_toolbar/basics");
     featureCDD("editor_toolbar/tables");
     featureCDD("surveys");
+    if (IS_ME) feature("reports/grades_report");
   });
 });
 
