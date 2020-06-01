@@ -8,15 +8,15 @@
         column.</h5>
       <div id='btech-report-options'></div>
       <table class='sortable' border='1' id='btech-report-table'>
-        <thead border='1' id='btech-report-table-head'>
+        <thead border='1'>
           <tr>
             <th v-for='column in columns' :key='column.name'>{{column.name}}</th>
           </tr>
         </thead>
-        <tbody border='1' id='btech-report-table-body'>
+        <tbody border='1'>
           <tr v-for='student in students'>{{student.name}}</tr>
         </tbody>
-        <tfoot border='1' id='btech-report-table-foot'>
+        <tfoot border='1'>
 
         </tfoot>
       </table>
