@@ -67,12 +67,13 @@
           el: '#canvas-grades-report-vue',
           mounted: function () {
               this.courseId = ENV.context_asset_string.replace("course_", "");
+              this.createGradesReport();
           },
 
           data: function () {
             return {
               courseId: null,
-              students: {},
+              students: [],
               columns: [
                 new Column('Name', ''),
                 new Column('Section', ''),
