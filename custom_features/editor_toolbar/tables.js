@@ -45,8 +45,51 @@
     });
   }
 
+  async function googleSheetsTable() {
+    let editor = this.editor;
+    let selection = editor.selection;
+    let bg = addBackground();
+    bg.append(`
+    <div id='google-sheet-id-container' style='
+    width: 500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position:fixed;
+    top: 50%;
+    z-index:1000;
+    transition: 0.5s;
+    background-color: #FFF;
+    border: 2px solid #888;
+    padding: 10px 20px;
+    color: #000;
+    border-radius: 5px;'>
+    Enter Google Sheet Id<br><input style='width: 100%;' type="text" id="google-sheet-id">
+    </div>
+    </div>`);
+
+    $("#google-sheet-id").keypress(function (event) {
+      var keycode = (event.keyCode ? event.keyCode : event.which);
+      if (keycode == '13') {
+        //*
+        editor.execCommand("mceReplaceContent", false, `
+<table class="google-sheet-based sheet-` + $(this).val() + `">
+<tbody>
+<tr>
+<td>
+{$selection}
+</td>
+</tr>
+</tbody>
+</table>`);
+        //*/
+        bg.remove();
+      }
+      event.stopPropagation();
+    });
+  }
+
   await TOOLBAR.checkReady();
-  console.log("TABLES");
+  TOOLBAR.addButtonIcon("far fa-file-spreadsheet", "Insert a table which will be linked to a google sheet. You will need the google sheet id.", googleSheetsTable);
   for (let i = 0; i < tableOptions.length; i++) {
     let className = tableOptions[i];
     let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
