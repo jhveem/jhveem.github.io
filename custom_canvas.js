@@ -227,6 +227,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         feature('page_formatting/google_sheets_table');
         feature('modules/convert_to_page');
         feature("page_formatting/tinymce_font_size");
+        feature("editor_toolbar/basics");
         featureBeta('rubrics/gen_comment');
         featureBeta('modules/course_features');
 
@@ -236,7 +237,6 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         featurePilot("rubrics/attempts_data", courseId, [498455]); //Dental 1010 pilot
         featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
         featurePilot("highlight_comments_same_date", courseId, [498455]); //Dental 1010 pilot
-        if (!IS_ME) featurePilot("page_formatting/tinymce_buttons", courseId, [425334]);
         //DEPARTMENT SPECIFIC IMPORTS
         let departmentId = 0;
         //DETERMINE CURRENT DEPARTMENT FROM DEPARTMENT LIST
@@ -258,13 +258,12 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         }
         if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
           feature("modules/points_to_hours_header");
-          feature("page_formatting/tinymce_buttons");
           feature("department_specific/amar_elec_add_module_items");
         }
         if (departmentId === 3847) { //meats
           feature("previous-enrollment-data/previous_enrollment_period_grades");
         }
-        if (departmentId === 3841) { //cosmetology
+        if (departmentId === 3841 || departmentId === 3947) { //cosmetology && master esthetics
           feature("department_specific/esthetics_cosmetology_services");
         }
       }
@@ -276,7 +275,6 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("help_tab");
       featureCDD("rubrics/add_criteria_from_csv");
       featureCDD("rubrics/create_rubric_from_csv");
-      featureCDD("editor_toolbar/basics");
       featureCDD("editor_toolbar/tables");
       featureCDD("surveys");
       if (IS_ME) feature("reports/grades_report");

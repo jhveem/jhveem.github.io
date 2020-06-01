@@ -42,6 +42,7 @@
   }
 
   await TOOLBAR.checkReady();
+  console.log("TABLES");
   for (let i = 0; i < tableOptions.length; i++) {
     let className = tableOptions[i];
     let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
