@@ -14,7 +14,9 @@
           </tr>
         </thead>
         <tbody border='1'>
-          <tr v-for='(student, id) in students'><td>{{student}}<td></tr>
+          <tr v-for='(student, id) in students'>
+            <td>{{student.name}}<td>
+          </tr>
         </tbody>
         <tfoot border='1'>
 
