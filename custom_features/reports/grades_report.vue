@@ -7,18 +7,17 @@
       column.</h5>
     <div id='btech-report-options'></div>
     <table class='sortable' border='1' id='btech-report-table'>
+      <thead border='1' id='btech-report-table-head'>
+        <tr>
+          <th v-for='column in columns'>test</th>
+        </tr>
+      </thead>
+      <tbody border='1' id='btech-report-table-body'>
 
-    </table>
-    <thead border='1' id='btech-report-table-head'>
-      <tr>
-        <th v-for='column in columns'>test</th>
-      </tr>
-    </thead>
-    <tbody border='1' id='btech-report-table-body'>
+      </tbody>
+      <tfoot border='1' id='btech-report-table-foot'>
 
-    </tbody>
-    <tfoot border='1' id='btech-report-table-foot'>
-
-    </tfoot>
+      </tfoot>
+      </table>
   </div>
 </template>
