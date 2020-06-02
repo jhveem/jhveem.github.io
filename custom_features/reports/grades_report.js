@@ -191,7 +191,7 @@
                   }
                   if (enrollment !== null) {
                     Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, app.courseId, app));
-                    student = app.students[userId];
+                    let student = app.students[userId];
                     student.data = studentData;
                     student.enrollment = enrollment;
                     student.processEnrollment();
@@ -246,8 +246,13 @@
           props: [
             'column',
             'columnName',
-            'columnValue'
+            'student'
           ],
+          computed: {
+            columnValue: function() {
+              return this.student[this.column.name.toLowerCase().replace(/ /g, '_')];
+            }
+          },
           methods: {
             getCellText(column, text) {
               if (column.percent && !isNaN(text)) {

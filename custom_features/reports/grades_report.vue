@@ -20,7 +20,7 @@
               :key='column.name' 
               :column="column"
               :columnName="column.name"
-              :columnValue="student[column.name.toLowerCase().replace(/ /g, '_')]"
+              :student="student"
              >
                 
             </report-cell>
