@@ -79,6 +79,7 @@
           }
         }
 
+        let points = student.points;
         let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
         progress_per_day = points / diff_days;
         progress_per_day_list.push(progress_per_day);
