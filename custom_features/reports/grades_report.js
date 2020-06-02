@@ -153,7 +153,7 @@
           methods: {
             getColumnText(column, text) {
               console.log(column)
-              if (column.percent) {
+              if (column.percent && !isNaN(text)) {
                 text += "%";
               }
               return text;
