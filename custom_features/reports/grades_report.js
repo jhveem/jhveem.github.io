@@ -66,8 +66,8 @@
         this.APP = new Vue({
           el: '#canvas-grades-report-vue',
           mounted: function () {
-              this.courseId = ENV.context_asset_string.replace("course_", "");
-              this.createGradesReport();
+            this.courseId = ENV.context_asset_string.replace("course_", "");
+            this.createGradesReport();
           },
 
           data: function () {
@@ -103,7 +103,7 @@
               $.get(url, function (data) {
                 for (let s = 0; s < data.length; s++) {
                   let studentData = data[s];
-                  let userId= studentData.id;
+                  let userId = studentData.id;
                   let enrollment = null;
 
                   for (let e = 0; e < studentData.enrollments.length; e++) {
@@ -114,6 +114,8 @@
                   if (enrollment !== null) {
                     Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, this.courseId));
                     student = app.students[userId];
+                    student.grade = studentData.grades.current_score;
+                    student.final_grade = studentData.grades.final_score;
                     console.log(userId);
                     console.log(studentData);
                     console.log(enrollment);
@@ -124,8 +126,42 @@
                   }
                 }
                 console.log(app.students);
-                //getSectionData(students, course_id);
+                app.getSectionData();
               });
+            },
+            getSectionData() {
+              let app = this;
+              let url = "/api/v1/courses/" + app.courseId+ "/sections?per_page=100&include[]=students";
+              $.get(url, function (data) {
+                let sections = data;
+                if (sections.length > 0) {
+                  for (let i = 0; i < sections.length; i++) {
+                    let section = sections[i];
+                    let studentsData = section.students;
+                    if (studentsData !== null) {
+                      if (studentsData.length > 0) {
+                        for (let j = 0; j < studentsData.length; j++) {
+                          let studentData = studentsData[j];
+                          app.checkStudentInSection(studentData, section);
+                        }
+                      }
+                    }
+                  }
+                }
+              });
+            },
+
+            checkStudentInSection(studentData, section) {
+              let app = this;
+              for (let id in app.students) {
+                let student = app.students[id];
+                let user_id = parseInt(student.user_id);
+                if (studentData.id === user_id) {
+                  student.updateCell('section', section.name);
+                  student.section = section.name;
+                  return;
+                }
+              }
             }
           }
         })
