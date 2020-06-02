@@ -232,6 +232,7 @@
                 let user_id = parseInt(student.user_id);
                 if (studentData.id === user_id) {
                   student.section = section.name;
+                  Vue.set(app.students[id], section, section.name);
                   return;
                 }
               }
