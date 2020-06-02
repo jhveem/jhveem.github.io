@@ -200,14 +200,13 @@
                   }
                 }
               });
-              console.log("report created");
               app.getSectionData();
             },
             async getSectionData() {
               let app = this;
               let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
-              console.log(url);
               $.get(url, function (data) {
+                console.log(data);
                 let sections = data;
                 if (sections.length > 0) {
                   for (let i = 0; i < sections.length; i++) {
