@@ -15,6 +15,7 @@
         </thead>
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
+            {{student}}
           </tr>
         </tbody>
         <tfoot border='1'>
