@@ -1,7 +1,8 @@
 (function () {
   class Student {
-    constructor(id, name, course_id) {
-      this.userId = id;
+    constructor(id, name, course_id, app) {
+      this.app = app;
+      this.user_id = id;
       this.name = name;
       this.course_id = course_id;
       this.days_in_course = 0;
@@ -40,8 +41,8 @@
 
     getAssignmentData() {
       let student = this;
-      let user_id = student.userId;
-      let course_id = student.courseId;
+      let user_id = student.user_id;
+      let course_id = student.course_id;
       let enrollment = student.enrollment;
       let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
       $.get(url, function (data) {
@@ -156,7 +157,7 @@
                     }
                   }
                   if (enrollment !== null) {
-                    Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, this.courseId));
+                    Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, this.courseId, app));
                     student = app.students[userId];
                     student.data = studentData;
                     student.enrollment = enrollment;
