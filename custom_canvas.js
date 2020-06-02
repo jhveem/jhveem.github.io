@@ -66,45 +66,55 @@ function add_javascript_library(url) {
   document.getElementsByTagName('head')[0].appendChild(s);
 }
 
-function feature(f, data = {}) {
+function feature(f, data = {}, regex = "") {
   //feature is the name of the feature file without .js, if it's in a subfolder, include that too
   //potentially flesh out these files so they're objects with methods. Then call an init function on load with the data variable having all the custom variables needed for each department
   //if you go this route, you could save each feature in a dict with the string provided here as the key and then in the feature itself, store itself in the dict
   //reset IMPORTED_FEATURE;
-  $.getScript("https://jhveem.github.io/custom_features/" + f + ".js").done(function () {
-    if (!$.isEmptyObject(IMPORTED_FEATURE)) {
-      if (!(f in FEATURES)) {
-        FEATURES[f] = IMPORTED_FEATURE;
-      }
+  let check = false;
+  if (regex === "") {
+    check = true;
+  } else {
+    if (regex.test(window.location.pathname)) {
+      check = true;
     }
-    if (f in FEATURES) {
-      let feature = FEATURES[f];
-      //make sure it hasn't already been called to avoid messing up the page
-      if (feature.initiated === false) {
-        feature.initiated = true;
-        feature._init(data);
+  }
+  if (check) {
+    $.getScript("https://jhveem.github.io/custom_features/" + f + ".js").done(function () {
+      if (!$.isEmptyObject(IMPORTED_FEATURE)) {
+        if (!(f in FEATURES)) {
+          FEATURES[f] = IMPORTED_FEATURE;
+        }
       }
-    }
-  });
+      if (f in FEATURES) {
+        let feature = FEATURES[f];
+        //make sure it hasn't already been called to avoid messing up the page
+        if (feature.initiated === false) {
+          feature.initiated = true;
+          feature._init(data);
+        }
+      }
+    });
+  }
 }
 
-function featureBeta(f, data = {}) {
-  if (BETA) feature(f, data);
+function featureBeta(f, data = {}, regex = "") {
+  if (BETA) feature(f, data, regex);
 }
 
 //USED TO TEST IN A SINGLE COURSE
-function featurePilot(f, courseId = 0, pilotCourseIds = 0, data = {}) {
+function featurePilot(f, courseId = 0, pilotCourseIds = 0, data = {}, regex = "") {
   if (courseId !== 0) { //Make sure you didn't forget to put a course Id in
     //set individual pilotCourseId to array
     if (!Array.isArray(pilotCourseIds)) pilotCourseIds = [pilotCourseIds];
     //check if current course is in array
-    if (pilotCourseIds.includes(courseId)) feature(f, data);
+    if (pilotCourseIds.includes(courseId)) feature(f, data, regex);
   }
 }
 
-function featureCDD(f, data = {}) {
+function featureCDD(f, data = {}, regex) {
   let userId = parseInt(ENV.current_user.id);
-  if (CDDIDS.includes(userId)) feature(f, data);
+  if (CDDIDS.includes(userId)) feature(f, data, regex);
 }
 
 
@@ -220,8 +230,8 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       let rCheckInCourse = /^\/courses\/([0-9]+)/;
       if (rCheckInCourse.test(window.location.pathname)) {
         //AVAILABLE TO EVERYONE
-        feature('date_display/add_current_year_speed_grader');
-        feature('date_display/add_current_year');
+        feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
+        feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
         feature('page_formatting/dropdown_from_table');
         feature('page_formatting/tabs_from_table');
         feature('page_formatting/google_sheets_table');
@@ -277,7 +287,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("rubrics/create_rubric_from_csv");
       featureCDD("editor_toolbar/tables");
       featureCDD("surveys");
-      if (IS_ME) feature("reports/grades_report");
+      if (IS_ME) feature("reports/grades_report", {}, /^\/courses\/[0-9]+\/gradebook$/);
     });
   });
 });
