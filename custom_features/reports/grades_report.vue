@@ -15,18 +15,17 @@
         </thead>
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
-            <th 
-              :student="student" 
+            <report-cell 
               v-for='column in columns' 
               :key='column.name' 
-              v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">
-                <div
-                  :columnName="column.name"
-                  :columnValue="student[column.name.toLowerCase().replace(/ /g, '_')]"
-                >
-                  {{getColumnText(column, student[columnName.toLowerCase().replace(/ /g, "_")])}}
-                </div>
-            </th>
+              :student="student"
+              :style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}"
+              :column="column"
+              :columnName="column.name"
+              :columnValue="student[column.name.toLowerCase().replace(/ /g, '_')]"
+             >
+                
+            </report-cell>
           </tr>
         </tbody>
         <tfoot border='1'>

@@ -106,7 +106,7 @@
       this.name = name;
       this.description = description;
       this.average = average;
-      this.sortable_type =sortable_type;
+      this.sortable_type = sortable_type;
       this.hidden = true;
       this.percent = percent;
     }
@@ -143,7 +143,7 @@
                 new Column('Submissions', '', true, 'sorttable_numeric', true),
                 new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
                 new Column('Days in Course', '', true, 'sorttable_numeric', false),
-                new Column('Ungraded', '',  true, 'sorttable_numeric', false)
+                new Column('Ungraded', '', true, 'sorttable_numeric', false)
               ]
             }
           },
@@ -240,6 +240,26 @@
 
           }
         })
+        Vue.component('report-cell', {
+          template: `
+            <td>
+              {{getCellText(column, columnValue}}
+            </td>
+          `,
+          props: [
+            'column',
+            'columnName',
+            'columnValue'
+          ],
+          methods: {
+            getCellText(column, text) {
+              if (column.percent && !isNaN(text)) {
+                text += "%";
+              }
+              return text;
+            },
+          }
+        });
       },
       APP: {}
     }
