@@ -247,7 +247,6 @@
             </td>
           `,
           props: [
-            'student',
             'column',
             'columnName',
             'columnValue'
