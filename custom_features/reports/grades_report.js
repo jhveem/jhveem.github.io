@@ -105,10 +105,10 @@
     constructor(name, description, average, sortable_type, percent) {
       this.name = name;
       this.description = description;
-      this.average = false;
-      this.sortable_type = '';
+      this.average = average;
+      this.sortable_type =sortable_type;
       this.hidden = true;
-      this.percent = false;
+      this.percent = percent;
     }
   }
   IMPORTED_FEATURE = {};
