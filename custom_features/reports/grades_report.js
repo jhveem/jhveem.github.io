@@ -37,6 +37,50 @@
       //there might need to be a check to see if this is a numbe
       this.points = Math.round(this.final_grade / this.grade * 100);
     }
+
+    getAssignmentData() {
+      let student = this;
+      let user_id = student.user_id;
+      let course_id = student.course_id;
+      let enrollment = student.enrollment;
+      let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
+      $.get(url, function (data) {
+        student.assignments = data;
+        let assignments = data;
+        let most_recent = {};
+        let submitted = 0;
+        let max_submissions = 0;
+        let progress_per_day = 0;
+        let start_date = Date.parse(enrollment.created_at);
+        let now_date = Date.now();
+        let diff_time = Math.abs(now_date - start_date);
+        let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
+        let most_recent_time = diff_time;
+        let ungraded = 0;
+        let color = "#FFF";
+        for (let a = 0; a < assignments.length; a++) {
+          let assignment = assignments[a];
+          if (assignment.submission !== undefined) {
+            let submitted_at = Date.parse(assignment.submission.submitted_at);
+            if (assignment.points_possible > 0) {
+              max_submissions += 1;
+              if (assignment.submission.score !== null) {
+                submitted += 1;
+              }
+            }
+            if (assignment.submission.score === null && assignment.submission.submitted_at !== null) {
+              ungraded += 1;
+            }
+            if (Math.abs(now_date - submitted_at) < most_recent_time) {
+              most_recent_time = Math.abs(now_date - submitted_at);
+              most_recent = assignment;
+            }
+          }
+        }
+
+        student.ungraded = ungraded;
+      });
+    }
   }
   class Column {
     constructor(name, description) {
@@ -117,16 +161,15 @@
                     student.data = studentData;
                     student.enrollment = enrollment;
                     student.processEnrollment();
-                    //getAssignmentData(student);
+                    student.getAssignmentData();
                   }
                 }
-                console.log(app.students);
                 app.getSectionData();
               });
             },
             getSectionData() {
               let app = this;
-              let url = "/api/v1/courses/" + app.courseId+ "/sections?per_page=100&include[]=students";
+              let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
               $.get(url, function (data) {
                 let sections = data;
                 if (sections.length > 0) {
@@ -157,7 +200,8 @@
                   return;
                 }
               }
-            }
+            },
+
           }
         })
       },
