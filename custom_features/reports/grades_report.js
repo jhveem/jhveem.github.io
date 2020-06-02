@@ -114,6 +114,10 @@
                   if (enrollment !== null) {
                     Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, this.courseId));
                     student = app.students[userId];
+                    console.log(userId);
+                    console.log(studentData);
+                    console.log(enrollment);
+                    console.log(" ");
                     student.data = studentData;
                     student.enrollment = enrollment;
                     //getAssignmentData(student);

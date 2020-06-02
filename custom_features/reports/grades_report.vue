@@ -15,15 +15,7 @@
         </thead>
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
-            <td>{{student.name}}<td>
-            <td>{{student.section}}<td>
-            <td>{{student.grade}}<td>
-            <td>{{student.final_grade}}<td>
-            <td>{{student.grade / student.final_grade}}<td>
-            <td>{{student.points}}</td>
-            <td>{{student.days_since_last_submission}}<td>
-            <td>{{student.days_in_course}}<td>
-            <td>{{student.ungraded}}<td>
+            <th v-for='column in columns' :key='column.name'>{{student[column.name.toLowerCase().replace(/ /g, "_")]}}</th>
           </tr>
         </tbody>
         <tfoot border='1'>
