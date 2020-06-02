@@ -18,8 +18,6 @@
             <report-cell 
               v-for='column in columns' 
               :key='column.name' 
-              :student="student"
-              :style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}"
               :column="column"
               :columnName="column.name"
               :columnValue="student[column.name.toLowerCase().replace(/ /g, '_')]"
