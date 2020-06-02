@@ -241,7 +241,7 @@
         Vue.component('report-cell', {
           template: `
           <div>
-            hello
+            {{student.name}}
           </div>
           `,
           props: [
