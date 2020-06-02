@@ -133,7 +133,7 @@
           },
 
           methods: {
-            createGradesReport() {
+            async createGradesReport() {
               let app = this;
               let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
               url += "&enrollment_state%5B%5D=invited"
@@ -144,7 +144,7 @@
               url += "&include%5B%5D=enrollments";
               url += "&per_page=100";
 
-              $.get(url, function (data) {
+              await $.get(url, function (data) {
                 for (let s = 0; s < data.length; s++) {
                   let studentData = data[s];
                   let userId = studentData.id;
@@ -164,8 +164,8 @@
                     student.getAssignmentData();
                   }
                 }
-                app.getSectionData();
               });
+              app.getSectionData();
             },
             getSectionData() {
               let app = this;
