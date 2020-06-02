@@ -24,7 +24,7 @@
                   :columnName="column.name"
                   :columnValue="student[column.name.toLowerCase().replace(/ /g, '_')]"
                 >
-                  {{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}
+                  {{getColumnText(column, student[columnName.toLowerCase().replace(/ /g, "_")])}}
                 </div>
             </th>
           </tr>
