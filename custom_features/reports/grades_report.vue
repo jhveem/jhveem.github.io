@@ -1,5 +1,5 @@
 <template>
-  <div class='btech-modal' style='display: inline-block;'> <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
+  <div class='btech-modal' style='display: none:w;'> <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
     <div class='btech-modal-content'>
       <span class='btech-close' id='btech-close'>&times;</span>
       <h3 style='text-align: center;'>Report</h3>
