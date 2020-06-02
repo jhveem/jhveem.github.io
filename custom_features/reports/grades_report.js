@@ -151,7 +151,7 @@
 
 
           methods: {
-            getColumnsText(column, text) {
+            getColumnText(column, text) {
               if (column.percent) {
                 text += "%";
               }
