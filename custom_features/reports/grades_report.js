@@ -200,6 +200,7 @@
                   }
                 }
               });
+              console.log("report created");
               app.getSectionData();
             },
             async getSectionData() {
