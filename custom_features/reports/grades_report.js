@@ -21,7 +21,6 @@
     }
     processEnrollment() {
       let enrollment = this.enrollment;
-      let report_body = $('#btech-report-table-body');
       let start_date = Date.parse(enrollment.created_at);
       let now_date = Date.now();
       let diff_time = Math.abs(now_date - start_date);
@@ -48,6 +47,7 @@
       let course_id = student.course_id;
       let enrollment = student.enrollment;
       let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
+      console.log(url);
       await $.get(url, function (data) {
         student.assignments = data;
         let assignments = data;
@@ -61,7 +61,6 @@
         let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
         let most_recent_time = diff_time;
         let ungraded = 0;
-        let color = "#FFF";
         for (let a = 0; a < assignments.length; a++) {
           let assignment = assignments[a];
           if (assignment.submission !== undefined) {
@@ -203,9 +202,10 @@
               });
               app.getSectionData();
             },
-            getSectionData() {
+            async getSectionData() {
               let app = this;
               let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
+              console.log(url);
               $.get(url, function (data) {
                 let sections = data;
                 if (sections.length > 0) {
