@@ -7,6 +7,7 @@
       this.course_id = course_id;
       this.days_in_course = 0;
       this.days_since_last_submission = 0;
+      this.days_since_last_submission_color = "#fff";
       this.section = "";
       this.grade = "N/A";
       this.points = 0;
@@ -150,7 +151,20 @@
             }
           },
 
+
+
           methods: {
+            getDaysSinceLastSubmissionColor(column, val) {
+              color = "#FFF";
+              if (column === "Days Since Last Submission")
+              if (val >= 7 && val <= 21) {
+                let g = 16 - Math.floor(((val - 6) / 15) * 16);
+                if (g < 6) g = 6;
+                color = "#F" + g.toString(16) + "7";
+              }
+              if (val > 21) color = "#F67";
+              return color;
+            },
             async createGradesReport() {
               let app = this;
               let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";

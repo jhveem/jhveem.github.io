@@ -15,7 +15,7 @@
         </thead>
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
-            <th v-for='column in columns' :key='column.name'>{{student[column.name.toLowerCase().replace(/ /g, "_")]}}</th>
+            <th v-for='column in columns' :key='column.name' :style='getDaysSinceLastSubmissionColor(column, student[column.name.toLowerCase().replace(/ /g, "_")])'>{{student[column.name.toLowerCase().replace(/ /g, "_")]}}</th>
           </tr>
         </tbody>
         <tfoot border='1'>
