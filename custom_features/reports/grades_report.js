@@ -78,8 +78,12 @@
             }
           }
         }
+        student.days_since_last_submission = most_recent;
 
         student.ungraded = ungraded;
+        let perc_submitted = Math.round((submitted / max_submissions) * 100);
+        if (isNaN(perc_submitted)) perc_submitted = 0;
+        student.submissions = perc_submitted;
       });
     }
   }
