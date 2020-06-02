@@ -22,6 +22,7 @@
               v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">
                 <div
                   :columnName="column.name"
+                  :columnValue="student[column.name.toLowerCase().replace(/ /g, '_')]"
                 >
                   {{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}
                 </div>
