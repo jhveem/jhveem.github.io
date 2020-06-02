@@ -157,7 +157,7 @@
                     }
                   }
                   if (enrollment !== null) {
-                    Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, this.courseId, app));
+                    Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, app.courseId, app));
                     student = app.students[userId];
                     student.data = studentData;
                     student.enrollment = enrollment;
