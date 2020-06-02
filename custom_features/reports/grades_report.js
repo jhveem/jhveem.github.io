@@ -159,7 +159,6 @@
             },
             getDaysSinceLastSubmissionColor(column, val) {
               color = "#FFF";
-              console.log(column);
               if (column === "Days Since Last Submission") {
                 if (val >= 7 && val <= 21) {
                   let g = 16 - Math.floor(((val - 6) / 15) * 16);
