@@ -16,6 +16,14 @@
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
             <td>{{student.name}}<td>
+            <td>{{student.section}}<td>
+            <td>{{student.grade}}<td>
+            <td>{{student.final_grade}}<td>
+            <td>{{student.grade / student.final_grade}}<td>
+            <td>{{student.points}}</td>
+            <td>{{student.days_since_last_submission}}<td>
+            <td>{{student.days_in_course}}<td>
+            <td>{{student.ungraded}}<td>
           </tr>
         </tbody>
         <tfoot border='1'>
