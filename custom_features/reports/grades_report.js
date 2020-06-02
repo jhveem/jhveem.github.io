@@ -152,6 +152,7 @@
 
           methods: {
             getColumnText(column, text) {
+              console.log(column)
               if (column.percent) {
                 text += "%";
               }
