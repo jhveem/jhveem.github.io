@@ -240,9 +240,9 @@
         })
         Vue.component('report-cell', {
           template: `
-            <td>
-              {{getCellText(column, columnValue}}
-            </td>
+          <div>
+            hello
+          </div>
           `,
           props: [
             'column',
