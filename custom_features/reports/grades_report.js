@@ -78,8 +78,18 @@
             }
           }
         }
-        student.days_since_last_submission = most_recent;
 
+        let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
+        progress_per_day = points / diff_days;
+        progress_per_day_list.push(progress_per_day);
+        let sum_progress = 0;
+        for (let i = 0; i < progress_per_day_list.length; i++) {
+          sum_progress += progress_per_day_list[i];
+        }
+        student.days_since_last_submission = most_recent_days;
+
+        let average_progress_per_day = sum_progress / progress_per_day_list.length;
+        let average_days_to_complete = Math.floor(100 / average_progress_per_day);
         student.ungraded = ungraded;
         let perc_submitted = Math.round((submitted / max_submissions) * 100);
         if (isNaN(perc_submitted)) perc_submitted = 0;
