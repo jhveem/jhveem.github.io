@@ -36,7 +36,9 @@
       this.grade = current_score;
       this.final_grade = final_score;
       //there might need to be a check to see if this is a numbe
-      this.points = Math.round(this.final_grade / this.grade * 100);
+      if (this.grade > 0 && this.grade != null) {
+        this.points = Math.round(this.final_grade / this.grade * 100);
+      }
     }
 
     getAssignmentData() {
