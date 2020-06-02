@@ -10,12 +10,12 @@
       <table class='sortable' border='1' id='btech-report-table'>
         <thead border='1'>
           <tr>
-            <th v-for='column in columns' :key='column.name'>{{column.name}}</th>
+            <th v-for='column in columns' :key='column.name' :class='column.sortable_type'>{{column.name}}</th>
           </tr>
         </thead>
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
-            <th v-for='column in columns' :key='column.name' v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">{{student[column.name.toLowerCase().replace(/ /g, "_")]}}</th>
+            <th v-for='column in columns' :key='column.name' v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">{{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</th>
           </tr>
         </tbody>
         <tfoot border='1'>

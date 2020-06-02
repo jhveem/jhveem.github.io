@@ -102,13 +102,10 @@
     }
   }
   class Column {
-    constructor(name, description) {
+    constructor(name, description, average, sortable_type, percent) {
       this.name = name;
       this.description = description;
       this.average = false;
-      this.list = [];
-      this.average_element = null;
-      this.median_element = null;
       this.sortable_type = '';
       this.hidden = true;
       this.percent = false;
@@ -138,15 +135,15 @@
               courseId: null,
               students: {},
               columns: [
-                new Column('Name', ''),
-                new Column('Section', ''),
-                new Column('Grade', ''),
-                new Column('Final Grade', ''),
-                new Column('Points', ''),
-                new Column('Submissions', ''),
-                new Column('Days Since Last Submission', ''),
-                new Column('Days in Course', ''),
-                new Column('Ungraded', '')
+                new Column('Name', '', false, '', false),
+                new Column('Section', '', false, '', false),
+                new Column('Grade', '', true, 'sorttable_numeric', true),
+                new Column('Final Grade', '', true, 'sorttable_numeric', true),
+                new Column('Points', '', true, 'sorttable_numeric', true),
+                new Column('Submissions', '', true, 'sorttable_numeric', true),
+                new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
+                new Column('Days in Course', '', true, 'sorttable_numeric', false),
+                new Column('Ungraded', '',  true, 'sorttable_numeric', false)
               ]
             }
           },
@@ -154,6 +151,12 @@
 
 
           methods: {
+            getColumnsText(column, text) {
+              if (column.percent) {
+                text += "%";
+              }
+              return text;
+            },
             getDaysSinceLastSubmissionColor(column, val) {
               color = "#FFF";
               console.log(column);
