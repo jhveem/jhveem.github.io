@@ -15,10 +15,11 @@
         </thead>
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
-            <th>
-            <report-cell 
+            <th
               v-for='column in columns' 
               :key='column.name' 
+            >
+            <report-cell 
               :student='student'
               :column="column"
               :columnName="column.name"
