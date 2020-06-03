@@ -89,7 +89,6 @@
         for (let i = 0; i < progress_per_day_list.length; i++) {
           sum_progress += progress_per_day_list[i];
         }
-        console.log(most_recent_days);
         student.app.students[student.user_id].days_since_last_submission =  most_recent_days;
 
         student = Object.assign({}, student, {ungraded: ungraded});
