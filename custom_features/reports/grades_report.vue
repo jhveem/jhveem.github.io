@@ -1,5 +1,6 @@
 <template>
-  <div class='btech-modal' style='display: inline-block;'> <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
+  <div class='btech-modal' style='display: inline-block;'>
+    <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
     <div class='btech-modal-content'>
       <span class='btech-close' id='btech-close'>&times;</span>
       <h3 style='text-align: center;'>Report</h3>
@@ -14,8 +15,13 @@
           </tr>
         </thead>
         <tbody border='1'>
+          <tr v-if="students.length == 0">
+            <td>Loading Results...</td>
+          </tr>
           <tr v-for='(student, id) in students'>
-            <td v-for='column in columns' :key='column.name' v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">{{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</td>
+            <td v-for='column in columns' :key='column.name'
+              v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">
+              {{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</td>
           </tr>
         </tbody>
         <tfoot border='1'>
