@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody border='1'>
-          <tr v-if="students.length == 0">
+          <tr v-if="loading">
             <td>Loading Results...</td>
           </tr>
           <tr v-for='(student, id) in students'>

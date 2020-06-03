@@ -27,6 +27,7 @@
           mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
             this.students = await this.createGradesReport();
+            this.loading = false;
           },
 
           data: function () {
@@ -46,6 +47,7 @@
               ],
               sections: [],
               studentData: [],
+              loading: true,
             }
           },
           watch: {
