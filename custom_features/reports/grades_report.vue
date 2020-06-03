@@ -11,6 +11,8 @@
       </div>
       <div>
         <report-row v-for='(student,  id) in students'
+          :student='student'
+          :columns='columns'
           :name='student.name'
         ></report-row>
       </div>
