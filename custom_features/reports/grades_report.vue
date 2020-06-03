@@ -10,11 +10,9 @@
         <div style='display: inline-block; padding: 4px;' v-for='column in columns' :key='column.name' :class='column.sortable_type'>{{column.name}}</div>
       </div>
       <div>
-        <report-row v-for='(student,  id) in students'
-          :student='student'
-          :columns='columns'
-          :name='student.name'
-        ></report-row>
+        <div v-for='student in students'>
+          <div v-for='column in columns' :key='column.name' style='display: inline-block;'>{{columnNameToCode(column.name)}}</div>
+        </div>
       </div>
   </div>
 </template>

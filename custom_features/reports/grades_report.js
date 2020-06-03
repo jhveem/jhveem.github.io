@@ -151,24 +151,6 @@
 
 
           methods: {
-            getColumnText(column, text) {
-              if (column.percent && !isNaN(text)) {
-                text += "%";
-              }
-              return text;
-            },
-            getDaysSinceLastSubmissionColor(column, val) {
-              color = "#FFF";
-              if (column === "Days Since Last Submission") {
-                if (val >= 7 && val <= 21) {
-                  let g = 16 - Math.floor(((val - 6) / 15) * 16);
-                  if (g < 6) g = 6;
-                  color = "#F" + g.toString(16) + "7";
-                }
-                if (val > 21) color = "#F67";
-              }
-              return color;
-            },
             async createGradesReport() {
               let app = this;
               let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
@@ -237,6 +219,27 @@
                 }
               }
             },
+            columnNameToCode(name) {
+              return name.toLowerCase().replace(/ /g, "_");
+            },
+            getColumnText(column, text) {
+              if (column.percent && !isNaN(text)) {
+                text += "%";
+              }
+              return text;
+            },
+            getDaysSinceLastSubmissionColor(column, val) {
+              color = "#FFF";
+              if (column === "Days Since Last Submission") {
+                if (val >= 7 && val <= 21) {
+                  let g = 16 - Math.floor(((val - 6) / 15) * 16);
+                  if (g < 6) g = 6;
+                  color = "#F" + g.toString(16) + "7";
+                }
+                if (val > 21) color = "#F67";
+              }
+              return color;
+            },
 
           }
         })
@@ -244,48 +247,6 @@
       APP: {}
     }
   }
-
-  Vue.component('report-row', {
-    template: `
-        <div>
-          <div v-for='column in columns' style='display: inline-block;'>{{columnNameToCode(column.name)}}</div>
-        </div>
-    `,
-    props: [
-      'columns',
-      'student',
-      'name'
-    ],
-    watch: {
-      name: function(val) {
-        console.log(val);
-      }
-    },
-    methods: {
-      columnNameToCode(name) {
-        return name.toLowerCase().replace(/ /g, "_");
-      },
-      getColumnText(column, text) {
-        if (column.percent && !isNaN(text)) {
-          text += "%";
-        }
-        return text;
-      },
-      getDaysSinceLastSubmissionColor(column, val) {
-        color = "#FFF";
-        if (column === "Days Since Last Submission") {
-          if (val >= 7 && val <= 21) {
-            let g = 16 - Math.floor(((val - 6) / 15) * 16);
-            if (g < 6) g = 6;
-            color = "#F" + g.toString(16) + "7";
-          }
-          if (val > 21) color = "#F67";
-        }
-        return color;
-      },
-
-    }
-  })
 
   console.log('v5')
 })();
