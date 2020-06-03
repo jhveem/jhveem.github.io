@@ -6,7 +6,7 @@
       this.description = description;
       this.average = average;
       this.sortable_type = sortable_type;
-      this.hidden = false;
+      this.visible = true;
       this.percent = percent;
     }
   }
@@ -50,14 +50,11 @@
               loading: true,
             }
           },
-          watch: {
-            students: {
-              handler: function (val, oldval) {
-                
-                console.log(oldval);
-                console.log(val);
-              },
-              deep: true
+          computed: {
+            visibleColumns: function() {
+              return this.columns.filter(function(c) {
+                return c.visible;
+              })
             }
           },
           methods: {
@@ -261,5 +258,5 @@
       APP: {}
     }
   }
-  console.log('v4');
+  console.log('v5');
 })();
