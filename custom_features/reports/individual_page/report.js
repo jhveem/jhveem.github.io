@@ -139,7 +139,7 @@
                     let final_grade = enrollment.grades.final_score;
                     if (final_grade == null) final_grade = 0;
                     if (grade == "N/A" && final_grade == 0) final_grade = "N/A";
-                    output.final_grade = final_score;
+                    output.final_grade = final_grade;
 
                     if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
                       let points = Math.round(final_grade / grade * 100);
