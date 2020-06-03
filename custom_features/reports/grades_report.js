@@ -244,7 +244,15 @@
         Vue.component('report-row', {
           template: `
             <tr>
-            <td>test</td>
+            <th
+              v-for='column in columns' 
+              :key='column.name' 
+            >
+              test
+              <div>
+                {{columnValue(column.name)}}
+              </div>
+            </th>
             </tr>
           `,
           props: [
