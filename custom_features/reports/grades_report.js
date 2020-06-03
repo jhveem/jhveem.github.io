@@ -248,6 +248,7 @@
               v-for='column in columns' 
               :key='column.name' 
             >
+              test
               <div>
                 {{columnValue(column.name)}}
               </div>
