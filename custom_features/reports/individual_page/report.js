@@ -152,6 +152,7 @@
               if (check == false && state == "active") {
                 output = app.getCourseGrades(course_id, 'completed');
               }
+              console.log(output)
               return output;
             },
 
@@ -265,5 +266,5 @@
       APP: {}
     }
   }
-  console.log('v6');
+  console.log('v1');
 })();
