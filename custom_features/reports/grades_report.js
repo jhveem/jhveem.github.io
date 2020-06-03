@@ -90,14 +90,12 @@
           sum_progress += progress_per_day_list[i];
         }
         console.log(most_recent_days);
-        student.days_since_last_submission = most_recent_days;
-        student = Object.assign({}, student);
+        student = Object.assign({}, student, {days_since_last_submission: most_recent_days});
 
-        student.ungraded = ungraded;
+        student = Object.assign({}, student, {ungraded: ungraded});
         let perc_submitted = Math.round((submitted / max_submissions) * 100);
         if (isNaN(perc_submitted)) perc_submitted = 0;
-        student.submissions = perc_submitted;
-        student = Object.assign({}, student);
+        student = Object.assign({}, student, {submissions: perc_submitted});
         student = {};
       });
     }
