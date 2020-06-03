@@ -28,7 +28,6 @@
             this.courseId = ENV.context_asset_string.replace("course_", "");
             let match = window.location.pathname.match(/courses\/([0-9]+)\/users\/([0-9]+)/);
             this.userId = match[2];
-            console.log(match[2]);
             this.courses = await this.getCourseData();
             this.loading = false;
           },
@@ -192,7 +191,7 @@
               let user_id = app.userId;
               let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments";
               console.log(url);
-              await $.get(url, function (data) {
+              await $.get(url).done(function (data) {
                 course.assignments = data;
                 let assignments = data;
                 let total_points_possible = 0;
@@ -238,6 +237,8 @@
                   course.days_since_last_submission = "N/A";
                   course.points = "N/A";
                 }
+              }).fail(function(e) {
+                console.log(e);
               });
             },
 
@@ -272,5 +273,5 @@
       APP: {}
     }
   }
-  console.log('v6');
+  console.log('v8');
 })();
