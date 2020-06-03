@@ -248,7 +248,7 @@
                 is="report-cell"
                 v-for='column in columns' 
                 :student="student"
-                :columnName="column.name"
+                :keyName="column.name.toLowerCase()"
               >
               </th>
             </tr>
@@ -281,7 +281,7 @@
             </th>
           `,
           props: [
-            'columnName',
+            'keyName',
             'student'
           ],
           computed: {
