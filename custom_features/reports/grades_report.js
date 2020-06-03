@@ -262,7 +262,7 @@
               return text;
             },
             formattedColumnName() {
-              return this.columnName.toLowerCase().replace(/ /g, '_');
+              return this.column.name.toLowerCase().replace(/ /g, '_');
             },
           }
         });
