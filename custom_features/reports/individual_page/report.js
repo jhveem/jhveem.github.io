@@ -26,7 +26,7 @@
           el: '#canvas-grades-report-vue',
           mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
-            this.course = await this.getCoureData();
+            this.course = await this.getCourseData();
             this.loading = false;
           },
 
