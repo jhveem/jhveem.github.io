@@ -126,8 +126,8 @@
             getStudentSection(studentId) {
               let app = this;
               if (app.sections.length > 0) {
-                for (let i = 0; i < sections.length; i++) {
-                  let section = sections[i];
+                for (let i = 0; i < app.sections.length; i++) {
+                  let section = app.sections[i];
                   let studentsData = section.students;
                   if (studentsData !== null) {
                     if (studentsData.length > 0) {
