@@ -253,7 +253,11 @@
       'student',
       'name'
     ],
-
+    watch: {
+      name: function(val) {
+        console.log(val);
+      }
+    },
     methods: {
       getColumnText(column, text) {
         if (column.percent && !isNaN(text)) {
