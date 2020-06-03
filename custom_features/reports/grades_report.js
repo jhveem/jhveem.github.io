@@ -263,8 +263,8 @@
     },
     methods: {
       columnNameToCode(name) {
-        return name.toLowerCase();
-      }
+        return name.toLowerCase().replace(/ /g, "_");
+      },
       getColumnText(column, text) {
         if (column.percent && !isNaN(text)) {
           text += "%";
