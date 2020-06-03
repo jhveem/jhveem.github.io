@@ -16,6 +16,7 @@
       this.enrollment = {};
       this.data = {};
       this.ungraded = 0;
+      this.assignments = {};
       //this will probably be deleted, but keeping for reference on how to format in vue
       let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
     }
@@ -88,7 +89,7 @@
         for (let i = 0; i < progress_per_day_list.length; i++) {
           sum_progress += progress_per_day_list[i];
         }
-        Vue.set(student, 'days_since_last_submission', most_recent_days);
+        student.days_since_last_submission = most_recent_days;
 
         let average_progress_per_day = sum_progress / progress_per_day_list.length;
         let average_days_to_complete = Math.floor(100 / average_progress_per_day);
@@ -114,7 +115,7 @@
     IMPORTED_FEATURE = {
       initiated: false,
       async _init(params = {}) {
-        console.log("v5")
+        console.log("v6")
         let vueString = '';
         await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
           vueString = html.replace("<template>", "").replace("</template>", "");
