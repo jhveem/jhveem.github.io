@@ -70,6 +70,7 @@
               student.final_grade = "N/A";
               student.section = "";
               student.ungraded = 0;
+              student.submissions = 0;
               //this will probably be deleted, but keeping for reference on how to format in vue
               let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
               return student;
