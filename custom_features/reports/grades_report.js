@@ -8,7 +8,6 @@
       this.days_in_course = 0;
       this.days_since_last_submission = 0;
       this.days_since_last_submission_color = "#fff";
-      this.section = "";
       this.grade = "N/A";
       this.points = 0;
       this.final_grade = "N/A";
@@ -90,16 +89,15 @@
         for (let i = 0; i < progress_per_day_list.length; i++) {
           sum_progress += progress_per_day_list[i];
         }
-        console.log(most_recent_days);
         student.days_since_last_submission = most_recent_days;
-        student = Object.assign({}, student);
 
         let average_progress_per_day = sum_progress / progress_per_day_list.length;
         let average_days_to_complete = Math.floor(100 / average_progress_per_day);
         student.ungraded = ungraded;
         let perc_submitted = Math.round((submitted / max_submissions) * 100);
         if (isNaN(perc_submitted)) perc_submitted = 0;
-        Vue.set(student, 'submissions', perc_submitted);
+        student.submissions = perc_submitted;
+        student = Object.assign({}, student);
       });
     }
   }
@@ -234,7 +232,8 @@
                 let student = app.students[id];
                 let user_id = parseInt(student.user_id);
                 if (studentData.id === user_id) {
-                  Vue.set(app.students[id], 'section', section.name);
+                  student.section = section.name;
+                  student = Object.assign({}, student);
                   return;
                 }
               }
