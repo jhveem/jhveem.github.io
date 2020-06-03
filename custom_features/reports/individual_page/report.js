@@ -240,6 +240,7 @@
               }).fail(function(e) {
                 console.log(e);
               });
+              console.log('FINISH');
             },
 
             processEnrollment(student, enrollment) {
@@ -273,5 +274,5 @@
       APP: {}
     }
   }
-  console.log('v8');
+  console.log('v9');
 })();
