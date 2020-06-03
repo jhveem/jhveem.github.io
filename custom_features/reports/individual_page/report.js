@@ -81,7 +81,7 @@
 
             async getCourseData() {
               let app = this;
-              let courseList = await getCourses();
+              let courseList = await this.getCourses();
               console.log(courseList);
             },
 
