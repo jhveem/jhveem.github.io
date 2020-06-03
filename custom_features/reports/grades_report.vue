@@ -16,7 +16,7 @@
         </thead>
         <tbody border='1'>
           <tr v-if="loading">
-            <td>Loading Results...</td>
+            <td :colspan='columns.length'>Loading Results...</td>
           </tr>
           <tr v-for='(student, id) in students'>
             <td v-for='column in columns' :key='column.name'
