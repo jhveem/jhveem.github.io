@@ -257,8 +257,6 @@
             'columns',
             'student'
           ],
-          computed: {
-          },
           methods: {
             getCellText(column, text) {
               if (column.percent && !isNaN(text)) {
@@ -277,28 +275,14 @@
         Vue.component('report-cell', {
           template: `
             <th>
-              {{columnName}}
+              {{keyName}}
             </th>
           `,
           props: [
             'keyName',
             'student'
           ],
-          computed: {
-          },
           methods: {
-            getCellText(column, text) {
-              if (column.percent && !isNaN(text)) {
-                text += "%";
-              }
-              return text;
-            },
-            columnValue(name) {
-              return this.student[this.formattedColumnName(name)];
-            },
-            formattedColumnName(name) {
-              return name.toLowerCase().replace(/ /g, '_');
-            },
           }
         });
 
