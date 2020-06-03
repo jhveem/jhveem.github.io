@@ -245,7 +245,6 @@
     props: [
       'columns',
       'student',
-      'name'
     ],
     methods: {
       getDaysSinceLastSubmissionColor(column, val) {
@@ -269,5 +268,5 @@
     }
   })
 
-  console.log('v5')
+  console.log('v6')
 })();

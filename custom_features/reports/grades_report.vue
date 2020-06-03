@@ -18,7 +18,6 @@
             is='report-row' 
             v-for='student in students'
             :student='student'
-            :name='student.name'
             :columns='columns'
           ></tr>
         </tbody>
