@@ -49,6 +49,7 @@
           watch: {
             students: {
               handler: function (val, oldval) {
+                console.log(oldVal);
                 console.log(val);
               },
               deep: true
@@ -244,5 +245,5 @@
     }
   }
 
-  console.log('v9')
+  console.log('v10')
 })();
