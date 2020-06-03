@@ -246,7 +246,7 @@
 
   Vue.component('report-row', {
     template: `
-      <tr v-for='(student, id) in students'>
+      <tr>
         <td v-for='column in columns' :key='column.name' v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">{{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</td>
       </tr>
     `,
@@ -255,4 +255,6 @@
       'student'
     ]
   })
+
+  console.log('v1')
 })();

@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody border='1'>
-          <tr is='report-row'></tr>
+          <tr is='report-row' v-for='(student, id) in students'></tr>
         </tbody>
         <tfoot border='1'>
 
