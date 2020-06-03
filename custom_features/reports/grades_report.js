@@ -106,7 +106,7 @@
       this.name = name;
       this.description = description;
       this.average = average;
-      this.sortable_type =sortable_type;
+      this.sortable_type = sortable_type;
       this.hidden = true;
       this.percent = percent;
     }
@@ -143,7 +143,7 @@
                 new Column('Submissions', '', true, 'sorttable_numeric', true),
                 new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
                 new Column('Days in Course', '', true, 'sorttable_numeric', false),
-                new Column('Ungraded', '',  true, 'sorttable_numeric', false)
+                new Column('Ungraded', '', true, 'sorttable_numeric', false)
               ]
             }
           },
@@ -246,15 +246,31 @@
 
   Vue.component('report-row', {
     template: `
-      <tr>
-        <td>hello</td>
-      </tr>
+        <div v-for='column in columns' :key='column.name' v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">{{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</div>
     `,
     props: [
       'columns',
       'student'
     ],
     methods: {
+      getColumnText(column, text) {
+        if (column.percent && !isNaN(text)) {
+          text += "%";
+        }
+        return text;
+      },
+      getDaysSinceLastSubmissionColor(column, val) {
+        color = "#FFF";
+        if (column === "Days Since Last Submission") {
+          if (val >= 7 && val <= 21) {
+            let g = 16 - Math.floor(((val - 6) / 15) * 16);
+            if (g < 6) g = 6;
+            color = "#F" + g.toString(16) + "7";
+          }
+          if (val > 21) color = "#F67";
+        }
+        return color;
+      },
 
     }
   })
