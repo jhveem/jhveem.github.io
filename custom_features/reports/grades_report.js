@@ -49,7 +49,7 @@
           watch: {
             students: {
               handler: function (val, oldval) {
-                console.log(oldVal);
+                console.log(oldval);
                 console.log(val);
               },
               deep: true
