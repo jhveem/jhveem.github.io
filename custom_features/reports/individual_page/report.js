@@ -26,17 +26,16 @@
           el: '#canvas-grades-report-vue',
           mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
-            this.students = await this.createGradesReport();
+            this.course = await this.getCoureData();
             this.loading = false;
           },
 
           data: function () {
             return {
               courseId: null,
-              students: {},
+              course: {},
               columns: [
                 new Column('Name', '', false, '', false),
-                new Column('Section', '', false, '', false),
                 new Column('Grade', '', true, 'sorttable_numeric', true),
                 new Column('Final Grade', '', true, 'sorttable_numeric', true),
                 new Column('Points', '', true, 'sorttable_numeric', true),
@@ -46,36 +45,64 @@
                 new Column('Ungraded', '', true, 'sorttable_numeric', false)
               ],
               sections: [],
+              courseList: [],
               studentData: [],
               loading: true,
             }
           },
           computed: {
-            visibleColumns: function() {
-              return this.columns.filter(function(c) {
+            visibleColumns: function () {
+              return this.columns.filter(function (c) {
                 return c.visible;
               })
             }
           },
           methods: {
-            newStudent(id, name, course_id) {
-              let student = {};
-              student.user_id = id;
-              student.name = name;
-              student.course_id = course_id;
-              student.days_in_course = 0;
-              student.days_since_last_submission = 0;
-              student.days_since_last_submission_color = "#fff";
-              student.section = "";
-              student.grade = "N/A";
-              student.points = 0;
-              student.final_grade = "N/A";
-              student.section = "";
-              student.ungraded = 0;
-              student.submissions = 0;
+            newCourse(id, name, user_id) {
+              let course = {};
+              course.user_id = user_id;
+              course.name = name;
+              course.course_id = id;
+              course.status = ""
+              course.days_in_course = 0;
+              course.days_since_last_submission = 0;
+              course.days_since_last_submission_color = "#fff";
+              course.section = "";
+              course.grade = "N/A";
+              course.points = 0;
+              course.final_grade = "N/A";
+              course.section = "";
+              course.ungraded = 0;
+              course.submissions = 0;
               //this will probably be deleted, but keeping for reference on how to format in vue
               let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
               return student;
+            },
+
+            async getCousreData() {
+              let app = this;
+              let courseList = await getCourses();
+              console.log(courseList);
+            },
+
+            async getCourses() {
+              let list = [];
+              $.get("https://btech.instructure.com/users/1921194", function (data) {
+                console.log($(data).find("#content .courses a").each(function () {
+                  let href = $(this).attr('href');
+                  let match = href.match(/courses\/([0-9]+)\/users/);
+                  if (match) {
+                    let text = $(this).text().trim();
+                    let course_id = match[1];
+                    let state = text.match(/([A-Z|a-z]+),[\s]+?Enrolled as a Student/)[1];
+                    list.push({
+                      course_id: course_id, 
+                      state: state
+                    });
+                  }
+                }));
+              })
+              return list;
             },
             async createGradesReport() {
               let app = this;
@@ -261,4 +288,5 @@
       APP: {}
     }
   }
+  console.log('v1');
 })();

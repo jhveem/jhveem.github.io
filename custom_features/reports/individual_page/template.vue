@@ -20,10 +20,11 @@
           <tr v-if="loading">
             <td :colspan='visibleColumns.length'>Loading Results...</td>
           </tr>
-          <tr v-for='(student, id) in students'>
+          <tr v-for='(course, id) in courses'>
             <td v-for='column in visibleColumns' :key='column.name'
-              v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">
-              {{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</td>
+            >
+              {{column.name}}
+            </td>
           </tr>
         </tbody>
         <tfoot border='1'>
