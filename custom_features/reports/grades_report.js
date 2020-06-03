@@ -1,7 +1,6 @@
 (function () {
   class Student {
-    constructor(id, name, course_id, app) {
-      this.app = app;
+    constructor(id, name, course_id) {
       this.user_id = id;
       this.name = name;
       this.course_id = course_id;
@@ -13,92 +12,9 @@
       this.points = 0;
       this.final_grade = "N/A";
       this.section = "";
-      this.enrollment = {};
-      this.data = {};
       this.ungraded = 0;
       //this will probably be deleted, but keeping for reference on how to format in vue
       let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
-    }
-    processEnrollment() {
-      let enrollment = this.enrollment;
-      let report_body = $('#btech-report-table-body');
-      let start_date = Date.parse(enrollment.created_at);
-      let now_date = Date.now();
-      let diff_time = Math.abs(now_date - start_date);
-      let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
-      let grades = enrollment.grades;
-      let current_score = grades.current_score;
-      if (current_score === null) current_score = 0;
-      let final_score = grades.final_score;
-      if (final_score === null) final_score = 0;
-
-      //update values
-      this.days_in_course = diff_days;
-      this.grade = current_score;
-      this.final_grade = final_score;
-      //there might need to be a check to see if this is a numbe
-      if (this.grade > 0 && this.grade != null) {
-        this.points = Math.round(this.final_grade / this.grade * 100);
-      }
-    }
-
-    async getAssignmentData() {
-      let student = this;
-      let user_id = student.user_id;
-      let course_id = student.course_id;
-      let enrollment = student.enrollment;
-      let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
-      await $.get(url, function (data) {
-        student.assignments = data;
-        let assignments = data;
-        let most_recent = {};
-        let submitted = 0;
-        let max_submissions = 0;
-        let progress_per_day = 0;
-        let start_date = Date.parse(enrollment.created_at);
-        let now_date = Date.now();
-        let diff_time = Math.abs(now_date - start_date);
-        let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
-        let most_recent_time = diff_time;
-        let ungraded = 0;
-        let color = "#FFF";
-        for (let a = 0; a < assignments.length; a++) {
-          let assignment = assignments[a];
-          if (assignment.submission !== undefined) {
-            let submitted_at = Date.parse(assignment.submission.submitted_at);
-            if (assignment.points_possible > 0) {
-              max_submissions += 1;
-              if (assignment.submission.score !== null) {
-                submitted += 1;
-              }
-            }
-            if (assignment.submission.score === null && assignment.submission.submitted_at !== null) {
-              ungraded += 1;
-            }
-            if (Math.abs(now_date - submitted_at) < most_recent_time) {
-              most_recent_time = Math.abs(now_date - submitted_at);
-              most_recent = assignment;
-            }
-          }
-        }
-
-        let points = student.points;
-        let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
-        progress_per_day = points / diff_days;
-        progress_per_day_list.push(progress_per_day);
-        let sum_progress = 0;
-        for (let i = 0; i < progress_per_day_list.length; i++) {
-          sum_progress += progress_per_day_list[i];
-        }
-        student.days_since_last_submission = most_recent_days;
-
-        let average_progress_per_day = sum_progress / progress_per_day_list.length;
-        let average_days_to_complete = Math.floor(100 / average_progress_per_day);
-        student.ungraded = ungraded;
-        let perc_submitted = Math.round((submitted / max_submissions) * 100);
-        if (isNaN(perc_submitted)) perc_submitted = 0;
-        student.submissions = perc_submitted;
-      });
     }
   }
   class Column {
@@ -147,9 +63,11 @@
               ]
             }
           },
-
-
-
+          watch: {
+            students: function(val, oldval) {
+              console.log(val);
+            }
+          },
           methods: {
             async createGradesReport() {
               let app = this;
@@ -240,6 +158,82 @@
               }
               return color;
             },
+            processEnrollment(student, enrollment) {
+              let start_date = Date.parse(enrollment.created_at);
+              let now_date = Date.now();
+              let diff_time = Math.abs(now_date - start_date);
+              let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
+              let grades = enrollment.grades;
+              let current_score = grades.current_score;
+              if (current_score === null) current_score = 0;
+              let final_score = grades.final_score;
+              if (final_score === null) final_score = 0;
+
+              //update values
+              student.days_in_course = diff_days;
+              student.grade = current_score;
+              student.final_grade = final_score;
+              //there might need to be a check to see if this is a numbe
+              if (student.grade > 0 && student.grade != null) {
+                student.points = Math.round(student.final_grade / this.grade * 100);
+              }
+            },
+
+            async getAssignmentData(student, enrollment) {
+              let user_id = student.user_id;
+              let course_id = student.course_id;
+              let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
+              await $.get(url, function (data) {
+                let assignments = data;
+                let most_recent = {};
+                let submitted = 0;
+                let max_submissions = 0;
+                let progress_per_day = 0;
+                let start_date = Date.parse(enrollment.created_at);
+                let now_date = Date.now();
+                let diff_time = Math.abs(now_date - start_date);
+                let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
+                let most_recent_time = diff_time;
+                let ungraded = 0;
+
+                for (let a = 0; a < assignments.length; a++) {
+                  let assignment = assignments[a];
+                  if (assignment.submission !== undefined) {
+                    let submitted_at = Date.parse(assignment.submission.submitted_at);
+                    if (assignment.points_possible > 0) {
+                      max_submissions += 1;
+                      if (assignment.submission.score !== null) {
+                        submitted += 1;
+                      }
+                    }
+                    if (assignment.submission.score === null && assignment.submission.submitted_at !== null) {
+                      ungraded += 1;
+                    }
+                    if (Math.abs(now_date - submitted_at) < most_recent_time) {
+                      most_recent_time = Math.abs(now_date - submitted_at);
+                      most_recent = assignment;
+                    }
+                  }
+                }
+
+                let points = student.points;
+                let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
+                progress_per_day = points / diff_days;
+                progress_per_day_list.push(progress_per_day);
+                let sum_progress = 0;
+                for (let i = 0; i < progress_per_day_list.length; i++) {
+                  sum_progress += progress_per_day_list[i];
+                }
+                student.days_since_last_submission = most_recent_days;
+
+                let average_progress_per_day = sum_progress / progress_per_day_list.length;
+                let average_days_to_complete = Math.floor(100 / average_progress_per_day);
+                student.ungraded = ungraded;
+                let perc_submitted = Math.round((submitted / max_submissions) * 100);
+                if (isNaN(perc_submitted)) perc_submitted = 0;
+                student.submissions = perc_submitted;
+              });
+            }
 
           }
         })
@@ -248,5 +242,5 @@
     }
   }
 
-  console.log('v7')
+  console.log('v8')
 })();
