@@ -24,9 +24,9 @@
         $("#canvas-grades-report-vue").append(vueString);
         this.APP = new Vue({
           el: '#canvas-grades-report-vue',
-          mounted: function () {
+          mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
-            this.createGradesReport();
+            await this.createGradesReport();
           },
 
           data: function () {
@@ -49,6 +49,7 @@
           watch: {
             students: {
               handler: function (val, oldval) {
+                
                 console.log(oldval);
                 console.log(val);
               },
@@ -108,10 +109,10 @@
               });
               app.getSectionData();
             },
-            getSectionData() {
+            async getSectionData() {
               let app = this;
               let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
-              $.get(url, function (data) {
+              await $.get(url, function (data) {
                 let sections = data;
                 if (sections.length > 0) {
                   for (let i = 0; i < sections.length; i++) {
