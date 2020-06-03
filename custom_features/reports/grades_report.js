@@ -64,8 +64,11 @@
             }
           },
           watch: {
-            students: function(val, oldval) {
-              console.log(val);
+            students: {
+              handler: function (val, oldval) {
+                console.log(val);
+              },
+              deep: true
             }
           },
           methods: {
