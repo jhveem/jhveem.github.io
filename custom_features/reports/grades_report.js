@@ -245,13 +245,10 @@
           template: `
             <tr>
             <th
+              is="report-cell"
               v-for='column in columns' 
-              :key='column.name' 
+              :text=student[formattedColumnName(name)]
             >
-              test
-              <div>
-                {{columnValue(column.name)}}
-              </div>
             </th>
             </tr>
           `,
@@ -276,6 +273,34 @@
             },
           }
         });
+        Vue.component('report-cell', {
+          template: `
+            <th>
+              {{text}}
+            </th>
+          `,
+          props: [
+            'text',
+            'student'
+          ],
+          computed: {
+          },
+          methods: {
+            getCellText(column, text) {
+              if (column.percent && !isNaN(text)) {
+                text += "%";
+              }
+              return text;
+            },
+            columnValue(name) {
+              return this.student[this.formattedColumnName(name)];
+            },
+            formattedColumnName(name) {
+              return name.toLowerCase().replace(/ /g, '_');
+            },
+          }
+        });
+
       },
       APP: {}
     }
