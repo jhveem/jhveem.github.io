@@ -17,7 +17,7 @@
         <tbody border='1'>
           <tr is="report-row" v-for='(student, id) in students'
               :student='student' 
-              :column="column"
+              :columns="columns"
             >
           </tr>
         </tbody>
