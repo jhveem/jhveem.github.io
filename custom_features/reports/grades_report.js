@@ -1,22 +1,5 @@
 (function () {
-  class Student {
-    constructor(id, name, course_id) {
-      this.user_id = id;
-      this.name = name;
-      this.course_id = course_id;
-      this.days_in_course = 0;
-      this.days_since_last_submission = 0;
-      this.days_since_last_submission_color = "#fff";
-      this.section = "";
-      this.grade = "N/A";
-      this.points = 0;
-      this.final_grade = "N/A";
-      this.section = "";
-      this.ungraded = 0;
-      //this will probably be deleted, but keeping for reference on how to format in vue
-      let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
-    }
-  }
+
   class Column {
     constructor(name, description, average, sortable_type, percent) {
       this.name = name;
@@ -72,6 +55,24 @@
             }
           },
           methods: {
+            newStudent(id, name, course_id) {
+              let student = {};
+              student.user_id = id;
+              student.name = name;
+              student.course_id = course_id;
+              student.days_in_course = 0;
+              student.days_since_last_submission = 0;
+              student.days_since_last_submission_color = "#fff";
+              student.section = "";
+              student.grade = "N/A";
+              student.points = 0;
+              student.final_grade = "N/A";
+              student.section = "";
+              student.ungraded = 0;
+              //this will probably be deleted, but keeping for reference on how to format in vue
+              let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
+              return student;
+            },
             async createGradesReport() {
               let app = this;
               let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
@@ -95,7 +96,7 @@
                     }
                   }
                   if (enrollment !== null) {
-                    Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, app.courseId, app));
+                    Vue.set(app.students, userId, app.newStudent(userId, studentData.sortable_name, app.courseId, app));
                     student = app.students[userId];
                     app.processEnrollment(student, enrollment);
                     app.getAssignmentData(student, enrollment);
