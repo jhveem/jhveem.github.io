@@ -123,6 +123,7 @@
               let app = this;
               let user_id = app.user_id;
               let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
+              console.log(url);
               await $.get(url, function (data) {
                 if (data.length > 0) {
                   check = true;
@@ -147,7 +148,6 @@
                       output.points = points;
                     }
                   }
-                  console.log(output);
                 }
               });
               if (check == false && state == "active") {
@@ -267,5 +267,5 @@
       APP: {}
     }
   }
-  console.log('v2');
+  console.log('v3');
 })();
