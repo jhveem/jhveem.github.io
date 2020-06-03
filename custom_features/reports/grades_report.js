@@ -204,6 +204,7 @@
               }
               await app.getSectionData();
               app.students = students;
+              console.log(app.students);
             },
             async getSectionData() {
               let app = this;
