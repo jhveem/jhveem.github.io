@@ -108,7 +108,7 @@
       this.percent = percent;
     }
   }
-  console.log("v5")
+  console.log("v6")
   //Load the template
   let vueString = '';
   await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
