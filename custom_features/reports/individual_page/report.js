@@ -79,7 +79,7 @@
               return student;
             },
 
-            async getCousreData() {
+            async getCourseData() {
               let app = this;
               let courseList = await getCourses();
               console.log(courseList);
