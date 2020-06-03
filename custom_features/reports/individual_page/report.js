@@ -125,6 +125,7 @@
               let check = false;
               let app = this;
               let user_id = app.user_id;
+              console.log(state);
               let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
               console.log(url);
               await $.get(url, function (data) {
@@ -159,92 +160,18 @@
               }
               return output;
             },
-            async createGradesReport() {
-              let app = this;
-              let studentsData = {};
-              await app.getSectionData();
-              let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
-              url += "&enrollment_state%5B%5D=invited"
-              url += "&enrollment_type%5B%5D=student"
-              url += "&enrollment_type%5B%5D=student_view";
-              url += "&include%5B%5D=avatar_url";
-              url += "&include%5B%5D=group_ids";
-              url += "&include%5B%5D=enrollments";
-              url += "&per_page=100";
 
-              await $.get(url, function (data) {
-                app.studentData = data;
-              });
-
-              for (let s = 0; s < app.studentData.length; s++) {
-                let studentData = app.studentData[s];
-                let userId = studentData.id;
-                let enrollment = null;
-
-                for (let e = 0; e < studentData.enrollments.length; e++) {
-                  if (studentData.enrollments[e].type === "StudentEnrollment") {
-                    enrollment = studentData.enrollments[e];
-                  }
-                }
-                if (enrollment !== null) {
-                  studentsData[userId] = app.newStudent(userId, studentData.sortable_name, app.courseId, app);
-                  app.processEnrollment(studentsData[userId], enrollment);
-                  await app.getAssignmentData(studentsData[userId], enrollment);
-                  studentsData[userId].section = app.getStudentSection(userId);
-                }
-              }
-              console.log(studentsData);
-
-              return studentsData;
-            },
-            async getSectionData() {
-              let app = this;
-              let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
-              await $.get(url, function (data) {
-                app.sections = data;
-              });
-            },
-            getStudentSection(studentId) {
-              let app = this;
-              if (app.sections.length > 0) {
-                for (let i = 0; i < app.sections.length; i++) {
-                  let section = app.sections[i];
-                  let studentsData = section.students;
-                  if (studentsData !== null) {
-                    if (studentsData.length > 0) {
-                      for (let j = 0; j < studentsData.length; j++) {
-                        let studentData = studentsData[j];
-                        if (parseInt(studentId) === studentData.id) {
-                          return section.name;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-              return '';
-            },
-
-            checkStudentInSection(studentData, section) {
-              let app = this;
-              for (let id in app.students) {
-                let student = app.students[id];
-                let user_id = parseInt(student.user_id);
-                if (studentData.id === user_id) {
-                  student.section = section.name;
-                  return;
-                }
-              }
-            },
             columnNameToCode(name) {
               return name.toLowerCase().replace(/ /g, "_");
             },
+
             getColumnText(column, text) {
               if (column.percent && !isNaN(text)) {
                 text += "%";
               }
               return text;
             },
+
             getDaysSinceLastSubmissionColor(column, val) {
               color = "#FFF";
               if (column === "Days Since Last Submission") {
@@ -257,6 +184,7 @@
               }
               return color;
             },
+
             processEnrollment(student, enrollment) {
               let start_date = Date.parse(enrollment.created_at);
               let now_date = Date.now();
@@ -343,5 +271,5 @@
       APP: {}
     }
   }
-  console.log('v2');
+  console.log('v3');
 })();
