@@ -155,7 +155,7 @@
                 }
               });
               if (check == false && state == "active") {
-                output = app.getCourseGrades(courses, course_id, 'completed');
+                output = app.getCourseGrades(course_id, 'completed');
               }
               return output;
             },
