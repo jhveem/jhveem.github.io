@@ -89,7 +89,7 @@
         for (let i = 0; i < progress_per_day_list.length; i++) {
           sum_progress += progress_per_day_list[i];
         }
-        student.app.students[student.user_id].days_since_last_submission =  most_recent_days;
+        student.app.students[student.user_id].days_since_last_submission = most_recent_days;
 
         student.ungraded = ungraded
         let perc_submitted = Math.round((submitted / max_submissions) * 100);
@@ -108,143 +108,136 @@
       this.percent = percent;
     }
   }
-  IMPORTED_FEATURE = {};
-  if (true) {
-    IMPORTED_FEATURE = {
-      initiated: false,
-      async _init(params = {}) {
-        console.log("v4")
-        let vueString = '';
-        await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
-          vueString = html.replace("<template>", "").replace("</template>", "");
-        }, 'text');
-        let canvasbody = $("#application");
-        canvasbody.after('<div id="canvas-grades-report-vue"></div>');
-        $("#canvas-grades-report-vue").append(vueString);
-        this.APP = new Vue({
-          el: '#canvas-grades-report-vue',
-          mounted: function () {
-            this.courseId = ENV.context_asset_string.replace("course_", "");
-            this.createGradesReport();
-          },
+  console.log("v4")
+  let vueString = '';
+  await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
+    vueString = html.replace("<template>", "").replace("</template>", "");
+  }, 'text');
+  let canvasbody = $("#application");
+  canvasbody.after('<div id="canvas-grades-report-vue"></div>');
+  $("#canvas-grades-report-vue").append(vueString);
+  this.APP = new Vue({
+    el: '#canvas-grades-report-vue',
+    mounted: function () {
+      this.courseId = ENV.context_asset_string.replace("course_", "");
+      this.createGradesReport();
+    },
 
-          data: function () {
-            return {
-              courseId: null,
-              students: {},
-              columns: [
-                new Column('Name', '', false, '', false),
-                new Column('Section', '', false, '', false),
-                new Column('Grade', '', true, 'sorttable_numeric', true),
-                new Column('Final Grade', '', true, 'sorttable_numeric', true),
-                new Column('Points', '', true, 'sorttable_numeric', true),
-                new Column('Submissions', '', true, 'sorttable_numeric', true),
-                new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
-                new Column('Days in Course', '', true, 'sorttable_numeric', false),
-                new Column('Ungraded', '', true, 'sorttable_numeric', false)
-              ]
-            }
-          },
+    data: function () {
+      return {
+        courseId: null,
+        students: {},
+        columns: [
+          new Column('Name', '', false, '', false),
+          new Column('Section', '', false, '', false),
+          new Column('Grade', '', true, 'sorttable_numeric', true),
+          new Column('Final Grade', '', true, 'sorttable_numeric', true),
+          new Column('Points', '', true, 'sorttable_numeric', true),
+          new Column('Submissions', '', true, 'sorttable_numeric', true),
+          new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
+          new Column('Days in Course', '', true, 'sorttable_numeric', false),
+          new Column('Ungraded', '', true, 'sorttable_numeric', false)
+        ]
+      }
+    },
 
 
 
-          methods: {
-            getColumnText(column, text) {
-              if (column.percent && !isNaN(text)) {
-                text += "%";
-              }
-              return text;
-            },
-            getDaysSinceLastSubmissionColor(column, val) {
-              color = "#FFF";
-              if (column === "Days Since Last Submission") {
-                if (val >= 7 && val <= 21) {
-                  let g = 16 - Math.floor(((val - 6) / 15) * 16);
-                  if (g < 6) g = 6;
-                  color = "#F" + g.toString(16) + "7";
-                }
-                if (val > 21) color = "#F67";
-              }
-              return color;
-            },
-            async createGradesReport() {
-              let app = this;
-              let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
-              url += "&enrollment_state%5B%5D=invited"
-              url += "&enrollment_type%5B%5D=student"
-              url += "&enrollment_type%5B%5D=student_view";
-              url += "&include%5B%5D=avatar_url";
-              url += "&include%5B%5D=group_ids";
-              url += "&include%5B%5D=enrollments";
-              url += "&per_page=100";
-              var students = null;
-              await $.get(url, async function (data) {
-                for (let s = 0; s < data.length; s++) {
-                  let studentData = data[s];
-                  let userId = studentData.id;
-                  let enrollment = null;
-
-                  for (let e = 0; e < studentData.enrollments.length; e++) {
-                    if (studentData.enrollments[e].type === "StudentEnrollment") {
-                      enrollment = studentData.enrollments[e];
-                    }
-                  }
-                  if (enrollment !== null) {
-                    let student = new Student(userId, studentData.sortable_name, app.courseId, app)
-                    student.data = studentData;
-                    student.enrollment = enrollment;
-                    student.processEnrollment();
-                    students[userId] = student;
-                  }
-                }
-              });
-              console.log(students);
-              for (let id in students) {
-                let student = students[id];
-                await student.getAssignmentData();
-              }
-              await app.getSectionData();
-              app.students = students;
-              console.log(app.students);
-            },
-            async getSectionData() {
-              let app = this;
-              let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
-              $.get(url, function (data) {
-                let sections = data;
-                if (sections.length > 0) {
-                  for (let i = 0; i < sections.length; i++) {
-                    let section = sections[i];
-                    let studentsData = section.students;
-                    if (studentsData !== null) {
-                      if (studentsData.length > 0) {
-                        for (let j = 0; j < studentsData.length; j++) {
-                          let studentData = studentsData[j];
-                          app.checkStudentInSection(studentData, section);
-                        }
-                      }
-                    }
-                  }
-                }
-              });
-            },
-
-            checkStudentInSection(studentData, section) {
-              let app = this;
-              for (let id in app.students) {
-                let student = app.students[id];
-                let user_id = parseInt(student.user_id);
-                if (studentData.id === user_id) {
-                  student.section = section.name;
-                  return;
-                }
-              }
-            },
-
+    methods: {
+      getColumnText(column, text) {
+        if (column.percent && !isNaN(text)) {
+          text += "%";
+        }
+        return text;
+      },
+      getDaysSinceLastSubmissionColor(column, val) {
+        color = "#FFF";
+        if (column === "Days Since Last Submission") {
+          if (val >= 7 && val <= 21) {
+            let g = 16 - Math.floor(((val - 6) / 15) * 16);
+            if (g < 6) g = 6;
+            color = "#F" + g.toString(16) + "7";
           }
-        })
-        Vue.component('report-row', {
-          template: `
+          if (val > 21) color = "#F67";
+        }
+        return color;
+      },
+      async createGradesReport() {
+        let app = this;
+        let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
+        url += "&enrollment_state%5B%5D=invited"
+        url += "&enrollment_type%5B%5D=student"
+        url += "&enrollment_type%5B%5D=student_view";
+        url += "&include%5B%5D=avatar_url";
+        url += "&include%5B%5D=group_ids";
+        url += "&include%5B%5D=enrollments";
+        url += "&per_page=100";
+        var students = null;
+        await $.get(url, async function (data) {
+          for (let s = 0; s < data.length; s++) {
+            let studentData = data[s];
+            let userId = studentData.id;
+            let enrollment = null;
+
+            for (let e = 0; e < studentData.enrollments.length; e++) {
+              if (studentData.enrollments[e].type === "StudentEnrollment") {
+                enrollment = studentData.enrollments[e];
+              }
+            }
+            if (enrollment !== null) {
+              let student = new Student(userId, studentData.sortable_name, app.courseId, app)
+              student.data = studentData;
+              student.enrollment = enrollment;
+              student.processEnrollment();
+              app.students[userId] = student;
+            }
+          }
+        });
+        for (let id in students) {
+          let student = students[id];
+          await student.getAssignmentData();
+        }
+        await app.getSectionData();
+      },
+      async getSectionData() {
+        let app = this;
+        let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
+        $.get(url, function (data) {
+          let sections = data;
+          if (sections.length > 0) {
+            for (let i = 0; i < sections.length; i++) {
+              let section = sections[i];
+              let studentsData = section.students;
+              if (studentsData !== null) {
+                if (studentsData.length > 0) {
+                  for (let j = 0; j < studentsData.length; j++) {
+                    let studentData = studentsData[j];
+                    app.checkStudentInSection(studentData, section);
+                  }
+                }
+              }
+            }
+          }
+        });
+      },
+
+      checkStudentInSection(studentData, section) {
+        let app = this;
+        for (let id in app.students) {
+          let student = app.students[id];
+          let user_id = parseInt(student.user_id);
+          if (studentData.id === user_id) {
+            student.section = section.name;
+            return;
+          }
+        }
+      },
+
+    }
+  });
+
+  Vue.component('report-row', {
+    template: `
             <tr>
               <th
                 is="report-cell"
@@ -255,41 +248,37 @@
               </th>
             </tr>
           `,
-          props: [
-            'columns',
-            'student'
-          ],
-          methods: {
-            getCellText(column, text) {
-              if (column.percent && !isNaN(text)) {
-                text += "%";
-              }
-              return text;
-            },
-            columnValue(name) {
-              return this.student[this.formattedColumnName(name)];
-            },
-            formattedColumnName(name) {
-              return name.toLowerCase().replace(/ /g, '_');
-            },
-          }
-        });
-        Vue.component('report-cell', {
-          template: `
+    props: [
+      'columns',
+      'student'
+    ],
+    methods: {
+      getCellText(column, text) {
+        if (column.percent && !isNaN(text)) {
+          text += "%";
+        }
+        return text;
+      },
+      columnValue(name) {
+        return this.student[this.formattedColumnName(name)];
+      },
+      formattedColumnName(name) {
+        return name.toLowerCase().replace(/ /g, '_');
+      },
+    }
+  });
+
+  Vue.component('report-cell', {
+    template: `
             <th>
               {{student[keyName]}}
             </th>
           `,
-          props: [
-            'keyName',
-            'student'
-          ],
-          methods: {
-          }
-        });
+    props: [
+      'keyName',
+      'student'
+    ],
+    methods: {}
+  });
 
-      },
-      APP: {}
-    }
-  }
 })();
