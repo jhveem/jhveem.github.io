@@ -283,11 +283,12 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("quizzes/question_bank_sorter");
       featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
       featureCDD("help_tab");
-      featureCDD("rubrics/add_criteria_from_csv");
-      featureCDD("rubrics/create_rubric_from_csv");
+      featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
+      featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
       featureCDD("editor_toolbar/tables");
       featureCDD("surveys");
-      if (IS_ME) feature("reports/grades_report", {}, /^\/courses\/[0-9]+\/gradebook$/);
+      if (IS_ME) feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
+      if (IS_ME) feature("reports/individual_page/report", {}, /^\/courses\/[0-9]+\/users\/[0-9]+$/);
     });
   });
 });
