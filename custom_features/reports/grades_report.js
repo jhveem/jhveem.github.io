@@ -130,7 +130,7 @@
     data: function () {
       return {
         courseId: null,
-        students: {},
+        students: [],
         columns: [
           new Column('Name', '', false, '', false),
           new Column('Section', '', false, '', false),
@@ -191,13 +191,14 @@
               student.data = studentData;
               student.enrollment = enrollment;
               student.processEnrollment();
+              await student.getAssignmentData();
               Vue.set(app.students, userId, student);
             }
           }
         });
         for (let id in students) {
           let student = students[id];
-          await student.getAssignmentData();
+          // await student.getAssignmentData();
         }
         await app.getSectionData();
       },

@@ -15,7 +15,8 @@
           </tr>
         </thead>
         <tbody border='1'>
-          <tr is="report-row" v-for='(student, id) in students'
+          <tr is="report-row" v-for='student in students'
+              :key='student.user_id'
               :student='student' 
               :columns="columns"
             >
