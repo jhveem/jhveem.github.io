@@ -15,12 +15,10 @@
           </tr>
         </thead>
         <tbody border='1'>
-          <tr v-for='(student, id) in students'>
-            <report-row 
+          <tr is="report-row" v-for='(student, id) in students'
               :student='student' 
               :column="column"
             >
-            </report-row>
           </tr>
         </tbody>
         <tfoot border='1'>
