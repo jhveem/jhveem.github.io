@@ -177,7 +177,7 @@
               url += "&include%5B%5D=group_ids";
               url += "&include%5B%5D=enrollments";
               url += "&per_page=100";
-
+              let students = null;
               await $.get(url, async function (data) {
                 for (let s = 0; s < data.length; s++) {
                   let studentData = data[s];
@@ -194,12 +194,13 @@
                     student.data = studentData;
                     student.enrollment = enrollment;
                     student.processEnrollment();
-                    await student.getAssignmentData();
-                    Vue.set(app.students, userId, student);
+                    students[userId] = student;
                   }
                 }
               });
-              app.getSectionData();
+              await student.getAssignmentData();
+              await app.getSectionData();
+              app.students = students;
             },
             async getSectionData() {
               let app = this;
