@@ -191,7 +191,7 @@
               student.final_grade = final_score;
               //there might need to be a check to see if this is a numbe
               if (student.grade > 0 && student.grade != null) {
-                student.points = Math.round(student.final_grade / this.grade * 100);
+                student.points = Math.round(student.final_grade / student.grade * 100);
               }
             },
 
