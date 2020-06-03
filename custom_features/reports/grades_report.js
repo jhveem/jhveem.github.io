@@ -109,14 +109,18 @@
     }
   }
   console.log("v5")
+  //Load the template
   let vueString = '';
   await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
     vueString = html.replace("<template>", "").replace("</template>", "");
   }, 'text');
+  //set up the html
   let canvasbody = $("#application");
   canvasbody.after('<div id="canvas-grades-report-vue"></div>');
   $("#canvas-grades-report-vue").append(vueString);
-  this.APP = new Vue({
+
+  //create our Vue app
+  new Vue({
     el: '#canvas-grades-report-vue',
     mounted: function () {
       this.courseId = ENV.context_asset_string.replace("course_", "");
@@ -140,8 +144,6 @@
         ]
       }
     },
-
-
 
     methods: {
       getColumnText(column, text) {
@@ -189,7 +191,7 @@
               student.data = studentData;
               student.enrollment = enrollment;
               student.processEnrollment();
-              app.students[userId] = student;
+              Vue.set(app.students, userId, student);
             }
           }
         });
