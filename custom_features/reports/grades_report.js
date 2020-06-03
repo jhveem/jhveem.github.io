@@ -26,7 +26,7 @@
           el: '#canvas-grades-report-vue',
           mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
-            await this.createGradesReport();
+            this.students = await this.createGradesReport();
           },
 
           data: function () {
@@ -43,7 +43,9 @@
                 new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
                 new Column('Days in Course', '', true, 'sorttable_numeric', false),
                 new Column('Ungraded', '', true, 'sorttable_numeric', false)
-              ]
+              ],
+              sections: [],
+              studentData: [],
             }
           },
           watch: {
@@ -78,6 +80,8 @@
             },
             async createGradesReport() {
               let app = this;
+              let studentsData = {};
+              await app.getSectionData();
               let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
               url += "&enrollment_state%5B%5D=invited"
               url += "&enrollment_type%5B%5D=student"
@@ -88,47 +92,54 @@
               url += "&per_page=100";
 
               await $.get(url, function (data) {
-                for (let s = 0; s < data.length; s++) {
-                  let studentData = data[s];
-                  let userId = studentData.id;
-                  let enrollment = null;
+                app.studentData = data;
+              });
 
-                  for (let e = 0; e < studentData.enrollments.length; e++) {
-                    if (studentData.enrollments[e].type === "StudentEnrollment") {
-                      enrollment = studentData.enrollments[e];
-                    }
-                  }
-                  if (enrollment !== null) {
-                    Vue.set(app.students, userId, app.newStudent(userId, studentData.sortable_name, app.courseId, app));
-                    student = app.students[userId];
-                    app.processEnrollment(student, enrollment);
-                    app.getAssignmentData(student, enrollment);
+              for (let s = 0; s < app.studentData.length; s++) {
+                let studentData = app.studentData[s];
+                let userId = studentData.id;
+                let enrollment = null;
+
+                for (let e = 0; e < studentData.enrollments.length; e++) {
+                  if (studentData.enrollments[e].type === "StudentEnrollment") {
+                    enrollment = studentData.enrollments[e];
                   }
                 }
-                console.log(app.students);
-              });
-              app.getSectionData();
+                if (enrollment !== null) {
+                  studentsData[userId] = app.newStudent(userId, studentData.sortable_name, app.courseId, app);
+                  app.processEnrollment(studentsData[userId], enrollment);
+                  await app.getAssignmentData(studentsData[userId], enrollment);
+                }
+              }
+              console.log(studentsData);
+
+              return studentsData;
             },
-            async getSectionData() {
+            async getSectionData(students) {
               let app = this;
               let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
               await $.get(url, function (data) {
-                let sections = data;
-                if (sections.length > 0) {
-                  for (let i = 0; i < sections.length; i++) {
-                    let section = sections[i];
-                    let studentsData = section.students;
-                    if (studentsData !== null) {
-                      if (studentsData.length > 0) {
-                        for (let j = 0; j < studentsData.length; j++) {
-                          let studentData = studentsData[j];
-                          app.checkStudentInSection(studentData, section);
+                app.sections = data;
+              });
+            },
+            getStudentSection(studentId) {
+              if (app.sections.length > 0) {
+                for (let i = 0; i < sections.length; i++) {
+                  let section = sections[i];
+                  let studentsData = section.students;
+                  if (studentsData !== null) {
+                    if (studentsData.length > 0) {
+                      for (let j = 0; j < studentsData.length; j++) {
+                        let studentData = studentsData[j];
+                        if (parseInt(studentId) === studentData.id) {
+                          return section.name;
                         }
                       }
                     }
                   }
                 }
-              });
+              }
+              return '';
             },
 
             checkStudentInSection(studentData, section) {
@@ -247,5 +258,5 @@
     }
   }
 
-  console.log('v11')
+  console.log('v12')
 })();
