@@ -248,7 +248,7 @@
   Vue.component('report-row', {
     template: `
         <div>
-          <div v-for='column in columns' style='display: inline-block;'></div>
+          <div v-for='column in columns' style='display: inline-block;'>{{column.name}}</div>
         </div>
     `,
     props: [
