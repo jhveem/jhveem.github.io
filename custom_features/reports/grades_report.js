@@ -1,6 +1,6 @@
 (function () {
   class Student {
-    constructor(id, name, course_id, app) {
+    async constructor(id, name, course_id, app) {
       this.app = app;
       this.user_id = id;
       this.name = name;
@@ -19,7 +19,7 @@
       //this will probably be deleted, but keeping for reference on how to format in vue
       let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
     }
-    processEnrollment() {
+    async processEnrollment() {
       let enrollment = this.enrollment;
       let start_date = Date.parse(enrollment.created_at);
       let now_date = Date.now();
@@ -178,7 +178,7 @@
               url += "&include%5B%5D=enrollments";
               url += "&per_page=100";
 
-              $.get(url, function (data) {
+              await $.get(url, function (data) {
                 for (let s = 0; s < data.length; s++) {
                   let studentData = data[s];
                   let userId = studentData.id;
@@ -190,12 +190,13 @@
                     }
                   }
                   if (enrollment !== null) {
-                    Vue.set(app.students, userId, new Student(userId, studentData.sortable_name, app.courseId, app));
+                    let student = new Student(userId, studentData.sortable_name, app.courseId, app));
                     let student = app.students[userId];
                     student.data = studentData;
                     student.enrollment = enrollment;
-                    student.processEnrollment();
-                    student.getAssignmentData();
+                    await student.processEnrollment();
+                    await student.getAssignmentData();
+                    Vue.set(app.students, userId, student);
                   }
                 }
               });
@@ -225,12 +226,9 @@
 
             checkStudentInSection(studentData, section) {
               let app = this;
-              console.log(section.name);
               for (let id in app.students) {
                 let student = app.students[id];
                 let user_id = parseInt(student.user_id);
-                console.log(user_id);
-                console.log(studentData.id);
                 if (studentData.id === user_id) {
                   student.section = section.name;
                   return;
