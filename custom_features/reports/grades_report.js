@@ -256,7 +256,7 @@
             </tr>
           `,
           props: [
-            'column',
+            'columns',
             'student'
           ],
           computed: {
