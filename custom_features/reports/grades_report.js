@@ -225,11 +225,13 @@
 
             checkStudentInSection(studentData, section) {
               let app = this;
+              console.log(section.name);
               for (let id in app.students) {
                 let student = app.students[id];
                 let user_id = parseInt(student.user_id);
+                console.log(user_id);
+                console.log(studentData.id);
                 if (studentData.id === user_id) {
-                  console.log(section.name);
                   student.section = section.name;
                   return;
                 }
