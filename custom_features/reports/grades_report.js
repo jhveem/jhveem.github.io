@@ -190,8 +190,7 @@
                     }
                   }
                   if (enrollment !== null) {
-                    let student = new Student(userId, studentData.sortable_name, app.courseId, app));
-                    let student = app.students[userId];
+                    let student = new Student(userId, studentData.sortable_name, app.courseId, app)
                     student.data = studentData;
                     student.enrollment = enrollment;
                     await student.processEnrollment();
