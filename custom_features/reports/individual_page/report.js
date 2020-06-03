@@ -92,7 +92,9 @@
                 course.points = gradesData.points;
                 courses.push(course);
               }
+              app.courses = courses;
               console.log(courses);
+              app.loading = false;
             },
 
             async getCourses() {
