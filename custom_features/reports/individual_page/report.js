@@ -91,6 +91,8 @@
                 course.grade = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
                 course.points = gradesData.points;
+
+                await app.getAssignmentData(course, gradesData.enrollment);
                 courses.push(course);
               }
               console.log(courses);
@@ -122,15 +124,15 @@
             },
 
             async getCourseGrades(course_id, state) {
-              let output = {};
-              let check = false;
+              let output = {found: false};
               let app = this;
               let user_id = app.userId;
               let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
               await $.get(url, function (data) {
                 if (data.length > 0) {
-                  check = true;
+                  output.found = true;
                   let enrollment = data[0].enrollments[0];
+                  output.enrollment = enrollment;
                   let grades = enrollment.grades;
                   if (grades !== undefined) {
                     let grade = grades.current_score;
@@ -154,10 +156,9 @@
                   }
                 }
               });
-              if (check == false && state == "active") {
+              if (output.found === false && state === "active") {
                 output = await app.getCourseGrades(course_id, 'completed');
               }
-              console.log(output)
               return output;
             },
 
@@ -185,6 +186,60 @@
               return color;
             },
 
+            getAssignmentData(course, enrollment) {
+              let course_id = course.course_id;
+              let user_id = app.userId;
+              let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments";
+              console.log(url);
+              await $.get(url, function (data) {
+                course.assignments = data;
+                let assignments = data;
+                let total_points_possible = 0;
+                let current_points_possible = 0;
+                let most_recent = {};
+                let submitted = 0;
+                let max_submissions = 0;
+                let progress_per_day = 0;
+                let start_date = Date.parse(enrollment.created_at);
+                let now_date = Date.now();
+                let diff_time = Math.abs(now_date - start_date);
+                let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
+                let most_recent_time = diff_time;
+                for (let a = 0; a < assignments.length; a++) {
+                  let assignment = assignments[a];
+                  let points_possible = assignment.points_possible;
+                  let submitted_at = Date.parse(assignment.submission.submitted_at);
+                  total_points_possible += points_possible;
+                  if (assignment.points_possible > 0) {
+                    max_submissions += 1;
+                    if (assignment.submission.score !== null) {
+                      current_points_possible += points_possible;
+                      submitted += 1;
+                    }
+                  }
+                  if (Math.abs(now_date - submitted_at) < most_recent_time) {
+                    most_recent_time = Math.abs(now_date - submitted_at);
+                    most_recent = assignment;
+                  }
+                }
+                let perc_submitted = Math.round((submitted / max_submissions) * 100);
+                if (isNaN(perc_submitted)) perc_submitted = 0;
+                course.submissions = perc_submitted;
+
+                //calculate color for last submission day
+                let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
+                if (course.state === 'active') {
+                  course.days_since_last_submission = most_recent_days;
+                } else if (course.state == 'completed') {
+                  course.days_since_last_submission = "Complete";
+                  course.points = 100;
+                } else {
+                  course.days_since_last_submission = "N/A";
+                  course.points = "N/A";
+                }
+              });
+            },
+
             processEnrollment(student, enrollment) {
               let start_date = Date.parse(enrollment.created_at);
               let now_date = Date.now();
@@ -206,61 +261,6 @@
               }
             },
 
-            async getAssignmentData(student, enrollment) {
-              let user_id = student.user_id;
-              let course_id = student.course_id;
-              let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
-              await $.get(url, function (data) {
-                let assignments = data;
-                let most_recent = {};
-                let submitted = 0;
-                let max_submissions = 0;
-                let progress_per_day = 0;
-                let start_date = Date.parse(enrollment.created_at);
-                let now_date = Date.now();
-                let diff_time = Math.abs(now_date - start_date);
-                let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
-                let most_recent_time = diff_time;
-                let ungraded = 0;
-
-                for (let a = 0; a < assignments.length; a++) {
-                  let assignment = assignments[a];
-                  if (assignment.submission !== undefined) {
-                    let submitted_at = Date.parse(assignment.submission.submitted_at);
-                    if (assignment.points_possible > 0) {
-                      max_submissions += 1;
-                      if (assignment.submission.score !== null) {
-                        submitted += 1;
-                      }
-                    }
-                    if (assignment.submission.score === null && assignment.submission.submitted_at !== null) {
-                      ungraded += 1;
-                    }
-                    if (Math.abs(now_date - submitted_at) < most_recent_time) {
-                      most_recent_time = Math.abs(now_date - submitted_at);
-                      most_recent = assignment;
-                    }
-                  }
-                }
-
-                let points = student.points;
-                let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
-                progress_per_day = points / diff_days;
-                progress_per_day_list.push(progress_per_day);
-                let sum_progress = 0;
-                for (let i = 0; i < progress_per_day_list.length; i++) {
-                  sum_progress += progress_per_day_list[i];
-                }
-                student.days_since_last_submission = most_recent_days;
-
-                let average_progress_per_day = sum_progress / progress_per_day_list.length;
-                let average_days_to_complete = Math.floor(100 / average_progress_per_day);
-                student.ungraded = ungraded;
-                let perc_submitted = Math.round((submitted / max_submissions) * 100);
-                if (isNaN(perc_submitted)) perc_submitted = 0;
-                student.submissions = perc_submitted;
-              });
-            },
             close() {
               $(this.$el).hide();
             }
