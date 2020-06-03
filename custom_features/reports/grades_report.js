@@ -117,7 +117,7 @@
     IMPORTED_FEATURE = {
       initiated: false,
       async _init(params = {}) {
-        console.log("v8")
+        console.log("v9")
         let vueString = '';
         await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
           vueString = html.replace("<template>", "").replace("</template>", "");
@@ -203,6 +203,8 @@
                   }
                 }
               });
+              app.getSectionData();
+            },
             async getSectionData() {
               let app = this;
               let url = "/api/v1/courses/" + app.courseId + "/sections?per_page=100&include[]=students";
