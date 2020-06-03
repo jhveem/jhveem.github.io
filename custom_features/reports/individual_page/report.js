@@ -145,11 +145,12 @@
                     if (grade == "N/A" && final_grade == 0) final_grade = "N/A";
                     output.final_grade = final_grade;
 
+                    let points = "N/A";
                     if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
-                      let points = Math.round(final_grade / grade * 100);
+                      points = Math.round(final_grade / grade * 100);
                       if (isNaN(points)) points = 0;
-                      output.points = points;
                     }
+                    output.points = points;
                   }
                 }
               });
