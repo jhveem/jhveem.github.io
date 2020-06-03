@@ -198,6 +198,7 @@
                   }
                 }
               });
+              console.log(students);
               for (let id in students) {
                 let student = students[id];
                 await student.getAssignmentData();
