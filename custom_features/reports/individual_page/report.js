@@ -33,7 +33,7 @@
           data: function () {
             return {
               courseId: null,
-              course: {},
+              courses: {},
               columns: [
                 new Column('Name', '', false, '', false),
                 new Column('Grade', '', true, 'sorttable_numeric', true),
