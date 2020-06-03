@@ -1,6 +1,6 @@
 (function () {
   class Student {
-    async constructor(id, name, course_id, app) {
+    constructor(id, name, course_id, app) {
       this.app = app;
       this.user_id = id;
       this.name = name;
