@@ -47,7 +47,7 @@
       let course_id = student.course_id;
       let enrollment = student.enrollment;
       let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
-      await $.get(url, function (data) {
+      $.get(url, function (data) {
         student.assignments = data;
         let assignments = data;
         let most_recent = {};
@@ -88,7 +88,7 @@
         for (let i = 0; i < progress_per_day_list.length; i++) {
           sum_progress += progress_per_day_list[i];
         }
-        Vue.set(student.app.students[student.userId], 'days_since_last_submission', most_recent_days);
+        Vue.set(student, 'days_since_last_submission', most_recent_days);
 
         let average_progress_per_day = sum_progress / progress_per_day_list.length;
         let average_days_to_complete = Math.floor(100 / average_progress_per_day);
