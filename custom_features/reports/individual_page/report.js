@@ -29,7 +29,7 @@
             let match = window.location.pathname.match(/courses\/([0-9]+)\/users\/([0-9]+)/);
             this.userId = match[2];
             console.log(match[2]);
-            this.course = await this.getCourseData();
+            this.courses = await this.getCourseData();
             this.loading = false;
           },
 
