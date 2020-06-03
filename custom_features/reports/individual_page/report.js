@@ -123,7 +123,6 @@
               let app = this;
               let user_id = app.userId;
               let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
-              console.log(url);
               await $.get(url, function (data) {
                 if (data.length > 0) {
                   check = true;
@@ -132,7 +131,7 @@
                   if (grades !== undefined) {
                     let grade = grades.current_score;
                     if (grade == null) {
-                      if (course.state == "active") grade = 0;
+                      if (state == "active") grade = 0;
                       else grade = "N/A";
                     }
                     output.grade = grade;
@@ -267,5 +266,5 @@
       APP: {}
     }
   }
-  console.log('v3');
+  console.log('v5');
 })();
