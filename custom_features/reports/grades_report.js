@@ -231,7 +231,6 @@
                 let user_id = parseInt(student.user_id);
                 if (studentData.id === user_id) {
                   student.section = section.name;
-                  student = Object.assign({}, student);
                   return;
                 }
               }
