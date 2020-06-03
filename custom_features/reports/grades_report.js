@@ -250,8 +250,11 @@
             'student'
           ],
           computed: {
+            formattedColumnName: function() {
+              return this.columnName.toLowerCase().replace(/ /g, '_');
+            },
             columnValue: function() {
-              return this.student[this.column.name.toLowerCase().replace(/ /g, '_')];
+              return this.student[this.formattedColumnName];
             }
           },
           methods: {
