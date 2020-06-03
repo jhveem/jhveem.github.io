@@ -23,7 +23,7 @@
           <tr v-for='course in courses' :key='course.course_id'>
             <td v-for='column in visibleColumns' :key='column.name'
             >
-              {{column.name}}
+              {{course[columnNameToCode(column.name)]}}
             </td>
           </tr>
         </tbody>

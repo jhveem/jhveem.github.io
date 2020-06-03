@@ -114,7 +114,6 @@
                   }
                 });
               });
-              console.log(list);
               return list;
             },
 
@@ -123,11 +122,8 @@
               let check = false;
               let app = this;
               let user_id = app.user_id;
-              console.log(state);
               let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
-              console.log(url);
               await $.get(url, function (data) {
-                console.log(data);
                 if (data.length > 0) {
                   check = true;
                   let enrollment = data[0].enrollments[0];
@@ -269,5 +265,5 @@
       APP: {}
     }
   }
-  console.log('v4');
+  console.log('v5');
 })();
