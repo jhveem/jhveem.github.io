@@ -244,15 +244,7 @@
         Vue.component('report-cell', {
           template: `
             <tr>
-            <th
-              v-for='column in columns' 
-              :key='column.name' 
-            >
-              test
-              <div>
-                {{columnValue(column.name)}}
-              </div>
-            </th>
+            <td>test</td>
             </tr>
           `,
           props: [
