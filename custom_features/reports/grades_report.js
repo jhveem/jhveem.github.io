@@ -241,7 +241,7 @@
 
           }
         })
-        Vue.component('report-cell', {
+        Vue.component('report-row', {
           template: `
             <tr>
             <td>test</td>
