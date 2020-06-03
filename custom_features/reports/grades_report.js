@@ -151,12 +151,6 @@
 
 
           methods: {
-            getColumnText(column, text) {
-              if (column.percent && !isNaN(text)) {
-                text += "%";
-              }
-              return text;
-            },
             async createGradesReport() {
               let app = this;
               let url = "/api/v1/courses/" + this.courseId + "/users?enrollment_state%5B%5D=active";
@@ -254,6 +248,12 @@
           if (val > 21) color = "#F67";
         }
         return color;
+      },
+      getColumnText(column, text) {
+        if (column.percent && !isNaN(text)) {
+          text += "%";
+        }
+        return text;
       },
     }
   })
