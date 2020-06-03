@@ -1,4 +1,4 @@
-(function () {
+(async function () {
   class Student {
     constructor(id, name, course_id, app) {
       this.app = app;
@@ -108,7 +108,7 @@
       this.percent = percent;
     }
   }
-  console.log("v4")
+  console.log("v5")
   let vueString = '';
   await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
     vueString = html.replace("<template>", "").replace("</template>", "");
