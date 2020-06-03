@@ -177,7 +177,7 @@
               url += "&include%5B%5D=group_ids";
               url += "&include%5B%5D=enrollments";
               url += "&per_page=100";
-              let students = null;
+              var students = null;
               await $.get(url, async function (data) {
                 for (let s = 0; s < data.length; s++) {
                   let studentData = data[s];
