@@ -26,13 +26,16 @@
           el: '#canvas-grades-report-vue',
           mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
+            let match = window.location.pathname.match(/courses\/([0-9]+)\/users\/([0-9]+)/);
+            this.userId = match[2];
+            console.log(match[2]);
             this.course = await this.getCourseData();
             this.loading = false;
           },
 
           data: function () {
             return {
-              courseId: null,
+              userId: null,
               courses: {},
               columns: [
                 new Column('Name', '', false, '', false),
@@ -58,12 +61,11 @@
             }
           },
           methods: {
-            newCourse(id, name, user_id) {
+            newCourse(id, status) {
               let course = {};
-              course.user_id = user_id;
-              course.name = name;
               course.course_id = id;
-              course.status = ""
+              course.status = status; 
+              course.name = '';
               course.days_in_course = 0;
               course.days_since_last_submission = 0;
               course.days_since_last_submission_color = "#fff";
@@ -81,7 +83,12 @@
 
             async getCourseData() {
               let app = this;
+              let courses = [];
               let courseList = await this.getCourses();
+              for (let c = 0; c < courseList.length; c++) {
+                let course = courseList[c];
+                courses.push(newCourse(course.course_id, course.status))
+              }
               console.log(courseList);
             },
 
