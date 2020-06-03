@@ -85,6 +85,7 @@
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
                 let course = app.newCourse(courseList[c].course_id, courseList[c].state);
+                course.name = courseList[c].name;
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
                 course.grade = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
@@ -101,6 +102,7 @@
               let url = "https://btech.instructure.com/users/" + app.userId;
               await $.get(url, function (data) {
                 $(data).find("#content .courses a").each(function () {
+                  let name = $(this).find('span.name').text().trim();
                   let href = $(this).attr('href');
                   let match = href.match(/courses\/([0-9]+)\/users/);
                   if (match) {
@@ -108,6 +110,7 @@
                     let course_id = match[1];
                     let state = text.match(/([A-Z|a-z]+),[\s]+?Enrolled as a Student/)[1];
                     list.push({
+                      name: name,
                       course_id: course_id,
                       state: state
                     });
@@ -266,5 +269,5 @@
       APP: {}
     }
   }
-  console.log('v5');
+  console.log('v6');
 })();
