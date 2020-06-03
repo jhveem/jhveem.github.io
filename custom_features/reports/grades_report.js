@@ -88,7 +88,7 @@
         for (let i = 0; i < progress_per_day_list.length; i++) {
           sum_progress += progress_per_day_list[i];
         }
-        Vue.set(student.app.students[student.id], 'days_since_last_submission', most_recent_days);
+        Vue.set(student.app.students[student.userId], 'days_since_last_submission', most_recent_days);
 
         let average_progress_per_day = sum_progress / progress_per_day_list.length;
         let average_days_to_complete = Math.floor(100 / average_progress_per_day);
