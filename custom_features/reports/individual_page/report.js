@@ -147,10 +147,11 @@
                       output.points = points;
                     }
                   }
+                  console.log(output);
                 }
               });
               if (check == false && state == "active") {
-                output = app.getCourseGrades(course_id, 'completed');
+                output = await app.getCourseGrades(course_id, 'completed');
               }
               console.log(output)
               return output;
@@ -266,5 +267,5 @@
       APP: {}
     }
   }
-  console.log('v1');
+  console.log('v2');
 })();
