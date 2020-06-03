@@ -96,7 +96,7 @@
         if (isNaN(perc_submitted)) perc_submitted = 0;
         student.app.students[student.user_id] = Object.assign({}, student, {submissions: perc_submitted});
       });
-      Vue.set(app.students, userId, student);
+      Vue.set(student.app.students, userId, student);
     }
   }
   class Column {
