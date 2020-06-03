@@ -64,7 +64,7 @@
             newCourse(id, status) {
               let course = {};
               course.course_id = id;
-              course.status = status; 
+              course.status = status;
               course.name = '';
               course.days_in_course = 0;
               course.days_since_last_submission = 0;
@@ -86,16 +86,21 @@
               let courses = [];
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
-                let course = courseList[c];
-                courses.push(newCourse(course.course_id, course.status))
+                let course = newCourse(courseList[c].course_id, courseList[c].status);
+                let gradesData = await getCourseGrades(course.course_id, course.state);
+                course.grade = gradesData.grade;
+                course.final_grade = gradesData.final_grade;
+                course.points = gradesData.points;
+                courses.push(course);
               }
-              console.log(courseList);
+              console.log(coures);
             },
 
             async getCourses() {
+              let app = this;
               let list = [];
-              $.get("https://btech.instructure.com/users/1921194", function (data) {
-                console.log($(data).find("#content .courses a").each(function () {
+              $.get("https://btech.instructure.com/users/" + app.userId, function (data) {
+                $(data).find("#content .courses a").each(function () {
                   let href = $(this).attr('href');
                   let match = href.match(/courses\/([0-9]+)\/users/);
                   if (match) {
@@ -103,13 +108,51 @@
                     let course_id = match[1];
                     let state = text.match(/([A-Z|a-z]+),[\s]+?Enrolled as a Student/)[1];
                     list.push({
-                      course_id: course_id, 
+                      course_id: course_id,
                       state: state
                     });
                   }
-                }));
+                });
               })
               return list;
+            },
+
+            async getCourseGrades(course_id, state) {
+              let output = {};
+              let check = false;
+              let app = this;
+              let user_id = app.user_id;
+              let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
+              await $.get(url, function (data) {
+                if (data.length > 0) {
+                  check = true;
+                  let enrollment = data[0].enrollments[0];
+                  let grades = enrollment.grades;
+                  if (grades !== undefined) {
+                    let grade = grades.current_score;
+                    if (grade == null) {
+                      if (course.state == "active") grade = 0;
+                      else grade = "N/A";
+                    }
+                    output.grade = grade;
+
+                    let final_grade = enrollment.grades.final_score;
+                    if (final_grade == null) final_grade = 0;
+                    if (grade == "N/A" && final_grade == 0) final_grade = "N/A";
+                    output.final_grade = final_score;
+
+                    if (!isNaN(parseInt(final_grade)) && !isNaN(parseInt(final_grade))) {
+                      let points = Math.round(final_grade / grade * 100);
+                      if (isNaN(points)) points = 0;
+                      output.points = points;
+                    }
+                  }
+                }
+              });
+              if (check == false && state == "active") {
+                output = app.getCourseGrades(courses, course_id, 'completed');
+              }
+              return output;
             },
             async createGradesReport() {
               let app = this;
