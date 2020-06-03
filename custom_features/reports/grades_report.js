@@ -89,6 +89,7 @@
         for (let i = 0; i < progress_per_day_list.length; i++) {
           sum_progress += progress_per_day_list[i];
         }
+        console.log(most_recent_days);
         student.days_since_last_submission = most_recent_days;
 
         let average_progress_per_day = sum_progress / progress_per_day_list.length;
@@ -115,7 +116,7 @@
     IMPORTED_FEATURE = {
       initiated: false,
       async _init(params = {}) {
-        console.log("v6")
+        console.log("v7")
         let vueString = '';
         await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
           vueString = html.replace("<template>", "").replace("</template>", "");
