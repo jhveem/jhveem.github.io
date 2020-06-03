@@ -265,5 +265,5 @@
       APP: {}
     }
   }
-  console.log('v5');
+  console.log('v6');
 })();
