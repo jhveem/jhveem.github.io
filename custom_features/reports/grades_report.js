@@ -275,7 +275,7 @@
         Vue.component('report-cell', {
           template: `
             <th>
-              {{keyName}}
+              {{student[keyName]}}
             </th>
           `,
           props: [
