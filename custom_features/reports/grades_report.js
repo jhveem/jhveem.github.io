@@ -250,6 +250,9 @@
                 if (isNaN(perc_submitted)) perc_submitted = 0;
                 student.submissions = perc_submitted;
               });
+            },
+            close() {
+              $(this.$el).hide();
             }
 
           }
@@ -258,5 +261,5 @@
       APP: {}
     }
   }
-  console.log('v5');
+  console.log('v6');
 })();
