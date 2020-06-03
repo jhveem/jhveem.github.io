@@ -271,5 +271,5 @@
       APP: {}
     }
   }
-  console.log('v3');
+  console.log('v4');
 })();
