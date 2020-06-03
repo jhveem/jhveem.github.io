@@ -15,7 +15,13 @@
         </thead>
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
-            <td v-for='column in columns' :key='column.name' v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">{{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</td>
+            <td 
+              v-for='column in columns' 
+              :key='column.name' 
+              v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}"
+            >
+              {{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}
+            </td>
           </tr>
         </tbody>
         <tfoot border='1'>
