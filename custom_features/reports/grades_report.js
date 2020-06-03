@@ -89,7 +89,9 @@
         for (let i = 0; i < progress_per_day_list.length; i++) {
           sum_progress += progress_per_day_list[i];
         }
+        console.log(most_recent_days);
         student.days_since_last_submission = most_recent_days;
+        student = Object.assign({}, student);
 
         let average_progress_per_day = sum_progress / progress_per_day_list.length;
         let average_days_to_complete = Math.floor(100 / average_progress_per_day);
