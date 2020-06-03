@@ -232,15 +232,6 @@
         <td>{{student.name}}</td>
       </tr>
     `,
-    watch: {
-      student: {
-        handler: function(newValue) {
-          console.log("Person with ID:" + newValue.userId + " modified");
-          console.log(newValue);
-        },
-        deep: true
-      }
-    },
     props: [
       'columns',
       'student',
@@ -267,5 +258,5 @@
     }
   })
 
-  console.log('v7')
+  console.log('v8')
 })();
