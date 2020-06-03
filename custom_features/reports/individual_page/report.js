@@ -44,8 +44,6 @@
                 new Column('Points', '', true, 'sorttable_numeric', true),
                 new Column('Submissions', '', true, 'sorttable_numeric', true),
                 new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
-                new Column('Days in Course', '', true, 'sorttable_numeric', false),
-                new Column('Ungraded', '', true, 'sorttable_numeric', false)
               ],
               sections: [],
               courseList: [],
