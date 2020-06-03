@@ -6,7 +6,7 @@
       this.description = description;
       this.average = average;
       this.sortable_type = sortable_type;
-      this.hidden = true;
+      this.hidden = false;
       this.percent = percent;
     }
   }
