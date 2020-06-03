@@ -76,9 +76,7 @@
               course.section = "";
               course.ungraded = 0;
               course.submissions = 0;
-              //this will probably be deleted, but keeping for reference on how to format in vue
-              let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
-              return student;
+              return course;
             },
 
             async getCourseData() {
@@ -86,7 +84,7 @@
               let courses = [];
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
-                let course = newCourse(courseList[c].course_id, courseList[c].status);
+                let course = app.newCourse(courseList[c].course_id, courseList[c].status);
                 let gradesData = await getCourseGrades(course.course_id, course.state);
                 console.log(gradesData);
                 course.grade = gradesData.grade;
