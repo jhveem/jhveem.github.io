@@ -88,6 +88,7 @@
               for (let c = 0; c < courseList.length; c++) {
                 let course = newCourse(courseList[c].course_id, courseList[c].status);
                 let gradesData = await getCourseGrades(course.course_id, course.state);
+                console.log(gradesData);
                 course.grade = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
                 course.points = gradesData.points;
@@ -123,7 +124,9 @@
               let app = this;
               let user_id = app.user_id;
               let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
+              console.log(url);
               await $.get(url, function (data) {
+                console.log(data);
                 if (data.length > 0) {
                   check = true;
                   let enrollment = data[0].enrollments[0];
