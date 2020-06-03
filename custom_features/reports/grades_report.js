@@ -90,7 +90,7 @@
           sum_progress += progress_per_day_list[i];
         }
         console.log(most_recent_days);
-        student.app.students[student.user_id] = Object.assign({}, student, {days_since_last_submission: most_recent_days});
+        student.app.students[student.user_id].days_since_last_submission =  most_recent_days;
 
         student = Object.assign({}, student, {ungraded: ungraded});
         let perc_submitted = Math.round((submitted / max_submissions) * 100);
@@ -179,7 +179,7 @@
               url += "&include%5B%5D=enrollments";
               url += "&per_page=100";
 
-              await $.get(url, function (data) {
+              $.get(url, function (data) {
                 for (let s = 0; s < data.length; s++) {
                   let studentData = data[s];
                   let userId = studentData.id;
