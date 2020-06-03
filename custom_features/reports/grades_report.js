@@ -19,7 +19,7 @@
       //this will probably be deleted, but keeping for reference on how to format in vue
       let nameHTML = "<a target='_blank' href='https://btech.instructure.com/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
     }
-    async processEnrollment() {
+    processEnrollment() {
       let enrollment = this.enrollment;
       let start_date = Date.parse(enrollment.created_at);
       let now_date = Date.now();
@@ -48,7 +48,7 @@
       let enrollment = student.enrollment;
       let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
       student.days_since_last_submission = 'pending...';
-      $.get(url, function (data) {
+      await $.get(url, function (data) {
         student.assignments = data;
         let assignments = data;
         let most_recent = {};
@@ -91,10 +91,10 @@
         }
         student.app.students[student.user_id].days_since_last_submission =  most_recent_days;
 
-        student = Object.assign({}, student, {ungraded: ungraded});
+        student.ungraded = ungraded
         let perc_submitted = Math.round((submitted / max_submissions) * 100);
         if (isNaN(perc_submitted)) perc_submitted = 0;
-        student.app.students[student.user_id] = Object.assign({}, student, {submissions: perc_submitted});
+        student.submissions = perc_submitted;
       });
     }
   }
@@ -193,7 +193,7 @@
                     let student = new Student(userId, studentData.sortable_name, app.courseId, app)
                     student.data = studentData;
                     student.enrollment = enrollment;
-                    await student.processEnrollment();
+                    student.processEnrollment();
                     await student.getAssignmentData();
                     Vue.set(app.students, userId, student);
                   }
