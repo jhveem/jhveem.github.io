@@ -231,9 +231,9 @@
 
                   //calculate color for last submission day
                   let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
-                  if (course.state === 'active') {
+                  if (course.state === 'Active') {
                     course.days_since_last_submission = most_recent_days;
-                  } else if (course.state == 'completed') {
+                  } else if (course.state == 'Completed') {
                     course.days_since_last_submission = "Complete";
                     course.points = 100;
                   } else {
@@ -278,5 +278,5 @@
       APP: {}
     }
   }
-  console.log('v1');
+  console.log('v2');
 })();
