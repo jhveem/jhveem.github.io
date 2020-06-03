@@ -85,7 +85,7 @@
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
                 let course = app.newCourse(courseList[c].course_id, courseList[c].status);
-                let gradesData = await app.getCourseGrades(course.course_id, course.state);
+                let gradesData = await app.getCourseGrades(course.course_id, course.status);
                 console.log(gradesData);
                 course.grade = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
