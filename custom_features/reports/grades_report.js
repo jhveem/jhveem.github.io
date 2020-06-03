@@ -246,13 +246,14 @@
 
   Vue.component('report-row', {
     template: `
-        <div>Test</div>
-        <div v-for='column in columns' :key='column.name' v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">{{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</div>
+        <div>{{name}}</div>
     `,
     props: [
       'columns',
-      'student'
+      'student',
+      'name'
     ],
+
     methods: {
       getColumnText(column, text) {
         if (column.percent && !isNaN(text)) {
