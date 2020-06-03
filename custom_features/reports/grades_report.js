@@ -230,6 +230,7 @@
                 let student = app.students[id];
                 let user_id = parseInt(student.user_id);
                 if (studentData.id === user_id) {
+                  console.log(section.name);
                   student.section = section.name;
                   return;
                 }
