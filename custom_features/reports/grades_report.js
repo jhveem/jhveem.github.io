@@ -244,12 +244,13 @@
         Vue.component('report-row', {
           template: `
             <tr>
-            <th
-              is="report-cell"
-              v-for='column in columns' 
-              :text=student[formattedColumnName(name)]
-            >
-            </th>
+              <th
+                is="report-cell"
+                v-for='column in columns' 
+                :student="student"
+                :columnName="column.name"
+              >
+              </th>
             </tr>
           `,
           props: [
@@ -276,11 +277,11 @@
         Vue.component('report-cell', {
           template: `
             <th>
-              {{text}}
+              {{columnName}}
             </th>
           `,
           props: [
-            'text',
+            'columnName',
             'student'
           ],
           computed: {
