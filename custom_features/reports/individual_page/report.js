@@ -100,7 +100,9 @@
             async getCourses() {
               let app = this;
               let list = [];
-              $.get("https://btech.instructure.com/users/" + app.userId, function (data) {
+              let url = "https://btech.instructure.com/users/" + app.userId;
+              console.log("https://btech.instructure.com/users/" + app.userId);
+              $.get(url, function (data) {
                 $(data).find("#content .courses a").each(function () {
                   let href = $(this).attr('href');
                   let match = href.match(/courses\/([0-9]+)\/users/);
