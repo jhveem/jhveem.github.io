@@ -93,13 +93,12 @@
         student.days_since_last_submission = most_recent_days;
         student = Object.assign({}, student);
 
-        let average_progress_per_day = sum_progress / progress_per_day_list.length;
-        let average_days_to_complete = Math.floor(100 / average_progress_per_day);
         student.ungraded = ungraded;
         let perc_submitted = Math.round((submitted / max_submissions) * 100);
         if (isNaN(perc_submitted)) perc_submitted = 0;
         student.submissions = perc_submitted;
         student = Object.assign({}, student);
+        student = {};
       });
     }
   }
@@ -118,7 +117,7 @@
     IMPORTED_FEATURE = {
       initiated: false,
       async _init(params = {}) {
-        console.log("v11")
+        console.log("v1")
         let vueString = '';
         await $.get('https://jhveem.github.io/custom_features/reports/grades_report.vue', null, function (html) {
           vueString = html.replace("<template>", "").replace("</template>", "");
