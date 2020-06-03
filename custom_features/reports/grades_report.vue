@@ -14,12 +14,9 @@
           </tr>
         </thead>
         <tbody border='1'>
-          <tr 
-            is='report-row' 
-            v-for='(student, id) in students'
-            :student='student'
-            :columns='columns'
-          ></tr>
+          <tr v-for='(student, id) in students'>
+            <td v-for='column in columns' :key='column.name' v-bind:style="{'background-color': getDaysSinceLastSubmissionColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">{{getColumnText(column, student[column.name.toLowerCase().replace(/ /g, "_")])}}</td>
+          </tr>
         </tbody>
         <tfoot border='1'>
 
