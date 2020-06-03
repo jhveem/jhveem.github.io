@@ -200,6 +200,7 @@
                     student.getAssignmentData();
                   }
                 }
+                console.log(app.students);
               });
               app.getSectionData();
             },
