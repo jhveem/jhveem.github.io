@@ -1,5 +1,6 @@
 <template>
-  <div class='btech-modal' style='display: inline-block;'> <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
+  <div class='btech-modal' style='display: inline-block;'>
+    <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
     <div class='btech-modal-content'>
       <span class='btech-close' id='btech-close'>&times;</span>
       <h3 style='text-align: center;'>Report</h3>
@@ -15,18 +16,11 @@
         </thead>
         <tbody border='1'>
           <tr v-for='(student, id) in students'>
-            <th
-              v-for='column in columns' 
-              :key='column.name' 
-            >
-            <report-cell 
-              :student='student'
+            <report-row 
+              :student='student' 
               :column="column"
-              :columnName="column.name"
-             >
-                
-            </report-cell>
-            </th>
+            >
+            </report-row>
           </tr>
         </tbody>
         <tfoot border='1'>

@@ -48,6 +48,7 @@
       let course_id = student.course_id;
       let enrollment = student.enrollment;
       let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments?per_page=100";
+      student.days_since_last_submission = 'pending...';
       $.get(url, function (data) {
         student.assignments = data;
         let assignments = data;
@@ -242,18 +243,20 @@
         })
         Vue.component('report-cell', {
           template: `
-          <div>
-            {{columnValue}}
-          </div>
+            <th
+              v-for='column in columns' 
+              :key='column.name' 
+            >
+              <div>
+                {{columnValue(column.name)}}
+              </div>
+            </th>
           `,
           props: [
             'column',
             'student'
           ],
           computed: {
-            columnValue: function() {
-              return this.student[this.formattedColumnName()];
-            }
           },
           methods: {
             getCellText(column, text) {
@@ -262,8 +265,11 @@
               }
               return text;
             },
-            formattedColumnName() {
-              return this.column.name.toLowerCase().replace(/ /g, '_');
+            columnValue(name) {
+              return this.student[this.formattedColumnName(name)];
+            },
+            formattedColumnName(name) {
+              return name.toLowerCase().replace(/ /g, '_');
             },
           }
         });
