@@ -186,7 +186,7 @@
               return color;
             },
 
-            getAssignmentData(course, enrollment) {
+            async getAssignmentData(course, enrollment) {
               let course_id = course.course_id;
               let user_id = app.userId;
               let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments";
