@@ -85,17 +85,14 @@
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
                 let course = app.newCourse(courseList[c].course_id, courseList[c].state);
-                console.log(course);
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
-                console.log(gradesData);
                 course.grade = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
                 course.points = gradesData.points;
                 courses.push(course);
               }
-              app.courses = courses;
               console.log(courses);
-              app.loading = false;
+              return courses;
             },
 
             async getCourses() {

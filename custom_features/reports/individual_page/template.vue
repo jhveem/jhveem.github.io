@@ -20,7 +20,7 @@
           <tr v-if="loading">
             <td :colspan='visibleColumns.length'>Loading Results...</td>
           </tr>
-          <tr v-for='(course, id) in courses'>
+          <tr v-for='course in courses' :key='course.course_id'>
             <td v-for='column in visibleColumns' :key='column.name'
             >
               {{column.name}}
