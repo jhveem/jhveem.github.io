@@ -248,8 +248,7 @@
   Vue.component('report-row', {
     template: `
         <div>
-          test
-          <div v-for='column in columns' style='display: inline-block;'>{{column.name}}</div>
+          <div v-for='column in columns' style='display: inline-block;'>{{columnNameToCode(column.name)}}</div>
         </div>
     `,
     props: [
@@ -263,6 +262,9 @@
       }
     },
     methods: {
+      columnNameToCode(name) {
+        return name.toLowerCase();
+      }
       getColumnText(column, text) {
         if (column.percent && !isNaN(text)) {
           text += "%";
@@ -285,5 +287,5 @@
     }
   })
 
-  console.log('v3')
+  console.log('v4')
 })();
