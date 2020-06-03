@@ -109,7 +109,7 @@
                   studentsData[userId] = app.newStudent(userId, studentData.sortable_name, app.courseId, app);
                   app.processEnrollment(studentsData[userId], enrollment);
                   await app.getAssignmentData(studentsData[userId], enrollment);
-                  studentsData[userId].section = getStudentSection(userId);
+                  studentsData[userId].section = app.getStudentSection(userId);
                 }
               }
               console.log(studentsData);
@@ -258,4 +258,5 @@
       APP: {}
     }
   }
+  console.log('v1');
 })();
