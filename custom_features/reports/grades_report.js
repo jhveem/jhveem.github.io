@@ -198,7 +198,10 @@
                   }
                 }
               });
-              await student.getAssignmentData();
+              for (let id in students) {
+                let student = students[id];
+                await student.getAssignmentData();
+              }
               await app.getSectionData();
               app.students = students;
             },
