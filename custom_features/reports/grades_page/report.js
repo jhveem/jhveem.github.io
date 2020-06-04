@@ -1,5 +1,4 @@
 (function () {
-
   class Column {
     constructor(name, description, average, sortable_type, percent) {
       this.name = name;
@@ -120,8 +119,6 @@
                   studentsData[userId].section = app.getStudentSection(userId);
                 }
               }
-              console.log(studentsData);
-
               return studentsData;
             },
             async getSectionData() {
