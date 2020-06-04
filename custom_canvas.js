@@ -234,6 +234,8 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       let rCheckInCourse = /^\/courses\/([0-9]+)/;
       if (rCheckInCourse.test(window.location.pathname)) {
         //AVAILABLE TO EVERYONE
+        feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
+        feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
         feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
         feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
         feature('page_formatting/dropdown_from_table');
@@ -291,8 +293,6 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
       featureCDD("editor_toolbar/tables");
       featureCDD("surveys");
-      if (IS_ME) feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-      if (IS_ME) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
     });
   });
 });

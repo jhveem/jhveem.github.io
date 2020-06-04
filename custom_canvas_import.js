@@ -49,7 +49,7 @@ $('span.avatar').hover(function() {
 });
 //end zoom on hover
 
-/*gen report on gradebook page*/
+/*gen report on gradebook page
 if (/^\/courses\/[0-9]+\/gradebook$/.test(window.location.pathname)) {
   var scriptElement = document.createElement( "script" );
   scriptElement.src = "https://jhveem.github.io/reports/reports_functions.js";
@@ -62,7 +62,7 @@ if (/^\/courses\/[0-9]+\/gradebook$/.test(window.location.pathname)) {
 }
 /*END report*/
 
-/*gen report on individual page*/
+/*gen report on individual page
 if (/^\/users\/[0-9]+/.test(window.location.pathname) || /^\/accounts\/[0-9]+\/users\/[0-9]+/.test(window.location.pathname)) {
   var scriptElement = document.createElement( "script" );
   scriptElement.src = "https://jhveem.github.io/reports/reports_functions.js";
