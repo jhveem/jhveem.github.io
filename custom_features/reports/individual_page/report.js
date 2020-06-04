@@ -24,9 +24,9 @@
         $("#canvas-individual-report-vue").append(vueString);
         let gen_report_button;
         if (/^\/courses\/[0-9]+\/users\/[0-9]+$/.test(window.location.pathname)) {
-          gen_report_button = $('<a style="padding: 4px;" class="Button" id="canvas-individual-report-vue-gen">Courses Report</a>');
+          gen_report_button = $('<a class="Button" id="canvas-individual-report-vue-gen">Courses Report</a>');
         } else {
-          gen_report_button = $('<a style="padding: 4px;" class="btn button-sidebar-wide" id="canvas-individual-report-vue-gen">Courses Report</a>');
+          gen_report_button = $('<a class="btn button-sidebar-wide" id="canvas-individual-report-vue-gen">Courses Report</a>');
         }
         let menu_bar = $("#right-side div").first();
         let modal = $('#canvas-individual-report-vue');
