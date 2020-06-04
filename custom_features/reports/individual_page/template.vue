@@ -10,7 +10,7 @@
       <div class='btech-report-columns-toggle'>
         <div class='btech-report-column-toggle' style='display: inline-block;' v-for='column in columns' :key='column.name'><input type="checkbox" v-model="column.visible"><label>{{column.name}}</label></div>
       </div>
-      <table class='sortable' border='1'>
+      <table class='btech-report-table sortable' border='1'>
         <thead border='1'>
           <tr>
             <th v-for='column in visibleColumns' :key='column.name' :class='column.sortable_type'>{{column.name}}</th>

@@ -2,3 +2,6 @@
 .btech-report-column-toggle {
   padding: 2px;
 }
+.btech-report-table th, td {
+  padding: 2px;
+}
