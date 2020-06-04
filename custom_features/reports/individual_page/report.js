@@ -20,8 +20,8 @@
           vueString = html.replace("<template>", "").replace("</template>", "");
         }, 'text');
         let canvasbody = $("#application");
-        canvasbody.after('<div id="canvas-grades-report-vue"></div>');
-        $("#canvas-grades-report-vue").append(vueString);
+        canvasbody.after('<div id="canvas-individual-report-vue"></div>');
+        $("#canvas-individual-report-vue").append(vueString);
         let gen_report_button = $('<a class="Button" id="canvas-grades-report-vue-gen">Grades Report</a>');
         let new_grades = $('div.header-buttons');
         let old_grades = $('div#gradebook-toolbar');
@@ -32,7 +32,7 @@
             modal.show();
         });
         this.APP = new Vue({
-          el: '#canvas-grades-report-vue',
+          el: '#canvas-individual-report-vue',
           mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
             let match = window.location.pathname.match(/courses\/([0-9]+)\/users\/([0-9]+)/);
@@ -101,7 +101,6 @@
                 await app.getAssignmentData(course, gradesData.enrollment);
                 courses.push(course);
               }
-              console.log(courses);
               return courses;
             },
 
@@ -251,7 +250,6 @@
               } catch (e) {
                 console.log(e);
               }
-              console.log('FINISH');
             },
 
             processEnrollment(student, enrollment) {
@@ -285,5 +283,4 @@
       APP: {}
     }
   }
-  console.log('v2');
 })();
