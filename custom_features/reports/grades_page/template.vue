@@ -1,5 +1,5 @@
 <template>
-  <div class='btech-modal' style='display: inline-block;'>
+  <div class='btech-modal'>
     <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
     <div class='btech-modal-content'>
       <span class='btech-close' v-on:click='close()'>&times;</span>
