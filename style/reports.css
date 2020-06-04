@@ -6,7 +6,7 @@
   padding: 2px 8px;
 }
 .btech-report-table th {
-  border: 2px solid black;
+  border-bottom: 2px solid black;
 }
 .btech-report-table tr:nth-child(even) {
   background-color: #eee;
