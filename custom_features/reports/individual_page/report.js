@@ -179,10 +179,10 @@
               return name.toLowerCase().replace(/ /g, "_");
             },
 
-            getColumnText(column, student) {
-              let text = student[column.name.toLowerCase().replace(/ /g, "_")];
+            getColumnText(column, course) {
+              let text = course[column.name.toLowerCase().replace(/ /g, "_")];
               if (column.name === "Name") {
-                text = student.nameHTML;
+                text = course.nameHTML;
               }
               if (column.percent && !isNaN(text)) {
                 text += "%";
