@@ -142,6 +142,7 @@
               let app = this;
               let user_id = app.userId;
               let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
+              console.log(url);
               await $.get(url, function (data) {
                 if (data.length > 0) {
                   output.found = true;
