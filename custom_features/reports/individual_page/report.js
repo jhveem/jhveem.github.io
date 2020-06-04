@@ -73,12 +73,12 @@
             }
           },
           methods: {
-            newCourse(id, state) {
+            newCourse(id, state, name) {
               let app = this;
               let course = {};
               course.course_id = id;
               course.state = state;
-              course.name = '';
+              course.name = name; 
               course.days_in_course = 0;
               course.days_since_last_submission = 0;
               course.days_since_last_submission_color = "#fff";
@@ -98,8 +98,7 @@
               let courses = [];
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
-                let course = app.newCourse(courseList[c].course_id, courseList[c].state);
-                course.name = courseList[c].name;
+                let course = app.newCourse(courseList[c].course_id, courseList[c].state, courseList[c].name);
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
                 course.grade = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
