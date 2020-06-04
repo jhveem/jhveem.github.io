@@ -149,6 +149,7 @@
                   let enrollment = data[0].enrollments[0];
                   output.enrollment = enrollment;
                   let grades = enrollment.grades;
+                  console.log(grades);
                   if (grades !== undefined) {
                     let grade = grades.current_score;
                     if (grade == null) {
