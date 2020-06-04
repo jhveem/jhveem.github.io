@@ -89,7 +89,7 @@
               course.section = "";
               course.ungraded = 0;
               course.submissions = 0;
-              course.nameHTML = "<a target='_blank' href='https://btech.instructure.com/courses"+id+"/users/" + app.userId + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + id + "/grades/" + app.userId + "'>grades</a>)";
+              course.nameHTML = "<a target='_blank' href='https://btech.instructure.com/courses/"+id+"/users/" + app.userId + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + id + "/grades/" + app.userId + "'>grades</a>)";
               return course;
             },
 
