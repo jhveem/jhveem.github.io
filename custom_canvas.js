@@ -292,7 +292,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("editor_toolbar/tables");
       featureCDD("surveys");
       if (IS_ME) feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-      if (IS_ME) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^users\/[0-9]+$/]);
+      if (IS_ME) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
     });
   });
 });

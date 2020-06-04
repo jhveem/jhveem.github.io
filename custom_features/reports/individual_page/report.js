@@ -22,7 +22,7 @@
         let canvasbody = $("#application");
         canvasbody.after('<div id="canvas-individual-report-vue"></div>');
         $("#canvas-individual-report-vue").append(vueString);
-        let gen_report_button = $('<a class="Button" id="canvas-individual-report-vue-gen">Courses Report</a>');
+        let gen_report_button = $('<a class="btn button-sidebar-wide" id="canvas-individual-report-vue-gen">Courses Report</a>');
         let menu_bar = $("#right-side div").first();
         let modal = $('#canvas-individual-report-vue');
         gen_report_button.appendTo(menu_bar);
