@@ -88,6 +88,7 @@
               course.section = "";
               course.ungraded = 0;
               course.submissions = 0;
+              student.nameHTML = "<a target='_blank' href='https://btech.instructure.com/courses"+course_id+"/users/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + course_id + "/grades/" + id + "'>grades</a>)";
               return course;
             },
 
@@ -178,7 +179,11 @@
               return name.toLowerCase().replace(/ /g, "_");
             },
 
-            getColumnText(column, text) {
+            getColumnText(column, student) {
+              let text = student[column.name.toLowerCase().replace(/ /g, "_")]);
+              if (column.name === "Name") {
+                text = student.nameHTML;
+              }
               if (column.percent && !isNaN(text)) {
                 text += "%";
               }
