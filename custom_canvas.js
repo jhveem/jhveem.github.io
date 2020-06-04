@@ -121,7 +121,6 @@ function featureCDD(f, data = {}, regex) {
   if (CDDIDS.includes(userId)) feature(f, data, regex);
 }
 
-
 function addToModuleItemMenu(name, description, func, type = "all") {
   let courseId = ENV.COURSE_ID;
   $("div.context_module").each(function () {
@@ -220,7 +219,6 @@ function checkCookie() {
   }
 }
 
-add_javascript_library("https://cdn.jsdelivr.net/npm/vue");
 add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
 $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
@@ -235,17 +233,17 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       let rCheckInCourse = /^\/courses\/([0-9]+)/;
       if (rCheckInCourse.test(window.location.pathname)) {
         //AVAILABLE TO EVERYONE
-        feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
-        feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
         feature('page_formatting/dropdown_from_table');
         feature('page_formatting/tabs_from_table');
         feature('page_formatting/google_sheets_table');
         feature('modules/convert_to_page');
         feature("page_formatting/tinymce_font_size");
         feature("editor_toolbar/basics");
+        feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
+        feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
+
         featureBeta('rubrics/gen_comment');
         featureBeta('modules/course_features');
-
         let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
         //COURSE SPECIFIC FEATURES
         featurePilot("change_2019_to_2019-2020", courseId, [489538]); //IV Therapy
@@ -295,8 +293,6 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
     });
   });
 });
-
-/*EvaluationKIT END*/
 
 window.ALLY_CFG = {
   'baseUrl': 'https://prod.ally.ac',
