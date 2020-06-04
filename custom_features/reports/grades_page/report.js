@@ -26,6 +26,8 @@
         let old_grades = $('div#gradebook-toolbar');
         if (new_grades.length > 0) gen_report_button.appendTo(new_grades);
         if (old_grades.length > 0) gen_report_button.appendTo(old_grades);
+        let modal = $('#canvas-grades-report-vue');
+        modal.hide();
         gen_report_button.click(function() {
             let modal = $('#canvas-grades-report-vue');
             modal.show();
