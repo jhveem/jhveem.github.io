@@ -1,12 +1,13 @@
 (function () {
   class Column {
-    constructor(name, description, average, sortable_type, percent) {
+    constructor(name, description, average, sortable_type, percent, hideable=true) {
       this.name = name;
       this.description = description;
       this.average = average;
       this.sortable_type = sortable_type;
       this.visible = true;
       this.percent = percent;
+      this.hideable = hideable;
     }
   }
   IMPORTED_FEATURE = {};
@@ -45,7 +46,7 @@
               courseId: null,
               students: {},
               columns: [
-                new Column('Name', '', false, '', false),
+                new Column('Name', '', false, '', false, false),
                 new Column('Section', '', false, '', false),
                 new Column('Grade', '', true, 'sorttable_numeric', true),
                 new Column('Final Grade', '', true, 'sorttable_numeric', true),

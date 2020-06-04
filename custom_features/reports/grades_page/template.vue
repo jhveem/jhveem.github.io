@@ -8,7 +8,11 @@
       <h5 style='text-align: center;'>Hover over column headers for a description of the information displayed in that
         column.</h5>
       <div class='btech-report-columns-toggle'>
-        <div class='btech-report-column-toggle' style='display: inline-block;' v-for='column in columns' :key='column.name'><input type="checkbox" v-model="column.visible"><label>{{column.name}}</label></div>
+        <div class='btech-report-column-toggle' style='display: inline-block;' v-for='column in columns' :key='column.name'>
+          <div v-if="column.hideable">
+            <input type="checkbox" v-model="column.visible"><label>{{column.name}}</label>
+          </div>
+        </div>
       </div>
       <table class='btech-report-table sortable' border='1'>
         <thead border='1'>
