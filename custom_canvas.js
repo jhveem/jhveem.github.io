@@ -252,6 +252,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         featurePilot("rubrics/attempts_data", courseId, [498455]); //Dental 1010 pilot
         featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
         featurePilot("highlight_comments_same_date", courseId, [498455]); //Dental 1010 pilot
+        featurePilot("previous-enrollment-data/previous_enrollment_period_grades", courseId, [511596]); //Business High School Summer
         //DEPARTMENT SPECIFIC IMPORTS
         let departmentId = 0;
         //DETERMINE CURRENT DEPARTMENT FROM DEPARTMENT LIST
@@ -261,7 +262,6 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
             break;
           }
         }
-        featurePilot("previous-enrollment-data/previous_enrollment_period_grades", courseId, [511596]);
         if (departmentId === 3824) { // DENTAL
           feature("highlighted_grades_page_items");
           feature("speed_grader_screen_split");
@@ -286,7 +286,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       //CDD ONLY
       featureCDD("rubrics/sortable");
       featureCDD("quizzes/question_bank_sorter");
-      featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
+      //featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
       featureCDD("help_tab");
       featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
       featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
