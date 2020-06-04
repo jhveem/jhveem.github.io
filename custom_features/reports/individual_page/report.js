@@ -141,7 +141,7 @@
               };
               let app = this;
               let user_id = app.userId;
-              let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
+              let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&include[]=enrollments";
               console.log(url);
               await $.get(url, function (data) {
                 if (data.length > 0) {
@@ -173,7 +173,7 @@
                 }
               });
               if (output.found === false && state === "active") {
-                output = await app.getCourseGrades(course_id, 'completed');
+                // output = await app.getCourseGrades(course_id, 'completed');
               }
               return output;
             },
