@@ -101,6 +101,7 @@
               for (let c = 0; c < courseList.length; c++) {
                 let course = app.newCourse(courseList[c].course_id, courseList[c].state, courseList[c].name);
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
+                console.log(course);
                 course.grade = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
                 course.points = gradesData.points;
