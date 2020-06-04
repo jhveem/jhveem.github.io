@@ -8,7 +8,8 @@
       <h5 style='text-align: center;'>Hover over column headers for a description of the information displayed in that
         column.</h5>
       <div class='btech-report-columns-toggle'>
-        <div class='btech-report-column-toggle' style='display: inline-block;' v-for='column in columns' :key='column.name'>
+        <div class='btech-report-column-toggle' style='display: inline-block;' v-for='column in columns'
+          :key='column.name'>
           <div v-if="column.hideable">
             <input type="checkbox" v-model="column.visible"><label>{{column.name}}</label>
           </div>
@@ -24,10 +25,9 @@
           <tr v-if="loading">
             <td :colspan='visibleColumns.length'>Loading Results...</td>
           </tr>
-          <tr v-for='(student, id) in students'>
+          <tr v-for='student in students' :key='student.name'>
             <td v-for='column in visibleColumns' :key='column.name'
-              v-bind:style="{'background-color': getBackgroundColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}"
-             >
+              v-bind:style="{'background-color': getBackgroundColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">
               <span v-html="getColumnText(column, student)"></span>
             </td>
           </tr>
