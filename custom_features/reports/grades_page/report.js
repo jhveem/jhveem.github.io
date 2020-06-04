@@ -226,6 +226,7 @@
                 let submitted = 0;
                 let max_submissions = 0;
                 let progress_per_day = 0;
+                let progress_per_day_list = [];
                 let start_date = Date.parse(enrollment.created_at);
                 let now_date = Date.now();
                 let diff_time = Math.abs(now_date - start_date);
@@ -255,6 +256,7 @@
 
                 let points = student.points;
                 let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
+
                 progress_per_day = points / diff_days;
                 progress_per_day_list.push(progress_per_day);
                 let sum_progress = 0;
