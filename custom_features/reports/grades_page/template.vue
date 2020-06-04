@@ -24,7 +24,7 @@
             <td v-for='column in visibleColumns' :key='column.name'
               v-bind:style="{'background-color': getBackgroundColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}"
              >
-              {{getColumnText(column, student)}}
+              <span v-html="getColumnText(column, student)"></span>
             </td>
           </tr>
         </tbody>
