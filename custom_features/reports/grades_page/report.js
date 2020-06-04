@@ -177,7 +177,7 @@
               return text;
             },
             getBackgroundColor(column, val) {
-              color = "#FFF";
+              color = "transparent";
               if (column === "Ungraded") {
                 if (val >= 1 && val <= 10) {
                   let g = 16 - Math.floor(((val) / 15) * 16);
