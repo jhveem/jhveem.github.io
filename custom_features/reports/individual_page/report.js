@@ -100,6 +100,8 @@
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
                 let course = app.newCourse(courseList[c].course_id, courseList[c].state, courseList[c].name);
+                let state = course.state.toLowerCase();
+                if (state === "completed") state = "active";
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
                 course.grade = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
@@ -141,7 +143,7 @@
               };
               let app = this;
               let user_id = app.userId;
-              let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&include[]=enrollments";
+              let url = "/api/v1/courses/" + course_id + "/search_users?user_ids[]=" + user_id + "&enrollment_state[]=" + state.toLowerCase() + "&include[]=enrollments";
               console.log(url);
               await $.get(url, function (data) {
                 if (data.length > 0) {
@@ -173,7 +175,7 @@
                 }
               });
               if (output.found === false && state === "active") {
-                // output = await app.getCourseGrades(course_id, 'completed');
+                output = await app.getCourseGrades(course_id, 'completed');
               }
               return output;
             },
