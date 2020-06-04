@@ -22,6 +22,15 @@
         let canvasbody = $("#application");
         canvasbody.after('<div id="canvas-individual-report-vue"></div>');
         $("#canvas-individual-report-vue").append(vueString);
+        let gen_report_button = $('<a class="Button" id="canvas-grades-report-vue-gen">Grades Report</a>');
+        let menu_bar = $("#right-side div").first();
+        let modal = $('#canvas-grades-report-vue');
+        gen_report_button.appendTo(menu_bar);
+        modal.hide();
+        gen_report_button.click(function() {
+            let modal = $('#canvas-grades-report-vue');
+            modal.show();
+        });
         this.APP = new Vue({
           el: '#canvas-individual-report-vue',
           mounted: async function () {
