@@ -163,8 +163,16 @@
               }
               return text;
             },
-            getDaysSinceLastSubmissionColor(column, val) {
+            getBackgroundColor(column, val) {
               color = "#FFF";
+              if (column === "Ungraded") {
+                if (val >= 1 && val <= 10) {
+                  let g = 16 - Math.floor(((val) / 15) * 16);
+                  if (g < 6) g = 6;
+                  color = "#F" + g.toString(16) + "7";
+                }
+                if (val > 21) color = "#F67";
+              }
               if (column === "Days Since Last Submission") {
                 if (val >= 7 && val <= 21) {
                   let g = 16 - Math.floor(((val - 6) / 15) * 16);
