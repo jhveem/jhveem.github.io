@@ -166,7 +166,7 @@
               return name.toLowerCase().replace(/ /g, "_");
             },
             getColumnText(column, student) {
-              let text = student[column.name.toLowerCase().replace(/ /g, "_")];
+              let text = student[this.columnNameToCode(column.name)];
               if (column.name === "Name") {
                 text = student.nameHTML;
               }
