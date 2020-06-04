@@ -75,8 +75,12 @@ function feature(f, data = {}, regex = "") {
   if (regex === "") {
     check = true;
   } else {
-    if (regex.test(window.location.pathname)) {
-      check = true;
+    if (!Array.isArray(regex)) regex = [regex];
+    for (var i = 0; i < regex.length; i++) {
+      let reg = regex[i];
+      if (reg.test(window.location.pathname)) {
+        check = true;
+      }
     }
   }
   if (check) {
@@ -288,7 +292,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("editor_toolbar/tables");
       featureCDD("surveys");
       if (IS_ME) feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-      if (IS_ME) feature("reports/individual_page/report", {}, /^\/courses\/[0-9]+\/users\/[0-9]+$/);
+      if (IS_ME) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^users\/[0-9]+$/]);
     });
   });
 });

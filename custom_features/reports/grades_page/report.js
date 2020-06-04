@@ -21,7 +21,7 @@
         let canvasbody = $("#application");
         canvasbody.after('<div id="canvas-grades-report-vue"></div>');
         $("#canvas-grades-report-vue").append(vueString);
-        let gen_report_button = $('<a class="Button" id="canvas-grades-report-vue-gen">Grades Report</a>');
+        let gen_report_button = $('<a class="Button" id="canvas-grades-report-vue-gen">Report</a>');
         let new_grades = $('div.header-buttons');
         let old_grades = $('div#gradebook-toolbar');
         if (new_grades.length > 0) gen_report_button.appendTo(new_grades);

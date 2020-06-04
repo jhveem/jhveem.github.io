@@ -22,7 +22,7 @@
         let canvasbody = $("#application");
         canvasbody.after('<div id="canvas-individual-report-vue"></div>');
         $("#canvas-individual-report-vue").append(vueString);
-        let gen_report_button = $('<a class="Button" id="canvas-individual-report-vue-gen">Grades Report</a>');
+        let gen_report_button = $('<a class="Button" id="canvas-individual-report-vue-gen">Courses Report</a>');
         let menu_bar = $("#right-side div").first();
         let modal = $('#canvas-individual-report-vue');
         gen_report_button.appendTo(menu_bar);
@@ -35,8 +35,8 @@
           el: '#canvas-individual-report-vue',
           mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
-            let match = window.location.pathname.match(/courses\/([0-9]+)\/users\/([0-9]+)/);
-            this.userId = match[2];
+            let match = window.location.pathname.match(/users\/([0-9]+)/);
+            this.userId = match[1];
             this.courses = await this.getCourseData();
             this.loading = false;
           },
