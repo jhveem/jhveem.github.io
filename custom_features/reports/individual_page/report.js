@@ -137,7 +137,7 @@
                 });
               }).fail(function(e) {
                 console.log(e);
-                app.loadingMessage = "You do not have access to this student's courses. Reach out to your Canvas Administrator if you have received this message in error.";
+                app.accessDenied = true;
               });
               return list;
             },
