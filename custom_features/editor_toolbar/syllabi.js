@@ -90,16 +90,7 @@
 
   let groupDiv = $(".btech-assignment-groups");
   if (groupDiv.length > 0) {
-    groupDiv.each(function () {
-      $(this).removeAttr("style");
-      $(this).empty();
-      $(this).html("Loading...");
-    });
     $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/assignment_groups").done(function (data) {
-      groupDiv.each(function () {
-        $(this).removeClass('btech-hidden')
-        $(this).empty();
-      });
       //Should include a check to make sure assignment groups has been enabled, but for now it'll be up to the instructor to know that.
       let table = $("<table></table>");
       groupDiv.append(table);
@@ -112,6 +103,8 @@
       }
       groupDiv.each(function () {
         $(this).empty();
+        $(this).removeAttr("style");
+        $(this).removeClass('btech-hidden')
         $(this).append(table.clone());
       });
     });
