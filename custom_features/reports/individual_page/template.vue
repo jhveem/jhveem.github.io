@@ -2,9 +2,8 @@
   <div class='btech-modal' style='display: inline-block;'>
     <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
     <div class='btech-modal-content'>
-      <h3 style='text-align: center;'>Report</h3>
       <span class='btech-close' v-on:click='close()'>&times;</span>
-      <br>
+      <h3 style='text-align: center;'>Report</h3>
       <div v-if="accessDenied">
         <p>
           <b>ERROR:</b> You are not authorized to see all of this student's courses. This often occurs when the student is not enrolled in a course in which you are a sub-account admin.
