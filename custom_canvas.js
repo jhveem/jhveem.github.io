@@ -290,7 +290,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
       featureCDD("editor_toolbar/tables");
       featureCDD("surveys");
-      if (IS_ME) featureCDD("editor_toolbar/syllabi");
+      if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
     });
   });
 });
