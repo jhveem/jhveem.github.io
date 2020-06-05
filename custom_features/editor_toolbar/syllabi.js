@@ -23,9 +23,12 @@
   //This one has to come first so it doesn't have the submission view run on the grading page
   let schemeDiv = $(".btech-grading-scheme");
   if (schemeDiv.length > 0) {
+    schemeDiv.removeAttr("style");
     schemeDiv.empty();
     let rows = [];
     $.get("/api/v1/courses/498455/grading_standards").done(function (data) {
+      console.log("SCHEME DATA");
+      console.log(data);
       let table = $("<table></table>");
       schemeDiv.append(table);
       let header = $("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Rating</th><th style='border: 1px solid black; padding: 4px 8px;'>Percent</th></tr>")
@@ -74,19 +77,18 @@
 
   let groupDiv = $(".btech-assignment-groups");
   if (groupDiv.length > 0) {
+    groupDiv.removeAttr("style");
     groupDiv.empty();
     $.get("/api/v1/courses/498455/assignment_groups").done(function (data) {
       let table = $("<table></table>");
       groupDiv.append(table);
       table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
         let group = data[i];
         if (group.group_weight > 0) {
           table.append("<tr><td style='border: 1px solid black; padding: 4px 8px;'>" + group.name + "</td><td style='border: 1px solid black; padding: 4px 8px;'>" + (group.group_weight) + "%</td>");
         }
       }
-      console.log(canvasData);
     });
   }
 })();
