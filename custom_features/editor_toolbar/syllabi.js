@@ -23,14 +23,16 @@
   //This one has to come first so it doesn't have the submission view run on the grading page
   let schemeDiv = $(".btech-grading-scheme");
   if (schemeDiv.length > 0) {
-    schemeDiv.removeAttr("style");
-    schemeDiv.empty();
+    let table = $("<table></table>");
+    schemeDiv.each(function () {
+      $(this).removeAttr("style");
+      $(this).empty();
+      $(this).append(table);
+    });
     let rows = [];
     $.get("/api/v1/courses/498455/grading_standards").done(function (data) {
       console.log("SCHEME DATA");
       console.log(data);
-      let table = $("<table></table>");
-      schemeDiv.append(table);
       let header = $("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Rating</th><th style='border: 1px solid black; padding: 4px 8px;'>Percent</th></tr>")
       table.append(header);
       let canvasData = data[0];
