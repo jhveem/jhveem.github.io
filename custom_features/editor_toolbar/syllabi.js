@@ -89,9 +89,13 @@
 
   let groupDiv = $(".btech-assignment-groups");
   if (groupDiv.length > 0) {
-    groupDiv.removeAttr("style");
-    groupDiv.empty();
+    groupDiv.each(function () {
+      $(this).removeAttr("style");
+      $(this).empty();
+      $(this).html("Loading...");
+    });
     $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/assignment_groups").done(function (data) {
+      //Should include a check to make sure assignment groups has been enabled, but for now it'll be up to the instructor to know that.
       let table = $("<table></table>");
       groupDiv.append(table);
       table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
@@ -101,6 +105,10 @@
           table.append("<tr><td style='border: 1px solid black; padding: 4px 8px;'>" + group.name + "</td><td style='border: 1px solid black; padding: 4px 8px;'>" + (group.group_weight) + "%</td>");
         }
       }
+      groupDiv.each(function () {
+        $(this).empty();
+        $(this).append(table.clone());
+      });
     });
   }
 })();
