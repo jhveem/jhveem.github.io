@@ -6,7 +6,7 @@
       <span class='btech-close' v-on:click='close()'>&times;</span>
       <div v-if="accessDenied">
         <p>
-          You are not authorized to see all of this student's courses. This often occurs when the student is not enrolled in a course in which you are a sub-account admin.
+          <b>ERROR:<b> You are not authorized to see all of this student's courses. This often occurs when the student is not enrolled in a course in which you are a sub-account admin.
         </p>
         <p>
           Reach out to your Canvas Administrator if you have received this message in error.
