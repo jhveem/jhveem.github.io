@@ -7,14 +7,14 @@
     TOOLBAR.addButtonIcon("far fa-table", "Insert a table which is linked to the courses Grading Scheme", async function () {
       let editor = TOOLBAR.editor;
       editor.execCommand("mceInsertContent", false, `
-        <p class="btech-grading-scheme" style="border: 1px solid black;">This will be replaced by a table populated with the course Grading Scheme.</p>
+        <p class="btech-grading-scheme btech-hidden" style="border: 1px solid black;">This will be replaced by a table populated with the course Grading Scheme.</p>
       `);
     });
 
     TOOLBAR.addButtonIcon("far fa-table", "Insert a table which is linked to the courses Assignment Groups", async function () {
       let editor = TOOLBAR.editor;
       editor.execCommand("mceInsertContent", false, `
-        <p class="btech-assignment-groups" style="border: 1px solid black;">This will be replaced by a table populated with the course Assignment Groups.</p>
+        <p class="btech-assignment-groups btech-hidden" style="border: 1px solid black;">This will be replaced by a table populated with the course Assignment Groups.</p>
       `);
     });
   }
@@ -32,6 +32,7 @@
     let rows = [];
     $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/grading_standards").done(function (data) {
       schemeDiv.each(function () {
+        $(this).removeClass('btech-hidden')
         $(this).empty();
       });
       if (data.length > 0) {
@@ -95,6 +96,10 @@
       $(this).html("Loading...");
     });
     $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/assignment_groups").done(function (data) {
+      groupDiv.each(function () {
+        $(this).removeClass('btech-hidden')
+        $(this).empty();
+      });
       //Should include a check to make sure assignment groups has been enabled, but for now it'll be up to the instructor to know that.
       let table = $("<table></table>");
       groupDiv.append(table);
