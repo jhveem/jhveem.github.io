@@ -94,7 +94,7 @@
       //Should include a check to make sure assignment groups has been enabled, but for now it'll be up to the instructor to know that.
       let table = $("<table></table>");
       groupDiv.append(table);
-      table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
+      table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Submission Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
       for (let i = 0; i < data.length; i++) {
         let group = data[i];
         if (group.group_weight > 0) {

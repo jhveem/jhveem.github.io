@@ -229,21 +229,27 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       let currentUser = parseInt(ENV.current_user.id);
       const IS_ME = (currentUser === 1893418);
       //GENERAL FEATURES
-      feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-      feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+      if (IS_TEACHER) {
+        feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
+        feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+      }
       //COURSE FEATURES
       let rCheckInCourse = /^\/courses\/([0-9]+)/;
       if (rCheckInCourse.test(window.location.pathname)) {
         CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
         //AVAILABLE TO EVERYONE
-        feature('page_formatting/dropdown_from_table');
-        feature('page_formatting/tabs_from_table');
-        feature('page_formatting/google_sheets_table');
+        feature('page_formatting/dropdown_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        feature('page_formatting/tabs_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+
+        feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+
+        //This may need to be removed/revisited until next COE if other issues pop up.
+        // feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
+        // feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
+
         feature('modules/convert_to_page');
-        feature("page_formatting/tinymce_font_size");
-        feature("editor_toolbar/basics");
-        feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
-        feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
 
         featureBeta('rubrics/gen_comment');
         featureBeta('modules/course_features');
@@ -291,7 +297,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("help_tab");
       featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
       featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
-      featureCDD("editor_toolbar/tables");
+      featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
       featureCDD("surveys");
       if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
     });

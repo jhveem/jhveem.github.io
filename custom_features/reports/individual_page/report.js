@@ -64,6 +64,7 @@
               courseList: [],
               studentData: [],
               loading: true,
+              loadingMessage: "Loading Results..."
             }
           },
           computed: {
@@ -117,7 +118,7 @@
               let app = this;
               let list = [];
               let url = "https://btech.instructure.com/users/" + app.userId;
-              await $.get(url, function (data) {
+              await $.get(url).done(function (data) {
                 $(data).find("#content .courses a").each(function () {
                   let name = $(this).find('span.name').text().trim();
                   let href = $(this).attr('href');
@@ -133,6 +134,9 @@
                     });
                   }
                 });
+              }).fail(function(e) {
+                console.log(e);
+                app.loadingMessage = "You do not have access to this student's courses. Reach out to your Canvas Administrator if you have received this message in error.";
               });
               return list;
             },

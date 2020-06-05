@@ -23,7 +23,7 @@
         </thead>
         <tbody border='1'>
           <tr v-if="loading">
-            <td :colspan='visibleColumns.length'>Loading Results...</td>
+            <td :colspan='visibleColumns.length'>{{loadingMessage}}</td>
           </tr>
           <tr v-for='course in courses' :key='course.course_id'>
             <td v-for='column in visibleColumns' :key='column.name'>
