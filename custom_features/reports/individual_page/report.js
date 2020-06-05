@@ -64,7 +64,8 @@
               courseList: [],
               studentData: [],
               loading: true,
-              loadingMessage: "Loading Results..."
+              loadingMessage: "Loading Results...",
+              accessDenied: false
             }
           },
           computed: {
