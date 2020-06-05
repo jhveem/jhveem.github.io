@@ -1,5 +1,6 @@
 //THIS MUST BE UPDATED IN THE THEMES SECTION OF CANVAS
 
+
 //check for custom theme info, will probably only run on pages, quizzes, and assignments, but who knows
 let themeParent = $('#btech-theme-parent');
 if (themeParent.length === 1) {
@@ -32,6 +33,7 @@ var CDDIDS = [
   1807337, //Jon
   1950359, //Morgan
 ];
+var CURRENT_COURSE_ID = null;
 var IS_TEACHER = ENV.current_user_roles.includes("teacher");
 
 var FEATURES = {};
@@ -232,6 +234,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       //COURSE FEATURES
       let rCheckInCourse = /^\/courses\/([0-9]+)/;
       if (rCheckInCourse.test(window.location.pathname)) {
+        CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
         //AVAILABLE TO EVERYONE
         feature('page_formatting/dropdown_from_table');
         feature('page_formatting/tabs_from_table');
@@ -244,7 +247,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
 
         featureBeta('rubrics/gen_comment');
         featureBeta('modules/course_features');
-        let courseId = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
+        let courseId = CURRENT_COURSE_ID;
         //COURSE SPECIFIC FEATURES
         featurePilot("change_2019_to_2019-2020", courseId, [489538]); //IV Therapy
         featurePilot("rubrics/attempts_data", courseId, [498455]); //Dental 1010 pilot

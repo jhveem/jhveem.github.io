@@ -27,10 +27,10 @@
     schemeDiv.each(function () {
       $(this).removeAttr("style");
       $(this).empty();
-      $(this).append(table);
+      $(this).html("Loading...");
     });
     let rows = [];
-    $.get("/api/v1/courses/498455/grading_standards").done(function (data) {
+    $.get("/api/v1/courses/"+CURRENT_COURSE_ID+"/grading_standards").done(function (data) {
       console.log("SCHEME DATA");
       console.log(data);
       let header = $("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Rating</th><th style='border: 1px solid black; padding: 4px 8px;'>Percent</th></tr>")
@@ -74,6 +74,12 @@
         rows.push(row);
         table.append(row);
       }
+      schemeDiv.each(function () {
+        $(this).empty();
+        //needs to be cloned or it just keeps moving the table down an element
+        $(this).append(table.clone());
+        //may want to then remove the original table so it's not taking up space
+      });
     });
   }
 
@@ -81,7 +87,7 @@
   if (groupDiv.length > 0) {
     groupDiv.removeAttr("style");
     groupDiv.empty();
-    $.get("/api/v1/courses/498455/assignment_groups").done(function (data) {
+    $.get("/api/v1/courses/"+CURRENT_COURSE_ID+"/assignment_groups").done(function (data) {
       let table = $("<table></table>");
       groupDiv.append(table);
       table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
