@@ -2,11 +2,11 @@
   <div class='btech-modal' style='display: inline-block;'>
     <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
     <div class='btech-modal-content'>
+      <h3 style='text-align: center;'>Report</h3>
       <p v-if="accessDenied">You do not have access to this student's courses. Reach out to your Canvas Administrator if
         you have received this message in error.</p>
       <div v-else>
         <span class='btech-close' v-on:click='close()'>&times;</span>
-        <h3 style='text-align: center;'>Report</h3>
         <h5 style='text-align: center;'>Click on column headers to sort by that column.</h5>
         <h5 style='text-align: center;'>Hover over column headers for a description of the information displayed in that
           column.</h5>
