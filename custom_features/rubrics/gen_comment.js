@@ -1,3 +1,4 @@
+//change this to have the comment not include any HTML
 (function() {
   IMPORTED_FEATURE = {};
   let rWindowSpeedGrader = /^\/courses\/[0-9]+\/gradebook\/speed_grader/;
