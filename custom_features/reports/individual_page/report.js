@@ -1,5 +1,9 @@
+/*
+  If someone cannot view this report, they needed to be added under the sub-account via:
+  Settings->Admins->Add Account Admins
+  They only need the View Enrollments level access to be able to see the report.
+*/
 (function () {
-
   class Column {
     constructor(name, description, average, sortable_type, percent, hideable=true) {
       this.name = name;

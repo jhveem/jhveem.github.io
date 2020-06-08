@@ -4,14 +4,14 @@
   if (TOOLBAR.checkEditorPage()) {
     await TOOLBAR.checkReady();
 
-    TOOLBAR.addButtonIcon("far fa-table", "Insert a table which is linked to the courses Grading Scheme", async function () {
+    TOOLBAR.addButton("Grading Scheme", async function () {
       let editor = TOOLBAR.editor;
       editor.execCommand("mceInsertContent", false, `
         <p class="btech-grading-scheme btech-hidden" style="border: 1px solid black;">This will be replaced by a table populated with the course Grading Scheme.</p>
       `);
     });
 
-    TOOLBAR.addButtonIcon("far fa-table", "Insert a table which is linked to the courses Assignment Groups", async function () {
+    TOOLBAR.addButton("Assignment Groups", async function () {
       let editor = TOOLBAR.editor;
       editor.execCommand("mceInsertContent", false, `
         <p class="btech-assignment-groups btech-hidden" style="border: 1px solid black;">This will be replaced by a table populated with the course Assignment Groups.</p>
