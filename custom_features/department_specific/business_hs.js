@@ -228,6 +228,7 @@
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
                     if (course != "") {
+                      console.log(course);
                       if (course in this.courseGrades) {
                         $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[course]);
                       } else {
