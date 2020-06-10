@@ -276,8 +276,8 @@
                       let authorData = canvasCommentsData[c].author;
                       let date = this.dateToString(canvasCommentsData[c].created_at);
                       if (authorData.id !== this.studentId) {
-                        if (cService !== "" && cService !== "undefined") {
-                          let cCourse = this.getCommentData(comment, "COURSE");
+                        let cCourse = this.getCommentData(comment, "COURSE");
+                        if (cCourse !== "" && cCourse !== "undefined") {
                           let cGrade = this.getCommentData(comment, "GRADE");
                           let cComment = this.getCommentData(comment, "COMMENT");
                           //Check if it's a student comment or a teacher confirmation
