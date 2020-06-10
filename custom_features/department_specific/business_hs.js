@@ -202,7 +202,7 @@
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
                     let found = false
-                    if (course != "") {
+                    if (course != "" && grade != "") {
                       for (let c = 0; c < this.courseGrades.length; c++) {
                         if (this.courseGrades[c].course_id === course) {
                           this.courseGrades[c].grade = grade;
