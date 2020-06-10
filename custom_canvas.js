@@ -303,7 +303,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
       featureCDD("surveys");
       if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-      if (IS_ME) feature("department_specific/business_hs", {}, /^\/courses\/[0-9]+\/assignments/);
+      featureBeta("department_specific/business_hs");
     });
   });
 });

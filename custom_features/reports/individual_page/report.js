@@ -96,7 +96,7 @@
               course.section = "";
               course.ungraded = 0;
               course.submissions = 0;
-              course.nameHTML = "<a target='_blank' href='https://btech.instructure.com/courses/"+id+"'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + id + "/grades/" + app.userId + "'>grades</a>)";
+              course.nameHTML = "<a target='_blank' href='"+window.location.origin+"/courses/"+id+"'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + id + "/grades/" + app.userId + "'>grades</a>)";
               return course;
             },
 
@@ -122,7 +122,7 @@
             async getCourses() {
               let app = this;
               let list = [];
-              let url = "https://btech.instructure.com/users/" + app.userId;
+              let url = window.location.origin + "/users/" + app.userId;
               await $.get(url).done(function (data) {
                 $(data).find("#content .courses a").each(function () {
                   let name = $(this).find('span.name').text().trim();

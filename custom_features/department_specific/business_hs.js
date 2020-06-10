@@ -38,7 +38,6 @@
   //GRADING VIEW
   //This one has to come first so it doesn't have the submission view run on the grading page
   if (/^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/.test(window.location.pathname)) {
-    console.log("TEST");
     if (ENV.current_user_roles.includes("teacher")) {
       IMPORTED_FEATURE = {
         initiated: false,
@@ -137,6 +136,7 @@
                     studentId: 0,
                     comments: [],
                     services: {},
+                    courses: [],
                     completedServices: [],
                     criteria: {},
                     selectedCriterion: '',
@@ -148,12 +148,35 @@
                   }
                 },
                 mounted: async function () {
+                  let app = this;
                   let rPieces = /^\/courses\/([0-9]+)\/assignments\/([0-9]+)\/submissions\/([0-9]+)/;
                   let pieces = window.location.pathname.match(rPieces);
                   this.courseId = parseInt(pieces[1]);
                   this.studentId = parseInt(pieces[3]);
                   this.assignmentId = parseInt(pieces[2]);
-                  this.criteria = await this.getCriteria();
+                  let url = window.location.origin + "/users/" + this.studentId;
+                  let list = [];
+                  await $.get(url).done(function (data) {
+                    $(data).find("#content .courses a").each(function () {
+                      let name = $(this).find('span.name').text().trim();
+                      let href = $(this).attr('href');
+                      let match = href.match(/courses\/([0-9]+)\/users/);
+                      if (match) {
+                        let text = $(this).text().trim();
+                        let course_id = match[1];
+                        let state = text.match(/([A-Z|a-z]+),[\s]+?Enrolled as a Student/)[1];
+                        list.push({
+                          name: name,
+                          course_id: course_id,
+                          state: state
+                        });
+                      }
+                    });
+                  }).fail(function (e) {
+                    console.log(e);
+                    app.accessDenied = true;
+                  });
+                  console.log(list);
                   this.comments = await this.getComments();
                   this.processComments(this.comments);
                   this.loading = false;
