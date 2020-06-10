@@ -58,19 +58,19 @@
                 </ul>
                 <div style="padding: 10px;">
 
-                  <div v-if="menu == 'review'">
+                  <div v-if="menu == 'courses'">
                     <div v-if="loading==true">Loading Content...</div>
                     <div v-else>
                       <h3>Select a service and submit to confirm a student pass off.</h3>
-                      <select v-model="selectedCriterion">
+                      <select v-model="selectedCourse">
                         <option value="" disabled>-Select Course-</option>
                         <option v-for="course in courses" :value="course.course_id">{{course.name}}</option>
                       </select>
                       <br>
-                      <span>Grade </span><input style="width: 3em;" maxlength="3" type="text"><span>%</span>
+                      <span>Grade </span><input style="width: 3em;" maxlength="3" type="text" v-model="selectedGrade"><span>%</span>
                       <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
                       <br>
-                      <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Submit</div>
+                      <div v-on:click="submitCourseGrade()" class="Button">Submit</div>
                     </div>
                   </div>
 
@@ -126,9 +126,9 @@
                 el: '#app-hs-courses',
                 data: function () {
                   return {
-                    menu: 'review',
+                    menu: 'courses',
                     menus: [
-                      'review',
+                      'courses',
                       'completed',
                       'progress'
                     ],
@@ -141,8 +141,8 @@
                     courses: [],
                     completedServices: [],
                     criteria: {},
-                    selectedCriterion: '',
-                    selectedCompletedCriterion: '',
+                    selectedCourse: '',
+                    selectedGrade: '',
                     reviewerComment: '',
                     completedCriterionDate: '',
                     dates: [],
@@ -223,8 +223,9 @@
                     date = new Date(Date.parse(date));
                     return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
                   },
-                  async confirmCurrentService() {
-                    let service = this.selectedCriterion;
+                  async submitCourseGrade() {
+                    let course = this.selectedCourse;
+                    let grade = this.selectedGrade;
                     if (service != "") {
                       this.loading = true;
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
@@ -239,7 +240,9 @@
                         comment: {
                           text_comment: this.createComment(service, this.reviewerComment)
                         },
-                        rubric_assessment: rubricData
+                        submission: {
+                          posted_grade: 100
+                        }
                       });
                       location.reload(true);
                     }
