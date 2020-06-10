@@ -75,6 +75,8 @@
 
                   <div v-if="menu == 'completed'">
                     <div v-for="course in courseGrades"><b>{{course.name}}: </b>{{course.grade}}%</div>
+                    <br>
+                    <div>Total: {{averageScore()}}</div>
                   </div>
 
                 </div>
@@ -155,19 +157,17 @@
                   this.processComments(this.comments);
                   this.loading = false;
                 },
-                computed: {
-                  totalProgress: function () {
-                    let points = 0;
-                    let maxPoints = 0;
-                    for (let name in this.criteria) {
-                      let criterion = this.criteria[name];
-                      points += criterion.points_current;
-                      maxPoints += criterion.points;
-                    }
-                    return points / maxPoints;
-                  },
-                },
+                computed: {},
                 methods: {
+                  averageScore: function () {
+                    let coursePointsTotal = 0;
+                    let courseCount = this.courseGrades.length;
+                    for (let c = 0; c < courseCount; c++) {
+                      let courseData = this.courseGrades[c];
+                      coursePointsTotal += parseInt(courseData['grade']);
+                    }
+                    return (coursePointsTotal / courseCount);
+                  },
                   minToHoursString: function (minutes) {
                     let hours = Math.floor(minutes / 60);
                     minutes = minutes - (hours * 60);
@@ -207,7 +207,7 @@
                         if (this.courseGrades[c].course_id === course) {
                           this.courseGrades[c].grade = grade;
                           $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
-                        } 
+                        }
                       }
                       if (!found) {
                         this.courseGrades.push({
@@ -215,12 +215,7 @@
                         });
                       }
 
-                      let coursePointsTotal = 0;
-                      let courseCount = this.courseGrades.length;
-                      for (let c = 0; c < this.courseGrades.length; c++) {
-                        let courseData = this.courseGrades[c];
-                        coursePointsTotal += parseInt(courseData['grade']);
-                      }
+                      let averageScore = this.averageScore();
                       this.loading = true;
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
                       await $.put(url, {
@@ -228,7 +223,7 @@
                           text_comment: this.createComment(course, grade)
                         },
                         submission: {
-                          posted_grade: (coursePointsTotal / courseCount)
+                          posted_grade: averageScore
                         }
                       });
                       location.reload(true);
