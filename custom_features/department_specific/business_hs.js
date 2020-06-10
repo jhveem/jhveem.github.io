@@ -178,7 +178,6 @@
                     app.accessDenied = true;
                   });
                   app.courses = list;
-                  console.log(list);
                   this.comments = await this.getComments();
                   this.processComments(this.comments);
                   this.loading = false;
@@ -279,7 +278,6 @@
                     this.pendingServices = [];
                     this.courseGrades = [];
                     for (let c = 0; c < canvasCommentsData.length; c++) {
-                      console.log(canvasCommentsData[c]);
                       let comment = canvasCommentsData[c].comment;
                       let authorData = canvasCommentsData[c].author;
                       let date = this.dateToString(canvasCommentsData[c].created_at);
