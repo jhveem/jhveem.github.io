@@ -227,12 +227,14 @@
                   async submitCourseGrade() {
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
+                    this.courseGrades[course] = {grade: grade}
                     if (course != "") {
-                      let coursePointsTotal = 1;
-                      let courseCount = grade;
-                      for (let i = 0; i < this.courseGrades; i++) {
+                      let coursePointsTotal = 0;
+                      let courseCount = 0;
+                      for (let c in this.courseGrades) {
+                        let courseData = this.courseGrades[c];
                         courseCount += 1;
-                        coursePointsTotal += this.courseGrades[i]['grade'];
+                        coursePointsTotal += courseData['grade'];
                       }
                       console.log(courseCount);
                       console.log(coursePointsTotal);
@@ -282,13 +284,13 @@
                           let cGrade = this.getCommentData(comment, "GRADE");
                           let cComment = this.getCommentData(comment, "COMMENT");
                           //Check if it's a student comment or a teacher confirmation
-                          this.courseGrades.push({
+                          this.courseGrades[cCourse] = {
                             course: cCourse,
                             grade: cGrade,
                             comments: cComment,
                             author_data: authorData,
                             canvas_data: canvasCommentsData[c],
-                          });
+                          };
                           if (!this.dates.includes(date)) {
                             this.dates.push(date);
                           }
