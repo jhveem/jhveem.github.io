@@ -74,7 +74,7 @@
                   </div>
 
                   <div v-if="menu == 'completed'">
-                    <div for="course in courseGrades">{{course}}</div>
+                    <div v-for="course in courseGrades">{{course}}</div>
                   </div>
 
                 </div>
