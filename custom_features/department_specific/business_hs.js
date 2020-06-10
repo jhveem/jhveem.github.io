@@ -275,6 +275,7 @@
                     this.pendingServices = [];
                     this.courseGrades = [];
                     for (let c = 0; c < canvasCommentsData.length; c++) {
+                      console.log(canvasCommentsData[c]);
                       let comment = canvasCommentsData[c].comment;
                       let authorData = canvasCommentsData[c].author;
                       let date = this.dateToString(canvasCommentsData[c].created_at);
@@ -290,6 +291,7 @@
                             comments: cComment,
                             author_data: authorData,
                             canvas_data: canvasCommentsData[c],
+                            commentId: canvasCommentsData[c].id
                           };
                           if (!this.dates.includes(date)) {
                             this.dates.push(date);
