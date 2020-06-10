@@ -234,7 +234,7 @@
                       for (let c in this.courseGrades) {
                         let courseData = this.courseGrades[c];
                         courseCount += 1;
-                        coursePointsTotal += courseData['grade'];
+                        coursePointsTotal += parseInt(courseData['grade']);
                       }
                       console.log(courseCount);
                       console.log(coursePointsTotal);
