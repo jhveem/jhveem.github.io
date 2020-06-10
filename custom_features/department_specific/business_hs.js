@@ -103,7 +103,6 @@
                     menus: [
                       'courses',
                       'completed',
-                      'progress'
                     ],
                     loading: true,
                     courseid: 0,
@@ -257,7 +256,7 @@
                     this.completedServices = [];
                     this.rejectedServices = [];
                     this.pendingServices = [];
-                    this.courseGrades = [];
+                    courseGrades = [];
                     for (let c = 0; c < canvasCommentsData.length; c++) {
                       let comment = canvasCommentsData[c].comment;
                       let authorData = canvasCommentsData[c].author;
@@ -268,7 +267,7 @@
                           let cGrade = this.getCommentData(comment, "GRADE");
                           let cName = this.getCommentData(comment, "NAME");
                           //Check if it's a student comment or a teacher confirmation
-                          this.courseGrades.push({
+                          courseGrades.push({
                             course: cCourse,
                             grade: cGrade,
                             name: cName,
@@ -282,6 +281,7 @@
                         }
                       }
                     }
+                    this.courseGrades = courseGrades;
                   },
                 },
               });
