@@ -229,13 +229,6 @@
                     if (course != "") {
                       this.loading = true;
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
-                      this.criteria[service].points_current += 1;
-                      let rubricData = {};
-                      for (var key in this.criteria) {
-                        rubricData[this.criteria[key].id] = {
-                          points: this.criteria[key].points_current
-                        };
-                      }
                       await $.put(url, {
                         comment: {
                           text_comment: this.createComment(service, this.reviewerComment)
