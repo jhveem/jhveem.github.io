@@ -208,8 +208,7 @@
                         if (this.courseGrades[c].course_id === course) {
                           this.courseGrades[c].grade = grade;
                           $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
-                        } ;
-                        }
+                        } 
                       }
                       if (!found) {
                         this.courseGrades.push({
