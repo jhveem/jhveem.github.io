@@ -258,7 +258,7 @@
                           posted_grade: (coursePointsTotal / courseCount)
                         }
                       });
-                      location.reload(true);
+                      // location.reload(true);
                     }
                   },
                   async getComments() {
