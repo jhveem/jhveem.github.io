@@ -139,6 +139,7 @@
                     comments: [],
                     services: {},
                     courses: [],
+                    courseGrades: {},
                     completedServices: [],
                     criteria: {},
                     selectedCourse: '',
@@ -227,6 +228,13 @@
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
                     if (course != "") {
+                      let coursePointsTotal = 0;
+                      let courseCount = 0;
+                      for (let i = 0; i < this.courseGrades; i++) {
+                        courseCount += 1;
+                        coursePointsTotal += this.courseGrades[i]['grade'];
+                      }
+                      console.log(coursePointsTotal);
                       this.loading = true;
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
                       await $.put(url, {
@@ -234,7 +242,7 @@
                           text_comment: this.createComment(course, grade, this.reviewerComment)
                         },
                         submission: {
-                          posted_grade: 100
+                          posted_grade: (coursePointsTotal / courseCount)
                         }
                       });
                       location.reload(true);
@@ -258,42 +266,24 @@
                     }
                     return data;
                   },
-                  async getCriteria() {
-                    let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId;
-                    let criteria = {};
-                    await $.get(url, function (data) {
-                      for (let i = 0; i < data.rubric.length; i++) {
-                        let criterion = data.rubric[i];
-                        //look to see if time data was provided
-                        criterion.average_time = 0;
-                        let rPieces = /([0-9]+) min/;
-                        let pieces = criterion.long_description.match(rPieces);
-                        if (pieces !== null) {
-                          criterion.average_time = parseInt(pieces[1]);
-                        }
-                        criterion.points_current = 0;
-                        criteria[criterion.description] = criterion;
-                      }
-                    });
-                    return criteria;
-                  },
                   processComments(canvasCommentsData) {
                     this.completedServices = [];
                     this.rejectedServices = [];
                     this.pendingServices = [];
-                    this.services = [];
+                    this.courseGrades = [];
                     for (let c = 0; c < canvasCommentsData.length; c++) {
                       let comment = canvasCommentsData[c].comment;
                       let authorData = canvasCommentsData[c].author;
                       let date = this.dateToString(canvasCommentsData[c].created_at);
-                      let cService = this.getCommentData(comment, "SERVICE");
                       if (authorData.id !== this.studentId) {
                         if (cService !== "" && cService !== "undefined") {
-                          let cService = this.getCommentData(comment, "SERVICE");
+                          let cCourse = this.getCommentData(comment, "COURSE");
+                          let cGrade = this.getCommentData(comment, "GRADE");
                           let cComment = this.getCommentData(comment, "COMMENT");
                           //Check if it's a student comment or a teacher confirmation
-                          this.services.push({
-                            service: cService,
+                          this.courseGrades.push({
+                            course: cCourse,
+                            grade: cGrade,
                             comments: cComment,
                             author_data: authorData,
                             canvas_data: canvasCommentsData[c],
@@ -301,14 +291,7 @@
                           if (!this.dates.includes(date)) {
                             this.dates.push(date);
                           }
-                          this.criteria[cService].points_current += 1;
                         }
-                      }
-                    }
-                    for (var i = 0; i < this.dates.length; i++) {
-                      let date = this.dates[i];
-                      if (this.hoursSubmittedInDate(date) > (4 * 60)) {
-                        this.flaggedDates.push(date);
                       }
                     }
                   },
