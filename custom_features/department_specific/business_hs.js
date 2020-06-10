@@ -74,19 +74,7 @@
                   </div>
 
                   <div v-if="menu == 'completed'">
-                    <div for="course in courseGrades">course</div>
-                  </div>
-
-                  <div v-if="menu === 'progress'">
-                    <div>Progress: {{Math.round(totalProgress * 100)}}%</div>
-                    <br>
-                    <div v-for="criterion in criteria">
-                        {{criterion.description}}: {{criterion.points_current}} / {{criterion.points}} completed ({{Math.round((criterion.points_current / criterion.points) * 100)}}%)
-                    </div>
-                  </div>
-
-                  <div v-if="menu === 'flagged'">
-                    <div v-for="date in flaggedDates">{{date}} ({{minToHoursString(hoursSubmittedInDate(date))}})</div>
+                    <div for="course in courseGrades">{{course}}</div>
                   </div>
 
                 </div>
