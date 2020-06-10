@@ -208,6 +208,7 @@
                     if (course != "" && grade != "") {
                       for (let c = 0; c < this.courseGrades.length; c++) {
                         if (this.courseGrades[c].course_id === course) {
+                          console.log(course);
                           this.courseGrades[c].grade = grade;
                           await $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
                         }
