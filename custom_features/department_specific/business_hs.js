@@ -281,6 +281,7 @@
                         }
                       }
                     }
+                    console.log(courseGrades);
                     this.courseGrades = courseGrades;
                   },
                 },
