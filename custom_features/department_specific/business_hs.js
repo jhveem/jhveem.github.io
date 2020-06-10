@@ -63,8 +63,8 @@
                     <div v-else>
                       <h3>Select a service and submit to confirm a student pass off.</h3>
                       <select v-model="selectedCriterion">
-                        <option value="" disabled>-Select Service-</option>
-                        <option v-for="criterion in criteria" :value="criterion.description">{{criterion.description}} ({{criterion.points_current}}/{{criterion.points}} completed)</option>
+                        <option value="" disabled>-Select Course-</option>
+                        <option v-for="course in courses" :value="course.course_id">{{course.name}}</option>
                       </select>
                       <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
                       <br>
@@ -176,6 +176,7 @@
                     console.log(e);
                     app.accessDenied = true;
                   });
+                  app.courses = list;
                   console.log(list);
                   this.comments = await this.getComments();
                   this.processComments(this.comments);
