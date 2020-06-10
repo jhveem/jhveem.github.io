@@ -228,8 +228,8 @@
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
                     if (course != "") {
-                      let coursePointsTotal = 0;
-                      let courseCount = 0;
+                      let coursePointsTotal = 1;
+                      let courseCount = grade;
                       for (let i = 0; i < this.courseGrades; i++) {
                         courseCount += 1;
                         coursePointsTotal += this.courseGrades[i]['grade'];
