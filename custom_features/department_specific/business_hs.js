@@ -66,6 +66,7 @@
                         <option value="" disabled>-Select Course-</option>
                         <option v-for="course in courses" :value="course.course_id">{{course.name}}</option>
                       </select>
+                      <label>Grade</label><input type="text">
                       <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
                       <br>
                       <div id="btech-services-confirm" v-on:click="confirmCurrentService()" class="Button">Submit</div>
