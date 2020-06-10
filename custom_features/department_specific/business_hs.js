@@ -209,7 +209,7 @@
                       for (let c = 0; c < this.courseGrades.length; c++) {
                         if (this.courseGrades[c].course_id === course) {
                           this.courseGrades[c].grade = grade;
-                          $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
+                          await $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
                         }
                       }
                       if (!found) {
