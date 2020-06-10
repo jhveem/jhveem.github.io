@@ -234,6 +234,7 @@
                         courseCount += 1;
                         coursePointsTotal += this.courseGrades[i]['grade'];
                       }
+                      console.log(courseCount);
                       console.log(coursePointsTotal);
                       this.loading = true;
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
