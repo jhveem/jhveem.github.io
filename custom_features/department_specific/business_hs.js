@@ -227,9 +227,7 @@
                   async submitCourseGrade() {
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
-                    console.log(this.courseGrades);
                     if (course != "") {
-                      console.log(course);
                       if (course in this.courseGrades) {
                         $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[course].comment_id);
                       } else {
@@ -246,8 +244,6 @@
                         courseCount += 1;
                         coursePointsTotal += parseInt(courseData['grade']);
                       }
-                      console.log(courseCount);
-                      console.log(coursePointsTotal);
                       this.loading = true;
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
                       await $.put(url, {
@@ -258,7 +254,7 @@
                           posted_grade: (coursePointsTotal / courseCount)
                         }
                       });
-                      // location.reload(true);
+                      location.reload(true);
                     }
                   },
                   async getComments() {
