@@ -278,7 +278,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
             feature("previous-enrollment-data/set_hours_form");
           }
         }
-        if (departmentId === 3827) { //Practical Nursing
+        if (departmentId === 3827 || departmentId === 3828) { //Practical Nursing && Health Sciences General
           feature("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         }
         if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
@@ -303,6 +303,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
       featureCDD("surveys");
       if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+      if (IS_ME) feature("department_specific/business_hs", {}, /^\/courses\/[0-9]+\/assignments/);
     });
   });
 });
