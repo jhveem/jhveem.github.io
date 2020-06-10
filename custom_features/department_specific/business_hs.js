@@ -112,7 +112,7 @@
                     comments: [],
                     services: {},
                     courses: [],
-                    courseGrades: {},
+                    courseGrades: [],
                     completedServices: [],
                     criteria: {},
                     selectedCourse: '',
@@ -202,21 +202,25 @@
                   async submitCourseGrade() {
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
+                    let found = false
                     if (course != "") {
-                      if (course in this.courseGrades) {
-                        $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[course].comment_id);
-                      } else {
-                        this.courseGrades[course] = {};
+                      for (let c = 0; c < this.courseGrades.length; c++) {
+                        if (this.courseGrades[c].course_id === course) {
+                          this.courseGrades[c].grade = grade;
+                          $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
+                        } ;
+                        }
                       }
-                      this.courseGrades[course] = {
-                        grade: grade
-                      };
+                      if (!found) {
+                        this.courseGrades.push({
+                          grade: grade
+                        });
+                      }
 
                       let coursePointsTotal = 0;
-                      let courseCount = 0;
-                      for (let c in this.courseGrades) {
+                      let courseCount = this.courseGrades.length;
+                      for (let c = 0; c < this.courseGrades.length; c++) {
                         let courseData = this.courseGrades[c];
-                        courseCount += 1;
                         coursePointsTotal += parseInt(courseData['grade']);
                       }
                       this.loading = true;
@@ -265,14 +269,14 @@
                           let cGrade = this.getCommentData(comment, "GRADE");
                           let cName = this.getCommentData(comment, "NAME");
                           //Check if it's a student comment or a teacher confirmation
-                          this.courseGrades[cCourse] = {
+                          this.courseGrades.push({
                             course: cCourse,
                             grade: cGrade,
                             name: cName,
                             author_data: authorData,
                             canvas_data: canvasCommentsData[c],
                             comment_id: canvasCommentsData[c].id
-                          };
+                          });
                           if (!this.dates.includes(date)) {
                             this.dates.push(date);
                           }
