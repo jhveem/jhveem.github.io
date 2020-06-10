@@ -215,8 +215,8 @@
                     }
                     return total;
                   },
-                  createComment(service, comment) {
-                    let text = `SERVICE: ` + service + `\nCOMMENT: ` + comment;
+                  createComment(course, grade, comment) {
+                    let text = `COURSE: ` + course + `\nGRADE: ` + grade + `\nCOMMENT: ` + comment;
                     return text;
                   },
                   dateToString(date) {
@@ -231,7 +231,7 @@
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
                       await $.put(url, {
                         comment: {
-                          text_comment: this.createComment(service, this.reviewerComment)
+                          text_comment: this.createComment(course, grade, this.reviewerComment)
                         },
                         submission: {
                           posted_grade: 100
