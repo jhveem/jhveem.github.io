@@ -191,9 +191,10 @@
                     for (let c = 0; c < this.courses.length; c++) {
                       if (this.courses[c].course_id == course) {
                         name = this.courses[c].name;
+                        term = this.courses[c].term;
                       }
                     }
-                    let text = `COURSE: ` + course + `\nNAME: ` + name + `\nGRADE: ` + grade;
+                    let text = `COURSE: ` + course + `\nNAME: ` + name + `\nTERM: ` + term + `\nGRADE: ` + grade;
                     return text;
                   },
                   dateToString(date) {
@@ -261,12 +262,14 @@
                       if (authorData.id !== this.studentId) {
                         let cCourse = this.getCommentData(comment, "COURSE");
                         if (cCourse !== "" && cCourse !== "undefined") {
+                          let cTerm = this.getCommentData(comment, "TERM");
                           let cGrade = this.getCommentData(comment, "GRADE");
                           let cName = this.getCommentData(comment, "NAME");
                           //Check if it's a student comment or a teacher confirmation
                           courseGrades.push({
                             course: cCourse,
                             grade: cGrade,
+                            term: cTerm,
                             name: cName,
                             author_data: authorData,
                             canvas_data: canvasCommentsData[c],
