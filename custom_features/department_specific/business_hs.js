@@ -74,7 +74,7 @@
                   </div>
 
                   <div v-if="menu == 'completed'">
-                    <div v-for="course in courseGrades"><b>{{course.name}}:</b> {{course.grade}}%</div>
+                    <div v-for="course in courseGrades"><b>{{course.name}}:</b> {{course.grade}}%<br>{{course.term}}</div>
                     <br>
                     <div><b>Average:</b> {{averageScore()}}%</div>
                   </div>
