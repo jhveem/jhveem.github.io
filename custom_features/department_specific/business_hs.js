@@ -226,7 +226,7 @@
                   async submitCourseGrade() {
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
-                    if (service != "") {
+                    if (course != "") {
                       this.loading = true;
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
                       this.criteria[service].points_current += 1;
