@@ -64,7 +64,7 @@
                       <h3>Select a service and submit to confirm a student pass off.</h3>
                       <select v-model="selectedCourse">
                         <option value="" disabled>-Select Course-</option>
-                        <option v-for="course in courses" :value="course.course_id">{{course.name}}</option>
+                        <option v-for="course in courses" :value="course.course_id">{{course.name}} ({{course.term}})</option>
                       </select>
                       <br>
                       <span>Grade </span><input style="width: 3em;" maxlength="3" type="text" v-model="selectedGrade"><span>%</span>
@@ -135,6 +135,7 @@
                   await $.get(url).done(function (data) {
                     $(data).find("#content .courses a").each(function () {
                       let name = $(this).find('span.name').text().trim();
+                      let term = $($(this).find('span.subtitle')[0]).text().trim();
                       let href = $(this).attr('href');
                       let match = href.match(/courses\/([0-9]+)\/users/);
                       if (match) {
@@ -143,6 +144,7 @@
                         let state = text.match(/([A-Z|a-z]+),[\s]+?Enrolled as a Student/)[1];
                         list.push({
                           name: name,
+                          term: term,
                           course_id: course_id,
                           state: state
                         });
