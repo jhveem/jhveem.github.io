@@ -68,7 +68,6 @@
                       </select>
                       <br>
                       <span>Grade </span><input style="width: 3em;" maxlength="3" type="text" v-model="selectedGrade"><span>%</span>
-                      <textarea style="width: 100%; box-sizing: border-box;" v-model="reviewerComment" placeholder="You may leave a comment about the student's performance here."></textarea>
                       <br>
                       <div v-on:click="submitCourseGrade()" class="Button">Submit</div>
                     </div>
@@ -144,7 +143,6 @@
                     criteria: {},
                     selectedCourse: '',
                     selectedGrade: '',
-                    reviewerComment: '',
                     completedCriterionDate: '',
                     dates: [],
                     flaggedDates: []
@@ -217,7 +215,7 @@
                     return total;
                   },
                   createComment(course, grade, comment) {
-                    let text = `COURSE: ` + course + `\nGRADE: ` + grade + `\nCOMMENT: ` + comment;
+                    let text = `COURSE: ` + course + `\nGRADE: ` + grade;
                     return text;
                   },
                   dateToString(date) {
@@ -248,7 +246,7 @@
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
                       await $.put(url, {
                         comment: {
-                          text_comment: this.createComment(course, grade, this.reviewerComment)
+                          text_comment: this.createComment(course, grade)
                         },
                         submission: {
                           posted_grade: (coursePointsTotal / courseCount)
