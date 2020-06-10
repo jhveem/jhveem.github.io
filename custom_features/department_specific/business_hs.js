@@ -231,7 +231,7 @@
                     if (course != "") {
                       console.log(course);
                       if (course in this.courseGrades) {
-                        $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[course]);
+                        $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[course].comment_id);
                       } else {
                         this.courseGrades[course] = {};
                       }
