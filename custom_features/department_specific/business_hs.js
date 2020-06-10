@@ -227,8 +227,16 @@
                   async submitCourseGrade() {
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
-                    this.courseGrades[course] = {grade: grade}
                     if (course != "") {
+                      if (course in this.courseGrades) {
+                        $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[course]);
+                      } else {
+                        this.courseGrades[course] = {};
+                      }
+                      this.courseGrades[course] = {
+                        grade: grade
+                      };
+
                       let coursePointsTotal = 0;
                       let courseCount = 0;
                       for (let c in this.courseGrades) {
@@ -291,7 +299,7 @@
                             comments: cComment,
                             author_data: authorData,
                             canvas_data: canvasCommentsData[c],
-                            commentId: canvasCommentsData[c].id
+                            comment_id: canvasCommentsData[c].id
                           };
                           if (!this.dates.includes(date)) {
                             this.dates.push(date);
