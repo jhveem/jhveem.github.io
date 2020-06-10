@@ -295,7 +295,6 @@
                             course: cCourse,
                             grade: cGrade,
                             name: cName,
-                            comments: cComment,
                             author_data: authorData,
                             canvas_data: canvasCommentsData[c],
                             comment_id: canvasCommentsData[c].id
