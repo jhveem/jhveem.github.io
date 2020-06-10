@@ -227,6 +227,7 @@
                   async submitCourseGrade() {
                     let course = this.selectedCourse;
                     let grade = this.selectedGrade;
+                    console.log(this.courseGrades);
                     if (course != "") {
                       console.log(course);
                       if (course in this.courseGrades) {
