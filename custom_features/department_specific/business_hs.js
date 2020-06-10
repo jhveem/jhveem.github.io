@@ -209,12 +209,16 @@
                           total += this.criteria[service.service].average_time;
                         }
                       }
-                      // this.selectedCompletedCriterion this.completedCriterionDate
                     }
                     return total;
                   },
                   createComment(course, grade, comment) {
-                    let text = `COURSE: ` + course + `\nGRADE: ` + grade;
+                    for (let c = 0; c < this.courses.length; c++) {
+                      if (this.courses[c].course_id == course) {
+                        name = this.courses[c].name;
+                      }
+                    }
+                    let text = `COURSE: ` + course + `\nNAME: ` + name + `\nGRADE: ` + grade;
                     return text;
                   },
                   dateToString(date) {
@@ -285,11 +289,12 @@
                         let cCourse = this.getCommentData(comment, "COURSE");
                         if (cCourse !== "" && cCourse !== "undefined") {
                           let cGrade = this.getCommentData(comment, "GRADE");
-                          let cComment = this.getCommentData(comment, "COMMENT");
+                          let cName = this.getCommentData(comment, "NAME");
                           //Check if it's a student comment or a teacher confirmation
                           this.courseGrades[cCourse] = {
                             course: cCourse,
                             grade: cGrade,
+                            name: cName,
                             comments: cComment,
                             author_data: authorData,
                             canvas_data: canvasCommentsData[c],
