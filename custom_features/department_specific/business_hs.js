@@ -168,7 +168,7 @@
                     for (let c = 0; c < this.courseGrades.length; c++) {
                       if (this.courseGrades[c].course === course.course) {
                         await $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
-                        this.courseGrades.splice(c);
+                        this.courseGrades.splice(c, 1);
                       }
                     }
                   },
