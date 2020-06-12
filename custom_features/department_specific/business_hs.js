@@ -18,7 +18,7 @@
         });
       }
     }
-    let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Course Grading assignment", async function () {
+    let btn = await TOOLBAR.addButtonIcon("far fa-abacus", "Convert this assignment to a Course Grading assignment", async function () {
       let body = tinyMCE.activeEditor.getBody();
       let div = $(body).find("#btech-hs-courses");
       if (div.length === 0) {
