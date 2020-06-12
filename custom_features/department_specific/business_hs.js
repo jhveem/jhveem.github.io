@@ -166,8 +166,8 @@
                     console.log(this.studentId);
                     let url = "/api/v1/courses/" + course + "/enrollments?user_id="+this.studentId+"&state[]=active&state[]=completed&state[]=inactive";
                     $.get(url).done(function(data) {
-                      console.log(data);
-                      console.log(data.grades.current_score);
+                      console.log(data[0]);
+                      console.log(data[0].grades.current_score);
                     })
                     console.log(course);
                   },
