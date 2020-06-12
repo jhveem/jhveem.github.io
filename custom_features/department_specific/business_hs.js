@@ -74,7 +74,9 @@
                   </div>
 
                   <div v-if="menu == 'completed'">
-                    <div v-for="course in courseGrades"><b>{{course.name}}:</b> {{course.grade}}%<br><span style="font-size:.66rem;">{{course.term}}</span></div>
+                    <div v-for="course in courseGrades">
+                      <p><b>{{course.name}}:</b> {{course.grade}}%<span style="float: right;" class="icon-end"></span></p><p style="font-size:.66rem;">{{course.term}}</p>
+                    </div>
                     <br>
                     <div><b>Average:</b> {{averageScore()}}%</div>
                   </div>
@@ -164,12 +166,10 @@
                   onCourseSelect: function() {
                     let app = this;
                     let course = this.selectedCourse;
-                    console.log(this.studentId);
                     let url = "/api/v1/courses/" + course + "/enrollments?user_id="+this.studentId+"&state[]=active&state[]=completed&state[]=inactive";
                     $.get(url).done(function(data) {
                       app.selectedGrade = data[0].grades.current_score;
                     })
-                    console.log(course);
                   },
                   averageScore: function () {
                     let coursePointsTotal = 0;
@@ -291,7 +291,6 @@
                         }
                       }
                     }
-                    console.log(courseGrades);
                     this.courseGrades = courseGrades;
                   },
                 },
