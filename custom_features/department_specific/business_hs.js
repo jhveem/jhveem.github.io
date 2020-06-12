@@ -75,7 +75,8 @@
 
                   <div v-if="menu == 'completed'">
                     <div v-for="course in courseGrades">
-                      <p><b>{{course.name}}:</b> {{course.grade}}%<span style="float: right;" class="icon-end"></span></p><p style="font-size:.66rem;">{{course.term}}</p>
+                      <p><b>{{course.name}}:</b> {{course.grade}}%<i @click="removeCourse(course.id)" style="float: right;" class="icon-end"></i></p>
+                      <p style="font-size:.66rem;">{{course.term}}</p>
                     </div>
                     <br>
                     <div><b>Average:</b> {{averageScore()}}%</div>
@@ -163,6 +164,9 @@
                 },
                 computed: {},
                 methods: {
+                  removeCourse: function(course) {
+                    console.log(course);
+                  },
                   onCourseSelect: function() {
                     let app = this;
                     let course = this.selectedCourse;
