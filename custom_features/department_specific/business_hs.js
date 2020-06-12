@@ -164,7 +164,7 @@
                   onCourseSelect: function() {
                     let course = this.selectedCourse;
                     console.log(this.studentId);
-                    let url = "/api/v1/courses/" + course + "/enrollments?user_id='"+this.studentId+"'&state[]='active'&state[]='completed'&state[]='inactive'"
+                    let url = "/api/v1/courses/" + course + "/enrollments?user_id="+this.studentId+"&state[]=active&state[]=completed&state[]=inactive";
                     $.get(url).done(function(data) {
                       console.log(data);
                       console.log(data.grades.current_score);
