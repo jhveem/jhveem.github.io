@@ -23,7 +23,7 @@
       let div = $(body).find("#btech-hs-courses");
       if (div.length === 0) {
         $(body).prepend(`
-          <div id='btech-hs-courses' class='btech-hidden' style='border: 1px solid #000;'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS A #SERVICES# ASSIGNMENT</div><p> </p>
+          <div id='btech-hs-courses' class='btech-hidden' style='border: 1px solid #000;'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS AN ASSIGNMENT TO KEEP TRACK OF COURSES COMPLETED IN A TERM.</div><p> </p>
         `);
       } else {
         div.remove();
