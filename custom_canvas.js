@@ -281,6 +281,9 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         if (departmentId === 3827 || departmentId === 3828) { //Practical Nursing && Health Sciences General
           feature("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         }
+        if (departmentId === 3833) {
+          feature("department_specific/business_hs");
+        }
         if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
           feature("modules/points_to_hours_header");
           feature("department_specific/amar_elec_add_module_items");
