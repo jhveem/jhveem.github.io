@@ -291,7 +291,7 @@
                             term: cTerm,
                             name: cName,
                             author_data: authorData,
-                            canvas_data: canvsCommentsData[c],
+                            canvas_data: canvasCommentsData[c],
                             comment_id: canvasCommentsData[c].id
                           });
                           if (!this.dates.includes(date)) {
