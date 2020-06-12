@@ -79,7 +79,7 @@
                       <p style="font-size:.66rem;">{{course.term}}</p>
                     </div>
                     <br>
-                    <div><b>Average:</b> {{averageScore()}}%</div>
+                    <div v-if="courseGrades.length > 0"><b>Average:</b> {{averageScore()}}%</div>
                   </div>
 
                 </div>
