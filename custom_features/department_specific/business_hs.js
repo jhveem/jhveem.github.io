@@ -62,7 +62,7 @@
                     <div v-if="loading==true">Loading Content...</div>
                     <div v-else>
                       <h3>Select a course, enter the grade, and submit to add the course the the list of courses to be averaged for this term.</h3>
-                      <select v-model="selectedCourse">
+                      <select v-model="selectedCourse" @change="onCourseSelect()">
                         <option value="" disabled>-Select Course-</option>
                         <option v-for="course in courses" :value="course.course_id">{{course.name}} ({{course.term}})</option>
                       </select>
@@ -74,7 +74,7 @@
                   </div>
 
                   <div v-if="menu == 'completed'">
-                    <div v-for="course in courseGrades"><b>{{course.name}}:</b> {{course.grade}}%<br><span style="margin-left: 2em; font-size:.66rem;">{{course.term}}</span></div>
+                    <div v-for="course in courseGrades"><b>{{course.name}}:</b> {{course.grade}}%<br><span style="font-size:.66rem;">{{course.term}}</span></div>
                     <br>
                     <div><b>Average:</b> {{averageScore()}}%</div>
                   </div>
@@ -161,6 +161,10 @@
                 },
                 computed: {},
                 methods: {
+                  onCourseSelect: function() {
+                    let course = this.selectedCourse;
+                    console.log(course);
+                  },
                   averageScore: function () {
                     let coursePointsTotal = 0;
                     let courseCount = this.courseGrades.length;
