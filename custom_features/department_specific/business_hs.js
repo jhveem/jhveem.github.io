@@ -75,7 +75,7 @@
 
                   <div v-if="menu == 'completed'">
                     <div v-for="course in courseGrades">
-                      <p><b>{{course.name}}:</b> {{course.grade}}%<i @click="removeCourse(course.id)" style="float: right;" class="icon-end"></i></p>
+                      <p><b>{{course.name}}:</b> {{course.grade}}%<i @click="removeCourse(course)" style="float: right;" class="icon-end"></i></p>
                       <p style="font-size:.66rem;">{{course.term}}</p>
                     </div>
                     <br>
