@@ -18,15 +18,15 @@
         });
       }
     }
-    let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", async function () {
+    let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Course Grading assignment", async function () {
       let body = tinyMCE.activeEditor.getBody();
-      let services = $(body).find("#btech-hs-courses");
-      if (services.length === 0) {
+      let div = $(body).find("#btech-hs-courses");
+      if (div.length === 0) {
         $(body).prepend(`
-          <div id='btech-hs-courses" class="btech-hidden' style='border: 1px solid #000;'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS A #SERVICES# ASSIGNMENT</div><p> </p>
+          <div id='btech-hs-courses' class='btech-hidden' style='border: 1px solid #000;'>DO NOT DELETE. THIS SETS THIS ASSIGNMENT AS A #SERVICES# ASSIGNMENT</div><p> </p>
         `);
       } else {
-        services.remove();
+        div.remove();
       }
     });
     checkButtonColor(btn);
