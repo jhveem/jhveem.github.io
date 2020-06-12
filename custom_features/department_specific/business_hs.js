@@ -165,7 +165,12 @@
                 computed: {},
                 methods: {
                   removeCourse: function(course) {
-                    console.log(course);
+                    for (let c = 0; c < this.courseGrades.length; c++) {
+                      if (this.courseGrades[c].course === course.course) {
+                        await $.delete("https://btech.beta.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
+                        this.courseGrades.splice(c);
+                      }
+                    }
                   },
                   onCourseSelect: function() {
                     let app = this;
@@ -286,7 +291,7 @@
                             term: cTerm,
                             name: cName,
                             author_data: authorData,
-                            canvas_data: canvasCommentsData[c],
+                            canvas_data: canvsCommentsData[c],
                             comment_id: canvasCommentsData[c].id
                           });
                           if (!this.dates.includes(date)) {
