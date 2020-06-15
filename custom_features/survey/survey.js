@@ -86,10 +86,7 @@ method="POST" id="m_8914134288611702631ss-form" target="_blank">
 </form>
 `);
   let courseId = ENV.COURSE_ID;
-  addHidden(1336315446, CURRENT_COURSE_ID); //course
   let userId = ENV.current_user.id;
-  addHidden(772076137, hashId(userId)); //user id
-  addHidden(1711798596, CURRENT_DEPARTMENT_ID); //department id
   $(".btech-survey").append(form);
   let instructors = [];
   await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
@@ -98,8 +95,14 @@ method="POST" id="m_8914134288611702631ss-form" target="_blank">
       instructors.push(enrollment.user.name);
     }
   });
-  console.log(instructors);
+
+  addHidden(1336315446, CURRENT_COURSE_ID); //course
+  addHidden(772076137, hashId(userId)); //user id
+  addHidden(1711798596, CURRENT_DEPARTMENT_ID); //department id
   addDropdown(1997963883, "Enter the name of your instructor.", instructors);
-  addButtons(330329039, "The instruction provided met my expectations");
+  addButtons(1299309651, "This instructor promoted a learning atmosphere that was engaging, encouraging, and motivating.");
+  addButtons(384524980, "This instructor answered questions clearly and understandably.");
+  addButtons(1541617763, "This instructor responded within 24 hours to communication attempts and provided appropriate feedback on progress.");
+  addButtons(208869566, "This instructor was organized, prepared, and knowledgeable.");
   addSubmitButton();
 })();
