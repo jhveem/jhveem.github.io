@@ -112,7 +112,7 @@ method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
     }
   });
 
-  addHidden(1336315446, CURRENT_COURSE_ID); //course
+  addHidden(41157378, CURRENT_COURSE_ID); //course
   addHidden(772076137, hashId(userId)); //user id
   addHidden(1711798596, CURRENT_DEPARTMENT_ID); //department id
   addDropdown(1997963883, "Enter the name of your instructor.", instructors);
