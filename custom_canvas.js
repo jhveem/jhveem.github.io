@@ -241,9 +241,9 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         feature('page_formatting/dropdown_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         feature('page_formatting/tabs_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-        feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
-        feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
         //This may need to be removed/revisited until next COE if other issues pop up.
         // feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
@@ -269,6 +269,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
             break;
           }
         }
+        var CURRENT_DEPARTMENT_ID = departmentId;
         if (departmentId === 3824) { // DENTAL
           feature("highlighted_grades_page_items");
           feature("speed_grader_screen_split");
