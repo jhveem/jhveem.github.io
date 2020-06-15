@@ -93,10 +93,12 @@ action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSffvo5Uap6vY_DFz8x9nv7Evo7O
 method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
 </form>
 `);
-form.after("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow' class='btech-hidden'></iframe>");
+  let container = $('.btech-survey');
   let courseId = ENV.COURSE_ID;
   let userId = ENV.current_user.id;
-  $(".btech-survey").append(form);
+  container.append(form);
+  //add the iframe
+  container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow'></iframe>");
   let instructors = [];
   await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
     for (let i = 0; i < data.length; i++) {
