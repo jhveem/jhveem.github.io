@@ -312,7 +312,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureBeta("department_specific/business_hs");
 
       //Survey
-      if (currentUser === 1507313) {
+      if (currentUser === 1507313) { //Lisa Balling
         feature("survey/survey");
       }
     });
