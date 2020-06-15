@@ -106,5 +106,6 @@ method="POST" id="m_8914134288611702631ss-form" target="_blank">
   addButtons(1541617763, "This instructor responded within 24 hours to communication attempts and provided appropriate feedback on progress.");
   addButtons(208869566, "This instructor was organized, prepared, and knowledgeable.");
   addButtons(2102222775, "I would take another course from this instructor.");
+  addTextEntry(668131032, "Other Comments:");
   addSubmitButton();
 })();
