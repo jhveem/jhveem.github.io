@@ -50,8 +50,8 @@
       gapi.client.script.scripts.run({
         'scriptId': scriptId,
         'resource': {
-          'function': 'getFormData',
-          'parameters': ["1FycisSwARHeefqX9s0YkeoyvPyKAfxg2OlqIBbZ9Cmg"]
+          'function': 'init',
+          'parameters': []
         }
       }).then(function (resp) {
         console.log(resp.result.response.result);
