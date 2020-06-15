@@ -34,6 +34,7 @@ var CDDIDS = [
   1950359, //Morgan
 ];
 var CURRENT_COURSE_ID = null;
+var CURRENT_DEPARTMENT_ID = null;
 var IS_TEACHER = ENV.current_user_roles.includes("teacher");
 
 var FEATURES = {};
@@ -269,7 +270,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
             break;
           }
         }
-        var CURRENT_DEPARTMENT_ID = departmentId;
+        CURRENT_DEPARTMENT_ID = departmentId;
         if (departmentId === 3824) { // DENTAL
           feature("highlighted_grades_page_items");
           feature("speed_grader_screen_split");
