@@ -17,7 +17,7 @@
   function addTextArea(inputId, description) {
     form.append(`
 <p>` + description + `<br>
-<textarea name="entry.` + inputId + `" style="width:100%;"></textarea>
+<textarea name="entry.` + inputId + `" style="width:100%; box-sizing: border-box;"></textarea>
 </p>
 `)
   }
