@@ -3,6 +3,7 @@
   //currently using OAuth client, might need to switc to Apps Script client id if it doesn't work
   //I'm thinking this works because it was run in Chrome where I'm already logged into a google account that has access. May need playing with.
   var CLIENT_ID = '598926114418-m4tc7umecfnoct45cvpgskm5o6don1jo.apps.googleusercontent.com';
+  CLIENT_ID = '598926114418-clfhih57vs7tsrkto6brmvlmvcks4se6.apps.googleusercontent.com';
   var API_KEY = 'AIzaSyB96GeOJSbR3t0UcpNv_43KpDQuVH9bkB4';
   var API_ID = 'MQLOPUNvNvgf30djRsXIX8XXO64Zpdnmj';
 
