@@ -1,5 +1,3 @@
-console.log(CURRENT_COURSE_ID);
-console.log(CURRENT_DEPARTMENT_ID);
 (async function () {
   //https://btech.instructure.com/courses/420675/assignments/4484718
   function hashId(str) {
@@ -91,7 +89,7 @@ method="POST" id="m_8914134288611702631ss-form" target="_blank">
   addHidden(1336315446, CURRENT_COURSE_ID); //course
   let userId = ENV.current_user.id;
   addHidden(772076137, hashId(userId)); //user id
-  addHidden(772076137, CURRENT_DEPARTMENT_ID); //department id
+  addHidden(1711798596, CURRENT_DEPARTMENT_ID); //department id
   $(".btech-survey").append(form);
   let instructors = [];
   await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
