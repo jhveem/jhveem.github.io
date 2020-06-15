@@ -57,8 +57,8 @@
         console.log(resp.result.response.result);
       });
     }
-    //handleClientLoad();
-    initClient();
+    handleClientLoad();
+    
   });
 
 })();
