@@ -101,7 +101,7 @@ method="POST" id="m_8914134288611702631ss-form" target="_blank">
   addHidden(1711798596, CURRENT_DEPARTMENT_ID); //department id
   addDropdown(1997963883, "Enter the name of your instructor.", instructors);
   addButtons(1299309651, "This instructor promoted a learning atmosphere that was engaging, encouraging, and motivating.");
-  addButtons(223900859, "This innstructor provided learning experiences that gave me an opportunity to answer questions and solve real-world problems.");
+  addButtons(223900859, "This instructor provided learning experiences that gave me an opportunity to answer questions and solve real-world problems.");
   addButtons(384524980, "This instructor answered questions clearly and understandably.");
   addButtons(1541617763, "This instructor responded within 24 hours to communication attempts and provided appropriate feedback on progress.");
   addButtons(208869566, "This instructor was organized, prepared, and knowledgeable.");
