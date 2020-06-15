@@ -84,7 +84,12 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
   }
 
   function addSubmitButton() {
-    form.append('<br><br><input type="submit" name="submit" value="Submit" id="m_8914134288611702631ss-submit">');
+    let submit = $('<input type="submit" name="submit" value="Submit" id="m_8914134288611702631ss-submit">');
+    submit.click(function() {
+      location.reload(true);
+    })
+    form.append('<br><br>');
+    form.append(submit);
   }
 
   let form = $(`
