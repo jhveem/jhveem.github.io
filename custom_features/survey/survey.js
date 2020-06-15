@@ -1,3 +1,5 @@
+console.log(CURRENT_COURSE_ID);
+console.log(CURRENT_DEPARTMENT_ID);
 (async function () {
   //https://btech.instructure.com/courses/420675/assignments/4484718
   function hashId(str) {
