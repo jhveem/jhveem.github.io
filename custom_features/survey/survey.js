@@ -98,7 +98,7 @@ method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
   let userId = ENV.current_user.id;
   container.append(form);
   //add the iframe
-  container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow'></iframe>");
+  container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow' class='btech-hidden'></iframe>");
   let instructors = [];
   await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
     for (let i = 0; i < data.length; i++) {
