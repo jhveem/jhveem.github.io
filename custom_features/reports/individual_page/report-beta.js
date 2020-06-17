@@ -49,17 +49,38 @@
             this.userId = match[1];
             this.courses = await this.getCourseData();
             for (let i = 0; i < this.courses.length; i ++) {
+              let subs = await this.getSubmissionData(this.courses[i].course_id);
+              let subData = {};
+              for (let s = 0; s < subs.length; s++) {
+                let sub = subs[s];
+                if (sub.posted_at != null) {
+                  subData[sub.assignment_id] = sub;
+                }
+              }
               let assignmentGroups = await canvasGet("/api/v1/courses/"+ this.courses[i].course_id + "/assignment_groups", {
                 'include': [
                   'assignments'
                 ]
               });
-              for (let a = 0; a < assignmentGroups.length; a++) {
-                console.log(assignmentGroups[a]);
+              for (let g = 0; g < assignmentGroups.length; g++) {
+                let group = assignmentGroups[g]
+                if (group.group_weight > 0) {
+                  console.log(group.name);
+                  let currentPoints = 0;
+                  let totalPoints = 0; 
+                  for (let a = 0; a < group.assignments.length; a++) {
+                    let assignment = group.assignments[a];
+                    if (assignment.id in subData) {
+                      currentPoints += subData[assignment.id].score;
+                      totalPoints += assignment.points_possible;
+                    }
+                  }
+                  if (totalPoints > 0) {
+                    let groupScore = currentPoints / totalPoints;
+                    console.log(groupScore);
+                  }
+                }
               }
-              let assignments = await this.getCourseAssignments(this.courses[i].course_id);
-              let subs = await this.getSubmissionData(this.courses[i].course_id);
-              console.log(subs);
             }
             this.loading = false;
           },
