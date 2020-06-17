@@ -148,11 +148,11 @@
                       }
                     }
                   }
-                }
-                console.log(currentWeighted);
-                console.log(totalWeighted);
-                if (totalWeighted > 0) {
-                  gradesBetweenDates[courseId] = currentWeighted / totalWeighted;
+                  console.log(currentWeighted);
+                  console.log(totalWeighted);
+                  if (totalWeighted > 0) {
+                    gradesBetweenDates[courseId] = currentWeighted / totalWeighted;
+                  }
                 }
               }
               this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
