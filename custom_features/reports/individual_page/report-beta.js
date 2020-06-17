@@ -148,10 +148,12 @@
                       }
                       if (totalPoints > 0) {
                         let progress = possiblePoints / totalPoints;
+                        console.log("PROGRESS " + progress)
                         totalProgress += progress * group.group_weight;
                       }
                     }
                   }
+                  console.log("TOTAL PROGRESS " + totalProgress)
                   if (totalWeighted > 0) {
                     let output;
                     let weightedGrade = Math.round(currentWeighted / totalWeighted * 10000) / 100;
@@ -160,6 +162,7 @@
                       output = weightedGrade + "%";
                     }
                     gradesBetweenDates[courseId] = output;
+
                     let progress = Math.round(totalProgress * 10000) / 100;
                     output = "";
                     if (!isNaN(progress)) {
