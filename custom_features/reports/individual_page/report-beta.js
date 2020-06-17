@@ -158,7 +158,7 @@
                   console.log("TOTAL PROGRESS " + totalProgress)
                   if (totalWeighted > 0) {
                     let output;
-                    let weightedGrade = Math.round(currentWeighted / totalWeightsSubmitted * 10000) / 100;
+                    let weightedGrade = Math.round(currentWeighted / totalWeights* 10000) / 100;
                     output = "";
                     if (!isNaN(weightedGrade)) {
                       output = weightedGrade + "%";
