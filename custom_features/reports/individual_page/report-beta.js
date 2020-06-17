@@ -48,6 +48,12 @@
             let match = window.location.pathname.match(/users\/([0-9]+)/);
             this.userId = match[1];
             this.courses = await this.getCourseData();
+            console.log(this.courses);
+            for (let i = 0; i < this.courses.length; i ++) {
+              console.log(this.courses[i]);
+              let subs = await this.getSubmissionData(this.courses[i].course_id);
+              console.log(subs);
+            }
             this.loading = false;
           },
 
@@ -67,6 +73,7 @@
               sections: [],
               courseList: [],
               studentData: [],
+              submissionData: {},
               loading: true,
               loadingMessage: "Loading Results...",
               accessDenied: false
@@ -80,6 +87,11 @@
             }
           },
           methods: {
+            async getSubmissionData(courseId) {
+              this.submissionData  = await canvasGet("/api/v1/courses/"+courseId+"/students/submissions", {
+                'student_ids': [this.userId]
+              })
+            },
             newCourse(id, state, name) {
               let app = this;
               let course = {};

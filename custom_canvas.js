@@ -172,6 +172,27 @@ function addToModuleMenu(name, description, func, icon = "icon-plus") {
   });
 }
 
+async function canvasGet(url, reqData, page="1", resData = []) {
+  let nextPage = "";
+  reqData.per_page = 100;
+  reqData.page = page;
+  await $.get(url, reqData, function(data, status, xhr) {
+      //add assignments to the list
+      resData = resData.concat(data);
+      //see if there's another page to get
+      let rNext = /<([^>]*)>; rel="next"/;
+      let nextMatch = xhr.getResponseHeader("Link").match(rNext);
+      if (nextMatch !== null) {
+          let next = nextMatch[1];
+          nextPage = next.match(/page=(.*?)&/)[1];
+      }
+  });
+  if (nextPage !== "") {
+      return await canvasGet(url, reqData, nextPage, resData);
+  }
+  return resData;
+}
+
 $.put = function (url, data) {
   return $.ajax({
     url: url,
@@ -310,7 +331,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("surveys");
       featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
       if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-      if (IS_ME || currentUser === 1891741) featureCDD("survey/getSurveyDataFromGoogle");
+      // if (IS_ME || currentUser === 1891741) featureCDD("survey/getSurveyDataFromGoogle");
       featureBeta("department_specific/business_hs");
 
       //Survey
