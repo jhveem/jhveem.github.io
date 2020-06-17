@@ -163,7 +163,7 @@
                     }
                     gradesBetweenDates[courseId] = output;
 
-                    let progress = Math.round(totalProgress * 10000) / 100;
+                    let progress = Math.round(totalProgress * 100) / 100;
                     output = "";
                     if (!isNaN(progress)) {
                       output = progress+ "%";
