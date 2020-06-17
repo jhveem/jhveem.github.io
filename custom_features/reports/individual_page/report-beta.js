@@ -49,6 +49,7 @@
             this.userId = match[1];
             this.courses = await this.getCourseData();
             for (let i = 0; i < this.courses.length; i ++) {
+              console.log(this.courses[i].course_id);
               let subs = await this.getSubmissionData(this.courses[i].course_id);
               let subData = {};
               for (let s = 0; s < subs.length; s++) {
