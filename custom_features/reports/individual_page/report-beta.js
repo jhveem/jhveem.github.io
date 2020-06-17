@@ -116,7 +116,8 @@
                   }
                   let assignmentGroups = this.courseAssignmentGroups[courseId];
                   let currentWeighted = 0;
-                  let totalWeighted = 0;
+                  let totalWeights = 0; //sum of all weight values for assignment groups
+                  let totalWeightsSubmitted = 0; //sum of all weight values for assignment groups if at least one submitted assignment
                   let totalProgress = 0;
                   for (let g = 0; g < assignmentGroups.length; g++) {
                     let group = assignmentGroups[g]
@@ -144,26 +145,27 @@
                       if (possiblePoints > 0) {
                         let groupScore = currentPoints / possiblePoints;
                         currentWeighted += groupScore * group.group_weight;
-                        totalWeighted += group.group_weight;
+                        totalWeightsSubmitted += group.group_weight;
                       }
                       if (totalPoints > 0) {
                         let progress = possiblePoints / totalPoints;
                         console.log("PROGRESS " + progress)
                         totalProgress += progress * group.group_weight;
+                        totalWeights += group.group_weight;
                       }
                     }
                   }
                   console.log("TOTAL PROGRESS " + totalProgress)
                   if (totalWeighted > 0) {
                     let output;
-                    let weightedGrade = Math.round(currentWeighted / totalWeighted * 10000) / 100;
+                    let weightedGrade = Math.round(currentWeighted / totalWeightsSubmitted * 10000) / 100;
                     output = "";
                     if (!isNaN(weightedGrade)) {
                       output = weightedGrade + "%";
                     }
                     gradesBetweenDates[courseId] = output;
 
-                    let progress = Math.round((totalProgress / totalWeighted) * 10000) / 100;
+                    let progress = Math.round((totalProgress / totalWeights) * 10000) / 100;
                     output = "";
                     if (!isNaN(progress)) {
                       output = progress+ "%";
