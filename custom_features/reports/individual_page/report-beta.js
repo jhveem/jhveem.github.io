@@ -48,9 +48,7 @@
             let match = window.location.pathname.match(/users\/([0-9]+)/);
             this.userId = match[1];
             this.courses = await this.getCourseData();
-            console.log(this.courses);
             for (let i = 0; i < this.courses.length; i ++) {
-              console.log(this.courses[i]);
               let subs = await this.getSubmissionData(this.courses[i].course_id);
               console.log(subs);
             }
