@@ -151,7 +151,12 @@
                   console.log(currentWeighted);
                   console.log(totalWeighted);
                   if (totalWeighted > 0) {
-                    gradesBetweenDates[courseId] = currentWeighted / totalWeighted;
+                    let weightedGrade = Math.round(currentWeighted / totalWeighted * 10000) / 100;
+                    let output = "";
+                    if (!isNaN(weightedGrade)) {
+                      output = weightedGrade + "%";
+                    }
+                    gradesBetweenDates[courseId] = output;
                   }
                 }
               }
