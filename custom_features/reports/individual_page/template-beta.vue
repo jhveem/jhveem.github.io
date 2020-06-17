@@ -19,9 +19,9 @@
           column.</h5>
         <div class='btech-report-submission-dates'>
           <span>Start Date:</span>
-          <input type="date" v-bind="submissionDatesStart">
+          <input type="date" v-model="submissionDatesStart">
           <span>End Date:</span>
-          <input type="date" v-bind="submissionDatesEnd">
+          <input type="date" v-model="submissionDatesEnd">
           <div @click="calcGradesBetweenDates()">GET</div>
         </div>
         <div class='btech-report-columns-toggle'>
