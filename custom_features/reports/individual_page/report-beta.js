@@ -124,7 +124,9 @@
                       let assignment = group.assignments[a];
                       if (assignment.id in subData) {
                         let sub = subData[assignment.id];
-                        let subDate = new Date(sub.created_at);
+                        let subDateString = sub.submitted_at;
+                        if (subDateString === null) subDateString = sub.graded_at;
+                        let subDate = new Date(subDateString);
                         console.log(subDate);
                         if (subDate >= startDate && subDate <= endDate) {
                           currentPoints += sub.score;
