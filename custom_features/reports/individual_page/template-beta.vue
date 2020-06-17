@@ -36,6 +36,7 @@
           <thead border='1'>
             <tr>
               <th v-for='column in visibleColumns' :key='column.name' :class='column.sortable_type'>{{column.name}}</th>
+              <th>Term Grades</th>
             </tr>
           </thead>
           <tbody border='1'>
@@ -46,7 +47,7 @@
               <td v-for='column in visibleColumns' :key='column.name'>
                 <span v-html="getColumnText(column, course)"></span>
               </td>
-              <td>{{gradesBetweenDates[course.course_id]}}</td>
+              <td>{{Math.round(gradesBetweenDates[course.course_id] * 10000) / 100}}%</td>
             </tr>
           </tbody>
           <tfoot border='1'>
