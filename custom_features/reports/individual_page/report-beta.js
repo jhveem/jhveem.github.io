@@ -49,6 +49,15 @@
             this.userId = match[1];
             this.courses = await this.getCourseData();
             for (let i = 0; i < this.courses.length; i ++) {
+              let assignmentGroups = await canvasGet("/api/v1/courses/"+ this.courses[i].course_id + "/assignment_groups", {
+                'include': [
+                  'assignments'
+                ]
+              });
+              for (let a = 0; a < assignmentGroups.length; a++) {
+                console.log(assignmentGroups[a]);
+              }
+              let assignments = await this.getCourseAssignments(this.courses[i].course_id);
               let subs = await this.getSubmissionData(this.courses[i].course_id);
               console.log(subs);
             }
@@ -85,6 +94,13 @@
             }
           },
           methods: {
+            async getCourseAssignments(courseId) {
+              let subs  = await canvasGet("/api/v1/courses/"+courseId+"/students/submissions", {
+                'student_ids': [this.userId]
+              })
+              this.submissionData[courseId] = subs;
+              return subs;
+            },
             async getSubmissionData(courseId) {
               let subs  = await canvasGet("/api/v1/courses/"+courseId+"/students/submissions", {
                 'student_ids': [this.userId]
