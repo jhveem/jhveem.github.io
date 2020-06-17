@@ -59,15 +59,14 @@
                   'assignments'
                 ]
               });
-              gradesBetweenDates[courseId] = 0;
             }
-            this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
           },
 
           data: function () {
             return {
               userId: null,
               gradesBetweenDates: {},
+              progressBetweenDates: {},
               courses: {},
               submissionDatesStart: undefined,
               submissionDatesEnd: undefined,
@@ -149,14 +148,10 @@
                       }
                       if (totalPoints > 0) {
                         let progress = possiblePoints / totalPoints;
-                        console.log(progress);
                         totalProgress += progress * group.group_weight;
                       }
                     }
                   }
-                  console.log(currentWeighted);
-                  console.log(totalWeighted);
-                  console.log(totalProgress);
                   if (totalWeighted > 0) {
                     let output;
                     let weightedGrade = Math.round(currentWeighted / totalWeighted * 10000) / 100;
