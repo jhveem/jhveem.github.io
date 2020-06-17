@@ -156,7 +156,7 @@
                     }
                   }
                   console.log("TOTAL PROGRESS " + totalProgress)
-                  if (totalWeighted > 0) {
+                  if (totalWeights > 0) {
                     let output;
                     let weightedGrade = Math.round(currentWeighted / totalWeights* 10000) / 100;
                     output = "";
