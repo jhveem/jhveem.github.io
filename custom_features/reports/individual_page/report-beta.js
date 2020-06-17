@@ -99,6 +99,7 @@
               for (let i = 0; i < this.courses.length; i++) {
                 let courseId = this.courses[i].course_id;
                 let subs = this.submissionData[courseId];
+                console.log(subs);
                 let subData = {};
                 for (let s = 0; s < subs.length; s++) {
                   let sub = subs[s];
@@ -107,6 +108,7 @@
                   }
                 }
                 let assignmentGroups = this.courseAssignmentGroups[courseId];
+                console.log(assignmentGroups);
                 for (let g = 0; g < assignmentGroups.length; g++) {
                   let group = assignmentGroups[g]
                   if (group.group_weight > 0) {
