@@ -145,6 +145,8 @@
                         let groupScore = currentPoints / possiblePoints;
                         currentWeighted += groupScore * group.group_weight;
                         totalWeighted += group.group_weight;
+                      }
+                      if (totalPoints > 0) {
                         let progress = possiblePoints / totalPoints;
                         console.log("PROGRESS " + progress)
                         totalProgress += progress * group.group_weight;
@@ -161,7 +163,7 @@
                     }
                     gradesBetweenDates[courseId] = output;
 
-                    let progress = Math.round(totalProgress * 100) / 100;
+                    let progress = Math.round((totalProgress / totalWeighted) * 10000) / 100;
                     output = "";
                     if (!isNaN(progress)) {
                       output = progress+ "%";
