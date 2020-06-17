@@ -95,7 +95,7 @@
             }
           },
           methods: {
-            async calcGradeBetweenDates() {
+            async calcGradesBetweenDates() {
               for (let i = 0; i < this.courses.length; i++) {
                 let courseId = this.courses[i].course_id;
                 let subs = this.submissionData[courseId];
