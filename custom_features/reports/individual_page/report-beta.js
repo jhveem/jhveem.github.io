@@ -126,9 +126,11 @@
                     if (group.group_weight > 0) {
                       console.log(group.name);
                       let currentPoints = 0;
+                      let possiblePoints = 0;
                       let totalPoints = 0;
                       for (let a = 0; a < group.assignments.length; a++) {
                         let assignment = group.assignments[a];
+                        console.log(assignment);
                         if (assignment.id in subData) {
                           let sub = subData[assignment.id];
                           let subDateString = sub.submitted_at;
@@ -137,12 +139,13 @@
                           console.log(subDate);
                           if (subDate >= startDate && subDate <= endDate) {
                             currentPoints += sub.score;
-                            totalPoints += assignment.points_possible;
+                            possiblePoints += assignment.points_possible;
                           }
                         }
+                        totalPoints += assignment.points_possible;
                       }
-                      if (totalPoints > 0) {
-                        let groupScore = currentPoints / totalPoints;
+                      if (possiblePoints > 0) {
+                        let groupScore = currentPoints / possiblePoints;
                         currentWeighted += groupScore * group.group_weight;
                         totalWeighted += group.group_weight;
                       }
