@@ -22,6 +22,7 @@
           <input type="date" v-bind="submissionDatesStart">
           <span>End Date:</span>
           <input type="date" v-bind="submissionDatesEnd">
+          <div @click="calcGradesBetweenDates()">GET</div>
         </div>
         <div class='btech-report-columns-toggle'>
           <div class='btech-report-column-toggle' style='display: inline-block;' v-for='column in columns'

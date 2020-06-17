@@ -5,7 +5,7 @@
 */
 (function () {
   class Column {
-    constructor(name, description, average, sortable_type, percent, hideable=true) {
+    constructor(name, description, average, sortable_type, percent, hideable = true) {
       this.name = name;
       this.description = description;
       this.average = average;
@@ -37,9 +37,9 @@
         let modal = $('#canvas-individual-report-vue');
         gen_report_button.appendTo(menu_bar);
         modal.hide();
-        gen_report_button.click(function() {
-            let modal = $('#canvas-individual-report-vue');
-            modal.show();
+        gen_report_button.click(function () {
+          let modal = $('#canvas-individual-report-vue');
+          modal.show();
         });
         this.APP = new Vue({
           el: '#canvas-individual-report-vue',
@@ -48,42 +48,17 @@
             let match = window.location.pathname.match(/users\/([0-9]+)/);
             this.userId = match[1];
             this.courses = await this.getCourseData();
-            for (let i = 0; i < this.courses.length; i ++) {
-              console.log(this.courses[i].course_id);
-              let subs = await this.getSubmissionData(this.courses[i].course_id);
-              let subData = {};
-              for (let s = 0; s < subs.length; s++) {
-                let sub = subs[s];
-                if (sub.posted_at != null) {
-                  subData[sub.assignment_id] = sub;
-                }
-              }
-              let assignmentGroups = await canvasGet("/api/v1/courses/"+ this.courses[i].course_id + "/assignment_groups", {
+            this.loading = false;
+            for (let i = 0; i < this.courses.length; i++) {
+              let courseId = this.courses[i].course_id;
+              this.submissionData[courseId] = await this.getSubmissionData(courseId);
+              //get assignment group data
+              this.courseAssignmentGroups[this.courses[i].course_id] = await canvasGet("/api/v1/courses/" + this.courses[i].course_id + "/assignment_groups", {
                 'include': [
                   'assignments'
                 ]
               });
-              for (let g = 0; g < assignmentGroups.length; g++) {
-                let group = assignmentGroups[g]
-                if (group.group_weight > 0) {
-                  console.log(group.name);
-                  let currentPoints = 0;
-                  let totalPoints = 0; 
-                  for (let a = 0; a < group.assignments.length; a++) {
-                    let assignment = group.assignments[a];
-                    if (assignment.id in subData) {
-                      currentPoints += subData[assignment.id].score;
-                      totalPoints += assignment.points_possible;
-                    }
-                  }
-                  if (totalPoints > 0) {
-                    let groupScore = currentPoints / totalPoints;
-                    console.log(groupScore);
-                  }
-                }
-              }
             }
-            this.loading = false;
           },
 
           data: function () {
@@ -92,6 +67,7 @@
               courses: {},
               submissionDatesStart: undefined,
               submissionDatesEnd: undefined,
+              courseAssignmentGroups: {},
               columns: [
                 new Column('Name', '', false, '', false, false),
                 new Column('State', '', false, '', false),
@@ -100,6 +76,7 @@
                 new Column('Points', '', true, 'sorttable_numeric', true),
                 new Column('Submissions', '', true, 'sorttable_numeric', true),
                 new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
+                new Column('Period Grade', 'Grade for assignments submitted during a period of time.', false, true, true),
               ],
               sections: [],
               courseList: [],
@@ -118,18 +95,63 @@
             }
           },
           methods: {
+            async calcGradeBetweenDates() {
+              for (let i = 0; i < this.courses.length; i++) {
+                let courseId = this.courses[i].course_id;
+                let subs = this.submissionData[courseId];
+                let subData = {};
+                for (let s = 0; s < subs.length; s++) {
+                  let sub = subs[s];
+                  if (sub.posted_at != null) {
+                    subData[sub.assignment_id] = sub;
+                  }
+                }
+                let assignmentGroups = this.courseAssignmentGroups[courseId];
+                for (let g = 0; g < assignmentGroups.length; g++) {
+                  let group = assignmentGroups[g]
+                  if (group.group_weight > 0) {
+                    console.log(group.name);
+                    let currentPoints = 0;
+                    let totalPoints = 0;
+                    for (let a = 0; a < group.assignments.length; a++) {
+                      let assignment = group.assignments[a];
+                      if (assignment.id in subData) {
+                        let sub = subData[assignment.id];
+                        let subDate = new Date(sub.created_at);
+                        if (subDate >= this.parseDate(this.submissionDatesStart) && subDate <= this.parseDate(this.submissionDatesEnd)) {
+                          currentPoints += sub.score;
+                          totalPoints += assignment.points_possible;
+                        }
+                      }
+                    }
+                    if (totalPoints > 0) {
+                      let groupScore = currentPoints / totalPoints;
+                      console.log(groupScore);
+                    }
+                  }
+                }
+              }
+
+            },
+            parseDate(dateString) {
+              let pieces = dateString.split("-");
+              let year = parseInt(pieces[0]);
+              let month = parseInt(pieces[1] - 1);
+              let day = parseInt(pieces[2]) + 1;
+              let date = new Date(year, month, day);
+              return date;
+            },
             async getCourseAssignments(courseId) {
-              let subs  = await canvasGet("/api/v1/courses/"+courseId+"/students/submissions", {
+              let subs = await canvasGet("/api/v1/courses/" + courseId + "/students/submissions", {
                 'student_ids': [this.userId]
               })
               this.submissionData[courseId] = subs;
               return subs;
             },
             async getSubmissionData(courseId) {
-              let subs  = await canvasGet("/api/v1/courses/"+courseId+"/students/submissions", {
+              let subs = await canvasGet("/api/v1/courses/" + courseId + "/students/submissions", {
                 'student_ids': [this.userId]
               })
-              this.submissionData[courseId] = subs;
               return subs;
             },
             newCourse(id, state, name) {
@@ -137,7 +159,7 @@
               let course = {};
               course.course_id = id;
               course.state = state;
-              course.name = name; 
+              course.name = name;
               course.days_in_course = 0;
               course.days_since_last_submission = 0;
               course.days_since_last_submission_color = "#fff";
@@ -148,7 +170,7 @@
               course.section = "";
               course.ungraded = 0;
               course.submissions = 0;
-              course.nameHTML = "<a target='_blank' href='"+window.location.origin+"/courses/"+id+"'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + id + "/grades/" + app.userId + "'>grades</a>)";
+              course.nameHTML = "<a target='_blank' href='" + window.location.origin + "/courses/" + id + "'>" + name + "</a> (<a target='_blank' href='https://btech.instructure.com/courses/" + id + "/grades/" + app.userId + "'>grades</a>)";
               return course;
             },
 
@@ -191,7 +213,7 @@
                     });
                   }
                 });
-              }).fail(function(e) {
+              }).fail(function (e) {
                 console.log(e);
                 app.accessDenied = true;
               });
