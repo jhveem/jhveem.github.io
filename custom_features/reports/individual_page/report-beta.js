@@ -44,6 +44,7 @@
         this.APP = new Vue({
           el: '#canvas-individual-report-vue',
           mounted: async function () {
+            let gradesBetweenDates = {};
             this.courseId = ENV.context_asset_string.replace("course_", "");
             let match = window.location.pathname.match(/users\/([0-9]+)/);
             this.userId = match[1];
@@ -58,8 +59,9 @@
                   'assignments'
                 ]
               });
-              this.gradesBetweenDates[courseId] = 0;
+              gradesBetweenDates[courseId] = 0;
             }
+            this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
           },
 
           data: function () {
@@ -77,8 +79,7 @@
                 new Column('Final Grade', '', true, 'sorttable_numeric', true),
                 new Column('Points', '', true, 'sorttable_numeric', true),
                 new Column('Submissions', '', true, 'sorttable_numeric', true),
-                new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
-                new Column('Period Grade', 'Grade for assignments submitted during a period of time.', false, true, true),
+                new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false)
               ],
               sections: [],
               courseList: [],
