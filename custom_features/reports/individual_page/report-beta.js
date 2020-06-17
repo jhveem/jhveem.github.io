@@ -99,6 +99,7 @@
           },
           methods: {
             async calcGradesBetweenDates() {
+              let gradesBetweenDates = {};
               let startDate = this.parseDate(this.submissionDatesStart);
               let endDate = this.parseDate(this.submissionDatesEnd);
               console.log(startDate);
@@ -117,6 +118,8 @@
                 }
                 let assignmentGroups = this.courseAssignmentGroups[courseId];
                 console.log(assignmentGroups);
+                let currentWeighted = 0;
+                let totalWeighted = 0;
                 for (let g = 0; g < assignmentGroups.length; g++) {
                   let group = assignmentGroups[g]
                   if (group.group_weight > 0) {
@@ -139,12 +142,18 @@
                     }
                     if (totalPoints > 0) {
                       let groupScore = currentPoints / totalPoints;
-                      console.log(groupScore);
+                      currentWeighted += groupScore * group.group_weight;
+                      totalWeighted += group.group_weight;
                     }
                   }
                 }
-                this.gradesBetweenDates[courseId] = 1;
+                console.log(currentWeighted);
+                console.log(totalWeighted);
+                if (totalWeighted > 0) {
+                  gradesBetweenDates[courseId] = currentWeighted / totalWeighted;
+                }
               }
+              this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
 
             },
             parseDate(dateString) {
