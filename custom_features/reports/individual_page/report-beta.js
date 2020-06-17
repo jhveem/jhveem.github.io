@@ -145,8 +145,6 @@
                         let groupScore = currentPoints / possiblePoints;
                         currentWeighted += groupScore * group.group_weight;
                         totalWeighted += group.group_weight;
-                      }
-                      if (totalPoints > 0) {
                         let progress = possiblePoints / totalPoints;
                         console.log("PROGRESS " + progress)
                         totalProgress += progress * group.group_weight;
