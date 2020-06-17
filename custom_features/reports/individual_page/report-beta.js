@@ -88,9 +88,11 @@
           },
           methods: {
             async getSubmissionData(courseId) {
-              this.submissionData  = await canvasGet("/api/v1/courses/"+courseId+"/students/submissions", {
+              let subs  = await canvasGet("/api/v1/courses/"+courseId+"/students/submissions", {
                 'student_ids': [this.userId]
               })
+              this.submissionData[courseId] = subs;
+              return subs;
             },
             newCourse(id, state, name) {
               let app = this;
