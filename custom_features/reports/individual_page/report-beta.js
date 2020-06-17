@@ -96,8 +96,13 @@
           },
           methods: {
             async calcGradesBetweenDates() {
+              let startDate = this.parseDate(this.submissionDatesStart);
+              let endDate = this.parseDate(this.submissionDatesEnd);
+              console.log(startDate);
+              console.log(endDate);
               for (let i = 0; i < this.courses.length; i++) {
                 let courseId = this.courses[i].course_id;
+                console.log(courseId);
                 let subs = this.submissionData[courseId];
                 console.log(subs);
                 let subData = {};
@@ -120,7 +125,8 @@
                       if (assignment.id in subData) {
                         let sub = subData[assignment.id];
                         let subDate = new Date(sub.created_at);
-                        if (subDate >= this.parseDate(this.submissionDatesStart) && subDate <= this.parseDate(this.submissionDatesEnd)) {
+                        console.log(subDate);
+                        if (subDate >= startDate && subDate <= endDate) {
                           currentPoints += sub.score;
                           totalPoints += assignment.points_possible;
                         }
