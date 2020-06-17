@@ -232,7 +232,8 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       //GENERAL FEATURES
       if (IS_TEACHER) {
         feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-        feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+        if (!IS_ME) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+        if (IS_ME) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
       }
       //COURSE FEATURES
       let rCheckInCourse = /^\/courses\/([0-9]+)/;
@@ -309,7 +310,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("surveys");
       featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
       if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-      if (IS_ME || currentUser === 1807337) featureCDD("survey/getSurveyDataFromGoogle");
+      if (IS_ME || currentUser === 1891741) featureCDD("survey/getSurveyDataFromGoogle");
       featureBeta("department_specific/business_hs");
 
       //Survey

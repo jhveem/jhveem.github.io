@@ -1,0 +1,50 @@
+<template>
+  <div class='btech-modal' style='display: inline-block;'>
+    <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
+    <div class='btech-modal-content'>
+      <span class='btech-close' v-on:click='close()'>&times;</span>
+      <h3 style='text-align: center;'>Report</h3>
+      <div v-if="accessDenied">
+        <p>
+          <b>ERROR:</b> You are not authorized to see all of this student's courses. This often occurs when the student is not enrolled in any courses in which you have admin rights to View Enrollments.
+        </p>
+        <p>
+          Reach out to your Canvas Administrator if you have received this message in error
+        </p>
+      </div>
+      <div v-else>
+        <h5 style='text-align: center;'>Click on column headers to sort by that column.</h5>
+        <h5 style='text-align: center;'>Hover over column headers for a description of the information displayed in that
+          column.</h5>
+        <div class='btech-report-columns-toggle'>
+          <div class='btech-report-column-toggle' style='display: inline-block;' v-for='column in columns'
+            :key='column.name'>
+            <div v-if="column.hideable">
+              <input type="checkbox" v-model="column.visible"><label>{{column.name}}</label>
+            </div>
+          </div>
+        </div>
+        <table class='btech-report-table sortable' border='1'>
+          <thead border='1'>
+            <tr>
+              <th v-for='column in visibleColumns' :key='column.name' :class='column.sortable_type'>{{column.name}}</th>
+            </tr>
+          </thead>
+          <tbody border='1'>
+            <tr v-if="loading">
+              <td :colspan='visibleColumns.length'>{{loadingMessage}}</td>
+            </tr>
+            <tr v-for='course in courses' :key='course.course_id'>
+              <td v-for='column in visibleColumns' :key='column.name'>
+                <span v-html="getColumnText(column, course)"></span>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot border='1'>
+
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
