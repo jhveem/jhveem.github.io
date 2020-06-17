@@ -48,7 +48,7 @@
               columns: [
                 new Column('Name', '', false, '', false, false),
                 new Column('Section', '', false, '', false),
-                new Column('Grade', '', true, 'sorttable_numeric', true),
+                new Column('Grade To Date', '', true, 'sorttable_numeric', true),
                 new Column('Final Grade', '', true, 'sorttable_numeric', true),
                 new Column('Points', '', true, 'sorttable_numeric', true),
                 new Column('Submissions', '', true, 'sorttable_numeric', true),
@@ -78,7 +78,7 @@
               student.days_since_last_submission = 0;
               student.days_since_last_submission_color = "#fff";
               student.section = "";
-              student.grade = "N/A";
+              student.grade_to_date = "N/A";
               student.points = 0;
               student.final_grade = "N/A";
               student.section = "";
@@ -209,11 +209,11 @@
 
               //update values
               student.days_in_course = diff_days;
-              student.grade = current_score;
+              student.grade_to_date = current_score;
               student.final_grade = final_score;
               //there might need to be a check to see if this is a numbe
-              if (student.grade > 0 && student.grade != null) {
-                student.points = Math.round(student.final_grade / student.grade * 100);
+              if (student.grade_to_date > 0 && student.grade_to_date != null) {
+                student.points = Math.round(student.final_grade / student.grade_to_date * 100);
               }
             },
 

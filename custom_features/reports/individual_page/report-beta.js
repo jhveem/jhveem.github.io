@@ -74,7 +74,7 @@
               columns: [
                 new Column('Name', '', false, '', false, false),
                 new Column('State', '', false, '', false),
-                new Column('Grade', '', true, 'sorttable_numeric', true),
+                new Column('Grade To Date', '', true, 'sorttable_numeric', true),
                 new Column('Final Grade', '', true, 'sorttable_numeric', true),
                 new Column('Points', '', true, 'sorttable_numeric', true),
                 new Column('Submissions', '', true, 'sorttable_numeric', true),
@@ -209,7 +209,7 @@
               course.days_since_last_submission = 0;
               course.days_since_last_submission_color = "#fff";
               course.section = "";
-              course.grade = "N/A";
+              course.grade_to_date= "N/A";
               course.points = 0;
               course.final_grade = "N/A";
               course.section = "";
@@ -228,7 +228,7 @@
                 let state = course.state.toLowerCase();
                 if (state === "completed") state = "active";
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
-                course.grade = gradesData.grade;
+                course.grade_to_date = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
                 course.points = gradesData.points;
 
