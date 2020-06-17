@@ -37,6 +37,7 @@
             <tr>
               <th v-for='column in visibleColumns' :key='column.name' :class='column.sortable_type'>{{column.name}}</th>
               <th>Term Grades</th>
+              <th>Term Completed</th>
             </tr>
           </thead>
           <tbody border='1'>
@@ -48,6 +49,7 @@
                 <span v-html="getColumnText(column, course)"></span>
               </td>
               <td>{{gradesBetweenDates[course.course_id]}}</td>
+              <td>{{progressBetweenDates[course.course_id]}}</td>
             </tr>
           </tbody>
           <tfoot border='1'>

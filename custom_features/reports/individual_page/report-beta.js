@@ -100,6 +100,7 @@
           methods: {
             async calcGradesBetweenDates() {
               let gradesBetweenDates = {};
+              let progressBetweenDates = {};
               let startDate = this.parseDate(this.submissionDatesStart);
               let endDate = this.parseDate(this.submissionDatesEnd);
               for (let i = 0; i < this.courses.length; i++) {
@@ -157,16 +158,24 @@
                   console.log(totalWeighted);
                   console.log(totalProgress);
                   if (totalWeighted > 0) {
+                    let output;
                     let weightedGrade = Math.round(currentWeighted / totalWeighted * 10000) / 100;
-                    let output = "";
+                    output = "";
                     if (!isNaN(weightedGrade)) {
                       output = weightedGrade + "%";
                     }
                     gradesBetweenDates[courseId] = output;
+                    let progress = Math.round(totalProgress * 10000) / 100;
+                    output = "";
+                    if (!isNaN(progress)) {
+                      output = progress+ "%";
+                    }
+                   progressBetweenDates[courseId] = output;
                   }
                 }
               }
               this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
+              this.progressBetweenDates = JSON.parse(JSON.stringify(progressBetweenDates));
 
             },
             parseDate(dateString) {
