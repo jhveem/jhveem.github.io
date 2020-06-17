@@ -46,6 +46,7 @@
               <td v-for='column in visibleColumns' :key='column.name'>
                 <span v-html="getColumnText(column, course)"></span>
               </td>
+              <td>{{gradesBetweenDates[course.course_id]}}</td>
             </tr>
           </tbody>
           <tfoot border='1'>

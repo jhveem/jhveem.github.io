@@ -58,12 +58,14 @@
                   'assignments'
                 ]
               });
+              this.gradesBetweenDates[courseId] = 0;
             }
           },
 
           data: function () {
             return {
               userId: null,
+              gradesBetweenDates: {},
               courses: {},
               submissionDatesStart: undefined,
               submissionDatesEnd: undefined,
@@ -140,6 +142,7 @@
                     }
                   }
                 }
+                this.gradesBetweenDates[courseId] = 1;
               }
 
             },
