@@ -6,7 +6,8 @@
       <h3 style='text-align: center;'>Report</h3>
       <div v-if="accessDenied">
         <p>
-          <b>ERROR:</b> You are not authorized to see all of this student's courses. This often occurs when the student is not enrolled in any courses in which you have admin rights to View Enrollments.
+          <b>ERROR:</b> You are not authorized to see all of this student's courses. This often occurs when the student
+          is not enrolled in any courses in which you have admin rights to View Enrollments.
         </p>
         <p>
           Reach out to your Canvas Administrator if you have received this message in error
@@ -16,6 +17,12 @@
         <h5 style='text-align: center;'>Click on column headers to sort by that column.</h5>
         <h5 style='text-align: center;'>Hover over column headers for a description of the information displayed in that
           column.</h5>
+        <div class='btech-report-submission-dates'>
+          <span>Start Date:</span>
+          <input type="date" v-bind="submissionDatesStart">
+          <span>End Date:</span>
+          <input type="date" v-bind="submissionDatesEnd">
+        </div>
         <div class='btech-report-columns-toggle'>
           <div class='btech-report-column-toggle' style='display: inline-block;' v-for='column in columns'
             :key='column.name'>

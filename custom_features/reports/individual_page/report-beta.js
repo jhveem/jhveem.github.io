@@ -90,6 +90,8 @@
             return {
               userId: null,
               courses: {},
+              submissionDatesStart: undefined,
+              submissionDatesEnd: undefined,
               columns: [
                 new Column('Name', '', false, '', false, false),
                 new Column('State', '', false, '', false),
