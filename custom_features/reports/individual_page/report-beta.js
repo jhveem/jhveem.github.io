@@ -102,13 +102,10 @@
               let gradesBetweenDates = {};
               let startDate = this.parseDate(this.submissionDatesStart);
               let endDate = this.parseDate(this.submissionDatesEnd);
-              console.log(startDate);
-              console.log(endDate);
               for (let i = 0; i < this.courses.length; i++) {
                 let courseId = this.courses[i].course_id;
                 console.log(courseId);
                 let subs = this.submissionData[courseId];
-                console.log(subs);
                 if (subs !== undefined) {
                   let subData = {};
                   for (let s = 0; s < subs.length; s++) {
@@ -118,41 +115,47 @@
                     }
                   }
                   let assignmentGroups = this.courseAssignmentGroups[courseId];
-                  console.log(assignmentGroups);
                   let currentWeighted = 0;
                   let totalWeighted = 0;
+                  let totalProgress = 0;
                   for (let g = 0; g < assignmentGroups.length; g++) {
                     let group = assignmentGroups[g]
                     if (group.group_weight > 0) {
-                      console.log(group.name);
                       let currentPoints = 0;
                       let possiblePoints = 0;
                       let totalPoints = 0;
                       for (let a = 0; a < group.assignments.length; a++) {
                         let assignment = group.assignments[a];
-                        console.log(assignment);
-                        if (assignment.id in subData) {
-                          let sub = subData[assignment.id];
-                          let subDateString = sub.submitted_at;
-                          if (subDateString === null) subDateString = sub.graded_at;
-                          let subDate = new Date(subDateString);
-                          console.log(subDate);
-                          if (subDate >= startDate && subDate <= endDate) {
-                            currentPoints += sub.score;
-                            possiblePoints += assignment.points_possible;
+                        if (assignment.published) {
+                          totalPoints += assignment.points_possible;
+                          if (assignment.id in subData) {
+                            let sub = subData[assignment.id];
+                            let subDateString = sub.submitted_at;
+                            if (subDateString === null) subDateString = sub.graded_at;
+                            let subDate = new Date(subDateString);
+                            if (subDate >= startDate && subDate <= endDate) {
+                              currentPoints += sub.score;
+                              possiblePoints += assignment.points_possible;
+                            }
                           }
+
                         }
-                        totalPoints += assignment.points_possible;
                       }
                       if (possiblePoints > 0) {
                         let groupScore = currentPoints / possiblePoints;
                         currentWeighted += groupScore * group.group_weight;
                         totalWeighted += group.group_weight;
                       }
+                      if (totalPoints > 0) {
+                        let progress = possiblePoints / totalPoints;
+                        console.log(progress);
+                        totalProgress += progress * group.group_weight;
+                      }
                     }
                   }
                   console.log(currentWeighted);
                   console.log(totalWeighted);
+                  console.log(totalProgress);
                   if (totalWeighted > 0) {
                     let weightedGrade = Math.round(currentWeighted / totalWeighted * 10000) / 100;
                     let output = "";
