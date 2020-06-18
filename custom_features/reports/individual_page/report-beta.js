@@ -5,11 +5,11 @@
 */
 (function () {
   class Column {
-    constructor(name, description, average, sortable_type, percent, hideable = true) {
+    constructor(name, description, average, sort_type, percent, hideable = true) {
       this.name = name;
       this.description = description;
       this.average = average;
-      this.sortable_type = sortable_type;
+      this.sort_type = sort_type; //needs to be a result of typeof, probably mostly going to be string or number
       this.sort_state = 0; //becomes 1 or -1 depending on asc or desc
       this.visible = true;
       this.percent = percent;
@@ -73,13 +73,13 @@
               submissionDatesEnd: undefined,
               courseAssignmentGroups: {},
               columns: [
-                new Column('Name', '', false, '', false, false),
-                new Column('State', '', false, '', false),
-                new Column('Grade To Date', '', true, 'sorttable_numeric', true),
-                new Column('Final Grade', '', true, 'sorttable_numeric', true),
-                new Column('Points', '', true, 'sorttable_numeric', true),
-                new Column('Submissions', '', true, 'sorttable_numeric', true),
-                new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false)
+                new Column('Name', '', false, 'string', false, false),
+                new Column('State', '', false, 'string', false),
+                new Column('Grade To Date', '', true, 'number', true),
+                new Column('Final Grade', '', true, 'number', true),
+                new Column('Points', '', true, 'number', true),
+                new Column('Submissions', '', true, 'number', true),
+                new Column('Days Since Last Submission', '', true, 'number', false)
               ],
               sections: [],
               courseList: [],
@@ -102,6 +102,7 @@
               let app = this;
               let name = this.columnNameToCode(header);
               let sortState = 1;
+              let sortType = '';
               for (let c = 0; c < app.columns.length; c++) {
                 if (app.columns[c].name !== header) {
                   //reset everything else
@@ -111,11 +112,21 @@
                   if (app.columns[c].sort_state !== 1) app.columns[c].sort_state = 1;
                   else app.columns[c].sort_state = -1;
                   sortState = app.columns[c].sort_state;
+                  sortType = app.columns[c].sort_type;
                 }
               }
               app.courses.sort(function(a, b) {
                 let aVal = a[name];
                 let bVal = b[name];
+                //convert strings to upper case to ignore case when sorting
+                if (typeof(aVal) === 'string') aVal = aVal.toUpperCase;
+                if (typeof(bVal) === 'string') bVal = bVal.toUpperCase;
+
+                //see if not the same type and which one isn't the sort type
+                if (typeof(aVal) !== typeof(bVal)) {
+                  if (typeof(aVal) !== sortType) return -1 * sortState;
+                  if (typeof(bVal) !== sortType) return 1 * sortState;
+                }
                 //check if it's a string or int
                 let comp = 0;
                 if (aVal > bVal) comp = 1;
@@ -124,8 +135,6 @@
                 comp *= sortState;
                 return comp
               })
-              console.log(app.courses);
-              console.log(name);
             },
             async calcGradesBetweenDates() {
               let gradesBetweenDates = {};
