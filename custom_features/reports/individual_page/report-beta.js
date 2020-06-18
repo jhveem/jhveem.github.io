@@ -110,6 +110,7 @@
                 let comp = 0;
                 if (aVal > bVal) comp = 1;
                 else if (aVal < bVal) comp = -1;
+                console.log(comp);
                 return comp
               })
               console.log(app.courses);
