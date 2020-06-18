@@ -107,7 +107,10 @@
                 console.log(aVal);
                 console.log(bVal);
                 //check if it's a string or int
-                return a[name] > b[name];
+                let comp = 0;
+                if (aVal > bVal) comp = 1;
+                else if (aVal < bVal) comp = -1;
+                return comp
               })
               console.log(app.courses);
               console.log(name);
