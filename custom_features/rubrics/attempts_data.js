@@ -46,13 +46,9 @@
         });
         if (feature.attempts > 0) {
           let rubricTotalText = $("[data-selenium='rubric_total']").text();
-          console.log(rubricTotalText);
           let match = rubricTotalText.match(/([0-9]+)/g);
-
-          console.log(match);
           rubricTotal = parseInt(match[0]);
           rubricMax = parseInt(match[1]);
-          console.log(rubricMax)
           let suggestedScore = Math.round(rubricTotal * ((11 - feature.attempts) / 10));
           $("#btech-recorded-attempts-value").text(feature.attempts);
           $("#btech-rubric-score-value").text(rubricTotal + " ("+ (Math.round((rubricTotal / rubricMax) * 1000) / 10)+"%)");
