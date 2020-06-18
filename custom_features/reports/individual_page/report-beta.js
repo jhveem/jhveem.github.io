@@ -99,7 +99,11 @@
           methods: {
             sortColumn(header) {
               console.log(header);
+              let app = this;
               let name = this.columnNameToCode(header);
+              app.columns.sort(function(a, b) {
+                return a[name] > b[name];
+              })
               console.log(name);
             },
             async calcGradesBetweenDates() {
