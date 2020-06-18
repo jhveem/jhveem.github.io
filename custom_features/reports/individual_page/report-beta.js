@@ -104,6 +104,8 @@
               app.courses.sort(function(a, b) {
                 let aVal = a[name];
                 let bVal = b[name];
+                console.log(aVal);
+                console.log(bVal);
                 //check if it's a string or int
                 return a[name] > b[name];
               })
