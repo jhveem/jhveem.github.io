@@ -48,6 +48,7 @@
           let rubricTotalText = $("[data-selenium='rubric_total']").text();
           console.log(rubricTotalText);
           let match = rubricTotalText.match(/([0-9]+)/);
+          console.log(match);
           rubricTotal = parseInt(match[1]);
           rubricMax = parseInt(rubricTotalText.match(/([0-9]+)/)[2]);
           console.log(rubricMax);
