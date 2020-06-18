@@ -115,6 +115,8 @@
                   sortType = app.columns[c].sort_type;
                 }
               }
+              console.log(sortState);
+              console.log(sortType);
               app.courses.sort(function(a, b) {
                 let aVal = a[name];
                 let bVal = b[name];
@@ -127,6 +129,7 @@
                   if (typeof(aVal) !== sortType) return -1 * sortState;
                   if (typeof(bVal) !== sortType) return 1 * sortState;
                 }
+                console.log("made it!")
                 //check if it's a string or int
                 let comp = 0;
                 if (aVal > bVal) comp = 1;
