@@ -52,9 +52,10 @@
           console.log(match);
           rubricTotal = parseInt(match[1]);
           rubricMax = parseInt(match[2]);
+          console.log(rubricMax)
           let suggestedScore = Math.round(rubricTotal * ((11 - feature.attempts) / 10));
           $("#btech-recorded-attempts-value").text(feature.attempts);
-          $("#btech-rubric-score-value").text(rubricTotal + "("+ Math.round((rubricTotal / rubricMax) * 1000) / 10+")");
+          $("#btech-rubric-score-value").text(rubricTotal + "("+ (Math.round((rubricTotal / rubricMax) * 1000) / 10)+")");
           $("#btech-suggested-score-value").text(suggestedScore);
         }
       }
