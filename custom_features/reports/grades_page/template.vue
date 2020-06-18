@@ -25,7 +25,7 @@
           <tr v-if="loading">
             <td :colspan='visibleColumns.length'>Loading Results...</td>
           </tr>
-          <tr v-for='student in students' :key='student.name'>
+          <tr v-for='student in students' :key='student.user_id'>
             <td v-for='column in visibleColumns' :key='column.name'
               v-bind:style="{'background-color': getBackgroundColor(column.name, student[column.name.toLowerCase().replace(/ /g, '_')])}">
               <span v-html="getColumnText(column, student)"></span>
