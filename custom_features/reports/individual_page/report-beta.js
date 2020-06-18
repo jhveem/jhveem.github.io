@@ -10,6 +10,7 @@
       this.description = description;
       this.average = average;
       this.sortable_type = sortable_type;
+      this.sort_state = 0; //becomes 1 or -1 depending on asc or desc
       this.visible = true;
       this.percent = percent;
       this.hideable = hideable;
@@ -98,19 +99,29 @@
           },
           methods: {
             sortColumn(header) {
-              console.log(header);
               let app = this;
               let name = this.columnNameToCode(header);
+              let sortState = 1;
+              for (let c = 0; c < app.columns.length; c++) {
+                if (app.columns[c].name !== header) {
+                  //reset everything else
+                  app.columns[c].sort_state = 0;
+                } else {
+                  //if it's the one being sorted, set it to 1 if not 1, or set it to -1 if is already 1
+                  if (app.columns[c].sort_state !== 1) app.columns[c].sort_state = 1;
+                  else app.columns[c].sort_state = -1;
+                  sortState = app.columns[c].sort_state;
+                }
+              }
               app.courses.sort(function(a, b) {
                 let aVal = a[name];
                 let bVal = b[name];
-                console.log(aVal);
-                console.log(bVal);
                 //check if it's a string or int
                 let comp = 0;
                 if (aVal > bVal) comp = 1;
                 else if (aVal < bVal) comp = -1;
-                console.log(comp);
+                //flip it if reverse sorting;
+                comp *= sortState;
                 return comp
               })
               console.log(app.courses);
@@ -123,7 +134,6 @@
               let endDate = this.parseDate(this.submissionDatesEnd);
               for (let i = 0; i < this.courses.length; i++) {
                 let courseId = this.courses[i].course_id;
-                console.log(courseId);
                 let subs = this.submissionData[courseId];
                 if (subs !== undefined) {
                   let subData = {};
@@ -168,13 +178,11 @@
                       }
                       if (totalPoints > 0) {
                         let progress = possiblePoints / totalPoints;
-                        console.log("PROGRESS " + progress)
                         totalProgress += progress * group.group_weight;
                         totalWeights += group.group_weight;
                       }
                     }
                   }
-                  console.log("TOTAL PROGRESS " + totalProgress)
                   if (totalWeights > 0) {
                     let output;
                     let weightedGrade = Math.round(currentWeighted / totalWeights* 10000) / 100;
