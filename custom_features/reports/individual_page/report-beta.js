@@ -101,13 +101,13 @@
               console.log(header);
               let app = this;
               let name = this.columnNameToCode(header);
-              app.columns.sort(function(a, b) {
+              app.courses.sort(function(a, b) {
                 let aVal = a[name];
                 let bVal = b[name];
                 //check if it's a string or int
                 return a[name] > b[name];
               })
-              console.log(app.columns);
+              console.log(app.courses);
               console.log(name);
             },
             async calcGradesBetweenDates() {
