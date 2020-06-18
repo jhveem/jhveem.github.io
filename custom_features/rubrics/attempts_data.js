@@ -50,8 +50,8 @@
           let match = rubricTotalText.match(/([0-9]+)/g);
 
           console.log(match);
-          rubricTotal = parseInt(match[1]);
-          rubricMax = parseInt(match[2]);
+          rubricTotal = parseInt(match[0]);
+          rubricMax = parseInt(match[1]);
           console.log(rubricMax)
           let suggestedScore = Math.round(rubricTotal * ((11 - feature.attempts) / 10));
           $("#btech-recorded-attempts-value").text(feature.attempts);
