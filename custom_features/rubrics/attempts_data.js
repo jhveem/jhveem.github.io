@@ -46,6 +46,7 @@
         });
         if (feature.attempts > 0) {
           let rubricTotalText = $("[data-selenium='rubric_total']").text();
+          console.log(rubricTotalText);
           rubricTotal = parseInt(rubricTotalText.match(/([0-9]+)/)[1]);
           rubricMax = parseInt(rubricTotalText.match(/([0-9]+)/)[2]);
           console.log(rubricMax);
