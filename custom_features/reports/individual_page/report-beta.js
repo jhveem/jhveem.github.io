@@ -97,6 +97,11 @@
             }
           },
           methods: {
+            sortColumn(header) {
+              console.log(header);
+              let name = this.columnNameToCode(header);
+              console.log(name);
+            },
             async calcGradesBetweenDates() {
               let gradesBetweenDates = {};
               let progressBetweenDates = {};
