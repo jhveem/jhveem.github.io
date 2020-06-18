@@ -45,9 +45,9 @@
             }
         });
         if (feature.attempts > 0) {
-          let rubricTotal = $("[data-selenium='rubric_total']").text();
-          rubricTotal = parseInt(rubricTotal.match(/([0-9]+)/)[1]);
-          rubricMax = parseInt(rubricTotal.match(/([0-9]+)/)[2]);
+          let rubricTotalText = $("[data-selenium='rubric_total']").text();
+          rubricTotal = parseInt(rubricTotalText.match(/([0-9]+)/)[1]);
+          rubricMax = parseInt(rubricTotalText.match(/([0-9]+)/)[2]);
           console.log(rubricMax);
           let suggestedScore = Math.round(rubricTotal * ((11 - feature.attempts) / 10));
           $("#btech-recorded-attempts-value").text(feature.attempts);
