@@ -115,21 +115,18 @@
                   sortType = app.columns[c].sort_type;
                 }
               }
-              console.log(sortState);
-              console.log(sortType);
               app.courses.sort(function(a, b) {
                 let aVal = a[name];
                 let bVal = b[name];
                 //convert strings to upper case to ignore case when sorting
-                if (typeof(aVal) === 'string') aVal = aVal.toUpperCase;
-                if (typeof(bVal) === 'string') bVal = bVal.toUpperCase;
+                if (typeof(aVal) === 'string') aVal = aVal.toUpperCase();
+                if (typeof(bVal) === 'string') bVal = bVal.toUpperCase();
 
                 //see if not the same type and which one isn't the sort type
                 if (typeof(aVal) !== typeof(bVal)) {
                   if (typeof(aVal) !== sortType) return -1 * sortState;
                   if (typeof(bVal) !== sortType) return 1 * sortState;
                 }
-                console.log("made it!")
                 //check if it's a string or int
                 let comp = 0;
                 if (aVal > bVal) comp = 1;
