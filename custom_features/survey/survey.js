@@ -103,7 +103,7 @@ method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
   let formId = "";
   for (var c = 0; c < classes.length; c++) {
     try {
-      formId = classes[c].match(/^short\-(.*)/)[1];
+      formId = classes[c].match(/^form\-(.*)/)[1];
     } catch (e) {}
   }
   console.log(formId);
