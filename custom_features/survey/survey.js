@@ -106,6 +106,7 @@ method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
       formId = classes[c].match(/^short\-(.*)/)[1];
     } catch (e) {}
   }
+  console.log(formId);
   if (formId !== "") {
     var url = "https://script.google.com/a/btech.edu/macros/s/AKfycbwIgHHMYbih2XnJf7mjDw8g3grdeHhn9s6JIvH6Qg7mfZ0ElbWr/exec?formId=" + formId;
     let formData = null;
