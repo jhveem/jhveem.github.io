@@ -100,6 +100,7 @@ method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
 `);
   //get the container
   let container = $('.btech-survey');
+  container.removeClass('btech-hidden'); //make it not hidden
   let loading = $("<p>Loading Survey...</p>");
   container.empty();
   container.append(loading);
