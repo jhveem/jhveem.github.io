@@ -95,9 +95,10 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
   let form = $(`
 <form
 action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSffvo5Uap6vY_DFz8x9nv7Evo7OnczEOtJXqWyzLNBnlmOhZQ/formResponse"
-method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
+method="POST" id="m_8914134288611702631ss-form"
 </form>
 `);
+//target="formSubmitFrame">
   //get the container
   let container = $('.btech-survey');
   container.removeClass('btech-hidden'); //make it not hidden
