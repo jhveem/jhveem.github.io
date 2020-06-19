@@ -34,7 +34,7 @@
     let input = $(`<p>` + description + `</p>`);
     let bodyRows = "";
     let select = $(`
-<select name='entry.` + inputId + `'>
+<select name='` + inputId + `'>
 <option value="" disabled selected>Select your option</option>
 </select>
 `);
