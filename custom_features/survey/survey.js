@@ -11,13 +11,13 @@
   }
 
   function addHidden(inputId, value) {
-    form.append(`<input type="hidden" name="entry.` + inputId + `" value="` + value + `">`);
+    form.append(`<input type="hidden" name="` + inputId + `" value="` + value + `">`);
   }
 
   function addParagraphTextEntry(inputId, description) {
     form.append(`
 <p>` + description + `<br>
-<textarea name="entry.` + inputId + `" style="width:100%; box-sizing: border-box;"></textarea>
+<textarea name="` + inputId + `" style="width:100%; box-sizing: border-box;"></textarea>
 </p>
 `)
   }
@@ -25,7 +25,7 @@
   function addTextEntry(inputId, description) {
     form.append(`
 <p>` + description + `<br>
-<input type="text" name="entry.` + inputId + `" value="">
+<input type="text" name="` + inputId + `" value="">
 </p>
 `)
   }
@@ -55,7 +55,7 @@
       bodyRows += `
 <td style="width:` + buttonWidth + `%;text-align:center;color:#666;border-bottom:1px solid #d3d8d3;padding:0">
 <label style="display:block">
-<div style="padding:.5em .25em"><input type="radio" name="entry.` + inputId + `" value="` + list[i] + `" role="radio" aria-label="` + list[i] + `"></div>
+<div style="padding:.5em .25em"><input type="radio" name="` + inputId + `" value="` + list[i] + `" role="radio" aria-label="` + list[i] + `"></div>
 </label>
 </td>`;
     }
@@ -92,6 +92,7 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
     form.append(submit);
   }
 
+  //Can probably get rid of the ids
   let form = $(`
 <form
 action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSffvo5Uap6vY_DFz8x9nv7Evo7OnczEOtJXqWyzLNBnlmOhZQ/formResponse"
