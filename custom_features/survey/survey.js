@@ -100,6 +100,9 @@ method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
 `);
   //get the container
   let container = $('.btech-survey');
+  let loading = $("<p>Loading Survey...</p>");
+  container.empty();
+  container.append(loading);
   let classes = container.attr('class').split(/\s+/);
   
   //get the form id
@@ -140,6 +143,9 @@ method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
         instructors.push(enrollment.user.name);
       }
     });
+
+    //done loading
+    loading.remove();
 
     //Add in the survey data
     for (let i = 0; i < formData.length; i++) {
