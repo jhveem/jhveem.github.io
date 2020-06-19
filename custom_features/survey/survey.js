@@ -85,7 +85,7 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
 
   function addSubmitButton() {
     let submit = $('<input type="submit" name="submit" value="Submit" id="m_8914134288611702631ss-submit">');
-    submit.click(function() {
+    submit.click(function () {
       location.reload(true);
     })
     form.append('<br><br>');
@@ -99,29 +99,49 @@ method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
 </form>
 `);
   let container = $('.btech-survey');
-  let courseId = ENV.COURSE_ID;
-  let userId = ENV.current_user.id;
-  container.append(form);
-  //add the iframe
-  container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow' class='btech-hidden'></iframe>");
-  let instructors = [];
-  await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
-    for (let i = 0; i < data.length; i++) {
-      let enrollment = data[i];
-      instructors.push(enrollment.user.name);
-    }
-  });
+  let classes = container.attr('class').split(/\s+/);
+  let formId = "";
+  for (var c = 0; c < classes.length; c++) {
+    try {
+      formId = classes[c].match(/^short\-(.*)/)[1];
+    } catch (e) {}
+  }
+  if (formId !== "") {
+    var url = "https://script.google.com/a/btech.edu/macros/s/AKfycbwIgHHMYbih2XnJf7mjDw8g3grdeHhn9s6JIvH6Qg7mfZ0ElbWr/exec?formId=" + formId;
+    let formData = null;
+    await jQuery.ajax({
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      dataType: "jsonp"
+    }).done(function (res) {
+      formData = res;
+    });
+    console.log(formData);
+    let courseId = ENV.COURSE_ID;
+    let userId = ENV.current_user.id;
+    container.append(form);
+    //add the iframe
+    container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow' class='btech-hidden'></iframe>");
+    let instructors = [];
+    await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
+      for (let i = 0; i < data.length; i++) {
+        let enrollment = data[i];
+        instructors.push(enrollment.user.name);
+      }
+    });
 
-  addHidden(1336315446, CURRENT_COURSE_ID); //course
-  addHidden(772076137, hashId(userId)); //user id
-  addHidden(1711798596, CURRENT_DEPARTMENT_ID); //department id
-  addDropdown(1997963883, "Enter the name of your instructor.", instructors);
-  addButtons(1299309651, "This instructor promoted a learning atmosphere that was engaging, encouraging, and motivating.");
-  addButtons(223900859, "This instructor provided learning experiences that gave me an opportunity to answer questions and solve real-world problems.");
-  addButtons(384524980, "This instructor answered questions clearly and understandably.");
-  addButtons(1541617763, "This instructor responded within 24 hours to communication attempts and provided appropriate feedback on progress.");
-  addButtons(208869566, "This instructor was organized, prepared, and knowledgeable.");
-  addButtons(2102222775, "I would take another course from this instructor.");
-  addTextArea(668131032, "Other Comments:");
-  addSubmitButton();
+    addHidden(1336315446, CURRENT_COURSE_ID); //course
+    addHidden(772076137, hashId(userId)); //user id
+    addHidden(1711798596, CURRENT_DEPARTMENT_ID); //department id
+    addDropdown(1997963883, "Enter the name of your instructor.", instructors);
+    addButtons(1299309651, "This instructor promoted a learning atmosphere that was engaging, encouraging, and motivating.");
+    addButtons(223900859, "This instructor provided learning experiences that gave me an opportunity to answer questions and solve real-world problems.");
+    addButtons(384524980, "This instructor answered questions clearly and understandably.");
+    addButtons(1541617763, "This instructor responded within 24 hours to communication attempts and provided appropriate feedback on progress.");
+    addButtons(208869566, "This instructor was organized, prepared, and knowledgeable.");
+    addButtons(2102222775, "I would take another course from this instructor.");
+    addTextArea(668131032, "Other Comments:");
+    addSubmitButton();
+  }
 })();
