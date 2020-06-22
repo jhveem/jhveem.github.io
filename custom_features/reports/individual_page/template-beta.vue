@@ -59,10 +59,9 @@
           <div v-if="menu=='period'">
             <div class='btech-report-submission-dates'>
               <span>Start Date:</span>
-              <input type="date" v-model="submissionDatesStart">
+              <input type="date" v-model="submissionDatesStart" @change='calcGradesBetweenDates()'>
               <span>End Date:</span>
-              <input type="date" v-model="submissionDatesEnd">
-              <div @click="calcGradesBetweenDates()">GET</div>
+              <input type="date" v-model="submissionDatesEnd" @change='calcGradesBetweenDates()'>
             </div>
             <table class='btech-report-table' border='1'>
               <thead border='1'>
