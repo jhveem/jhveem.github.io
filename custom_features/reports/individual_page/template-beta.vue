@@ -14,7 +14,7 @@
         </p>
       </div>
       <div v-else>
-        <div v-if="menu=='report'">
+        <div v-if="menu=='Report'">
           <h5 style='text-align: center;'>Click on column headers to sort by that column.</h5>
           <h5 style='text-align: center;'>Hover over column headers for a description of the information displayed in
             that
@@ -49,7 +49,7 @@
             </tfoot>
           </table>
         </div>
-        <div v-if="menu=='Grade Period'">
+        <div v-if="menu=='Period'">
           <div class='btech-report-submission-dates'>
             <span>Start Date:</span>
             <input type="date" v-model="submissionDatesStart">
@@ -60,6 +60,7 @@
           <table>
             <thead border='1'>
               <tr>
+                <th>Course</th>
                 <th>Term Grades</th>
                 <th>Term Completed</th>
                 <th>Hours Completed</th>
@@ -70,6 +71,9 @@
                 <td :colspan='visibleColumns.length'>{{loadingMessage}}</td>
               </tr>
               <tr v-for='course in courses' :key='course.course_id'>
+                <td>
+                  <span v-html="getColumnText('name', course)"></span>
+                </td>
                 <td>{{gradesBetweenDates[course.course_id]+"%"}}</td>
                 <td>{{progressBetweenDates[course.course_id]+"%"}}</td>
                 <td>{{progressBetweenDates[course.course_id] * course.hours * .01}}
