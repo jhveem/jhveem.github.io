@@ -75,6 +75,7 @@
               columns: [
                 new Column('Name', '', false, 'string', false, false),
                 new Column('State', '', false, 'string', false),
+                new Column('Hours', '', false, 'number', false),
                 new Column('Grade To Date', '', true, 'number', true),
                 new Column('Final Grade', '', true, 'number', true),
                 new Column('Points', '', true, 'number', true),
@@ -115,17 +116,17 @@
                   sortType = app.columns[c].sort_type;
                 }
               }
-              app.courses.sort(function(a, b) {
+              app.courses.sort(function (a, b) {
                 let aVal = a[name];
                 let bVal = b[name];
                 //convert strings to upper case to ignore case when sorting
-                if (typeof(aVal) === 'string') aVal = aVal.toUpperCase();
-                if (typeof(bVal) === 'string') bVal = bVal.toUpperCase();
+                if (typeof (aVal) === 'string') aVal = aVal.toUpperCase();
+                if (typeof (bVal) === 'string') bVal = bVal.toUpperCase();
 
                 //see if not the same type and which one isn't the sort type
-                if (typeof(aVal) !== typeof(bVal)) {
-                  if (typeof(aVal) !== sortType) return -1 * sortState;
-                  if (typeof(bVal) !== sortType) return 1 * sortState;
+                if (typeof (aVal) !== typeof (bVal)) {
+                  if (typeof (aVal) !== sortType) return -1 * sortState;
+                  if (typeof (bVal) !== sortType) return 1 * sortState;
                 }
                 //check if it's a string or int
                 let comp = 0;
@@ -195,7 +196,7 @@
                   }
                   if (totalWeights > 0) {
                     let output;
-                    let weightedGrade = Math.round(currentWeighted / totalWeights* 10000) / 100;
+                    let weightedGrade = Math.round(currentWeighted / totalWeights * 10000) / 100;
                     output = "";
                     if (!isNaN(weightedGrade)) {
                       output = weightedGrade + "%";
@@ -205,9 +206,9 @@
                     let progress = Math.round((totalProgress / totalWeights) * 10000) / 100;
                     output = "";
                     if (!isNaN(progress)) {
-                      output = progress+ "%";
+                      output = progress + "%";
                     }
-                   progressBetweenDates[courseId] = output;
+                    progressBetweenDates[courseId] = output;
                   }
                 }
               }
@@ -236,17 +237,29 @@
               })
               return subs;
             },
-            newCourse(id, state, name) {
+            async newCourse(id, state, name, year) {
               let app = this;
               let course = {};
               course.course_id = id;
+              let url = "/api/v1/courses/" + id;
+              let hours = "N/A";
+              //get course hours if there's a year
+              if (year !== null) {
+                await $.get(url).done(function (data) {
+                  let crsCode = data.course_code;
+                  console.log(year);
+                  console.log(crsCode);
+                  console.log(COURSE_HOURS[year][crsCode]); 
+                  hours = COURSE_HOURS[year][crsCode];
+                })
+              }
               course.state = state;
               course.name = name;
               course.days_in_course = 0;
               course.days_since_last_submission = 0;
               course.days_since_last_submission_color = "#fff";
               course.section = "";
-              course.grade_to_date= "N/A";
+              course.grade_to_date = "N/A";
               course.points = 0;
               course.final_grade = "N/A";
               course.section = "";
@@ -261,7 +274,7 @@
               let courses = [];
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
-                let course = app.newCourse(courseList[c].course_id, courseList[c].state, courseList[c].name);
+                let course = app.newCourse(courseList[c].course_id, courseList[c].state, courseList[c].name, courseList[c].year);
                 let state = course.state.toLowerCase();
                 if (state === "completed") state = "active";
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
@@ -288,10 +301,14 @@
                     let text = $(this).text().trim();
                     let course_id = match[1];
                     let state = text.match(/([A-Z|a-z]+),[\s]+?Enrolled as a Student/)[1];
+                    let year = null;
+                    let yearData = text.match(/(2[0-9]{3}) /);
+                    if (yearData != null) year = yearData[1];
                     list.push({
                       name: name,
                       course_id: course_id,
-                      state: state
+                      state: state,
+                      year: year
                     });
                   }
                 });
