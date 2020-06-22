@@ -64,7 +64,7 @@
               <input type="date" v-model="submissionDatesEnd">
               <div @click="calcGradesBetweenDates()">GET</div>
             </div>
-            <table>
+            <table class='btech-report-table' border='1'>
               <thead border='1'>
                 <tr>
                   <th>Course</th>
