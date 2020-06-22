@@ -61,6 +61,7 @@
                 ]
               });
             }
+            this.loadingAssignments = false;
           },
 
           data: function () {
@@ -87,6 +88,7 @@
               studentData: [],
               submissionData: {},
               loading: true,
+              loadingAssignments: true,
               loadingMessage: "Loading Results...",
               accessDenied: false,
               menu: 'report'

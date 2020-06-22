@@ -57,46 +57,49 @@
             </table>
           </div>
           <div v-if="menu=='period'">
-            <div class='btech-report-submission-dates'>
-              <span>Start Date:</span>
-              <input type="date" v-model="submissionDatesStart" @change='calcGradesBetweenDates()'>
-              <span>End Date:</span>
-              <input type="date" v-model="submissionDatesEnd" @change='calcGradesBetweenDates()'>
-            </div>
-            <table class='btech-report-table' border='1'>
-              <thead border='1'>
-                <tr>
-                  <th>Course</th>
-                  <th>Term Grades</th>
-                  <th>Term Completed</th>
-                  <th>Hours Completed</th>
-                </tr>
-              </thead>
-              <tbody border='1'>
-                <tr v-if="loading">
-                  <td :colspan='visibleColumns.length'>{{loadingMessage}}</td>
-                </tr>
-                <tr v-for='course in courses' :key='course.course_id'>
-                  <td>
-                    {{course.name}}
-                  </td>
+            <div v-if='loadingAssignments'>{{loadingMessage}}</div>
+            <div v-else>
+              <div class='btech-report-submission-dates'>
+                <span>Start Date:</span>
+                <input type="date" v-model="submissionDatesStart" @change='calcGradesBetweenDates()'>
+                <span>End Date:</span>
+                <input type="date" v-model="submissionDatesEnd" @change='calcGradesBetweenDates()'>
+              </div>
+              <table class='btech-report-table' border='1'>
+                <thead border='1'>
+                  <tr>
+                    <th>Course</th>
+                    <th>Term Grades</th>
+                    <th>Term Completed</th>
+                    <th>Hours Completed</th>
+                  </tr>
+                </thead>
+                <tbody border='1'>
+                  <tr v-if="loading">
+                    <td :colspan='visibleColumns.length'>{{loadingMessage}}</td>
+                  </tr>
+                  <tr v-for='course in courses' :key='course.course_id'>
+                    <td>
+                      {{course.name}}
+                    </td>
 
-                  <td>{{getGradesBetweenDates(course.course_id)}}</td>
-                  <td>{{getProgressBetweenDates(course.course_id)}}</td>
-                  <td>{{getHoursCompleted(course)}}</td>
-                </tr>
-              </tbody>
-              <tfoot border='1'>
-                <tr>
-                  <td>Hours Completed</td>
-                  <td>{{sumHoursCompleted()}}</td>
-                </tr>
-                <tr>
-                  <td>Weighted Grade</td>
-                  <td>{{weightedGradeForTerm()}}</td>
-                </tr>
-              </tfoot>
-            </table>
+                    <td>{{getGradesBetweenDates(course.course_id)}}</td>
+                    <td>{{getProgressBetweenDates(course.course_id)}}</td>
+                    <td>{{getHoursCompleted(course)}}</td>
+                  </tr>
+                </tbody>
+                <tfoot border='1'>
+                  <tr>
+                    <td>Hours Completed</td>
+                    <td>{{sumHoursCompleted()}}</td>
+                  </tr>
+                  <tr>
+                    <td>Weighted Grade</td>
+                    <td>{{weightedGradeForTerm()}}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
         </div>
       </div>
