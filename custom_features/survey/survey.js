@@ -157,7 +157,7 @@ target="formSubmitFrame">
       if (item.title == "COURSE") addHidden(item.entry[0], CURRENT_COURSE_ID); //course
       else if (item.title == "USER") addHidden(item.entry[0], hashId(userId)); //course
       else if (item.title == "PROGRAM") addHidden(item.entry[0], CURRENT_DEPARTMENT_ID); //course
-      else if (item.title == "INSTRUCTOR") addDropdown(item.entry[0], "Enter the name of your instructor.", instructors);
+      else if (item.title == "INSTRUCTOR") addDropdown(item.entry[0], "Select the name of your instructor.", instructors);
       //add based on question type
       //MUST MANUALLY ADD IN EACH QUESTION TYPE HERE AND ALSO MAKE SURE IT IS SET UP IN THE GOOGLE SCRIPTS PAGE OR THE DATA WON'T GET SENT
       else {
