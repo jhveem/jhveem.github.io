@@ -172,23 +172,23 @@ function addToModuleMenu(name, description, func, icon = "icon-plus") {
   });
 }
 
-async function canvasGet(url, reqData, page="1", resData = []) {
+async function canvasGet(url, reqData, page = "1", resData = []) {
   let nextPage = "";
   reqData.per_page = 100;
   reqData.page = page;
-  await $.get(url, reqData, function(data, status, xhr) {
-      //add assignments to the list
-      resData = resData.concat(data);
-      //see if there's another page to get
-      let rNext = /<([^>]*)>; rel="next"/;
-      let nextMatch = xhr.getResponseHeader("Link").match(rNext);
-      if (nextMatch !== null) {
-          let next = nextMatch[1];
-          nextPage = next.match(/page=(.*?)&/)[1];
-      }
+  await $.get(url, reqData, function (data, status, xhr) {
+    //add assignments to the list
+    resData = resData.concat(data);
+    //see if there's another page to get
+    let rNext = /<([^>]*)>; rel="next"/;
+    let nextMatch = xhr.getResponseHeader("Link").match(rNext);
+    if (nextMatch !== null) {
+      let next = nextMatch[1];
+      nextPage = next.match(/page=(.*?)&/)[1];
+    }
   });
   if (nextPage !== "") {
-      return await canvasGet(url, reqData, nextPage, resData);
+    return await canvasGet(url, reqData, nextPage, resData);
   }
   return resData;
 }
@@ -248,96 +248,98 @@ add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
 $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
   $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js").done(() => {
     $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
-      let currentUser = parseInt(ENV.current_user.id);
-      const IS_ME = (currentUser === 1893418);
-      //GENERAL FEATURES
-      if (IS_TEACHER) {
-        feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-        if (!IS_ME) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-        if (IS_ME) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-      }
-      //COURSE FEATURES
-      let rCheckInCourse = /^\/courses\/([0-9]+)/;
-      if (rCheckInCourse.test(window.location.pathname)) {
-        CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
-        //AVAILABLE TO EVERYONE
-        feature('page_formatting/dropdown_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-        feature('page_formatting/tabs_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-        feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-        feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
+      $.getScript("https://jhveem.github.io/course_list/course_hours.js").done(() => {
+        let currentUser = parseInt(ENV.current_user.id);
+        const IS_ME = (currentUser === 1893418);
+        //GENERAL FEATURES
+        if (IS_TEACHER) {
+          feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
+          if (!IS_ME) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          if (IS_ME) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+        }
+        //COURSE FEATURES
+        let rCheckInCourse = /^\/courses\/([0-9]+)/;
+        if (rCheckInCourse.test(window.location.pathname)) {
+          CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
+          //AVAILABLE TO EVERYONE
+          feature('page_formatting/dropdown_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          feature('page_formatting/tabs_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
-        feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
+          feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
-        //This may need to be removed/revisited until next COE if other issues pop up.
-        // feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
-        // feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
+          //This may need to be removed/revisited until next COE if other issues pop up.
+          // feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
+          // feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
 
-        feature('modules/convert_to_page');
+          feature('modules/convert_to_page');
 
-        featureBeta('rubrics/gen_comment');
-        featureBeta('modules/course_features');
-        let courseId = CURRENT_COURSE_ID;
-        //COURSE SPECIFIC FEATURES
-        featurePilot("change_2019_to_2019-2020", courseId, [489538]); //IV Therapy
-        featurePilot("rubrics/attempts_data", courseId, [498455]); //Dental 1010 pilot
-        featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
-        featurePilot("highlight_comments_same_date", courseId, [498455]); //Dental 1010 pilot
-        featurePilot("previous-enrollment-data/previous_enrollment_period_grades", courseId, [511596]); //Business High School Summer
-        //DEPARTMENT SPECIFIC IMPORTS
-        let departmentId = 0;
-        //DETERMINE CURRENT DEPARTMENT FROM DEPARTMENT LIST
-        for (let d in COURSE_LIST) {
-          if (COURSE_LIST[d].includes(courseId)) {
-            departmentId = parseInt(d);
-            break;
+          featureBeta('rubrics/gen_comment');
+          featureBeta('modules/course_features');
+          let courseId = CURRENT_COURSE_ID;
+          //COURSE SPECIFIC FEATURES
+          featurePilot("change_2019_to_2019-2020", courseId, [489538]); //IV Therapy
+          featurePilot("rubrics/attempts_data", courseId, [498455]); //Dental 1010 pilot
+          featurePilot("rubrics/gen_comment", courseId, [498455, 489058, 489702, 489089]); //Dental 1010 pilot, Dental I, Dental III, Micro Controllers I
+          featurePilot("highlight_comments_same_date", courseId, [498455]); //Dental 1010 pilot
+          featurePilot("previous-enrollment-data/previous_enrollment_period_grades", courseId, [511596]); //Business High School Summer
+          //DEPARTMENT SPECIFIC IMPORTS
+          let departmentId = 0;
+          //DETERMINE CURRENT DEPARTMENT FROM DEPARTMENT LIST
+          for (let d in COURSE_LIST) {
+            if (COURSE_LIST[d].includes(courseId)) {
+              departmentId = parseInt(d);
+              break;
+            }
+          }
+          CURRENT_DEPARTMENT_ID = departmentId;
+          if (departmentId === 3824) { // DENTAL
+            feature("highlighted_grades_page_items");
+            feature("speed_grader_screen_split");
+            feature("previous-enrollment-data/previous_enrollment_period_grades");
+            if (IS_TEACHER) featureBeta("previous-enrollment-data/set_hours_form");
+            if (currentUser === 1225484 || currentUser === 817257) {
+              feature("previous-enrollment-data/set_hours_form");
+            }
+          }
+          if (departmentId === 3827 || departmentId === 3828) { //Practical Nursing && Health Sciences General
+            feature("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          }
+          if (departmentId === 3833) { //business
+            feature("department_specific/business_hs");
+            feature("previous-enrollment-data/previous_enrollment_period_grades");
+          }
+          if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
+            feature("modules/points_to_hours_header");
+            feature("department_specific/amar_elec_add_module_items");
+          }
+          if (departmentId === 3847) { //meats
+            feature("previous-enrollment-data/previous_enrollment_period_grades");
+          }
+          if (departmentId === 3841 || departmentId === 3947) { //cosmetology && master esthetics
+            feature("department_specific/esthetics_cosmetology_services");
           }
         }
-        CURRENT_DEPARTMENT_ID = departmentId;
-        if (departmentId === 3824) { // DENTAL
-          feature("highlighted_grades_page_items");
-          feature("speed_grader_screen_split");
-          feature("previous-enrollment-data/previous_enrollment_period_grades");
-          if (IS_TEACHER) featureBeta("previous-enrollment-data/set_hours_form");
-          if (currentUser === 1225484 || currentUser === 817257) {
-            feature("previous-enrollment-data/set_hours_form");
-          }
-        }
-        if (departmentId === 3827 || departmentId === 3828) { //Practical Nursing && Health Sciences General
-          feature("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-        }
-        if (departmentId === 3833) { //business
-          feature("department_specific/business_hs");
-          feature("previous-enrollment-data/previous_enrollment_period_grades");
-        }
-        if (departmentId === 3819 || departmentId === 3832) { // AMAR && ELEC
-          feature("modules/points_to_hours_header");
-          feature("department_specific/amar_elec_add_module_items");
-        }
-        if (departmentId === 3847) { //meats
-          feature("previous-enrollment-data/previous_enrollment_period_grades");
-        }
-        if (departmentId === 3841 || departmentId === 3947) { //cosmetology && master esthetics
-          feature("department_specific/esthetics_cosmetology_services");
-        }
-      }
 
-      //CDD ONLY
-      featureCDD("rubrics/sortable");
-      featureCDD("quizzes/question_bank_sorter");
-      //featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
-      featureCDD("help_tab");
-      featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
-      featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
-      featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-      featureCDD("surveys");
-      featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-      if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-      featureBeta("department_specific/business_hs");
+        //CDD ONLY
+        featureCDD("rubrics/sortable");
+        featureCDD("quizzes/question_bank_sorter");
+        //featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
+        featureCDD("help_tab");
+        featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
+        featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
+        featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        featureCDD("surveys");
+        featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        featureBeta("department_specific/business_hs");
 
-      //Survey
-      if (currentUser === 1507313) { //Lisa Balling
-        feature("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-      }
+        //Survey
+        if (currentUser === 1507313) { //Lisa Balling
+          feature("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        }
+      });
     });
   });
 });
