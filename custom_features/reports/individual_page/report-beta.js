@@ -253,6 +253,7 @@
                   hours = COURSE_HOURS[year][crsCode];
                 })
               }
+              course.hours = hours;
               course.state = state;
               course.name = name;
               course.days_in_course = 0;
