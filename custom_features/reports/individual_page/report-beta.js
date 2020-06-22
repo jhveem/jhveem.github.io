@@ -112,13 +112,30 @@
               return parseFloat(sum.toFixed(2));
             },
             weightedGradeForTerm() {
-              let grade = 0;
+              let weightedGrade = 0;
+              let totalHoursCompleted = this.sumHoursCompleted();
               for (let c in this.courses) {
                 let course = this.courses[c];
                 let progress = this.progressBetweenDates[course.course_id];
-                if (progress > 0) {}
+                let grade = this.gradesBetweenDates[course.course_id];
+                if (progres !== undefined && grade !== undefined) {
+                  let hoursCompleted = this.getHoursCompleted(course);
+                  weightedGrade += (grade * (hoursCompleted / totalHoursCompleted));
+                }
               }
-              return parseFloat(grade.toFixed(2));
+              return parseFloat(weightedGrade.toFixed(2));
+            },
+            weightedGradeWithRequiredHours() {
+              //This needs to be created
+              //will take the weighted grade and then if the student does not complete at least 66% of the hours enrolled, they will have a reduction in their score based on ammount below that 66%
+              let hoursEnrolled = undefined; //needs to be grabbed from the course, wherever it ends up being stored
+              let hoursCompleted = this.sumHoursCompleted();
+              let weightedGrade = weightedGradeForTerm();
+              let minHoursRequired = hoursEnrolled * .66;
+              if (hoursCompleted < minHoursRequired) {
+                weightedGrade *= (hoursCompleted / minHoursRequired); 
+              }
+              return weightedGrade;
             },
             getProgressBetweenDates(courseId) {
               let progress = this.progressBetweenDates[courseId];

@@ -86,7 +86,8 @@
                   <td>{{getProgressBetweenDates(course.course_id)}}</td>
                   <td>{{getHoursCompleted(course)}}</td>
                 </tr>
-                <tr></tr>
+              </tbody>
+              <tfoot border='1'>
                 <tr>
                   <td>Hours Completed</td>
                   <td>{{sumHoursCompleted()}}</td>
@@ -95,9 +96,6 @@
                   <td>Weighted Grade</td>
                   <td>{{weightedGradeForTerm()}}</td>
                 </tr>
-              </tbody>
-              <tfoot border='1'>
-
               </tfoot>
             </table>
           </div>
