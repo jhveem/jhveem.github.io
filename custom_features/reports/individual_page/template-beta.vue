@@ -91,11 +91,11 @@
                 </tbody>
                 <tfoot border='1'>
                   <tr>
-                    <td>Hours Completed</td>
+                    <td><b>Hours Completed</b></td>
                     <td>{{sumHoursCompleted()}}</td>
                   </tr>
                   <tr>
-                    <td>Weighted Grade</td>
+                    <td><b>Weighted Grade</b></td>
                     <td>{{weightedGradeForTerm()}}%</td>
                   </tr>
                 </tfoot>
