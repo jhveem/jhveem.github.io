@@ -118,14 +118,17 @@
                 let course = this.courses[c];
                 let progress = this.progressBetweenDates[course.course_id];
                 let grade = this.gradesBetweenDates[course.course_id];
-                if (progres !== undefined && grade !== undefined) {
+                if (progress !== undefined && grade !== undefined) {
                   let hoursCompleted = this.getHoursCompleted(course);
                   weightedGrade += (grade * (hoursCompleted / totalHoursCompleted));
                 }
               }
               return parseFloat(weightedGrade.toFixed(2));
             },
-            weightedGradeWithRequiredHours() {
+            async getHoursEnrolled() {
+
+            },
+            async weightedGradeWithRequiredHours() {
               //This needs to be created
               //will take the weighted grade and then if the student does not complete at least 66% of the hours enrolled, they will have a reduction in their score based on ammount below that 66%
               let hoursEnrolled = undefined; //needs to be grabbed from the course, wherever it ends up being stored
