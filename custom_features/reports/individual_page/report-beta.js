@@ -100,6 +100,24 @@
             }
           },
           methods: {
+            sumHoursCompleted() {
+              let sum = 0;
+              for (let c in this.courses) {
+                let course = this.courses[c];
+                let progress = this.progressBetweenDates[course.course_id];
+                if (progress > 0) {
+                  sum += Math.round(progress * course.hours) * .01;
+                }
+              }
+              return sum;
+            },
+            weightedGradeForTerm() {
+              for (let course in this.courses) {
+                if (this.progressBetweenDates > 0) {
+
+                }
+              }
+            },
             getProgressBetweenDates(courseId) {
               let progress = this.progressBetweenDates[courseId];
               if (progress !== undefined) return (progress + "%");
@@ -112,7 +130,7 @@
             },
             getHoursCompleted(course) {
               let progress = this.progressBetweenDates[course.course_id];
-              if (progress !== undefined) return progress * course.hours * .01;
+              if (progress !== undefined) return Math.round(progress * course.hours) * .01;
             },
             sortColumn(header) {
               let app = this;
@@ -214,7 +232,7 @@
                     let weightedGrade = Math.round(currentWeighted / totalWeights * 10000) / 100;
                     output = "";
                     if (!isNaN(weightedGrade)) {
-                      output = weightedGrade + "%";
+                      output = weightedGrade;
                     }
                     gradesBetweenDates[courseId] = output;
 
