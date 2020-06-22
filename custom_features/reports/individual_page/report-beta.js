@@ -209,7 +209,6 @@
                     }
                   }
                   let assignmentGroups = this.courseAssignmentGroups[courseId];
-                  console.log(assignmentGroups);
                   let currentWeighted = 0;
                   let totalWeights = 0; //sum of all weight values for assignment groups
                   let totalWeightsSubmitted = 0; //sum of all weight values for assignment groups if at least one submitted assignment
@@ -302,9 +301,6 @@
               if (year !== null) {
                 await $.get(url).done(function (data) {
                   let crsCode = data.course_code;
-                  console.log(year);
-                  console.log(crsCode);
-                  console.log(COURSE_HOURS[year][crsCode]);
                   hours = COURSE_HOURS[year][crsCode];
                 })
               }
@@ -372,7 +368,6 @@
                 console.log(e);
                 app.accessDenied = true;
               });
-              console.log(list);
               return list;
             },
 
