@@ -316,6 +316,7 @@
                 console.log(e);
                 app.accessDenied = true;
               });
+              console.log(list);
               return list;
             },
 
