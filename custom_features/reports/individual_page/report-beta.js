@@ -274,7 +274,7 @@
               let courses = [];
               let courseList = await this.getCourses();
               for (let c = 0; c < courseList.length; c++) {
-                let course = app.newCourse(courseList[c].course_id, courseList[c].state, courseList[c].name, courseList[c].year);
+                let course = await app.newCourse(courseList[c].course_id, courseList[c].state, courseList[c].name, courseList[c].year);
                 let state = course.state.toLowerCase();
                 if (state === "completed") state = "active";
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
