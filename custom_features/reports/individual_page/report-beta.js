@@ -109,14 +109,16 @@
                   sum += Math.round(progress * course.hours) * .01;
                 }
               }
-              return sum;
+              return parseFloat(sum.toFixed(2));
             },
             weightedGradeForTerm() {
-              for (let course in this.courses) {
-                if (this.progressBetweenDates > 0) {
-
-                }
+              let grade = 0;
+              for (let c in this.courses) {
+                let course = this.courses[c];
+                let progress = this.progressBetweenDates[course.course_id];
+                if (progress > 0) {}
               }
+              return parseFloat(grade.toFixed(2));
             },
             getProgressBetweenDates(courseId) {
               let progress = this.progressBetweenDates[courseId];
@@ -130,7 +132,7 @@
             },
             getHoursCompleted(course) {
               let progress = this.progressBetweenDates[course.course_id];
-              if (progress !== undefined) return Math.round(progress * course.hours) * .01;
+              if (progress !== undefined) return parseFloat((Math.round(progress * course.hours) * .01).toFixed(2));
             },
             sortColumn(header) {
               let app = this;
@@ -282,7 +284,7 @@
                   let crsCode = data.course_code;
                   console.log(year);
                   console.log(crsCode);
-                  console.log(COURSE_HOURS[year][crsCode]); 
+                  console.log(COURSE_HOURS[year][crsCode]);
                   hours = COURSE_HOURS[year][crsCode];
                 })
               }

@@ -88,11 +88,13 @@
                 </tr>
                 <tr></tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>Hours Completed</td>
                   <td>{{sumHoursCompleted()}}</td>
-                  </tr>
+                </tr>
+                <tr>
+                  <td>Weighted Grade</td>
+                  <td>{{weightedGradeForTerm()}}</td>
+                </tr>
               </tbody>
               <tfoot border='1'>
 
