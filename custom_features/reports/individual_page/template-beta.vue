@@ -7,10 +7,9 @@
           <li @click="menu='report'">Student Course Report</li>
           <li @click="menu='period'">Grades Between Dates</li>
         </ul>
+        <span class='btech-close' v-on:click='close()'>&times;</span>
       </div>
       <div class='btech-modal-content-inner'>
-        <span class='btech-close' v-on:click='close()'>&times;</span>
-        <h3 style='text-align: center;'>Report</h3>
         <div v-if="accessDenied">
           <p>
             <b>ERROR:</b> You are not authorized to see all of this student's courses. This often occurs when the
