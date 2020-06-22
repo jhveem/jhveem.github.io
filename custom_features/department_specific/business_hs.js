@@ -177,6 +177,8 @@
                     let course = this.selectedCourse;
                     let url = "/api/v1/courses/" + course + "/users?user_ids[]="+this.studentId+"&enrollment_state[]=active&enrollment_state[]=completed&enrollment_state[]=inactive&include[]=enrollments";
                     $.get(url).done(function(data) {
+                      console.log(url);
+                      console.log(data);
                       app.selectedGrade = data[0].enrollments[0].grades.current_score;
                     })
                   },
