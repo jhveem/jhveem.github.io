@@ -169,7 +169,7 @@
                   removeCourse: async function(course) {
                     for (let c = 0; c < this.courseGrades.length; c++) {
                       if (this.courseGrades[c].course === course.course) {
-                        await $.delete("https://btech.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
+                        await $.delete(window.location.hostname + "/submission_comments/" + this.courseGrades[c].comment_id);
                         this.courseGrades.splice(c, 1);
                       }
                     }
@@ -230,7 +230,7 @@
                       for (let c = 0; c < this.courseGrades.length; c++) {
                         if (this.courseGrades[c].course === course) {
                           this.courseGrades[c].grade = grade;
-                          await $.delete("https://btech.instructure.com/submission_comments/" + this.courseGrades[c].comment_id);
+                          await $.delete(window.location.hostname + "/submission_comments/" + this.courseGrades[c].comment_id);
                         }
                       }
                       if (!found) {
