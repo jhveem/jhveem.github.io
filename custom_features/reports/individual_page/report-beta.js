@@ -199,6 +199,10 @@
               let progressBetweenDates = {};
               let startDate = this.parseDate(this.submissionDatesStart);
               let endDate = this.parseDate(this.submissionDatesEnd);
+              //break if a date is undefined
+              if (startDate === undefined || endDate === undefined) return;
+
+              //otherwise fill in all the progress / grades data for those dates
               for (let i = 0; i < this.courses.length; i++) {
                 let courseId = this.courses[i].course_id;
                 let subs = this.submissionData[courseId];
@@ -274,6 +278,7 @@
 
             },
             parseDate(dateString) {
+              if (dateString == undefined) return undefined;
               let pieces = dateString.split("-");
               let year = parseInt(pieces[0]);
               let month = parseInt(pieces[1] - 1);

@@ -96,7 +96,7 @@
                   </tr>
                   <tr>
                     <td>Weighted Grade</td>
-                    <td>{{weightedGradeForTerm()}}</td>
+                    <td>{{weightedGradeForTerm()}}%</td>
                   </tr>
                 </tfoot>
               </table>
