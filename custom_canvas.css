@@ -67,28 +67,6 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected {
 }
 
 /* Modal Content */
-.btech-modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-/* The Close Button */
-.btech-close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.btech-close:hover,
-.btech-close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 /* END pop up modals */
 
@@ -194,37 +172,6 @@ ul.btech-question-banks-sorter li.btech-bank-course.selected {
   opacity: 1;
 }
 
-.btech-tabs-container {
-  box-shadow: 3px 6px 6px #888;
-  outline:  #CCC solid 1px;
-  margin-bottom: 10px;
-}
-
-.btech-tabs-container ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: var(--btech-theme-header-background-color);
-}
-
-.btech-tabs-container ul li {
-  float: left;
-  color: var(--btech-theme-header-color);
-  display: block;
-  text-align: center;
-  padding: 14px 16px;
-  cursor: pointer;
-}
-
-.btech-tabs-container ul li:hover {
-  background-color: var(--btech-theme-header-hover-background-color);
-}
-
-.btech-tabs-container ul li.active {
-  color: #000;
-  background-color: #FFF;
-}
 
 #btech-theme-parent {
  display: none;
