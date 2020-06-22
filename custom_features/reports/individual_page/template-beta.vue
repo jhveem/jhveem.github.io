@@ -72,7 +72,7 @@
               </tr>
               <tr v-for='course in courses' :key='course.course_id'>
                 <td>
-                  <span v-html="getColumnText('name', course)"></span>
+                  course.name
                 </td>
                 <td>{{gradesBetweenDates[course.course_id]+"%"}}</td>
                 <td>{{progressBetweenDates[course.course_id]+"%"}}</td>
