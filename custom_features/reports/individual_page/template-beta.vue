@@ -87,6 +87,7 @@
                     <td>{{getProgressBetweenDates(course.course_id)}}</td>
                     <td>{{getHoursCompleted(course)}}</td>
                   </tr>
+                  <tr height="10px"></tr>
                 </tbody>
                 <tfoot border='1'>
                   <tr>
