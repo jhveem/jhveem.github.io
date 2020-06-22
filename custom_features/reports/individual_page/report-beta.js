@@ -89,7 +89,7 @@
               loading: true,
               loadingMessage: "Loading Results...",
               accessDenied: false,
-              menu: 'Period'
+              menu: 'report'
             }
           },
           computed: {

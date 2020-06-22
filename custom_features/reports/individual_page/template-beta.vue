@@ -2,6 +2,12 @@
   <div class='btech-modal' style='display: inline-block;'>
     <!-- ERASE THE DISPLAY PIECE BEFORE GOING LIVE -->
     <div class='btech-modal-content'>
+      <div class="btech-tabs">
+        <ul>
+          <li @click="menu='report'">Student Course Report</li>
+          <li @click="menu='period'">Grades Between Dates</li>
+        </ul>
+      </div>
       <div class='btech-modal-content-inner'>
         <span class='btech-close' v-on:click='close()'>&times;</span>
         <h3 style='text-align: center;'>Report</h3>
@@ -16,7 +22,7 @@
           </p>
         </div>
         <div v-else>
-          <div v-if="menu=='Report'">
+          <div v-if="menu=='report'">
             <h5 style='text-align: center;'>Click on column headers to sort by that column.</h5>
             <h5 style='text-align: center;'>Hover over column headers for a description of the information displayed in
               that
@@ -51,7 +57,7 @@
               </tfoot>
             </table>
           </div>
-          <div v-if="menu=='Period'">
+          <div v-if="menu=='period'">
             <div class='btech-report-submission-dates'>
               <span>Start Date:</span>
               <input type="date" v-model="submissionDatesStart">
@@ -74,11 +80,12 @@
                 </tr>
                 <tr v-for='course in courses' :key='course.course_id'>
                   <td>
-                    course.name
+                    {{course.name}}
                   </td>
                   <td>{{gradesBetweenDates[course.course_id]+"%"}}</td>
                   <td>{{progressBetweenDates[course.course_id]+"%"}}</td>
                   <td>{{progressBetweenDates[course.course_id] * course.hours * .01}}
+
                 </tr>
               </tbody>
               <tfoot border='1'>
