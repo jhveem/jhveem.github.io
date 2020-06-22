@@ -100,6 +100,20 @@
             }
           },
           methods: {
+            getProgressBetweenDates(courseId) {
+              let progress = this.progressBetweenDates[courseId];
+              if (progress !== undefined) return (progress + "%");
+              return "";
+            },
+            getGradesBetweenDates(courseId) {
+              let grade = this.gradesBetweenDates[courseId];
+              if (grade !== undefined) return (grade + "%");
+              return "";
+            },
+            getHoursCompleted(course) {
+              let progress = this.progressBetweenDates[course.course_id];
+              if (progress !== undefined) return progress * course.hours * .01;
+            },
             sortColumn(header) {
               let app = this;
               let name = this.columnNameToCode(header);
