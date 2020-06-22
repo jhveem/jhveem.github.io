@@ -209,6 +209,7 @@
                     }
                   }
                   let assignmentGroups = this.courseAssignmentGroups[courseId];
+                  console.log(assignmentGroups);
                   let currentWeighted = 0;
                   let totalWeights = 0; //sum of all weight values for assignment groups
                   let totalWeightsSubmitted = 0; //sum of all weight values for assignment groups if at least one submitted assignment
