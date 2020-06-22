@@ -66,6 +66,7 @@
               sections: [],
               studentData: [],
               loading: true,
+              menu: ''
             }
           },
           computed: {

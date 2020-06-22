@@ -88,7 +88,8 @@
               submissionData: {},
               loading: true,
               loadingMessage: "Loading Results...",
-              accessDenied: false
+              accessDenied: false,
+              menu: ''
             }
           },
           computed: {
@@ -206,7 +207,7 @@
                     let progress = Math.round((totalProgress / totalWeights) * 10000) / 100;
                     output = "";
                     if (!isNaN(progress)) {
-                      output = progress + "%";
+                      output = progress;
                     }
                     progressBetweenDates[courseId] = output;
                   }
