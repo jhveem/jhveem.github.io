@@ -82,7 +82,8 @@
                   <td>
                     {{course.name}}
                   </td>
-                  <td>{{gradesBetweenDates[course.course_id]+"%"}}</td>
+
+                  <td :grade='gradesBetweenDates[course.course_id]'>{{grade+"%"}}</td>
                   <td>{{progressBetweenDates[course.course_id]+"%"}}</td>
                   <td>{{progressBetweenDates[course.course_id] * course.hours * .01}}
 
