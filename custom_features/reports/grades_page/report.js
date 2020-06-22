@@ -1,10 +1,11 @@
 (function () {
   class Column {
-    constructor(name, description, average, sortable_type, percent, hideable=true) {
+    constructor(name, description, average, sort_type, percent, hideable=true) {
       this.name = name;
       this.description = description;
       this.average = average;
-      this.sortable_type = sortable_type;
+      this.sort_type = sort_type; //needs to be a result of typeof, probably mostly going to be string or number
+      this.sort_state = 0; //becomes 1 or -1 depending on asc or desc
       this.visible = true;
       this.percent = percent;
       this.hideable = hideable;
@@ -37,24 +38,30 @@
           el: '#canvas-grades-report-vue',
           mounted: async function () {
             this.courseId = ENV.context_asset_string.replace("course_", "");
-            this.students = await this.createGradesReport();
+            let studentsData = await this.createGradesReport();
+            let students = [];
+            for (s in studentsData) {
+              let student = studentsData[s];
+              students.push(student);
+            }
+            this.students = students;
             this.loading = false;
           },
 
           data: function () {
             return {
               courseId: null,
-              students: {},
+              students: [],
               columns: [
-                new Column('Name', '', false, '', false, false),
-                new Column('Section', '', false, '', false),
-                new Column('Grade', '', true, 'sorttable_numeric', true),
-                new Column('Final Grade', '', true, 'sorttable_numeric', true),
-                new Column('Points', '', true, 'sorttable_numeric', true),
-                new Column('Submissions', '', true, 'sorttable_numeric', true),
-                new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false),
-                new Column('Days in Course', '', true, 'sorttable_numeric', false),
-                new Column('Ungraded', '', true, 'sorttable_numeric', false)
+                new Column('Name', '', false, 'string', false, false),
+                new Column('Section', '', false, 'string', false),
+                new Column('Grade To Date', '', true, 'number', true),
+                new Column('Final Grade', '', true, 'number', true),
+                new Column('Points', '', true, 'number', true),
+                new Column('Submissions', '', true, 'number', true),
+                new Column('Days Since Last Submission', '', true, 'number', false),
+                new Column('Days in Course', '', true, 'number', false),
+                new Column('Ungraded', '', true, 'number', false)
               ],
               sections: [],
               studentData: [],
@@ -69,6 +76,44 @@
             }
           },
           methods: {
+            sortColumn(header) {
+              let app = this;
+              let name = this.columnNameToCode(header);
+              let sortState = 1;
+              let sortType = '';
+              for (let c = 0; c < app.columns.length; c++) {
+                if (app.columns[c].name !== header) {
+                  //reset everything else
+                  app.columns[c].sort_state = 0;
+                } else {
+                  //if it's the one being sorted, set it to 1 if not 1, or set it to -1 if is already 1
+                  if (app.columns[c].sort_state !== 1) app.columns[c].sort_state = 1;
+                  else app.columns[c].sort_state = -1;
+                  sortState = app.columns[c].sort_state;
+                  sortType = app.columns[c].sort_type;
+                }
+              }
+              app.students.sort(function(a, b) {
+                let aVal = a[name];
+                let bVal = b[name];
+                //convert strings to upper case to ignore case when sorting
+                if (typeof(aVal) === 'string') aVal = aVal.toUpperCase();
+                if (typeof(bVal) === 'string') bVal = bVal.toUpperCase();
+
+                //see if not the same type and which one isn't the sort type
+                if (typeof(aVal) !== typeof(bVal)) {
+                  if (typeof(aVal) !== sortType) return -1 * sortState;
+                  if (typeof(bVal) !== sortType) return 1 * sortState;
+                }
+                //check if it's a string or int
+                let comp = 0;
+                if (aVal > bVal) comp = 1;
+                else if (aVal < bVal) comp = -1;
+                //flip it if reverse sorting;
+                comp *= sortState;
+                return comp
+              })
+            },
             newStudent(id, name, course_id) {
               let student = {};
               student.user_id = id;
@@ -78,7 +123,7 @@
               student.days_since_last_submission = 0;
               student.days_since_last_submission_color = "#fff";
               student.section = "";
-              student.grade = "N/A";
+              student.grade_to_date = "N/A";
               student.points = 0;
               student.final_grade = "N/A";
               student.section = "";
@@ -154,8 +199,8 @@
 
             checkStudentInSection(studentData, section) {
               let app = this;
-              for (let id in app.students) {
-                let student = app.students[id];
+              for (let s = 0; s < app.students.length; s++) {
+                let student = app.students[s];
                 let user_id = parseInt(student.user_id);
                 if (studentData.id === user_id) {
                   student.section = section.name;
@@ -209,11 +254,11 @@
 
               //update values
               student.days_in_course = diff_days;
-              student.grade = current_score;
+              student.grade_to_date = current_score;
               student.final_grade = final_score;
               //there might need to be a check to see if this is a numbe
-              if (student.grade > 0 && student.grade != null) {
-                student.points = Math.round(student.final_grade / student.grade * 100);
+              if (student.grade_to_date > 0 && student.grade_to_date != null) {
+                student.points = Math.round(student.final_grade / student.grade_to_date * 100);
               }
             },
 

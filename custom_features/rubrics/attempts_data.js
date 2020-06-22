@@ -45,11 +45,13 @@
             }
         });
         if (feature.attempts > 0) {
-          let rubricTotal = $("[data-selenium='rubric_total']").text();
-          rubricTotal = parseInt(rubricTotal.match(/([0-9]+)/)[1]);
+          let rubricTotalText = $("[data-selenium='rubric_total']").text();
+          let match = rubricTotalText.match(/([0-9]+)/g);
+          rubricTotal = parseInt(match[0]);
+          rubricMax = parseInt(match[1]);
           let suggestedScore = Math.round(rubricTotal * ((11 - feature.attempts) / 10));
           $("#btech-recorded-attempts-value").text(feature.attempts);
-          $("#btech-rubric-score-value").text(rubricTotal);
+          $("#btech-rubric-score-value").text(rubricTotal + " ("+ (Math.round((rubricTotal / rubricMax) * 1000) / 10)+"%)");
           $("#btech-suggested-score-value").text(suggestedScore);
         }
       }

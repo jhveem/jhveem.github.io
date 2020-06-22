@@ -5,11 +5,12 @@
 */
 (function () {
   class Column {
-    constructor(name, description, average, sortable_type, percent, hideable = true) {
+    constructor(name, description, average, sort_type, percent, hideable = true) {
       this.name = name;
       this.description = description;
       this.average = average;
-      this.sortable_type = sortable_type;
+      this.sort_type = sort_type; //needs to be a result of typeof, probably mostly going to be string or number
+      this.sort_state = 0; //becomes 1 or -1 depending on asc or desc
       this.visible = true;
       this.percent = percent;
       this.hideable = hideable;
@@ -72,13 +73,13 @@
               submissionDatesEnd: undefined,
               courseAssignmentGroups: {},
               columns: [
-                new Column('Name', '', false, '', false, false),
-                new Column('State', '', false, '', false),
-                new Column('Grade', '', true, 'sorttable_numeric', true),
-                new Column('Final Grade', '', true, 'sorttable_numeric', true),
-                new Column('Points', '', true, 'sorttable_numeric', true),
-                new Column('Submissions', '', true, 'sorttable_numeric', true),
-                new Column('Days Since Last Submission', '', true, 'sorttable_numeric', false)
+                new Column('Name', '', false, 'string', false, false),
+                new Column('State', '', false, 'string', false),
+                new Column('Grade To Date', '', true, 'number', true),
+                new Column('Final Grade', '', true, 'number', true),
+                new Column('Points', '', true, 'number', true),
+                new Column('Submissions', '', true, 'number', true),
+                new Column('Days Since Last Submission', '', true, 'number', false)
               ],
               sections: [],
               courseList: [],
@@ -97,6 +98,44 @@
             }
           },
           methods: {
+            sortColumn(header) {
+              let app = this;
+              let name = this.columnNameToCode(header);
+              let sortState = 1;
+              let sortType = '';
+              for (let c = 0; c < app.columns.length; c++) {
+                if (app.columns[c].name !== header) {
+                  //reset everything else
+                  app.columns[c].sort_state = 0;
+                } else {
+                  //if it's the one being sorted, set it to 1 if not 1, or set it to -1 if is already 1
+                  if (app.columns[c].sort_state !== 1) app.columns[c].sort_state = 1;
+                  else app.columns[c].sort_state = -1;
+                  sortState = app.columns[c].sort_state;
+                  sortType = app.columns[c].sort_type;
+                }
+              }
+              app.courses.sort(function(a, b) {
+                let aVal = a[name];
+                let bVal = b[name];
+                //convert strings to upper case to ignore case when sorting
+                if (typeof(aVal) === 'string') aVal = aVal.toUpperCase();
+                if (typeof(bVal) === 'string') bVal = bVal.toUpperCase();
+
+                //see if not the same type and which one isn't the sort type
+                if (typeof(aVal) !== typeof(bVal)) {
+                  if (typeof(aVal) !== sortType) return -1 * sortState;
+                  if (typeof(bVal) !== sortType) return 1 * sortState;
+                }
+                //check if it's a string or int
+                let comp = 0;
+                if (aVal > bVal) comp = 1;
+                else if (aVal < bVal) comp = -1;
+                //flip it if reverse sorting;
+                comp *= sortState;
+                return comp
+              })
+            },
             async calcGradesBetweenDates() {
               let gradesBetweenDates = {};
               let progressBetweenDates = {};
@@ -104,7 +143,6 @@
               let endDate = this.parseDate(this.submissionDatesEnd);
               for (let i = 0; i < this.courses.length; i++) {
                 let courseId = this.courses[i].course_id;
-                console.log(courseId);
                 let subs = this.submissionData[courseId];
                 if (subs !== undefined) {
                   let subData = {};
@@ -115,6 +153,7 @@
                     }
                   }
                   let assignmentGroups = this.courseAssignmentGroups[courseId];
+                  console.log(assignmentGroups);
                   let currentWeighted = 0;
                   let totalWeights = 0; //sum of all weight values for assignment groups
                   let totalWeightsSubmitted = 0; //sum of all weight values for assignment groups if at least one submitted assignment
@@ -149,14 +188,17 @@
                       }
                       if (totalPoints > 0) {
                         let progress = possiblePoints / totalPoints;
-                        console.log("PROGRESS " + progress)
                         totalProgress += progress * group.group_weight;
                         totalWeights += group.group_weight;
                       }
                     }
                   }
+<<<<<<< HEAD
                   console.log("TOTAL PROGRESS " + totalProgress)
                   if (totalWeighted > 0) {
+=======
+                  if (totalWeights > 0) {
+>>>>>>> 8f38d9fd68e03ab133f0c9d5b2dd18e937f72615
                     let output;
                     let weightedGrade = Math.round(currentWeighted / totalWeights* 10000) / 100;
                     output = "";
@@ -209,7 +251,7 @@
               course.days_since_last_submission = 0;
               course.days_since_last_submission_color = "#fff";
               course.section = "";
-              course.grade = "N/A";
+              course.grade_to_date= "N/A";
               course.points = 0;
               course.final_grade = "N/A";
               course.section = "";
@@ -228,7 +270,7 @@
                 let state = course.state.toLowerCase();
                 if (state === "completed") state = "active";
                 let gradesData = await app.getCourseGrades(course.course_id, course.state);
-                course.grade = gradesData.grade;
+                course.grade_to_date = gradesData.grade;
                 course.final_grade = gradesData.final_grade;
                 course.points = gradesData.points;
 

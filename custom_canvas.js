@@ -331,7 +331,6 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       featureCDD("surveys");
       featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
       if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-      // if (IS_ME || currentUser === 1891741) featureCDD("survey/getSurveyDataFromGoogle");
       featureBeta("department_specific/business_hs");
 
       //Survey

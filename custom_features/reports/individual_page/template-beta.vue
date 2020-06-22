@@ -32,10 +32,10 @@
             </div>
           </div>
         </div>
-        <table class='btech-report-table sortable' border='1'>
+        <table class='btech-report-table' border='1'>
           <thead border='1'>
             <tr>
-              <th v-for='column in visibleColumns' :key='column.name' :class='column.sortable_type'>{{column.name}}</th>
+              <th v-for='column in visibleColumns' :key='column.name' :class='column.sortable_type' @click="sortColumn(column.name);">{{column.name}}</th>
               <th>Term Grades</th>
               <th>Term Completed</th>
             </tr>

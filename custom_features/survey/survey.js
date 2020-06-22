@@ -11,13 +11,13 @@
   }
 
   function addHidden(inputId, value) {
-    form.append(`<input type="hidden" name="entry.` + inputId + `" value="` + value + `">`);
+    form.append(`<input type="hidden" name="` + inputId + `" value="` + value + `">`);
   }
 
-  function addTextArea(inputId, description) {
+  function addParagraphTextEntry(inputId, description) {
     form.append(`
 <p>` + description + `<br>
-<textarea name="entry.` + inputId + `" style="width:100%; box-sizing: border-box;"></textarea>
+<textarea name="` + inputId + `" style="width:100%; box-sizing: border-box;"></textarea>
 </p>
 `)
   }
@@ -25,7 +25,7 @@
   function addTextEntry(inputId, description) {
     form.append(`
 <p>` + description + `<br>
-<input type="text" name="entry.` + inputId + `" value="">
+<input type="text" name="` + inputId + `" value="">
 </p>
 `)
   }
@@ -34,7 +34,7 @@
     let input = $(`<p>` + description + `</p>`);
     let bodyRows = "";
     let select = $(`
-<select name='entry.` + inputId + `'>
+<select name='` + inputId + `'>
 <option value="" disabled selected>Select your option</option>
 </select>
 `);
@@ -55,7 +55,7 @@
       bodyRows += `
 <td style="width:` + buttonWidth + `%;text-align:center;color:#666;border-bottom:1px solid #d3d8d3;padding:0">
 <label style="display:block">
-<div style="padding:.5em .25em"><input type="radio" name="entry.` + inputId + `" value="` + list[i] + `" role="radio" aria-label="` + list[i] + `"></div>
+<div style="padding:.5em .25em"><input type="radio" name="` + inputId + `" value="` + list[i] + `" role="radio" aria-label="` + list[i] + `"></div>
 </label>
 </td>`;
     }
@@ -85,43 +85,99 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
 
   function addSubmitButton() {
     let submit = $('<input type="submit" name="submit" value="Submit" id="m_8914134288611702631ss-submit">');
-    submit.click(function() {
+    submit.click(function () {
       location.reload(true);
     })
     form.append('<br><br>');
     form.append(submit);
   }
 
+  //Can probably get rid of the ids
   let form = $(`
 <form
 action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSffvo5Uap6vY_DFz8x9nv7Evo7OnczEOtJXqWyzLNBnlmOhZQ/formResponse"
-method="POST" id="m_8914134288611702631ss-form" target="formSubmitFrame">
+method="POST" id="m_8914134288611702631ss-form"
+target="formSubmitFrame">
 </form>
 `);
+  //get the container
   let container = $('.btech-survey');
-  let courseId = ENV.COURSE_ID;
-  let userId = ENV.current_user.id;
-  container.append(form);
-  //add the iframe
-  container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow' class='btech-hidden'></iframe>");
-  let instructors = [];
-  await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
-    for (let i = 0; i < data.length; i++) {
-      let enrollment = data[i];
-      instructors.push(enrollment.user.name);
-    }
-  });
+  container.removeClass('btech-hidden'); //make it not hidden
+  let loading = $("<p>Loading Survey...</p>");
+  container.empty();
+  container.append(loading);
+  let classes = container.attr('class').split(/\s+/);
+  
+  //get the form id
+  let formId = "";
+  for (var c = 0; c < classes.length; c++) {
+    try {
+      formId = classes[c].match(/^form\-(.*)/)[1];
+    } catch (e) {}
+  }
 
-  addHidden(1336315446, CURRENT_COURSE_ID); //course
-  addHidden(772076137, hashId(userId)); //user id
-  addHidden(1711798596, CURRENT_DEPARTMENT_ID); //department id
-  addDropdown(1997963883, "Enter the name of your instructor.", instructors);
-  addButtons(1299309651, "This instructor promoted a learning atmosphere that was engaging, encouraging, and motivating.");
-  addButtons(223900859, "This instructor provided learning experiences that gave me an opportunity to answer questions and solve real-world problems.");
-  addButtons(384524980, "This instructor answered questions clearly and understandably.");
-  addButtons(1541617763, "This instructor responded within 24 hours to communication attempts and provided appropriate feedback on progress.");
-  addButtons(208869566, "This instructor was organized, prepared, and knowledgeable.");
-  addButtons(2102222775, "I would take another course from this instructor.");
-  addTextArea(668131032, "Other Comments:");
-  addSubmitButton();
+  //request the form data
+  if (formId !== "") {
+    var url = "https://script.google.com/a/btech.edu/macros/s/AKfycbwIgHHMYbih2XnJf7mjDw8g3grdeHhn9s6JIvH6Qg7mfZ0ElbWr/exec?formId=" + formId;
+    let formData = null;
+    await jQuery.ajax({
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      dataType: "jsonp"
+    }).done(function (res) {
+      formData = res;
+    });
+    console.log(formData);
+
+    //grab some default data
+    let courseId = ENV.COURSE_ID;
+    let userId = ENV.current_user.id;
+    container.append(form);
+    //add the iframe which will hold the submission
+    container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow' class='btech-hidden'></iframe>");
+
+    //get a list of instructors
+    //MAKE THIS REQUEST CONDITIONAL ON WHETHER OR NOT IT IS EVEN NEEDED
+    let instructors = [];
+    await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
+      for (let i = 0; i < data.length; i++) {
+        let enrollment = data[i];
+        instructors.push(enrollment.user.name);
+      }
+    });
+
+    //done loading
+    loading.remove();
+
+    //Add in the survey data
+    for (let i = 0; i < formData.length; i++) {
+      let item = formData[i];
+      //Set up prefilled hidden items
+      if (item.title == "COURSE") addHidden(item.entry[0], CURRENT_COURSE_ID); //course
+      else if (item.title == "USER") addHidden(item.entry[0], hashId(userId)); //course
+      else if (item.title == "PROGRAM") addHidden(item.entry[0], CURRENT_DEPARTMENT_ID); //course
+      else if (item.title == "INSTRUCTOR") addDropdown(item.entry[0], "Enter the name of your instructor.", instructors);
+      //add based on question type
+      //MUST MANUALLY ADD IN EACH QUESTION TYPE HERE AND ALSO MAKE SURE IT IS SET UP IN THE GOOGLE SCRIPTS PAGE OR THE DATA WON'T GET SENT
+      else {
+        for (let e = 0; e < item.entry.length; e++) {
+          let entry = item.entry[e];
+          switch (item.type) {
+            case "TEXT":
+              addTextEntry(entry, item.title);
+              break;
+            case "PARAGRAPH_TEXT":
+              addParagraphTextEntry(entry, item.title);
+              break;
+            case "GRID":
+              addButtons(entry, item.title, item.answers);
+              break;
+          }
+        }
+      }
+    }
+
+    addSubmitButton();
+  }
 })();
