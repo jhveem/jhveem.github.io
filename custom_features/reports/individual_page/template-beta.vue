@@ -6,8 +6,8 @@
         <ul>
           <li @click="menu='report'">Student Course Report</li>
           <li @click="menu='period'">Grades Between Dates</li>
+          <li style='float: right;' v-on:click='close()'>X</li>
         </ul>
-        <span class='btech-close' v-on:click='close()'>&times;</span>
       </div>
       <div class='btech-modal-content-inner'>
         <div v-if="accessDenied">
