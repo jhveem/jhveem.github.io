@@ -251,11 +251,12 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
       $.getScript("https://jhveem.github.io/course_list/course_hours.js").done(() => {
         let currentUser = parseInt(ENV.current_user.id);
         const IS_ME = (currentUser === 1893418);
+        const IS_CDD = (CDDIDS.includes(currentUser))
         //GENERAL FEATURES
         if (IS_TEACHER) {
           feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-          if (!IS_ME) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-          if (IS_ME) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          if (!IS_CDD) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          if (IS_CDD) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
         }
         //COURSE FEATURES
         let rCheckInCourse = /^\/courses\/([0-9]+)/;
