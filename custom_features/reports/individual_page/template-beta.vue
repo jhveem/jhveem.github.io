@@ -93,12 +93,16 @@
                 </tbody>
                 <tfoot border='1'>
                   <tr>
+                    <td><b>Weighted Grade To Date</b></td>
+                    <td>{{weightedGradeForTerm()}}%</td>
+                  </tr>
+                  <tr>
                     <td><b>Hours Completed</b></td>
                     <td>{{sumHoursCompleted()}}</td>
                   </tr>
                   <tr>
-                    <td><b>Weighted Grade To Date</b></td>
-                    <td>{{weightedGradeForTerm()}}%</td>
+                    <td><b>Estimated Required Hours</b></td>
+                    <td><input v-modal="esimatedHoursEnrolled" type="text"></td>
                   </tr>
                   <tr>
                     <td><b>Weighted Final Grade</b></td>

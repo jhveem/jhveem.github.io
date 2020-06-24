@@ -75,6 +75,7 @@
               submissionDatesStart: undefined,
               submissionDatesEnd: undefined,
               courseAssignmentGroups: {},
+              estimatedHoursEnrolled: 0,
               columns: [
                 new Column('Name', '', false, 'string', false, false),
                 new Column('State', '', false, 'string', false),
@@ -135,19 +136,7 @@
               return "N/A";
             },
             weightedFinalGradeForTerm() {
-              let count = 0;
-              let hoursTotal = 0;
-              for (let c = 0; c < this.courses.length; c++) {
-                let course = this.courses[c];
-                let courseId = course.course_id;
-                let hours = this.hoursBetweenDates[courseId];
-                if (hours !== undefined) {
-                  count += 1;
-                  hoursTotal += hours;
-                }
-              }
-              let averageHours = hoursTotal / count;
-              let hoursEnrolled = averageHours; //might change how this is calculated because this doesn't really make sense. Maybe user has to select one? Consult on this.
+              let hoursEnrolled = this.estimatedHoursEnrolled; //might change how this is calculated because this doesn't really make sense. Maybe user has to select one? Consult on this.
               let requiredHours = hoursEnrolled * .67;
               let hoursCompleted = this.sumHoursCompleted();
               let grade = this.weightedGradeForTerm();
@@ -330,6 +319,20 @@
               this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
               this.progressBetweenDates = JSON.parse(JSON.stringify(progressBetweenDates));
               this.hoursBetweenDates = JSON.parse(JSON.stringify(hoursBetweenDates));
+              //estimate the hours enrolled from the hours between dates data collected
+              //this value can be edited by the instructor
+              let count = 0;
+              let hoursTotal = 0;
+              for (let c = 0; c < this.courses.length; c++) {
+                let course = this.courses[c];
+                let courseId = course.course_id;
+                let hours = this.hoursBetweenDates[courseId];
+                if (hours !== undefined) {
+                  count += 1;
+                  hoursTotal += hours;
+                }
+              }
+              this.estimatedHoursEnrolled = parseFloat((hoursTotal / count).toFixed(2));
             },
             parseDate(dateString) {
               if (dateString == undefined) return undefined;
