@@ -288,7 +288,8 @@
             },
             async getSubmissionData(courseId) {
               let subs = await canvasGet("/api/v1/courses/" + courseId + "/students/submissions", {
-                'student_ids': [this.userId]
+                'student_ids': [this.userId],
+                'include': ['assignment']
               })
               console.log(subs);
               return subs;
