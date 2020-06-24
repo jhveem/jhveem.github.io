@@ -286,17 +286,11 @@
               let date = new Date(year, month, day);
               return date;
             },
-            async getCourseAssignments(courseId) {
-              let subs = await canvasGet("/api/v1/courses/" + courseId + "/students/submissions", {
-                'student_ids': [this.userId]
-              })
-              this.submissionData[courseId] = subs;
-              return subs;
-            },
             async getSubmissionData(courseId) {
               let subs = await canvasGet("/api/v1/courses/" + courseId + "/students/submissions", {
                 'student_ids': [this.userId]
               })
+              console.log(subs);
               return subs;
             },
             async newCourse(id, state, name, year) {
