@@ -69,7 +69,8 @@
               userId: null,
               gradesBetweenDates: {},
               progressBetweenDates: {},
-              hoursAssignmentId: {},
+              hoursAssignmentData: {},
+              hoursBetweenDates: {},
               courses: {},
               submissionDatesStart: undefined,
               submissionDatesEnd: undefined,
@@ -198,6 +199,7 @@
             async calcGradesBetweenDates() {
               let gradesBetweenDates = {};
               let progressBetweenDates = {};
+              let hoursBetweenDates = {};
               let startDate = this.parseDate(this.submissionDatesStart);
               let endDate = this.parseDate(this.submissionDatesEnd);
               //break if a date is undefined
@@ -208,6 +210,7 @@
                 let courseId = this.courses[i].course_id;
                 let subs = this.submissionData[courseId];
                 if (subs !== undefined) {
+                  //get the data for all submissions
                   let subData = {};
                   for (let s = 0; s < subs.length; s++) {
                     let sub = subs[s];
@@ -215,6 +218,8 @@
                       subData[sub.assignment_id] = sub;
                     }
                   }
+
+                  //weight grades based on assignment group weighting and hours completed in the course
                   let assignmentGroups = this.courseAssignmentGroups[courseId];
                   console.log(assignmentGroups);
                   let currentWeighted = 0;
@@ -227,6 +232,7 @@
                       let currentPoints = 0;
                       let possiblePoints = 0;
                       let totalPoints = 0;
+                      //check each assignment to see if it was submitted within the date range and get the points earned as well as points possible
                       for (let a = 0; a < group.assignments.length; a++) {
                         let assignment = group.assignments[a];
                         if (assignment.published) {
@@ -244,11 +250,13 @@
 
                         }
                       }
+                      //update info for the submission/earned points values
                       if (possiblePoints > 0) {
                         let groupScore = currentPoints / possiblePoints;
                         currentWeighted += groupScore * group.group_weight;
                         totalWeightsSubmitted += group.group_weight;
                       }
+                      //update info for total possible points values 
                       if (totalPoints > 0) {
                         let progress = possiblePoints / totalPoints;
                         totalProgress += progress * group.group_weight;
@@ -256,6 +264,7 @@
                       }
                     }
                   }
+                  //if there are any points possible in this course, put out some summary grades data
                   if (totalWeights > 0) {
                     let output;
                     let weightedGrade = Math.round(currentWeighted / totalWeights * 10000) / 100;
@@ -272,11 +281,16 @@
                     }
                     progressBetweenDates[courseId] = output;
                   }
+                  if (this.hoursAssignmentData[courseId] != null) {
+                    let hoursData = hoursAssignmentData[courseId];
+                    console.log(hoursData);
+                  }
+
                 }
               }
               this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
               this.progressBetweenDates = JSON.parse(JSON.stringify(progressBetweenDates));
-
+              this.hoursBetweenDates = JSON.parse(JSON.stringify(hoursBetweenDates));
             },
             parseDate(dateString) {
               if (dateString == undefined) return undefined;
@@ -288,16 +302,19 @@
               return date;
             },
             async getSubmissionData(courseId) {
+              let app = this;
               let subs = await canvasGet("/api/v1/courses/" + courseId + "/students/submissions", {
-                'student_ids': [this.userId],
+                'student_ids': [app.userId],
                 'include': ['assignment']
               })
-              this.hoursAssignmentId[courseId] = null;
+              this.hoursAssignmentData[courseId] = null;
               for (let s = 0; s < subs.length; s++) {
                 let sub = subs[s];
                 let assignment = sub.assignment;
                 if (assignment.name.toLowerCase() === "hours") {
-                  this.hoursAssignmentId[courseId] = assignment.id;
+                  await $.get("/api/v1/courses/"+courseId+"/gradebook_history/feed?user_id="+app.userId+"&assignment_id="+assignment.id).done(function(data) {
+                    app.hoursAssignmentData[courseId] = data;
+                  })
                   console.log(sub.grade);
                 }
               }
