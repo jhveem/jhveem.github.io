@@ -291,6 +291,11 @@
                 'student_ids': [this.userId],
                 'include': ['assignment']
               })
+              for (let s = 0; s < subs.length; s++) {
+                let sub = subs[a];
+                let assignment = sub.assignment;
+                console.log(assignment.name);
+              }
               console.log(subs);
               return subs;
             },
