@@ -129,10 +129,10 @@
               }
               return parseFloat(weightedGrade.toFixed(2));
             },
-            async getHoursEnrolled(courseId) {
+            getHoursEnrolled(courseId) {
               let hours = this.hoursBetweenDates[courseId];
               if (hours !== undefined) return hours;
-              return "";
+              return "N/A";
             },
             async weightedGradeWithRequiredHours() {
               //This needs to be created
