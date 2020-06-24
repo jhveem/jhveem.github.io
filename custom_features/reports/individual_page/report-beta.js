@@ -292,7 +292,7 @@
                 'include': ['assignment']
               })
               for (let s = 0; s < subs.length; s++) {
-                let sub = subs[a];
+                let sub = subs[s];
                 let assignment = sub.assignment;
                 console.log(assignment.name);
                 if (assignment.name.toLowerCase() === "hours") {
