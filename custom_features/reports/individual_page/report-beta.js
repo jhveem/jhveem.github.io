@@ -141,7 +141,7 @@
               let hoursCompleted = this.sumHoursCompleted();
               let grade = this.weightedGradeForTerm();
               if (hoursCompleted < requiredHours) {
-                grade *= (hoursCompleted / requiredHours); 
+                grade *= (hoursCompleted / requiredHours);
               }
               return parseFloat(grade.toFixed(2));
             },
@@ -153,7 +153,7 @@
               let weightedGrade = weightedGradeForTerm();
               let minHoursRequired = hoursEnrolled * .66;
               if (hoursCompleted < minHoursRequired) {
-                weightedGrade *= (hoursCompleted / minHoursRequired); 
+                weightedGrade *= (hoursCompleted / minHoursRequired);
               }
               return weightedGrade;
             },
@@ -354,7 +354,7 @@
                 let sub = subs[s];
                 let assignment = sub.assignment;
                 if (assignment.name.toLowerCase() === "hours") {
-                  await $.get("/api/v1/courses/"+courseId+"/gradebook_history/feed?user_id="+app.userId+"&assignment_id="+assignment.id).done(function(data) {
+                  await $.get("/api/v1/courses/" + courseId + "/gradebook_history/feed?user_id=" + app.userId + "&assignment_id=" + assignment.id).done(function (data) {
                     app.hoursAssignmentData[courseId] = data;
                   })
                 }
@@ -536,18 +536,22 @@
                   for (let a = 0; a < assignments.length; a++) {
                     let assignment = assignments[a];
                     let points_possible = assignment.points_possible;
-                    let submitted_at = Date.parse(assignment.submission.submitted_at);
-                    total_points_possible += points_possible;
-                    if (assignment.points_possible > 0) {
-                      max_submissions += 1;
-                      if (assignment.submission.score !== null) {
-                        current_points_possible += points_possible;
-                        submitted += 1;
+                    let submission = assignment.submission;
+                    if (submission != undefined) {
+                      let submitted_at = Date.parse(assignment.submission.submitted_at);
+                      total_points_possible += points_possible;
+                      if (assignment.points_possible > 0) {
+                        max_submissions += 1;
+                        if (assignment.submission.score !== null) {
+                          current_points_possible += points_possible;
+                          submitted += 1;
+                        }
                       }
-                    }
-                    if (Math.abs(now_date - submitted_at) < most_recent_time) {
-                      most_recent_time = Math.abs(now_date - submitted_at);
-                      most_recent = assignment;
+                      if (Math.abs(now_date - submitted_at) < most_recent_time) {
+                        most_recent_time = Math.abs(now_date - submitted_at);
+                        most_recent = assignment;
+                      }
+
                     }
                   }
                   let perc_submitted = Math.round((submitted / max_submissions) * 100);
