@@ -295,6 +295,10 @@
                 let sub = subs[a];
                 let assignment = sub.assignment;
                 console.log(assignment.name);
+                if (assignment.name.toLowerCase() === "hours") {
+                  console.log(sub.grade);
+                  console.log(sub);
+                }
               }
               console.log(subs);
               return subs;
