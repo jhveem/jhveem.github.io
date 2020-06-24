@@ -149,6 +149,9 @@
               let requiredHours = hoursEnrolled * .67;
               let hoursCompleted = this.sumHoursCompleted();
               let grade = this.weightedGradeForTerm();
+              console.log(hoursCompleted);
+              console.log(requiredHours);
+              console.log(grade);
               if (hoursCompleted < requiredHours) {
                 grade *= (hoursCompleted / requiredHours); 
               }
