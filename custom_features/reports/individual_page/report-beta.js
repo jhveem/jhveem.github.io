@@ -69,6 +69,7 @@
               userId: null,
               gradesBetweenDates: {},
               progressBetweenDates: {},
+              hoursAssignmentId: {},
               courses: {},
               submissionDatesStart: undefined,
               submissionDatesEnd: undefined,
@@ -291,16 +292,15 @@
                 'student_ids': [this.userId],
                 'include': ['assignment']
               })
+              this.hoursAssignmentId[courseId] = null;
               for (let s = 0; s < subs.length; s++) {
                 let sub = subs[s];
                 let assignment = sub.assignment;
-                console.log(assignment.name);
                 if (assignment.name.toLowerCase() === "hours") {
+                  this.hoursAssignmentId[courseId] = assignment.id;
                   console.log(sub.grade);
-                  console.log(sub);
                 }
               }
-              console.log(subs);
               return subs;
             },
             async newCourse(id, state, name, year) {
