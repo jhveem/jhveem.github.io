@@ -141,11 +141,14 @@
                 let course = this.courses[c];
                 let courseId = course.course_id;
                 let hours = this.hoursBetweenDates[courseId];
+                console.log(hours);
                 count += 1;
                 hoursTotal += hours;
               }
+              console.log(hoursTotal);
               let averageHours = hoursTotal / count;
               let hoursEnrolled = averageHours; //might change how this is calculated because this doesn't really make sense. Maybe user has to select one? Consult on this.
+              console.log(hoursEnrolled);
               let requiredHours = hoursEnrolled * .67;
               let hoursCompleted = this.sumHoursCompleted();
               let grade = this.weightedGradeForTerm();
