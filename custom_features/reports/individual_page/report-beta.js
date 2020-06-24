@@ -282,11 +282,28 @@
                   }
                   if (this.hoursAssignmentData[courseId] != null) {
                     let hoursData = this.hoursAssignmentData[courseId];
-                    console.log(hoursData);
+                    let foundDate = null;
+                    for (let h = 0; h < hoursData.length; h++) {
+                      let hoursDatum = hoursData[h];
+                      let hoursDateString = hoursDatum.graded_at;
+                      let hoursDate = new Date(hoursDateString);
+                      //see if it's between the period dates, then make sure a date hasn't been found. if it's more recent or there's no previous data, update.
+                      if (hoursDate >= startDate && hoursDate <= endDate) {
+                        if (foundDate === null) {
+                          hoursBetweenDates[courseId] = hoursDatum.score;
+                          foundDate = hoursDate;
+                        } else if (hoursDate > foundDate) {
+                          //might be worth putting some kind of warning saying there's more than one date
+                          hoursBetweenDates[courseId] = hoursDatum.score;
+                          foundDate = hoursDate;
+                        }
+                      }
+                    }
                   }
 
                 }
               }
+              console.log(hoursBetweenDates);
               this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
               this.progressBetweenDates = JSON.parse(JSON.stringify(progressBetweenDates));
               this.hoursBetweenDates = JSON.parse(JSON.stringify(hoursBetweenDates));
@@ -328,6 +345,8 @@
               if (year !== null) {
                 await $.get(url).done(function (data) {
                   let crsCode = data.course_code;
+                  console.log(year);
+                  console.log(crsCode);
                   hours = COURSE_HOURS[year][crsCode];
                 })
               }
