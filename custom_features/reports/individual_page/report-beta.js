@@ -422,7 +422,9 @@
                   if (match) {
                     let text = $(this).text().trim();
                     let course_id = match[1];
-                    let state = text.match(/([A-Z|a-z]+),[\s]+?Enrolled as a Student/)[1];
+                    let state = "";
+                    let stateMatch = text.match(/([A-Z|a-z]+),[\s]+?Enrolled as a Student/);
+                    if (stateMatch !== null) state = stateMatch[1];
                     let year = null;
                     let yearData = $(this).find('span.subtitle').text().trim().match(/(2[0-9]{3}) /);
                     if (yearData != null) year = yearData[1];
