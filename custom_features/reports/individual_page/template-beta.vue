@@ -102,7 +102,7 @@
                   </tr>
                   <tr>
                     <td><b>Estimated Required Hours</b></td>
-                    <td><input v-model="estimatedHoursEnrolled" type="text"></td>
+                    <td><input style="padding: 0px 4px; margin: 0px;" v-model="estimatedHoursEnrolled" type="text"></td>
                   </tr>
                   <tr>
                     <td><b>Weighted Final Grade</b></td>
