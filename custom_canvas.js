@@ -334,6 +334,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         featureBeta("department_specific/business_hs");
+        featureCDD("welcome_banner", {}, /^\/$/);
 
         //Survey
         if (currentUser === 1507313) { //Lisa Balling
