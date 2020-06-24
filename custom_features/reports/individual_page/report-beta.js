@@ -221,7 +221,6 @@
 
                   //weight grades based on assignment group weighting and hours completed in the course
                   let assignmentGroups = this.courseAssignmentGroups[courseId];
-                  console.log(assignmentGroups);
                   let currentWeighted = 0;
                   let totalWeights = 0; //sum of all weight values for assignment groups
                   let totalWeightsSubmitted = 0; //sum of all weight values for assignment groups if at least one submitted assignment
@@ -282,7 +281,7 @@
                     progressBetweenDates[courseId] = output;
                   }
                   if (this.hoursAssignmentData[courseId] != null) {
-                    let hoursData = hoursAssignmentData[courseId];
+                    let hoursData = this.hoursAssignmentData[courseId];
                     console.log(hoursData);
                   }
 
@@ -315,7 +314,6 @@
                   await $.get("/api/v1/courses/"+courseId+"/gradebook_history/feed?user_id="+app.userId+"&assignment_id="+assignment.id).done(function(data) {
                     app.hoursAssignmentData[courseId] = data;
                   })
-                  console.log(sub.grade);
                 }
               }
               return subs;
