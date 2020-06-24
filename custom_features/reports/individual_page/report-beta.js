@@ -134,6 +134,26 @@
               if (hours !== undefined) return hours;
               return "N/A";
             },
+            weightedFinalGradeForTerm() {
+              let count = 0;
+              let hoursTotal = 0;
+              for (let c = 0; c < this.courses.length; c++) {
+                let course = this.courses[c];
+                let courseId = course.course_id;
+                let hours = this.hoursBetweenDates[courseId];
+                count += 1;
+                hoursTotal += hours;
+              }
+              let averageHours = hoursTotal / count;
+              let hoursEnrolled = averageHours; //might change how this is calculated because this doesn't really make sense. Maybe user has to select one? Consult on this.
+              let requiredHours = hoursEnrolled * .67;
+              let hoursCompleted = this.sumHoursCompleted();
+              let grade = this.weightedGradeForTerm();
+              if (hoursCompleted < requiredHours) {
+                grade *= (hoursCompleted / requiredHours); 
+              }
+              return parseFloat(grade.toFixed(2));
+            },
             async weightedGradeWithRequiredHours() {
               //This needs to be created
               //will take the weighted grade and then if the student does not complete at least 66% of the hours enrolled, they will have a reduction in their score based on ammount below that 66%

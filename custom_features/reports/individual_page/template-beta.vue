@@ -97,8 +97,12 @@
                     <td>{{sumHoursCompleted()}}</td>
                   </tr>
                   <tr>
-                    <td><b>Weighted Grade</b></td>
+                    <td><b>Weighted Grade To Date</b></td>
                     <td>{{weightedGradeForTerm()}}%</td>
+                  </tr>
+                  <tr>
+                    <td><b>Weighted Final Grade</b></td>
+                    <td>{{weightedFinalGradeForTerm()}}%</td>
                   </tr>
                 </tfoot>
               </table>
