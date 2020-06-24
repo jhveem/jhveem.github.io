@@ -141,9 +141,11 @@
                 let course = this.courses[c];
                 let courseId = course.course_id;
                 let hours = this.hoursBetweenDates[courseId];
-                console.log(hours);
-                count += 1;
-                hoursTotal += hours;
+                if (hours !== undefined) {
+                  console.log(hours);
+                  count += 1;
+                  hoursTotal += hours;
+                }
               }
               console.log(hoursTotal);
               let averageHours = hoursTotal / count;
