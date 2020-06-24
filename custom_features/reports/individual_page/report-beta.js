@@ -142,21 +142,15 @@
                 let courseId = course.course_id;
                 let hours = this.hoursBetweenDates[courseId];
                 if (hours !== undefined) {
-                  console.log(hours);
                   count += 1;
                   hoursTotal += hours;
                 }
               }
-              console.log(hoursTotal);
               let averageHours = hoursTotal / count;
               let hoursEnrolled = averageHours; //might change how this is calculated because this doesn't really make sense. Maybe user has to select one? Consult on this.
-              console.log(hoursEnrolled);
               let requiredHours = hoursEnrolled * .67;
               let hoursCompleted = this.sumHoursCompleted();
               let grade = this.weightedGradeForTerm();
-              console.log(hoursCompleted);
-              console.log(requiredHours);
-              console.log(grade);
               if (hoursCompleted < requiredHours) {
                 grade *= (hoursCompleted / requiredHours); 
               }
@@ -333,7 +327,6 @@
 
                 }
               }
-              console.log(hoursBetweenDates);
               this.gradesBetweenDates = JSON.parse(JSON.stringify(gradesBetweenDates));
               this.progressBetweenDates = JSON.parse(JSON.stringify(progressBetweenDates));
               this.hoursBetweenDates = JSON.parse(JSON.stringify(hoursBetweenDates));
@@ -375,8 +368,6 @@
               if (year !== null) {
                 await $.get(url).done(function (data) {
                   let crsCode = data.course_code;
-                  console.log(year);
-                  console.log(crsCode);
                   hours = COURSE_HOURS[year][crsCode];
                 })
               }
