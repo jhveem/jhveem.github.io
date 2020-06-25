@@ -21,12 +21,16 @@
     editor.execCommand("mceReplaceContent", false, `<table class="btech-example-table" style="width: 90%; border-collapse: collapse; border-color: gray; margin-left: auto; margin-right: auto; height: 62px;" border="0" cellpadding="10">
       <tbody>
       <tr style="background-color: ` + color + `;">
-      <td style="width: 95%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;Title</span></strong></span></td>
+      <td style="width: 1%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;</span></strong></span></td>
+      <td style="width: 98%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;Title</span></strong></span></td>
+      <td style="width: 1%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;</span></strong></span></td>
       </tr>
       <tr style="height: 30px; background-color: #fff; color: #000;">
+      <td style="width: 1.72752%; height: 30px;"><span>&nbsp;</span></td>
       <td style="width: 95.1494%; height: 30px;">
       {$selection}
       </td>
+      <td style="width: 2.77243%; height: 30px;"><span>&nbsp;</span></td>
       </tr>
       </tbody>
       </table>`);
