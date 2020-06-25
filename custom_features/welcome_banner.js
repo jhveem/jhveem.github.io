@@ -11,7 +11,7 @@ main.prepend(`
     <div class="ic-notification__message">
       
       <span class="notification_message">
-        Welcome to Bridgerland. If you need help getting started, visit the <a href="/courses/480103" target="_blank" style="color: #000; cursor: pointer; text-decoration: underline;">Student Orientation</a> course.
+        Welcome to Bridgerland. For help getting started, visit the <a href="/courses/480103" target="_blank" style="color: #000; cursor: pointer; text-decoration: underline;">Student Orientation</a> course.
       </span>
     </div>
     

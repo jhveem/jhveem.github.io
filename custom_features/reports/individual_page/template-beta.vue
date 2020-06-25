@@ -101,7 +101,7 @@
                     <td>{{sumHoursCompleted()}}</td>
                   </tr>
                   <tr>
-                    <td><b>Estimated Required Hours</b></td>
+                    <td><b>Estimated Hours Enrolled</b></td>
                     <td><input style="padding: 0px 4px; margin: 0px;" v-model="estimatedHoursEnrolled" type="text"></td>
                   </tr>
                   <tr>
