@@ -255,8 +255,9 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         //GENERAL FEATURES
         if (IS_TEACHER) {
           feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-          if (!IS_CDD) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-          if (IS_CDD) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          if (BETA) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          else if (!IS_CDD) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          else if (IS_CDD) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
         }
         //COURSE FEATURES
         let rCheckInCourse = /^\/courses\/([0-9]+)/;
@@ -270,9 +271,6 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
 
           feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
-          //This may need to be removed/revisited until next COE if other issues pop up.
-          // feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
-          // feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
 
           feature('modules/convert_to_page');
 
@@ -351,3 +349,10 @@ window.ALLY_CFG = {
   'clientId': 1164
 };
 $.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
+
+
+/*  NOT CURRENTLY BEING USED  */
+//This may need to be removed/revisited until next COE if other issues pop up.
+//Problem was it was breaking link between quiz and the grade at the end so changes to scores weren't being caught
+// feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
+// feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);

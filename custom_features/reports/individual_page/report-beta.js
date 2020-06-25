@@ -538,11 +538,11 @@
                     let points_possible = assignment.points_possible;
                     let submission = assignment.submission;
                     if (submission != undefined) {
-                      let submitted_at = Date.parse(assignment.submission.submitted_at);
+                      let submitted_at = Date.parse(submission.submitted_at);
                       total_points_possible += points_possible;
                       if (assignment.points_possible > 0) {
                         max_submissions += 1;
-                        if (assignment.submission.score !== null) {
+                        if (submission.score !== null) {
                           current_points_possible += points_possible;
                           submitted += 1;
                         }
@@ -558,8 +558,10 @@
                   if (isNaN(perc_submitted)) perc_submitted = 0;
                   course.submissions = perc_submitted;
 
-                  //calculate color for last submission day
+                  //calc days since last submission from time since last submission
                   let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
+
+                  //Change output depending on status
                   if (course.state === 'Active') {
                     course.days_since_last_submission = most_recent_days;
                   } else if (course.state == 'Completed') {
