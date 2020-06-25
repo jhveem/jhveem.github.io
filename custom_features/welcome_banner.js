@@ -1,4 +1,20 @@
-let main = $("#main");
+let main = $("#dashboard");
 main.prepend(`
-  <div style="text-align: center; width: 100%; padding: 15px; background: var(--ic-brand-global-nav-bgd); color: #FFFFFF; font-size: 1.25em;">Welcome to Bridgerland. If you need help getting started, visit the <a href="/courses/480103" target="_blank" style="color: #FFF; cursor: pointer; text-decoration: underline;">Student Orientation</a> course.</div>
+<div class="ic-notification">
+  <div class="ic-notification__icon" role="presentation" style="background: #FFF;">
+    <img src="https://jhveem.github.io/media/btech_logo.png">
+    <span class="screenreader-only">
+      information
+    </span>
+  </div>
+  <div class="ic-notification__content">
+    <div class="ic-notification__message">
+      
+      <span class="notification_message">
+        Welcome to Bridgerland. If you need help getting started, visit the <a href="/courses/480103" target="_blank" style="color: #000; cursor: pointer; text-decoration: underline;">Student Orientation</a> course.
+      </span>
+    </div>
+    
+  </div>
+</div>
 `);
