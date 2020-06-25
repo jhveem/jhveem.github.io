@@ -26,11 +26,11 @@
       <td style="width: 1%; height: 32px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">&nbsp;</span></strong></span></td>
       </tr>
       <tr style="height: 30px; background-color: #fff; color: #000;">
-      <td style="width: 1.72752%; height: 30px;"><span>&nbsp;</span></td>
-      <td style="width: 95.1494%; height: 30px;">
+      <td style="width: 5%; height: 30px;"><span>&nbsp;</span></td>
+      <td style="width: 94%; height: 30px;">
       {$selection}
       </td>
-      <td style="width: 2.77243%; height: 30px;"><span>&nbsp;</span></td>
+      <td style="width: 1%; height: 30px;"><span>&nbsp;</span></td>
       </tr>
       </tbody>
       </table>`);
