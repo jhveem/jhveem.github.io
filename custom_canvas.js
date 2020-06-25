@@ -331,7 +331,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         featureCDD("surveys");
         featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-        featureCDD("welcome_banner", {}, /^\/$/);
+        if (IS_CDD || BETA) feature("welcome_banner", {}, /^\/$/);
         if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         featureBeta("department_specific/business_hs");
 
