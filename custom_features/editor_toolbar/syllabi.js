@@ -19,8 +19,6 @@
     });
   }
 
-  //GRADING VIEW
-  //This one has to come first so it doesn't have the submission view run on the grading page
   let schemeDiv = $(".btech-grading-scheme");
   if (schemeDiv.length > 0) {
     let table = $("<table></table>");
@@ -31,7 +29,6 @@
     });
     let rows = [];
     $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/grading_standards").done(function (data) {
-      console.log(data);
       schemeDiv.each(function () {
         $(this).removeClass('btech-hidden')
         $(this).empty();
@@ -92,6 +89,7 @@
   let groupDiv = $(".btech-assignment-groups");
   if (groupDiv.length > 0) {
     $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/assignment_groups").done(function (data) {
+      console.log(data);
       //Should include a check to make sure assignment groups has been enabled, but for now it'll be up to the instructor to know that.
       let table = $("<table></table>");
       groupDiv.append(table);
