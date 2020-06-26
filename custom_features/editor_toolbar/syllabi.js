@@ -111,7 +111,7 @@
       $(this).html("Loading...");
     });
   }
-  let iframe = $("<iframe style='display: none;' src='/courses/489318/grades'></iframe>");
+  let iframe = $("<iframe style='display: none;' src='/courses/"+CURRENT_COURSE_ID+"/grades'></iframe>");
   $('body').append(iframe);
   iframe.load(function () {
     let e = $(this)[0].contentWindow.ENV;
