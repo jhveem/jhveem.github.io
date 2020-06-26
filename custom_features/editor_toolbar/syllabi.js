@@ -19,20 +19,11 @@
     });
   }
 
-  let schemeDiv = $(".btech-grading-scheme");
-  if (schemeDiv.length > 0) {
-    let table = $("<table></table>");
-    schemeDiv.each(function () {
-      $(this).removeAttr("style");
-      $(this).empty();
-      $(this).html("Loading...");
-    });
-    let rows = [];
-    $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/grading_standards").done(function (data) {
-      schemeDiv.each(function () {
-        $(this).removeClass('btech-hidden')
-        $(this).empty();
-      });
+  function genSchemeElements(data) {
+    let schemeDiv = $(".btech-grading-scheme");
+    if (schemeDiv.length > 0) {
+      let table = $("<table></table>");
+      let rows = [];
       if (data.length > 0) {
         let header = $("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Rating</th><th style='border: 1px solid black; padding: 4px 8px;'>Percent</th></tr>")
         table.append(header);
@@ -83,13 +74,12 @@
           //may want to then remove the original table so it's not taking up space
         });
       }
-    });
+    }
   }
 
-  let groupDiv = $(".btech-assignment-groups");
-  if (groupDiv.length > 0) {
-    $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/assignment_groups?per_page=100").done(function (data) {
-      //Should include a check to make sure assignment groups has been enabled, but for now it'll be up to the instructor to know that.
+  genAssignmentElements(data) {
+    let groupDiv = $(".btech-assignment-groups");
+    if (groupDiv.length > 0) {
       let table = $("<table></table>");
       groupDiv.append(table);
       table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Submission Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
@@ -101,10 +91,34 @@
       }
       groupDiv.each(function () {
         $(this).empty();
-        $(this).removeAttr("style");
-        $(this).removeClass('btech-hidden')
         $(this).append(table.clone());
       });
+    }
+  }
+  let groupDiv = $(".btech-assignment-groups");
+  if (groupDiv.length > 0) {
+    groupDiv.each(function () {
+      $(this).removeAttr("style");
+      $(this).empty();
+      $(this).html("Loading...");
     });
   }
+  let schemeDiv = $(".btech-grading-scheme");
+  if (schemeDiv.length > 0) {
+    schemeDiv.each(function () {
+      $(this).removeAttr("style");
+      $(this).empty();
+      $(this).html("Loading...");
+    });
+  }
+  let iframe = $("<iframe style='display: none;' src='/courses/489318/grades'></iframe>");
+  $('body').append(iframe);
+  iframe.load(function () {
+    let ENV = $(this)[0].contentWindow.ENV;
+    let schemeData = ENV.grading_scheme;
+    genSchemeElements(schemeData);
+    let assignmentGroups = ENV.assignmentGroups;
+    genAssignmentElements(assignmentGroups);
+    $(this).remove();
+  });
 })();
