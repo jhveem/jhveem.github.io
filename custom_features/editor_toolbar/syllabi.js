@@ -84,13 +84,11 @@
         assignmentData = data;
       });
       data = assignmentData;
-      console.log(data);
       let table = $("<table></table>");
       groupDiv.append(table);
       table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Submission Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
       for (let i = 0; i < data.length; i++) {
         let group = data[i];
-        console.log(group);
         if (group.group_weight > 0) {
           table.append("<tr><td style='border: 1px solid black; padding: 4px 8px;'>" + group.name + "</td><td style='border: 1px solid black; padding: 4px 8px;'>" + (group.group_weight) + "%</td>");
         }
