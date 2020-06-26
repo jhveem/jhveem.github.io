@@ -88,8 +88,7 @@
 
   let groupDiv = $(".btech-assignment-groups");
   if (groupDiv.length > 0) {
-    $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/assignment_groups").done(function (data) {
-      console.log(data);
+    $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/assignment_groups?per_page=100").done(function (data) {
       //Should include a check to make sure assignment groups has been enabled, but for now it'll be up to the instructor to know that.
       let table = $("<table></table>");
       groupDiv.append(table);
