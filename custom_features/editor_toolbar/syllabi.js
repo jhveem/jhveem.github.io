@@ -31,6 +31,7 @@
         let pCells = [];
         for (let s = 0; s < data.length; s++) {
           let line = data[s];
+          console.log(line);
           let value = "";
           let row = $("<tr></tr>");
           let names = line.name.split("/");
