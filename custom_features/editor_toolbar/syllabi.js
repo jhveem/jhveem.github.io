@@ -28,10 +28,9 @@
         let header = $("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Rating</th><th style='border: 1px solid black; padding: 4px 8px;'>Percent</th></tr>")
         table.append(header);
         //It's possible that there can be more than one grading standard, in which case I'll have to figure out how to find the set one or current one
-        let canvasData = data[0];
         let pCells = [];
-        for (let s = 0; s < canvasData.grading_scheme.length; s++) {
-          let line = canvasData.grading_scheme[s];
+        for (let s = 0; s < data.length; s++) {
+          let line = data[s];
           let value = "";
           let row = $("<tr></tr>");
           let names = line.name.split("/");
