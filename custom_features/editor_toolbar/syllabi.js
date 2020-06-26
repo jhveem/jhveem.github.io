@@ -80,7 +80,7 @@
     let groupDiv = $(".btech-assignment-groups");
     let assignmentData = [];
     if (groupDiv.length > 0) {
-      await $.get("/api/v1/courses/"+CURRENT_COURSE_ID+"/assignment_groups").done(function(data) {
+      await $.get("/api/v1/courses/"+CURRENT_COURSE_ID+"/assignment_groups?page_count=100").done(function(data) {
         assignmentData = data;
       });
       data = assignmentData;
