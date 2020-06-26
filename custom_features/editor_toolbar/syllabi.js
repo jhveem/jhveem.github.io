@@ -31,6 +31,7 @@
     });
     let rows = [];
     $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/grading_standards").done(function (data) {
+      console.log(data);
       schemeDiv.each(function () {
         $(this).removeClass('btech-hidden')
         $(this).empty();
