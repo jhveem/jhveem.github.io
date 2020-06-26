@@ -77,7 +77,7 @@
     }
   }
 
-  genAssignmentElements(data) {
+  function genAssignmentElements(data) {
     let groupDiv = $(".btech-assignment-groups");
     if (groupDiv.length > 0) {
       let table = $("<table></table>");
