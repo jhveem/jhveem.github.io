@@ -31,7 +31,6 @@
         let pCells = [];
         for (let s = 0; s < data.length; s++) {
           let line = data[s];
-          console.log(line);
           let value = "";
           let row = $("<tr></tr>");
           let names = line[0].split("/");
@@ -85,6 +84,7 @@
       table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Submission Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
       for (let i = 0; i < data.length; i++) {
         let group = data[i];
+        console.log(group);
         if (group.group_weight > 0) {
           table.append("<tr><td style='border: 1px solid black; padding: 4px 8px;'>" + group.name + "</td><td style='border: 1px solid black; padding: 4px 8px;'>" + (group.group_weight) + "%</td>");
         }
@@ -120,7 +120,7 @@
     console.log(e);
     let schemeData = e.grading_scheme;
     genSchemeElements(schemeData);
-    let assignmentGroups = e.assignmentGroups;
+    let assignmentGroups = e.assignment_groups;
     genAssignmentElements(assignmentGroups);
     $(this).remove();
   });
