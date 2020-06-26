@@ -114,11 +114,11 @@
   let iframe = $("<iframe style='display: none;' src='/courses/489318/grades'></iframe>");
   $('body').append(iframe);
   iframe.load(function () {
-    let ENV = $(this)[0].contentWindow.ENV;
-    console.log(ENV);
-    let schemeData = ENV.grading_scheme;
+    let e = $(this)[0].contentWindow.ENV;
+    console.log(e);
+    let schemeData = e.grading_scheme;
     genSchemeElements(schemeData);
-    let assignmentGroups = ENV.assignmentGroups;
+    let assignmentGroups = e.assignmentGroups;
     genAssignmentElements(assignmentGroups);
     $(this).remove();
   });
