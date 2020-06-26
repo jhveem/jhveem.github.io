@@ -60,7 +60,7 @@
             }
             value = "100% - " + (line.value * 100) + "%";
           } else {
-            value = (line.value * 100) + "% - " + (canvasData.grading_scheme[s - 1].value * 100) + "%";
+            value = (line.value * 100) + "% - " + (data[s - 1].value * 100) + "%";
           }
           row.append("<td style='border: 1px solid black; padding: 4px 8px;'>" + value + "</td>");
           rows.push(row);
