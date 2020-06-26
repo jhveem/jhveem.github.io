@@ -34,7 +34,7 @@
           console.log(line);
           let value = "";
           let row = $("<tr></tr>");
-          let names = line.name.split("/");
+          let names = line[0].split("/");
           for (let i = 0; i < names.length; i++) {
             let name = names[i].trim();
             let cell = $("<td style='border: 1px solid black; padding: 4px 8px;' rowspan='1'>" + name + "</td>");
@@ -59,9 +59,9 @@
             for (let i = 0; i < tds.length; i++) {
               pCells[i] = tds[i];
             }
-            value = "100% - " + (line.value * 100) + "%";
+            value = "100% - " + (line.[1]* 100) + "%";
           } else {
-            value = (line.value * 100) + "% - " + (data[s - 1].value * 100) + "%";
+            value = (line[1] * 100) + "% - " + (data[s - 1][1] * 100) + "%";
           }
           row.append("<td style='border: 1px solid black; padding: 4px 8px;'>" + value + "</td>");
           rows.push(row);
