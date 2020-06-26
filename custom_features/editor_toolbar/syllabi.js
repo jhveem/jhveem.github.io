@@ -25,7 +25,6 @@
     //Could use the grade scheme api, but it doens't tell you which is the active scheme, and it takes up to 3 calls to get that, plus the return data might have a slightly different format
     if (IS_TEACHER) {
       await $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/student_view_student").done(function (data) {
-        console.log(data);
         iframe = $("<iframe style='display: none;' src='/courses/" + CURRENT_COURSE_ID + "/grades/" + data.id + "'></iframe>");
       });
     } else {
