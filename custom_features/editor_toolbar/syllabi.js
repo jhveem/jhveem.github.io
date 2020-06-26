@@ -118,7 +118,16 @@
     });
   }
   genAssignmentElements();
-  let iframe = $("<iframe style='display: none;' src='/courses/"+CURRENT_COURSE_ID+"/grades'></iframe>");
+
+  let iframe = null;
+  if (IS_TEACHER) {
+    let testStudent = await $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/student_view_student").done(function(data) {
+      console.log(data);
+      iframe = $("<iframe style='display: none;' src='/courses/"+CURRENT_COURSE_ID+"/grades/"+data.id+"'></iframe>");
+    });
+  } else {
+    iframe = $("<iframe style='display: none;' src='/courses/"+CURRENT_COURSE_ID+"/grades'></iframe>");
+  }
   $('body').append(iframe);
   iframe.load(function () {
     let e = $(this)[0].contentWindow.ENV;
