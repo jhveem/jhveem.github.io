@@ -84,7 +84,7 @@
         assignmentData = data;
       });
       data = assignmentData;
-      console.log(dat);
+      console.log(data);
       let table = $("<table></table>");
       groupDiv.append(table);
       table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Submission Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
