@@ -19,68 +19,86 @@
     });
   }
 
-  function genSchemeElements(data) {
-    let schemeDiv = $(".btech-grading-scheme");
-    if (schemeDiv.length > 0) {
-      let table = $("<table></table>");
-      let rows = [];
-      if (data.length > 0) {
-        let header = $("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Rating</th><th style='border: 1px solid black; padding: 4px 8px;'>Percent</th></tr>")
-        table.append(header);
-        //It's possible that there can be more than one grading standard, in which case I'll have to figure out how to find the set one or current one
-        let pCells = [];
-        for (let s = 0; s < data.length; s++) {
-          let line = data[s];
-          let value = "";
-          let row = $("<tr></tr>");
-          let names = line[0].split("/");
-          for (let i = 0; i < names.length; i++) {
-            let name = names[i].trim();
-            let cell = $("<td style='border: 1px solid black; padding: 4px 8px;' rowspan='1'>" + name + "</td>");
-            if (s === 0) {
-              row.append(cell);
-            } else {
-              let pCell = pCells[i];
-              let pName = $(pCell).text().trim();
-              if (pName === name) {
-                let numRows = parseInt($(pCell).attr('rowspan'));
-                $(pCell).attr('rowspan', numRows + 1);
-              } else {
-                pCells[i] = cell;
+  function genSchemeElements() {
+    let iframe = null;
+    //if the student, pull their grade scheme data from their grades page, if a teacher, just use the test student page
+    //Could use the grade scheme api, but it doens't tell you which is the active scheme, and it takes up to 3 calls to get that, plus the return data might have a slightly different format
+    if (IS_TEACHER) {
+      await $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/student_view_student").done(function (data) {
+        console.log(data);
+        iframe = $("<iframe style='display: none;' src='/courses/" + CURRENT_COURSE_ID + "/grades/" + data.id + "'></iframe>");
+      });
+    } else {
+      iframe = $("<iframe style='display: none;' src='/courses/" + CURRENT_COURSE_ID + "/grades'></iframe>");
+    }
+    $('body').append(iframe);
+    iframe.load(function () {
+      let e = $(this)[0].contentWindow.ENV;
+      console.log(e);
+      let data = e.grading_scheme;
+      $(this).remove();
+      let schemeDiv = $(".btech-grading-scheme");
+      if (schemeDiv.length > 0) {
+        let table = $("<table></table>");
+        let rows = [];
+        if (data.length > 0) {
+          let header = $("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Rating</th><th style='border: 1px solid black; padding: 4px 8px;'>Percent</th></tr>")
+          table.append(header);
+          //It's possible that there can be more than one grading standard, in which case I'll have to figure out how to find the set one or current one
+          let pCells = [];
+          for (let s = 0; s < data.length; s++) {
+            let line = data[s];
+            let value = "";
+            let row = $("<tr></tr>");
+            let names = line[0].split("/");
+            for (let i = 0; i < names.length; i++) {
+              let name = names[i].trim();
+              let cell = $("<td style='border: 1px solid black; padding: 4px 8px;' rowspan='1'>" + name + "</td>");
+              if (s === 0) {
                 row.append(cell);
+              } else {
+                let pCell = pCells[i];
+                let pName = $(pCell).text().trim();
+                if (pName === name) {
+                  let numRows = parseInt($(pCell).attr('rowspan'));
+                  $(pCell).attr('rowspan', numRows + 1);
+                } else {
+                  pCells[i] = cell;
+                  row.append(cell);
+                }
               }
             }
-          }
 
-          if (s == 0) {
-            let tds = row.find("td");
-            $(header.find("th")[0]).attr("colspan", names.length);
-            for (let i = 0; i < tds.length; i++) {
-              pCells[i] = tds[i];
+            if (s == 0) {
+              let tds = row.find("td");
+              $(header.find("th")[0]).attr("colspan", names.length);
+              for (let i = 0; i < tds.length; i++) {
+                pCells[i] = tds[i];
+              }
+              value = "100% - " + (line[1] * 100) + "%";
+            } else {
+              value = (line[1] * 100) + "% - " + (data[s - 1][1] * 100) + "%";
             }
-            value = "100% - " + (line[1]* 100) + "%";
-          } else {
-            value = (line[1] * 100) + "% - " + (data[s - 1][1] * 100) + "%";
+            row.append("<td style='border: 1px solid black; padding: 4px 8px;'>" + value + "</td>");
+            rows.push(row);
+            table.append(row);
           }
-          row.append("<td style='border: 1px solid black; padding: 4px 8px;'>" + value + "</td>");
-          rows.push(row);
-          table.append(row);
+          schemeDiv.each(function () {
+            $(this).empty();
+            //needs to be cloned or it just keeps moving the table down an element
+            $(this).append(table.clone());
+            //may want to then remove the original table so it's not taking up space
+          });
         }
-        schemeDiv.each(function () {
-          $(this).empty();
-          //needs to be cloned or it just keeps moving the table down an element
-          $(this).append(table.clone());
-          //may want to then remove the original table so it's not taking up space
-        });
       }
-    }
+    });
   }
 
   async function genAssignmentElements() {
     let groupDiv = $(".btech-assignment-groups");
     let assignmentData = [];
     if (groupDiv.length > 0) {
-      await $.get("/api/v1/courses/"+CURRENT_COURSE_ID+"/assignment_groups?per_page=100").done(function(data) {
+      await $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/assignment_groups?per_page=100").done(function (data) {
         assignmentData = data;
       });
       data = assignmentData;
@@ -118,22 +136,5 @@
     });
   }
   genAssignmentElements();
-
-  let iframe = null;
-  if (IS_TEACHER) {
-    let testStudent = await $.get("/api/v1/courses/" + CURRENT_COURSE_ID + "/student_view_student").done(function(data) {
-      console.log(data);
-      iframe = $("<iframe style='display: none;' src='/courses/"+CURRENT_COURSE_ID+"/grades/"+data.id+"'></iframe>");
-    });
-  } else {
-    iframe = $("<iframe style='display: none;' src='/courses/"+CURRENT_COURSE_ID+"/grades'></iframe>");
-  }
-  $('body').append(iframe);
-  iframe.load(function () {
-    let e = $(this)[0].contentWindow.ENV;
-    console.log(e);
-    let schemeData = e.grading_scheme;
-    genSchemeElements(schemeData);
-    $(this).remove();
-  });
+  genSchemeElements();
 })();
