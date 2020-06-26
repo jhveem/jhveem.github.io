@@ -19,7 +19,7 @@
     });
   }
 
-  function genSchemeElements() {
+  async function genSchemeElements() {
     let iframe = null;
     //if the student, pull their grade scheme data from their grades page, if a teacher, just use the test student page
     //Could use the grade scheme api, but it doens't tell you which is the active scheme, and it takes up to 3 calls to get that, plus the return data might have a slightly different format
