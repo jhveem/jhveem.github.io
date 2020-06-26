@@ -98,6 +98,7 @@
   if (groupDiv.length > 0) {
     groupDiv.each(function () {
       $(this).removeAttr("style");
+      $(this).remoceClass("btech-hidden");
       $(this).empty();
       $(this).html("Loading...");
     });
@@ -106,6 +107,7 @@
   if (schemeDiv.length > 0) {
     schemeDiv.each(function () {
       $(this).removeAttr("style");
+      $(this).remoceClass("btech-hidden");
       $(this).empty();
       $(this).html("Loading...");
     });
