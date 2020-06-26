@@ -76,9 +76,14 @@
     }
   }
 
-  function genAssignmentElements(data) {
+  async function genAssignmentElements(data) {
     let groupDiv = $(".btech-assignment-groups");
+    let assignmentData = data;
     if (groupDiv.length > 0) {
+      await $.get("/api/v1/courses/"+CURRENT_COURSE_ID+"/assignment_groups").done(function(data) {
+        assignmentData = data;
+      });
+      console.log(assignmentData);
       let table = $("<table></table>");
       groupDiv.append(table);
       table.append("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Submission Type</th><th style='border: 1px solid black; padding: 4px 8px;'>Weight</th></tr>");
