@@ -115,6 +115,7 @@
   $('body').append(iframe);
   iframe.load(function () {
     let ENV = $(this)[0].contentWindow.ENV;
+    console.log(ENV);
     let schemeData = ENV.grading_scheme;
     genSchemeElements(schemeData);
     let assignmentGroups = ENV.assignmentGroups;
