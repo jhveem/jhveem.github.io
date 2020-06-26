@@ -59,7 +59,7 @@
             for (let i = 0; i < tds.length; i++) {
               pCells[i] = tds[i];
             }
-            value = "100% - " + (line.[1]* 100) + "%";
+            value = "100% - " + (line[1]* 100) + "%";
           } else {
             value = (line[1] * 100) + "% - " + (data[s - 1][1] * 100) + "%";
           }
