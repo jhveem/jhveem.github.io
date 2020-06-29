@@ -230,7 +230,7 @@
                       for (let c = 0; c < this.courseGrades.length; c++) {
                         if (this.courseGrades[c].course === course) {
                           this.courseGrades[c].grade = grade;
-                          await $.delete(window.location.hostname + "/submission_comments/" + this.courseGrades[c].comment_id);
+                          await $.delete(window.location.origin + "/submission_comments/" + this.courseGrades[c].comment_id);
                         }
                       }
                       if (!found) {
