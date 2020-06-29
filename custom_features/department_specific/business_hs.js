@@ -169,7 +169,7 @@
                   removeCourse: async function(course) {
                     for (let c = 0; c < this.courseGrades.length; c++) {
                       if (this.courseGrades[c].course === course.course) {
-                        await $.delete(window.location.hostname + "/submission_comments/" + this.courseGrades[c].comment_id);
+                        await $.delete(window.location.origin + "/submission_comments/" + this.courseGrades[c].comment_id);
                         this.courseGrades.splice(c, 1);
                       }
                     }
