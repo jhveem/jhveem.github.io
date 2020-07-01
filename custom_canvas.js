@@ -319,6 +319,9 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
           if (departmentId === 3841 || departmentId === 3947) { //cosmetology && master esthetics
             feature("department_specific/esthetics_cosmetology_services");
           }
+          if (departmentId === 3848) { //Interior Design
+            feature("rubrics/sortable");
+          }
         }
 
         //CDD ONLY
@@ -356,3 +359,19 @@ $.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
 //Problem was it was breaking link between quiz and the grade at the end so changes to scores weren't being caught
 // feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
 // feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
+
+
+
+let currentUser = parseInt(ENV.current_user.id)
+if (currentUser === 1638854) {
+    document.documentElement.style.setProperty('--ic-brand-global-nav-menu-item__text-color', '#00ff9d');
+    document.documentElement.style.setProperty('--ic-brand-global-nav-menu-item__text-color--active', '#00ff9d');
+    document.documentElement.style.setProperty('--ic-brand-global-nav-logo-bgd', '#ff00bb');
+    document.documentElement.style.setProperty('--ic-brand-global-nav-bgd', '#ff00bb');
+    document.documentElement.style.setProperty('--ic-brand-global-nav-ic-icon-svg-fill', '#8c00ff');
+    $('body').css({
+        'background-image': 'url("https://jhveem.github.io/media/mother-goose.jpg")',
+        'background-repeat': 'repeat',
+        'background-size': '250px',
+    });
+}
