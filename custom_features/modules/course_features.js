@@ -82,9 +82,16 @@
         if (modulesPage) {
           //get course id
           let pageName = await this.getSettingData('modules-page-header')
-          $.get("/api/v1/courses/" + feature.courseId + "/pages/" + pageName, function (data) {
-            moduleHeader.append(data.body);
-          });
+          //if FRONT-PAGE then just get the front page, otherwise, selec the specific page
+          if (pageName === "#FRONT PAGE#") {
+            $.get("/api/v1/courses/" + feature.courseId + "/front_page", function (data) {
+              moduleHeader.append(data.body);
+            });
+          } else {
+            $.get("/api/v1/courses/" + feature.courseId + "/pages/" + pageName, function (data) {
+              moduleHeader.append(data.body);
+            });
+          }
           if (IS_TEACHER) {
             let select = $("<select></select>");
             let noPage = $("<option selected>-no page-</option>");

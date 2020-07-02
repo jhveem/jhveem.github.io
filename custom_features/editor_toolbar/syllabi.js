@@ -44,6 +44,7 @@
           let header = $("<tr><th style='border: 1px solid black; padding: 4px 8px;'>Rating</th><th style='border: 1px solid black; padding: 4px 8px;'>Percent</th></tr>")
           table.append(header);
           //It's possible that there can be more than one grading standard, in which case I'll have to figure out how to find the set one or current one
+          //previous cell list for increasing the row span of the previously used cell if the same name
           let pCells = [];
           for (let s = 0; s < data.length; s++) {
             let line = data[s];
@@ -56,8 +57,12 @@
               if (s === 0) {
                 row.append(cell);
               } else {
+                //get previous cell, will be empty on first
                 let pCell = pCells[i];
+                //get the value of the previous cell
                 let pName = $(pCell).text().trim();
+                // if the previous cell is the same as this cell, just increase the rowspan of the previous cell
+                //else add a new cell
                 if (pName === name) {
                   let numRows = parseInt($(pCell).attr('rowspan'));
                   $(pCell).attr('rowspan', numRows + 1);
@@ -75,6 +80,8 @@
                 pCells[i] = tds[i];
               }
               value = "100% - " + Math.round(line[1] * 100) + "%";
+            } else if (s === data.length - 1) { 
+              
             } else {
               value = Math.round(line[1] * 100) + "% - " + Math.round(data[s - 1][1] * 100) + "%";
             }
