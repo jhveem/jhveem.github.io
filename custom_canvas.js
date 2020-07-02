@@ -361,7 +361,7 @@ $.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
 // feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
 
 
-
+/*
 let currentUser = parseInt(ENV.current_user.id)
 if (currentUser === 1638854) {
     document.documentElement.style.setProperty('--ic-brand-global-nav-menu-item__text-color', '#00ff9d');
@@ -369,9 +369,11 @@ if (currentUser === 1638854) {
     document.documentElement.style.setProperty('--ic-brand-global-nav-logo-bgd', '#ff00bb');
     document.documentElement.style.setProperty('--ic-brand-global-nav-bgd', '#ff00bb');
     document.documentElement.style.setProperty('--ic-brand-global-nav-ic-icon-svg-fill', '#8c00ff');
+    document.documentElement.style.setProperty('--ic-brand-header-image', 'url("https://jhveem.github.io/media/brijerland-logo.png")');
     $('body').css({
         'background-image': 'url("https://jhveem.github.io/media/mother-goose.jpg")',
         'background-repeat': 'repeat',
         'background-size': '250px',
     });
 }
+*/

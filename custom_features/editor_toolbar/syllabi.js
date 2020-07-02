@@ -76,7 +76,7 @@
               }
               value = "100% - " + (line[1] * 100) + "%";
             } else {
-              value = (line[1] * 100) + "% - " + (data[s - 1][1] * 100) + "%";
+              value = Math.round(line[1] * 100) + "% - " + Math.round(data[s - 1][1] * 100) + "%";
             }
             row.append("<td style='border: 1px solid black; padding: 4px 8px;'>" + value + "</td>");
             rows.push(row);
