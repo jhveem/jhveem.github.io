@@ -99,6 +99,8 @@
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
               select.append("<option value='#FRONT PAGE#'>Front Page</option>");
+              //For now, it's either no page or Front Page
+              /*
               for (let i = 0; i < data.length; i++) {
                 let pageData = data[i];
                 if (pageData.url !== 'btech-custom-settings') {
@@ -106,6 +108,7 @@
                   select.append(option);
                 }
               }
+              */
               if (pageName !== '') {
                 select.val(pageName).prop('selected', true);
               }
