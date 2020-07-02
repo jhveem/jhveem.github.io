@@ -85,7 +85,6 @@
           //if FRONT-PAGE then just get the front page, otherwise, selec the specific page
           if (pageName === "#FRONT PAGE#") {
             $.get("/api/v1/courses/" + feature.courseId + "/front_page", function (data) {
-              console.log(data);
               moduleHeader.append(data.body);
             });
           } else {
@@ -99,6 +98,7 @@
             select.append(noPage);
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
+              select.append("<option value='#FRONT PAGE#'>Front Page</option>");
               for (let i = 0; i < data.length; i++) {
                 let pageData = data[i];
                 if (pageData.url !== 'btech-custom-settings') {
