@@ -74,7 +74,7 @@
               for (let i = 0; i < tds.length; i++) {
                 pCells[i] = tds[i];
               }
-              value = "100% - " + (line[1] * 100) + "%";
+              value = "100% - " + Math.round(line[1] * 100) + "%";
             } else {
               value = Math.round(line[1] * 100) + "% - " + Math.round(data[s - 1][1] * 100) + "%";
             }
