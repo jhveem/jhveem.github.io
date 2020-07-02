@@ -85,6 +85,7 @@
           //if FRONT-PAGE then just get the front page, otherwise, selec the specific page
           if (pageName === "#FRONT PAGE#") {
             $.get("/api/v1/courses/" + feature.courseId + "/front_page", function (data) {
+              console.log(data);
               moduleHeader.append(data.body);
             });
           } else {
