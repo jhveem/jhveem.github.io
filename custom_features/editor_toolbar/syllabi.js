@@ -79,11 +79,11 @@
               for (let i = 0; i < tds.length; i++) {
                 pCells[i] = tds[i];
               }
-              value = "100% - " + Math.round(line[1] * 100) + "%";
+              value = "100% - " + line[1] + "%";
             } else if (s === data.length - 1) { 
-              
+              value = "<" + line[1] + "%";
             } else {
-              value = Math.round(line[1] * 100) + "% - " + Math.round(data[s - 1][1] * 100) + "%";
+              value = "<" + line[1] + "% - " + data[s - 1][1] + "%";
             }
             row.append("<td style='border: 1px solid black; padding: 4px 8px;'>" + value + "</td>");
             rows.push(row);
