@@ -7,7 +7,7 @@ let sectionData = {};
 div.append(sectionSelector);
 div.append(courseSelector);
 div.append(submit);
-div.append("<br>");
+div.after("<br>");
 submit.click(function () {
   let section = sectionData[sectionSelector.val()];
   let courseId = courseSelector.val();
