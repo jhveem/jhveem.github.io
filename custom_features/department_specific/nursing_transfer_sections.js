@@ -5,6 +5,7 @@ let courseSelector = $("<input type='text' placeholder='Enter Course Id'>");
 let submit = $("<a href='#' class='btn btn-primary' role='button' style='float: right;'>Transfer</a>");
 let sectionData = {};
 div.append(sectionSelector);
+div.append(" ");
 div.append(courseSelector);
 div.append(submit);
 div.after("<br>");
