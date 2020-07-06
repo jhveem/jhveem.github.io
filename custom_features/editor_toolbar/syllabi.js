@@ -81,9 +81,9 @@
               }
               value = "100% - " + line[1] + "%";
             } else if (s === data.length - 1) { 
-              value = "<" + line[1] + "%";
+              value = "<" + (data[s - 1][1] * 100) + "%";
             } else {
-              value = "<" + line[1] + "% - " + data[s - 1][1] + "%";
+              value = "<" + (data[s - 1][1] * 100) + "% - " + (line[1] * 100) + "%";
             }
             row.append("<td style='border: 1px solid black; padding: 4px 8px;'>" + value + "</td>");
             rows.push(row);
