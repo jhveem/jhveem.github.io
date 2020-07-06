@@ -22,7 +22,7 @@ submit.click(function () {
     });
   }
 });
-let sections = $.get("/api/v1/courses/511568/sections?include[]=students").done(function (data) {
+let sections = $.get("/api/v1/courses/"+CURRENT_COURSE_ID+"/sections?include[]=students").done(function (data) {
   for (let s = 0; s < data.length; s++) {
     let section = data[s];
     console.log(section);
