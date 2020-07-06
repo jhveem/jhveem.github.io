@@ -2,11 +2,12 @@ let div = $("<div></div>");
 $(".roster-tab").prepend(div);
 let sectionSelector = $("<select><option selected disabled>-Section to Transfer-</option></select>");
 let courseSelector = $("<input type='text' placeholder='Enter Course Id'>");
-let submit = $("<a href='#' class='btn btn-primary' role='button'>Transfer</a>");
+let submit = $("<a href='#' class='btn btn-primary' role='button' style='float: right;'>Transfer</a>");
 let sectionData = {};
 div.append(sectionSelector);
 div.append(courseSelector);
 div.append(submit);
+div.append("<br>");
 submit.click(function () {
   let section = sectionData[sectionSelector.val()];
   let courseId = courseSelector.val();
