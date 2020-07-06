@@ -1,5 +1,5 @@
 let div = $("<div></div>");
-$(".v-gutter").before(div);
+$(".roster-tab").prepend(div);
 let sectionSelector = $("<select><option selected disabled>-Section to Transfer-</option></select>");
 let courseSelector = $("<input type='text' placeholder='Enter Course Id'>");
 let submit = $("<a href='#' class='btn btn-primary' role='button'>Transfer</a>");
