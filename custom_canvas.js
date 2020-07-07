@@ -257,7 +257,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
           feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
           if (BETA) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
           else if (!IS_CDD) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-          else if (IS_CDD) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          else if (IS_CDD || currentUser === 1225484 || currentUser === 817257) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
         }
         //COURSE FEATURES
         let rCheckInCourse = /^\/courses\/([0-9]+)/;
@@ -295,16 +295,16 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
           CURRENT_DEPARTMENT_ID = departmentId;
           if (departmentId === 3824) { // DENTAL
             feature("highlighted_grades_page_items");
-            feature("speed_grader_screen_split");
-            feature("previous-enrollment-data/previous_enrollment_period_grades");
-            if (IS_TEACHER) featureBeta("previous-enrollment-data/set_hours_form");
-            if (currentUser === 1225484 || currentUser === 817257) {
+            if (IS_TEACHER) {
+              feature("speed_grader/split_screen");
+              feature("previous-enrollment-data/previous_enrollment_period_grades");
               feature("previous-enrollment-data/set_hours_form");
+              if (currentUser === 1225484 || currentUser === 817257) { //I think Alivia and Wendi
+                feature("speed_grader/move_rubric_points");
+              }
             }
           }
-          if (departmentId === 3827 || departmentId === 3828) { //Practical Nursing && Health Sciences General
-            feature("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-          }
+          feature("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           if (currentUser === 451624 || IS_ME) { //Yvonne
             feature("department_specific/nursing_transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           }
@@ -337,8 +337,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         featureCDD("surveys");
         featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-        if (IS_CDD || BETA) feature("welcome_banner", {}, /^\/$/);
-        if (IS_ME) featureCDD("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+        feature("welcome_banner", {}, /^\/$/);
         featureBeta("department_specific/business_hs");
 
         //Survey

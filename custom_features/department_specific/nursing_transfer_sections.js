@@ -10,9 +10,10 @@
   div.append(courseSelector);
   div.append(submit);
   div.after("<br>");
-  submit.click(function () {
+  submit.click(async function () {
     let section = sectionData[sectionSelector.val()];
     let courseId = courseSelector.val();
+
     for (let s = 0; s < section.students.length; s++) {
       let student = section.students[s];
       $.post("/api/v1/courses/" + courseId + "/enrollments", {
