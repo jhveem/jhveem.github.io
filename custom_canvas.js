@@ -299,7 +299,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
               feature("speed_grader/split_screen");
               feature("previous-enrollment-data/previous_enrollment_period_grades");
               feature("previous-enrollment-data/set_hours_form");
-              if (currentUser === 1225484 || currentUser === 817257) { //I think Alivia and Wendi
+              if (currentUser === 1225484 || currentUser === 817257 || IS_ME) { //I think Alivia and Wendi
                 feature("speed_grader/move_rubric_points");
               }
             }
