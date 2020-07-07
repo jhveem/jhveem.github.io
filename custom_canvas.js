@@ -294,13 +294,13 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
           }
           CURRENT_DEPARTMENT_ID = departmentId;
           if (departmentId === 3824) { // DENTAL
-            feature("highlighted_grades_page_items");
+            feature("highlighted_grades_page_items", {}, /^\/courses\/[0-9]+\/grades\/[0-9]+/);
             if (IS_TEACHER) {
-              feature("speed_grader/split_screen");
-              feature("previous-enrollment-data/previous_enrollment_period_grades");
-              feature("previous-enrollment-data/set_hours_form");
+              feature("previous-enrollment-data/previous_enrollment_period_grades", {}, /^\/courses\/[0-9]+\/grades\/[0-9]+/);
+              feature("previous-enrollment-data/set_hours_form", {}, /^\/courses\/[0-9]+\/grades\/[0-9]+/);
+              feature("speed_grader/split_screen", {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
               if (currentUser === 1225484 || currentUser === 817257 || IS_ME) { //I think Alivia and Wendi
-                feature("speed_grader/move_rubric_points");
+                feature("speed_grader/move_rubric_points", {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
               }
             }
           }
@@ -317,7 +317,7 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
             feature("department_specific/amar_elec_add_module_items");
           }
           if (departmentId === 3847) { //meats
-            feature("previous-enrollment-data/previous_enrollment_period_grades");
+            feature("previous-enrollment-data/previous_enrollment_period_grades", {}, /^\/courses\/[0-9]+\/grades\/[0-9]+/);
           }
           if (departmentId === 3841 || departmentId === 3947) { //cosmetology && master esthetics
             feature("department_specific/esthetics_cosmetology_services");
@@ -328,8 +328,8 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         }
 
         //CDD ONLY
-        featureCDD("rubrics/sortable");
-        featureCDD("quizzes/question_bank_sorter");
+        featureCDD("rubrics/sortable", {}, [/\/rubrics/, /\/assignments\//]);
+        featureCDD("quizzes/question_bank_sorter", {}, /^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/);
         //featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
         featureCDD("help_tab");
         featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
@@ -338,7 +338,6 @@ $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
         featureCDD("surveys");
         featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
         feature("welcome_banner", {}, /^\/$/);
-        featureBeta("department_specific/business_hs");
 
         //Survey
         if (currentUser === 1507313) { //Lisa Balling
