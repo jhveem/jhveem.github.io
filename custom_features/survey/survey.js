@@ -102,82 +102,85 @@ target="formSubmitFrame">
 `);
   //get the container
   let container = $('.btech-survey');
-  container.removeClass('btech-hidden'); //make it not hidden
-  let loading = $("<p>Loading Survey...</p>");
-  container.empty();
-  container.append(loading);
-  let classes = container.attr('class').split(/\s+/);
-  
-  //get the form id
-  let formId = "";
-  for (var c = 0; c < classes.length; c++) {
-    try {
-      formId = classes[c].match(/^form\-(.*)/)[1];
-    } catch (e) {}
-  }
+  if (container.length > 0) {
 
-  //request the form data
-  if (formId !== "") {
-    var url = "https://script.google.com/a/btech.edu/macros/s/AKfycbwIgHHMYbih2XnJf7mjDw8g3grdeHhn9s6JIvH6Qg7mfZ0ElbWr/exec?formId=" + formId;
-    let formData = null;
-    await jQuery.ajax({
-      crossDomain: true,
-      url: url,
-      method: "GET",
-      dataType: "jsonp"
-    }).done(function (res) {
-      formData = res;
-    });
-    console.log(formData);
+    container.removeClass('btech-hidden'); //make it not hidden
+    let loading = $("<p>Loading Survey...</p>");
+    container.empty();
+    container.append(loading);
+    let classes = container.attr('class').split(/\s+/);
 
-    //grab some default data
-    let courseId = ENV.COURSE_ID;
-    let userId = ENV.current_user.id;
-    container.append(form);
-    //add the iframe which will hold the submission
-    container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow' class='btech-hidden'></iframe>");
+    //get the form id
+    let formId = "";
+    for (var c = 0; c < classes.length; c++) {
+      try {
+        formId = classes[c].match(/^form\-(.*)/)[1];
+      } catch (e) {}
+    }
 
-    //get a list of instructors
-    //MAKE THIS REQUEST CONDITIONAL ON WHETHER OR NOT IT IS EVEN NEEDED
-    let instructors = [];
-    await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
-      for (let i = 0; i < data.length; i++) {
-        let enrollment = data[i];
-        instructors.push(enrollment.user.name);
-      }
-    });
+    //request the form data
+    if (formId !== "") {
+      var url = "https://script.google.com/a/btech.edu/macros/s/AKfycbwIgHHMYbih2XnJf7mjDw8g3grdeHhn9s6JIvH6Qg7mfZ0ElbWr/exec?formId=" + formId;
+      let formData = null;
+      await jQuery.ajax({
+        crossDomain: true,
+        url: url,
+        method: "GET",
+        dataType: "jsonp"
+      }).done(function (res) {
+        formData = res;
+      });
+      console.log(formData);
 
-    //done loading
-    loading.remove();
+      //grab some default data
+      let courseId = ENV.COURSE_ID;
+      let userId = ENV.current_user.id;
+      container.append(form);
+      //add the iframe which will hold the submission
+      container.append("<iframe name='formSubmitFrame' title='holds submitted form data' rel='nofollow' class='btech-hidden'></iframe>");
 
-    //Add in the survey data
-    for (let i = 0; i < formData.length; i++) {
-      let item = formData[i];
-      //Set up prefilled hidden items
-      if (item.title == "COURSE") addHidden(item.entry[0], CURRENT_COURSE_ID); //course
-      else if (item.title == "USER") addHidden(item.entry[0], hashId(userId)); //course
-      else if (item.title == "PROGRAM") addHidden(item.entry[0], CURRENT_DEPARTMENT_ID); //course
-      else if (item.title == "INSTRUCTOR") addDropdown(item.entry[0], "Select the name of your instructor.", instructors);
-      //add based on question type
-      //MUST MANUALLY ADD IN EACH QUESTION TYPE HERE AND ALSO MAKE SURE IT IS SET UP IN THE GOOGLE SCRIPTS PAGE OR THE DATA WON'T GET SENT
-      else {
-        for (let e = 0; e < item.entry.length; e++) {
-          let entry = item.entry[e];
-          switch (item.type) {
-            case "TEXT":
-              addTextEntry(entry, item.title);
-              break;
-            case "PARAGRAPH_TEXT":
-              addParagraphTextEntry(entry, item.title);
-              break;
-            case "GRID":
-              addButtons(entry, item.title, item.answers);
-              break;
+      //get a list of instructors
+      //MAKE THIS REQUEST CONDITIONAL ON WHETHER OR NOT IT IS EVEN NEEDED
+      let instructors = [];
+      await $.get("/api/v1/courses/" + courseId + "/enrollments?type[]=TeacherEnrollment&type[]=TaEnrollment").done(function (data) {
+        for (let i = 0; i < data.length; i++) {
+          let enrollment = data[i];
+          instructors.push(enrollment.user.name);
+        }
+      });
+
+      //done loading
+      loading.remove();
+
+      //Add in the survey data
+      for (let i = 0; i < formData.length; i++) {
+        let item = formData[i];
+        //Set up prefilled hidden items
+        if (item.title == "COURSE") addHidden(item.entry[0], CURRENT_COURSE_ID); //course
+        else if (item.title == "USER") addHidden(item.entry[0], hashId(userId)); //course
+        else if (item.title == "PROGRAM") addHidden(item.entry[0], CURRENT_DEPARTMENT_ID); //course
+        else if (item.title == "INSTRUCTOR") addDropdown(item.entry[0], "Select the name of your instructor.", instructors);
+        //add based on question type
+        //MUST MANUALLY ADD IN EACH QUESTION TYPE HERE AND ALSO MAKE SURE IT IS SET UP IN THE GOOGLE SCRIPTS PAGE OR THE DATA WON'T GET SENT
+        else {
+          for (let e = 0; e < item.entry.length; e++) {
+            let entry = item.entry[e];
+            switch (item.type) {
+              case "TEXT":
+                addTextEntry(entry, item.title);
+                break;
+              case "PARAGRAPH_TEXT":
+                addParagraphTextEntry(entry, item.title);
+                break;
+              case "GRID":
+                addButtons(entry, item.title, item.answers);
+                break;
+            }
           }
         }
       }
-    }
 
-    addSubmitButton();
+      addSubmitButton();
+    }
   }
 })();
