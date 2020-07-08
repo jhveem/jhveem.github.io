@@ -1,6 +1,6 @@
 IMPORTED_FEATURE = {};
 console.log("TEACHER");
-if (/^\/courses\/[0-9]+\/grades\/[0-9]+/.test(window.location.pathname)) {
+if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
     IMPORTED_FEATURE = {
         initiated: false,
         courseId: null,
