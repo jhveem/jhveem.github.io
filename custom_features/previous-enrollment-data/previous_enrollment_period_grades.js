@@ -50,19 +50,22 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
             let feature = this;
             $("#student-grades-right-content").append(
                 `<div id="btech-submissions-between-dates-module">
-                <br><br>
-                <h2>Grade for Submissions Between Dates</h2> <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
-                <div id="btech-student-hours">
-                </div>
-                <p>Start Date</p>
-                <input type="date" id="btech-term-grade-start" name="term-start" value="` + dateStringEnrollment + `" min="2010-01-01" max="2020-12-31">
-                <p>End Date</p>
-                <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
-                <button class="Button" id="btech-term-grade-button">Estimate</button>
-                <button class="Button" id="btech-term-reset-button">Reset</button>
-                <div id="btech-term-grade-value"></div>
+                  <br><br>
+                  <h2>Grade for Submissions Between Dates</h2> <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
+                  <div id="btech-student-hours">
+                  </div>
+                  <div id="btech-term-date-selector">
+                    <p>Start Date</p>
+                    <input type="date" id="btech-term-grade-start" name="term-start" value="` + dateStringEnrollment + `" min="2010-01-01" max="2020-12-31">
+                    <p>End Date</p>
+                    <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
+                    <button class="Button" id="btech-term-grade-button">Estimate</button>
+                    <button class="Button" id="btech-term-reset-button">Reset</button>
+                  </div>
+                  <div id="btech-term-grade-value"></div>
                 </div>`
             );
+            if (!IS_TEACHER) $('#btech-term-date-selector').hide();
             $("#btech-term-grade-button").on("click", function() {
                 let startDate = feature.parseDate($("#btech-term-grade-start").val());
                 let endDate = feature.parseDate($("#btech-term-grade-end").val());
