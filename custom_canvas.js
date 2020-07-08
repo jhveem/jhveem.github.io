@@ -269,6 +269,7 @@ if (window.self === window.top) {
             feature('page_formatting/tabs_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
+            feature("quizzes/duplicate_bank_item", {}, /\/courses\/([0-9]+)\/question_banks\/([0-9]+)/);
 
             feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
@@ -307,9 +308,6 @@ if (window.self === window.top) {
               }
             }
             feature("editor_toolbar/syllabi", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-            if (currentUser === 451624 || IS_ME) { //Yvonne
-              feature("department_specific/nursing_transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
-            }
             if (departmentId === 3833) { //business
               feature("department_specific/business_hs");
               feature("previous-enrollment-data/previous_enrollment_period_grades");
