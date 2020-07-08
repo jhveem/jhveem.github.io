@@ -70,8 +70,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
                   <div id="btech-term-grade-value"></div>
                 </div>`
             );
-            if (IS_TEACHER) $('#btech-term-teacher-view').hide();
-            if (!IS_TEACHER) $('#btech-term-student-view').hide();
+            if (IS_TEACHER) $('#btech-term-student-view').hide();
+            if (!IS_TEACHER) $('#btech-term-teacher-view').hide();
             $("#btech-term-grade-button").on("click", function() {
                 let startDate = feature.parseDate($("#btech-term-grade-start").val());
                 let endDate = feature.parseDate($("#btech-term-grade-end").val());
