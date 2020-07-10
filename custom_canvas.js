@@ -273,10 +273,10 @@ if (window.self === window.top) {
 
               let yearData = dateData.trim().match(/^(2[0-9]{3})-([0-9]+)/);
               if (yearData != null) {
-                year = parseint(yearData[1]);
-                month = parseint(yearData[2]);
+                year = parseInt(yearData[1]);
+                month = parseInt(yearData[2]);
                 if (month < 6) {
-
+                  year -= 1;
                 }
                 let crsCode = courseData.course_code;
                 CURRENT_COURSE_HOURS = COURSE_HOURS[year][crsCode];
