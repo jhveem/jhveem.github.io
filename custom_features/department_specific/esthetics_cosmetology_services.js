@@ -96,7 +96,7 @@
                       <br>
                       <div v-for="service in services">
                         <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
-                          <div style='float: right;'>X</div>
+                          <div style='float: right;' @click='deleteService(service)'>X</div>
                           <h3 v-if="(selectedCompletedCriterion === '')"><b>{{service.service}}</b></h3>
                           <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
                           <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
@@ -186,6 +186,14 @@
                     },
                   },
                   methods: {
+                    deleteService: function (service) {
+                      for (let s = 0; s < this.services.length; s++) {
+                        if (this.services[s] === service) {
+                          await $.delete(window.location.origin + "/submission_comments/" + this.services[s].comment_id);
+                          this.services.splice(s, 1);
+                        }
+                      }
+                    },
                     minToHoursString: function (minutes) {
                       let hours = Math.floor(minutes / 60);
                       minutes = minutes - (hours * 60);
@@ -297,6 +305,7 @@
                               comments: cComment,
                               author_data: authorData,
                               canvas_data: canvasCommentsData[c],
+                              comment_id: canvasCommentsData[c].id
                             });
                             if (!this.dates.includes(date)) {
                               this.dates.push(date);
