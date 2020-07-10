@@ -12,7 +12,6 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       this.courseId = ENV.courses_with_grades[0].id;
       this.studentId = ENV.students[0].id;
       this.studentAssignmentsData = [];
-      console.log(params.hours);
       if (params.hours !== undefined) {
         feature.hours = params.hours;
       }
@@ -53,6 +52,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       let yearData = courseData.created_at.trim().match(/(2[0-9]{3}) /);
       if (yearData != null) year = yearData[1];
       this.year = year;
+      console.log(year);
       let crsCode = courseData.course_code;
       this.hours = COURSE_HOURS[year][crsCode];
     },

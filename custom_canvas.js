@@ -16,7 +16,6 @@ if (themeParent.length === 1) {
   }
 }
 
-/*EvaluationKIT START*/
 var BETA = false;
 if (window.location.href.includes("btech.beta.instructure.com")) {
   BETA = true;
@@ -34,6 +33,7 @@ var CDDIDS = [
 ];
 var CURRENT_COURSE_ID = null;
 var CURRENT_DEPARTMENT_ID = null;
+var CURRENT_COURSE_HOURS = null;
 var IS_TEACHER = ENV.current_user_roles.includes("teacher");
 
 var FEATURES = {};
@@ -244,12 +244,13 @@ function checkCookie() {
 
 if (window.self === window.top) {
 
-  add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
   add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
   $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
     $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js").done(() => {
       $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
         $.getScript("https://jhveem.github.io/course_list/course_hours.js").done(() => {
+          //set CURRENT_COURSE_HOURS
+
           let currentUser = parseInt(ENV.current_user.id);
           const IS_ME = (currentUser === 1893418);
           const IS_CDD = (CDDIDS.includes(currentUser))
@@ -264,6 +265,22 @@ if (window.self === window.top) {
           let rCheckInCourse = /^\/courses\/([0-9]+)/;
           if (rCheckInCourse.test(window.location.pathname)) {
             CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
+            let courseData = null;
+            $.get('/api/v1/courses/' + CURRENT_COURSE_ID, function (data) {
+              courseData = data;
+              let year = null;
+              let yearData = courseData.start_at.trim().match(/^(2[0-9]{3})-([0-9]+)/);
+              if (yearData != null) {
+                year = parseint(yearData[1]);
+                month = parseint(yearData[2]);
+                let crsCode = courseData.course_code;
+                CURRENT_COURSE_HOURS = COURSE_HOURS[year][crsCode];
+                console.log(COURSE_HOURS[year]);
+                console.log(crsCode);
+                console.log(CURRENT_COURSE_HOURS);
+              }
+            })
+
             //AVAILABLE TO EVERYONE
             feature('page_formatting/dropdown_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature('page_formatting/tabs_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
@@ -349,11 +366,14 @@ if (window.self === window.top) {
   });
 }
 
+/*
+add_javascript_library("https://btech.evaluationkit.com/CanvasScripts/btech.js?v=2");
 window.ALLY_CFG = {
   'baseUrl': 'https://prod.ally.ac',
   'clientId': 1164
 };
 $.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
+*/
 
 
 /*  NOT CURRENTLY BEING USED  */
