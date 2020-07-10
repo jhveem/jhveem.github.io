@@ -96,6 +96,7 @@
                       <br>
                       <div v-for="service in services">
                         <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
+                          <div style='float: right;'>X</div>
                           <h3 v-if="(selectedCompletedCriterion === '')"><b>{{service.service}}</b></h3>
                           <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
                           <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
@@ -278,6 +279,7 @@
                       this.services = [];
                       for (let c = 0; c < canvasCommentsData.length; c++) {
                         let comment = canvasCommentsData[c].comment;
+                        console.log(comment);
                         let authorData = canvasCommentsData[c].author;
                         let date = this.dateToString(canvasCommentsData[c].created_at);
                         let cService = this.getCommentData(comment, "SERVICE");
