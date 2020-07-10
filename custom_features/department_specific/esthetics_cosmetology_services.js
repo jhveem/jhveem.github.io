@@ -14,6 +14,7 @@
     //IF the editor, add the ability to add services
     if (TOOLBAR.checkEditorPage()) {
       await TOOLBAR.checkReady();
+
       function checkButtonColor(btn) {
         let body = tinyMCE.activeEditor.getBody();
         let services = $(body).find("#btech-services");
@@ -27,7 +28,7 @@
           });
         }
       }
-      let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", async function() {
+      let btn = await TOOLBAR.addButtonIcon("far fa-concierge-bell", "Convert this assignment to a Services assignment", async function () {
         let body = tinyMCE.activeEditor.getBody();
         let services = $(body).find("#btech-services");
         if (services.length === 0) {
@@ -39,7 +40,7 @@
         }
       });
       checkButtonColor(btn);
-      btn.click(function() {
+      btn.click(function () {
         checkButtonColor(btn);
       });
     }
@@ -51,7 +52,7 @@
       if (ENV.current_user_roles.includes("teacher")) {
         IMPORTED_FEATURE = {
           initiated: false,
-          async _init(params = {}) { 
+          async _init(params = {}) {
             //NEEDS
             ////TOP PRIORITY: Need to handle pagination for comments since there will be more than 100
             ////Checks on if a student has already submitted their max number of submissions, at least a warning, probably not a hard block
@@ -184,12 +185,12 @@
                     },
                   },
                   methods: {
-                    minToHoursString: function(minutes) {
+                    minToHoursString: function (minutes) {
                       let hours = Math.floor(minutes / 60);
                       minutes = minutes - (hours * 60);
                       return hours + "h " + minutes + "m";
                     },
-                    hoursSubmittedInDate: function(date, serviceName='') {
+                    hoursSubmittedInDate: function (date, serviceName = '') {
                       let total = 0;
                       for (var i = 0; i < this.services.length; i++) {
                         let service = this.services[i];
@@ -222,12 +223,15 @@
                             points: this.criteria[key].points_current
                           };
                         }
-                        await $.put(url, {
-                          comment: {
-                            text_comment: this.createComment(service, this.reviewerComment)
-                          },
-                          rubric_assessment: rubricData
-                        });
+                        this.loading = true;
+                        for (let i = 1; i < this.criterionNumber; i++) {
+                          await $.put(url, {
+                            comment: {
+                              text_comment: this.createComment(service, this.reviewerComment)
+                            },
+                            rubric_assessment: rubricData
+                          });
+                        }
                         location.reload(true);
                       }
                     },
