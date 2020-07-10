@@ -224,7 +224,7 @@
                           };
                         }
                         this.loading = true;
-                        for (let i = 1; i < this.criterionNumber; i++) {
+                        for (let i = 1; i <= this.criterionNumber; i++) {
                           await $.put(url, {
                             comment: {
                               text_comment: this.createComment(service, this.reviewerComment)
