@@ -96,7 +96,7 @@
                       <br>
                       <div v-for="service in services">
                         <div v-if="(service.service === selectedCompletedCriterion || selectedCompletedCriterion === '') && (completedCriterionDate === '' || dateToString(completedCriterionDate) == dateToString(service.canvas_data.created_at))" style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
-                          <div style='float: right;' @click='deleteService(service)'>X</div>
+                          <div style='float: right; user-select: none; cursor: pointer;' @click='deleteService(service)'>X</div>
                           <h3 v-if="(selectedCompletedCriterion === '')"><b>{{service.service}}</b></h3>
                           <p><b>Completed: </b>{{dateToString(service.canvas_data.created_at)}}</p>
                           <p><b>Reviewer: </b>{{service.author_data.display_name}}</p>
@@ -225,7 +225,7 @@
                       if (service != "") {
                         this.loading = true;
                         let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
-                        this.criteria[service].points_current += 1;
+                        this.criteria[service].points_current += this.criterionNumber;
                         let rubricData = {};
                         for (var key in this.criteria) {
                           rubricData[this.criteria[key].id] = {
