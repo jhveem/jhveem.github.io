@@ -187,12 +187,15 @@
                   },
                   methods: {
                     deleteService: async function (service) {
+                      //Needs to update the rubric before this can be used
+                      /*
                       for (let s = 0; s < this.services.length; s++) {
                         if (this.services[s] === service) {
                           await $.delete(window.location.origin + "/submission_comments/" + this.services[s].comment_id);
                           this.services.splice(s, 1);
                         }
                       }
+                      */
                     },
                     minToHoursString: function (minutes) {
                       let hours = Math.floor(minutes / 60);
@@ -225,7 +228,7 @@
                       if (service != "") {
                         this.loading = true;
                         let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
-                        this.criteria[service].points_current += this.criterionNumber;
+                        this.criteria[service].points_current += parseInt(this.criterionNumber);
                         let rubricData = {};
                         for (var key in this.criteria) {
                           rubricData[this.criteria[key].id] = {
