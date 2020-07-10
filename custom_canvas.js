@@ -180,10 +180,13 @@ async function canvasGet(url, reqData = {}, page = "1", resData = []) {
     resData = resData.concat(data);
     //see if there's another page to get
     let rNext = /<([^>]*)>; rel="next"/;
-    let nextMatch = xhr.getResponseHeader("Link").match(rNext);
-    if (nextMatch !== null) {
-      let next = nextMatch[1];
-      nextPage = next.match(/page=(.*?)&/)[1];
+    let header = xhr.getResponseHeader("Link");
+    if (header !== null) {
+      let nextMatch = header.match(rNext);
+      if (nextMatch !== null) {
+        let next = nextMatch[1];
+        nextPage = next.match(/page=(.*?)&/)[1];
+      }
     }
   });
   if (nextPage !== "") {

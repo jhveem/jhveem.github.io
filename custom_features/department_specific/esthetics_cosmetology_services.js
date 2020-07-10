@@ -245,6 +245,7 @@
                         ]
                       });
                       comments = data.submission_comments;
+                      console.log(comments);
                       return comments;
                     },
                     getCommentData(comment, dataName) {
