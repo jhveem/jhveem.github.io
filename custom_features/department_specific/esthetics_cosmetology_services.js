@@ -186,7 +186,7 @@
                     },
                   },
                   methods: {
-                    deleteService: function (service) {
+                    deleteService: async function (service) {
                       for (let s = 0; s < this.services.length; s++) {
                         if (this.services[s] === service) {
                           await $.delete(window.location.origin + "/submission_comments/" + this.services[s].comment_id);
