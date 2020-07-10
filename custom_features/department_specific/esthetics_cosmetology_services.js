@@ -238,9 +238,8 @@
                     async getComments() {
                       let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId + "?include[]=submission_comments";
                       let comments = [];
-                      await $.get(url, function (data) {
-                        comments = (data.submission_comments);
-                      });
+                      let data = await canvasGet(url);
+                      comments = data.submission_comments;
                       return comments;
                     },
                     getCommentData(comment, dataName) {
