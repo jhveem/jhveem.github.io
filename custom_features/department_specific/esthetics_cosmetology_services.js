@@ -244,8 +244,7 @@
                           'submission_comments'
                         ]
                       });
-                      console.log(data);
-                      comments = data.submission_comments;
+                      comments = data[0].submission_comments;
                       console.log(comments);
                       return comments;
                     },
