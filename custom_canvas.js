@@ -269,10 +269,15 @@ if (window.self === window.top) {
             $.get('/api/v1/courses/' + CURRENT_COURSE_ID, function (data) {
               courseData = data;
               let year = null;
-              let yearData = courseData.start_at.trim().match(/^(2[0-9]{3})-([0-9]+)/);
+              let dateData = courseData.start_at;
+
+              let yearData = dateData.trim().match(/^(2[0-9]{3})-([0-9]+)/);
               if (yearData != null) {
                 year = parseint(yearData[1]);
                 month = parseint(yearData[2]);
+                if (month < 6) {
+
+                }
                 let crsCode = courseData.course_code;
                 CURRENT_COURSE_HOURS = COURSE_HOURS[year][crsCode];
                 console.log(COURSE_HOURS[year]);
@@ -354,6 +359,7 @@ if (window.self === window.top) {
           featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("surveys");
           featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           feature("welcome_banner", {}, /^\/$/);
 
           //Survey
