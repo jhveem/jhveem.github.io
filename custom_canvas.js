@@ -171,7 +171,7 @@ function addToModuleMenu(name, description, func, icon = "icon-plus") {
   });
 }
 
-async function canvasGet(url, reqData, page = "1", resData = []) {
+async function canvasGet(url, reqData = {}, page = "1", resData = []) {
   let nextPage = "";
   reqData.per_page = 100;
   reqData.page = page;

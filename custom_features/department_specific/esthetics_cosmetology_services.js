@@ -237,9 +237,13 @@
                       }
                     },
                     async getComments() {
-                      let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId + "?include[]=submission_comments";
+                      let url = "/api/v1/courses/" + this.courseId + "/assignments/" + this.assignmentId + "/submissions/" + this.studentId;
                       let comments = [];
-                      let data = await canvasGet(url);
+                      let data = await canvasGet(url, {
+                        include: [
+                          'submission_comments'
+                        ]
+                      });
                       comments = data.submission_comments;
                       return comments;
                     },
@@ -279,7 +283,6 @@
                       this.services = [];
                       for (let c = 0; c < canvasCommentsData.length; c++) {
                         let comment = canvasCommentsData[c].comment;
-                        console.log(comment);
                         let authorData = canvasCommentsData[c].author;
                         let date = this.dateToString(canvasCommentsData[c].created_at);
                         let cService = this.getCommentData(comment, "SERVICE");
