@@ -62,10 +62,12 @@
             let vueString = `
               <div style="padding:10px;" id='app-services'>
                 <div class="btech-tabs-container">
+                  <div class="btech-tabs">
                   <ul>
                     <li v-for="menuName, key in menus" :class="{active: menu==menuName}" @click="menu=menuName">{{menuName}}</li>
                     <li v-if="flaggedDates.length > 0" :class="{active: menu=='flagged'}" @click="menu='flagged'">flagged dates</li>
                   </ul>
+                  </div>
                   <div style="padding: 10px;">
 
                     <div v-if="menu == 'review'">

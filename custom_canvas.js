@@ -280,9 +280,6 @@ if (window.self === window.top) {
                 }
                 let crsCode = courseData.course_code;
                 CURRENT_COURSE_HOURS = COURSE_HOURS[year][crsCode];
-                console.log(COURSE_HOURS[year]);
-                console.log(crsCode);
-                console.log(CURRENT_COURSE_HOURS);
               }
             })
 

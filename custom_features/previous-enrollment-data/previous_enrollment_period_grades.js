@@ -43,18 +43,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       //GET THE STUDENT'S SUBMISSIONS FOR THIS COURSE
       feature.studentAssignmentsData = await feature.getSubmissions();
       feature.createDateSelector(dateStringEnrollment, dateStringNow);
-
-      let courseData = null;
-      await $.get('/api/v1/courses/' + this.courseId, function(data) {
-        courseData = data;
-      })
-      let year = null;
-      let yearData = courseData.created_at.trim().match(/(2[0-9]{3}) /);
-      if (yearData != null) year = yearData[1];
-      this.year = year;
-      console.log(year);
-      let crsCode = courseData.course_code;
-      this.hours = COURSE_HOURS[year][crsCode];
+      window.TOTAL_HOURS = CURRENT_COURSE_HOURS;
     },
     createDateSelector(dateStringEnrollment, dateStringNow) {
       let feature = this;
