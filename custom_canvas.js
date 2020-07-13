@@ -34,7 +34,10 @@ var CDDIDS = [
 var CURRENT_COURSE_ID = null;
 var CURRENT_DEPARTMENT_ID = null;
 var CURRENT_COURSE_HOURS = null;
-var IS_TEACHER = ENV.current_user_roles.includes("teacher");
+var IS_TEACHER = null;
+if (ENV.current_user_roles !== null) {
+  IS_TEACHER = ENV.current_user_roles.includes("teacher");
+}
 
 var FEATURES = {};
 var IMPORTED_FEATURE = {};
@@ -246,14 +249,12 @@ function checkCookie() {
 }
 
 if (window.self === window.top) {
-
   add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
   $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
     $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js").done(() => {
       $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
         $.getScript("https://jhveem.github.io/course_list/course_hours.js").done(() => {
           //set CURRENT_COURSE_HOURS
-
           let currentUser = parseInt(ENV.current_user.id);
           const IS_ME = (currentUser === 1893418);
           const IS_CDD = (CDDIDS.includes(currentUser))
