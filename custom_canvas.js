@@ -249,6 +249,11 @@ function checkCookie() {
 }
 
 if (window.self === window.top) {
+  /*
+  https://btech.instructure.com/accounts/3/users/1945202
+  https://btech.instructure.com/courses/498024/quizzes/1057750?module_item_id=6739262
+  */
+ /*
   add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
   $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
     $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js").done(() => {
@@ -371,6 +376,7 @@ if (window.self === window.top) {
       });
     });
   });
+  */
 }
 
 /*
