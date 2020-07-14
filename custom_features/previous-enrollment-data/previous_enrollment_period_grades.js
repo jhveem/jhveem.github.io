@@ -199,7 +199,12 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         let outputUngradedAsZeroScore = finalUngradedAsZero / finalTotalScore;
         let outputHours = '';
         let percCompleted = (totalProgress / totalWeights);
-        let hoursCompleted = toPrecision((this.hours * percCompleted), 2);
+        let hoursCompleted = toPrecision((feature.hours * percCompleted), 2);
+        let weightedGrade = outputScore;
+        let minHoursRequired = feature.hoursEnrolled * .66;
+        if (hoursCompleted < minHoursRequired) {
+          weightedGrade *= (hoursCompleted / minHoursRequired);
+        }
         if (isNaN(outputScore)) {
           outputScore = "N/A";
         } else {
@@ -217,7 +222,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
         }
         $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
-        $("#btech-term-grade-weighted-value").html("<p>Hours Enrolled: " + feature.hoursEnrolled + "</p><p>Hours Completed: " + hoursCompleted + "</p>")
+        let
+          $("#btech-term-grade-weighted-value").html("<div><b>Hours Enrolled:</b> " + feature.hoursEnrolled + "</div><div><b>Hours Completed:</b> " + hoursCompleted + "</div><div><b>Grade Based on Hours:</b> " + weightedGrade + "%</div>");
       }
     },
     parseDate(dateString) {
