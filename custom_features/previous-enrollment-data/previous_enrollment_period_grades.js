@@ -185,7 +185,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           }
         }
         if (possiblePoints > 0) {
-          let groupPerc = (score / total);
+          let groupPerc = (score / possiblePoints);
           let groupUngradedAsZeroPerc = (score / totalPoints);
           finalTotalScore += group.group_weight;
           finalScore += (groupPerc * group.group_weight);
