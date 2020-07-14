@@ -49,7 +49,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       feature.termStartDate = enrollmentStartDate;
       feature.termEndDate = dateStringNow;
       //GET THE STUDENT'S SUBMISSIONS FOR THIS COURSE
-      feature.studentAssignmentsData = await feature.getSubmissionsData();
+      feature.studentAssignmentsData = await feature.getSubmissionData();
       //check to see if the student has hours enrolled set up
       feature.createDateSelector(dateStringEnrollment, dateStringNow);
       this.hours = CURRENT_COURSE_HOURS;
