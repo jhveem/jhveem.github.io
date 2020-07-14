@@ -202,6 +202,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         if (isNaN(outputScore)) {
           outputScore = "N/A";
         } else {
+          let weightedGrade = outputScore; //has to be set here before it's all messed up, the rest dealing with weighted is done after making sure hoursEnrolled exists
           let gradingScheme = ENV.grading_scheme;
           $("#btech-term-ungraded-value").html("<b>Ungraded as Zero:</b> " + toPrecision(outputUngradedAsZeroScore, 2) + "%");
 
@@ -221,7 +222,6 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           let percCompleted = (totalProgress / totalWeights);
           let hoursCompleted = toPrecision((feature.hours * percCompleted), 2);
           let minHoursRequired = feature.hoursEnrolled * .66;
-          let weightedGrade = outputScore;
           if (hoursCompleted < minHoursRequired) {
             weightedGrade *= (hoursCompleted / minHoursRequired);
           }
