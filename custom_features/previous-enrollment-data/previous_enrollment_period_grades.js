@@ -148,14 +148,6 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         let finalUngradedAsZero = 0;
         let totalProgress = 0;
         let totalWeights = 0;
-        //get the data for all submissions
-        let subData = {};
-        for (let s = 0; s < subs.length; s++) {
-          let sub = subs[s];
-          if (sub.posted_at != null) {
-            subData[sub.assignment_id] = sub;
-          }
-        }
         //loop assignments
         for (let i = 0; i < assignmentGroups.length; i++) {
           let group = assignmentGroups[i];
