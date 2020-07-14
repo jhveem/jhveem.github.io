@@ -228,7 +228,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
             }
             console.log(weightedGrade);
             weightedGrade = toPrecision(weightedGrade, 2);
-            let hoursExplanation = "<div>You have completed " + hoursCompleted + " / " + feature.hoursEnrolled + " ("+toPrecision((hoursCompleted / feature.hoursEnrolled) * 100)+") enrolled hours.</div>";
+            let hoursExplanation = "<div>You have completed " + hoursCompleted + " / " + feature.hoursEnrolled + " ("+toPrecision((hoursCompleted / feature.hoursEnrolled) * 100)+") of your enrolled hours.</div>";
             if (hoursCompleted < minHoursRequired) {
               hoursExplanation += "<br><div><b>WARNING:</b> If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
             }
