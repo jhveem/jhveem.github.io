@@ -6,7 +6,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
     studentId: null,
     studentAssignmentsData: [],
     hours: 0,
-    hoursEnrolled: 0,
+    hoursEnrolled: null,
     async _init(params = {}) {
       let feature = this;
       this.courseId = ENV.courses_with_grades[0].id;
@@ -39,6 +39,15 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       let dateStringNow = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
       //GET THE STUDENT'S SUBMISSIONS FOR THIS COURSE
       feature.studentAssignmentsData = await feature.getSubmissions();
+      //check to see if the student has hours enrolled set up
+      for (let i = 0; i < studentAssignmentsData.length; i++) {
+        let submission = studentAssignmentsData[i];
+        let assignment = submissions.assignment;
+        if (assignment.name.toLower() === 'hours') {
+          this.hoursEnrolled = submissions.score;
+          break;
+        }
+      }
       feature.createDateSelector(dateStringEnrollment, dateStringNow);
       window.TOTAL_HOURS = CURRENT_COURSE_HOURS;
     },
@@ -66,8 +75,18 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
                   <div id="btech-term-grade-value"></div>
                 </div>`
       );
-      if (IS_TEACHER) $('#btech-term-student-view').hide();
-      if (!IS_TEACHER) $('#btech-term-teacher-view').hide();
+      //hide the two views
+      $('#btech-term-student-view').hide();
+      $('#btech-term-teacher-view').hide();
+      //if teacher, show teacher stuff, if student AND enrolled for hours, show student stuff, else, hide everything
+      if (IS_TEACHER) $('#btech-term-teacher-view').show();
+      if (this.hoursEnrolled !== null) {
+        if (!IS_TEACHER) $('#btech-term-student-view').show();
+      } else {
+        $('#btech-submissions-between-dates-module').hide();
+      }
+
+      //set up the buttons
       $("#btech-term-grade-button").on("click", function () {
         let startDate = feature.parseDate($("#btech-term-grade-start").val());
         let endDate = feature.parseDate($("#btech-term-grade-end").val());
@@ -121,7 +140,6 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       console.log("SUBMISSIONS");
       for (let i = 0; i < studentAssignmentsData.length; i++) {
         let submission = studentAssignmentsData[i];
-        console.log(submission);
         let date = new Date(submission.graded_at);
         if (date >= startDate && date <= endDate) {
           includedAssignments.push(submission.assignment_id);
