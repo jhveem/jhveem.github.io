@@ -197,11 +197,11 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         }
         let outputScore = finalScore / finalTotalScore;
         let outputUngradedAsZeroScore = finalUngradedAsZero / finalTotalScore;
+        outputUngradedAsZeroScore *= 100;
 
         if (isNaN(outputScore)) {
           outputScore = "N/A";
         } else {
-          outputScore *= 100;
           let gradingScheme = ENV.grading_scheme;
           $("#btech-term-ungraded-value").html("<b>Ungraded as Zero:</b> " + toPrecision(outputUngradedAsZeroScore, 2) + "%");
 
