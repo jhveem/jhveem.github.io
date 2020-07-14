@@ -1,6 +1,3 @@
-function toPrecision(number, numberAfterDecimal) {
-  return parseFloat(number.toFixed(numberAfterDecimal));
-}
 IMPORTED_FEATURE = {};
 if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
   IMPORTED_FEATURE = {
@@ -62,29 +59,29 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       let feature = this;
       $("#student-grades-right-content").append(
         `<div id="btech-submissions-between-dates-module">
-                  <br><br>
-                  <div id="btech-term-teacher-view">
-                    <h2>Grade for Submissions Between Dates</h2> 
-                    <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
-                    <div id="btech-student-hours">
-                    </div>
-                    <p>Start Date</p>
-                    <input type="date" id="btech-term-grade-start" name="term-start" value="` + dateStringEnrollment + `" min="2010-01-01" max="2020-12-31">
-                    <p>End Date</p>
-                    <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
-                  </div>
-                  <div id="btech-term-student-view">
-                    <h2>Grade for Submissions Between Dates</h2> 
-                    <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
-                  </div>
-                  <button class="Button" id="btech-term-grade-button">Estimate</button>
-                  <button class="Button" id="btech-term-reset-button">Reset</button>
-                  <div id="btech-term-output-container">
-                    <div id="btech-term-grade-value"></div>
-                    <div id="btech-term-ungraded-value"></div>
-                    <div id="btech-term-grade-weighted-value"></div>
-                  </div>
-                </div>`
+          <br><br>
+          <div id="btech-term-teacher-view">
+            <h2>Grade for Submissions Between Dates</h2> 
+            <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
+            <div id="btech-student-hours">
+            </div>
+            <p>Start Date</p>
+            <input type="date" id="btech-term-grade-start" name="term-start" value="` + dateStringEnrollment + `" min="2010-01-01" max="2020-12-31">
+            <p>End Date</p>
+            <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
+          </div>
+          <div id="btech-term-student-view">
+            <h2>Grade for Submissions Between Dates</h2> 
+            <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
+          </div>
+          <button class="Button" id="btech-term-grade-button">Estimate</button>
+          <button class="Button" id="btech-term-reset-button">Reset</button>
+          <div id="btech-term-output-container">
+            <div id="btech-term-grade-value"></div>
+            <div id="btech-term-ungraded-value"></div>
+            <div id="btech-term-grade-weighted-value"></div>
+          </div>
+        </div>`
       );
       //hide the two views
       $('#btech-term-student-view').hide();
@@ -231,9 +228,9 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
             }
             console.log(weightedGrade);
             weightedGrade = toPrecision(weightedGrade, 2);
-            let hoursExplanation = "<div>You have completed " + hoursCompleted + " of your " + feature.hoursEnrolled + " enrolled hours.</div>";
+            let hoursExplanation = "<div>You have completed " + hoursCompleted + " / " + feature.hoursEnrolled + " ("+toPrecision((hoursCompleted / feature.hoursEnrolled) * 100)+") enrolled hours.</div>";
             if (hoursCompleted < minHoursRequired) {
-              hoursExplanation += "<div>If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
+              hoursExplanation += "<br><div><b>WARNING:</b> If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
             }
             $("#btech-term-grade-weighted-value").html(hoursExplanation);
           }
