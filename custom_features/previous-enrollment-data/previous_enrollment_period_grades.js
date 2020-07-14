@@ -43,7 +43,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       for (let i = 0; i < this.studentAssignmentsData.length; i++) {
         let submission = this.studentAssignmentsData[i];
         let assignment = submission.assignment;
-        if (assignment.name.toLower() === 'hours') {
+        if (assignment.name.toLowerCase() === 'hours') {
           this.hoursEnrolled = submissions.score;
           break;
         }
