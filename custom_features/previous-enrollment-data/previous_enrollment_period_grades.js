@@ -40,8 +40,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       //GET THE STUDENT'S SUBMISSIONS FOR THIS COURSE
       feature.studentAssignmentsData = await feature.getSubmissions();
       //check to see if the student has hours enrolled set up
-      for (let i = 0; i < studentAssignmentsData.length; i++) {
-        let submission = studentAssignmentsData[i];
+      for (let i = 0; i < this.studentAssignmentsData.length; i++) {
+        let submission = this.studentAssignmentsData[i];
         let assignment = submissions.assignment;
         if (assignment.name.toLower() === 'hours') {
           this.hoursEnrolled = submissions.score;
