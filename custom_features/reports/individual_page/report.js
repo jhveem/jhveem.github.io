@@ -369,6 +369,7 @@
                 let assignment = sub.assignment;
                 if (assignment.name.toLowerCase() === "hours") {
                   await $.get("/api/v1/courses/" + courseId + "/gradebook_history/feed?user_id=" + app.userId + "&assignment_id=" + assignment.id).done(function (data) {
+                    console.log("FOUND ASSIGNMENT DATA");
                     app.hoursAssignmentData[courseId] = data;
                   })
                 }
