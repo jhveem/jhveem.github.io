@@ -222,8 +222,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
         }
         $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
-        let
-          $("#btech-term-grade-weighted-value").html("<div><b>Hours Enrolled:</b> " + feature.hoursEnrolled + "</div><div><b>Hours Completed:</b> " + hoursCompleted + "</div><div><b>Grade Based on Hours:</b> " + weightedGrade + "%</div>");
+        $("#btech-term-grade-weighted-value").html("<div><b>Hours Enrolled:</b> " + feature.hoursEnrolled + "</div><div><b>Hours Completed:</b> " + hoursCompleted + "</div><div><b>Grade Based on Hours:</b> " + weightedGrade + "%</div>");
       }
     },
     parseDate(dateString) {
