@@ -238,7 +238,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         let sub = subs[s];
         let assignment = sub.assignment;
         if (assignment.name.toLowerCase() === "hours") {
-          await $.get("/api/v1/courses/" + feature.courseId + "/gradebook_history/feed?user_id=" + app.userId + "&assignment_id=" + assignment.id).done(function (data) {
+          await $.get("/api/v1/courses/" + feature.courseId + "/gradebook_history/feed?user_id=" + feature.studentId + "&assignment_id=" + assignment.id).done(function (data) {
             feature.hoursAssignmentData = data;
           })
         }
