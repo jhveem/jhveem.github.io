@@ -339,8 +339,6 @@
                 let course = this.courses[c];
                 let courseId = course.course_id;
                 let hours = this.hoursBetweenDates[courseId];
-                console.log("HOURS");
-                console.log(hours);
                 if (hours !== undefined) {
                   count += 1;
                   hoursTotal += hours;
@@ -369,7 +367,6 @@
                 let assignment = sub.assignment;
                 if (assignment.name.toLowerCase() === "hours") {
                   await $.get("/api/v1/courses/" + courseId + "/gradebook_history/feed?user_id=" + app.userId + "&assignment_id=" + assignment.id).done(function (data) {
-                    console.log("FOUND ASSIGNMENT DATA");
                     app.hoursAssignmentData[courseId] = data;
                   })
                 }

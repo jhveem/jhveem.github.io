@@ -155,21 +155,21 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       let finalTotalScore = 0;
       //used for figuring out scores if using hours enrolled
       let finalPoints = 0;
-      let finalPointsPossible = 0;
       let finalUngradedAsZero = 0;
-      let finalPercentComplete = 0;
+      let totalProgress = 0;
+      let totalWeights = 0;
       //loop assignments
       for (let i = 0; i < assignmentGroups.length; i++) {
         let group = assignmentGroups[i];
         let score = 0;
-        let total = 0;
-        let ungradedAsZeroTotal = 0;
+        let possiblePoints = 0;
+        let totalPoints = 0;
         let assignments = group.assignments;
         for (let a = 0; a < assignments.length; a++) {
           let assignment = assignments[a];
           let id = parseInt(assignment.id);
           let submissionElement = $("#submission_" + id);
-          ungradedAsZeroTotal += assignment.points_possible;
+          totalPoints += assignment.points_possible;
           if (includedAssignments.includes(id)) {
             submissionElement.clone().appendTo(newBody);
             let currentScoreString = submissionElement.find("td.assignment_score span.original_points").text().trim();
@@ -178,26 +178,28 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
               let curScore = parseFloat(currentScoreString);
               score += curScore;
               finalPoints += (curScore * group.group_weight);
-              total += assignment.points_possible;
+              possiblePoints += assignment.points_possible;
             }
           } else {
             //console.log($("#submission_"+id).html());
           }
         }
-        if (total > 0) {
+        if (possiblePoints > 0) {
           let groupPerc = (score / total);
-          let groupUngradedAsZeroPerc = (score / ungradedAsZeroTotal);
+          let groupUngradedAsZeroPerc = (score / totalPoints);
           finalTotalScore += group.group_weight;
           finalScore += (groupPerc * group.group_weight);
           finalUngradedAsZero += (groupUngradedAsZeroPerc * group.group_weight);
-          console.log("DATA");
-          console.log(total);
-          console.log(ungradedAsZeroTotal);
-          console.log(group.group_weight);
-          finalPercentComplete += (total / ungradedAsZeroTotal) * group.group_weight;
+        }
+        if (totalPoints > 0) {
+          let progress = possiblePoints / totalPoints;
+          totalProgress += progress * group.group_weight;
+          totalWeights += group.group_weight;
         }
       }
-      console.log(finalPercentComplete);
+      console.log("Progress???");
+      console.log(totalProgress);
+      console.log(totalProgress / totalWeights);
       let outputScore = finalScore / finalTotalScore;
       let outputUngradedAsZeroScore = finalUngradedAsZero / finalTotalScore;
       let outputHours = '';
