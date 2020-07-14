@@ -218,14 +218,14 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
         if (feature.hoursEnrolled !== null) {
 
+          let percCompleted = (totalProgress / totalWeights);
+          let hoursCompleted = toPrecision((feature.hours * percCompleted), 2);
+          let minHoursRequired = feature.hoursEnrolled * .66;
           let weightedGrade = outputScore;
           if (hoursCompleted < minHoursRequired) {
             weightedGrade *= (hoursCompleted / minHoursRequired);
           }
           weightedGrade = toPrecision(weightedGrade, 2);
-          let percCompleted = (totalProgress / totalWeights);
-          let hoursCompleted = toPrecision((feature.hours * percCompleted), 2);
-          let minHoursRequired = feature.hoursEnrolled * .66;
           let hoursExplanation = "<div>You are currently enrolled for " + feature.hoursEnrolled + " hours. You have completed " + hoursCompleted + ".</div>";
           if (hoursCompleted < minHoursRequired) {
             hoursExplanation += "<div>If you were to end your course with your current hours, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
