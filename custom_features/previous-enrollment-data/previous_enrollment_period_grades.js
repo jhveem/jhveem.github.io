@@ -233,7 +233,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         'student_ids': [feature.studentId],
         'include': ['assignment']
       })
-      this.hoursAssignmentData[feature.courseId] = null;
+      this.hoursAssignmentData = null;
       for (let s = 0; s < subs.length; s++) {
         let sub = subs[s];
         let assignment = sub.assignment;
