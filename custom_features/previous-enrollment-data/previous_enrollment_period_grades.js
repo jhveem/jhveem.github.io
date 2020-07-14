@@ -225,6 +225,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           if (hoursCompleted < minHoursRequired) {
             weightedGrade *= (hoursCompleted / minHoursRequired);
           }
+          console.log(weightedGrade);
           weightedGrade = toPrecision(weightedGrade, 2);
           let hoursExplanation = "<div>You are currently enrolled for " + feature.hoursEnrolled + " hours. You have completed " + hoursCompleted + ".</div>";
           if (hoursCompleted < minHoursRequired) {
