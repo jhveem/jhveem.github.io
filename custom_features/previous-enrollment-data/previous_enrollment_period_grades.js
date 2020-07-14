@@ -87,6 +87,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       let url = "/api/v1/courses/" + feature.courseId + "/students/submissions";
       let data_obj = {
         "per_page": 100,
+        "include": ["assignment"],
         "page": page,
         "student_ids": [feature.studentId]
       };
