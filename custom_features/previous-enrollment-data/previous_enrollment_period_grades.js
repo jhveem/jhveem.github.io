@@ -4,9 +4,13 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
     initiated: false,
     courseId: null,
     studentId: null,
+    termStartDate: null,
+    termEndDate: null,
     studentAssignmentsData: [],
     hours: 0,
+    hoursAssignmentData: null,
     hoursEnrolled: null,
+    assignmentGroups: {},
     async _init(params = {}) {
       let feature = this;
       this.courseId = ENV.courses_with_grades[0].id;
@@ -14,6 +18,11 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       this.studentAssignmentsData = [];
       window.STUDENT_HOURS = 0;
       window.TOTAL_HOURS = 0;
+      feature.assignmentGroups = await canvasGet("/api/v1/courses/" + feature.courseId + "/assignment_groups", {
+        'include': [
+          'assignments'
+        ]
+      });
 
       //grab the original grades and give it an id for future access
       $("table#grades_summary tbody").attr("id", "btech-original-grades-body");
@@ -37,17 +46,11 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       let enrollmentStartDate = new Date(enrollmentData[0].enrollments[0].updated_at);
       let dateStringEnrollment = enrollmentStartDate.getFullYear() + "-" + ("0" + (enrollmentStartDate.getMonth() + 1)).slice(-2) + "-" + ("0" + enrollmentStartDate.getDate()).slice(-2);
       let dateStringNow = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
+      feature.termStartDate = enrollmentStartDate;
+      feature.termEndDate = dateStringNow;
       //GET THE STUDENT'S SUBMISSIONS FOR THIS COURSE
-      feature.studentAssignmentsData = await feature.getSubmissions();
+      feature.studentAssignmentsData = await feature.getSubmissionsData();
       //check to see if the student has hours enrolled set up
-      for (let i = 0; i < this.studentAssignmentsData.length; i++) {
-        let submission = this.studentAssignmentsData[i];
-        let assignment = submission.assignment;
-        if (assignment.name.toLowerCase() === 'hours') {
-          this.hoursEnrolled = submission.score;
-          break;
-        }
-      }
       feature.createDateSelector(dateStringEnrollment, dateStringNow);
       this.hours = CURRENT_COURSE_HOURS;
       window.TOTAL_HOURS = CURRENT_COURSE_HOURS;
@@ -92,7 +95,9 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       //set up the buttons
       $("#btech-term-grade-button").on("click", function () {
         let startDate = feature.parseDate($("#btech-term-grade-start").val());
+        feature.termStartDate = startDate;
         let endDate = feature.parseDate($("#btech-term-grade-end").val());
+        feature.termEndDate = endDate;
         feature.calcEnrollmentGrade(feature.studentAssignmentsData, startDate, endDate);
       });
       $("#btech-term-reset-button").on("click", function () {
@@ -104,124 +109,123 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         $("#btech-term-grade-value").empty();
       });
     },
-    async getSubmissions(page = "1", submissions = []) {
-      let feature = this;
-      let url = "/api/v1/courses/" + feature.courseId + "/students/submissions";
-      let data_obj = {
-        "per_page": 100,
-        "include": ["assignment"],
-        "page": page,
-        "student_ids": [feature.studentId]
-      };
-      let nextPage = "";
-      await $.get(url, data_obj, function (data, status, xhr) {
-        //add assignments to the list
-        submissions = submissions.concat(data);
-        //see if there's another page to get
-        let rNext = /<([^>]*)>; rel="next"/;
-        let nextMatch = xhr.getResponseHeader("Link").match(rNext);
-        if (nextMatch !== null) {
-          let next = nextMatch[1];
-          nextPage = next.match(/page=(.*?)&/)[1];
-        }
-      });
-      if (nextPage !== "") {
-        return await feature.getSubmissions(nextPage, submissions);
-      }
-      return submissions;
-    },
     calcEnrollmentGrade(studentAssignmentsData, startDate, endDate) {
       let feature = this;
-      //reset display of assigment elements
-      let originalBody = $("#btech-original-grades-body");
-      originalBody.hide();
-      let newBody = $("#btech-enrollment-grades-body");
-      newBody.empty();
-      newBody.show();
-
-      //figure out which assignments should be included
-      let includedAssignments = [];
-      for (let i = 0; i < studentAssignmentsData.length; i++) {
-        let submission = studentAssignmentsData[i];
-        let date = new Date(submission.graded_at);
-        if (date >= startDate && date <= endDate) {
-          includedAssignments.push(submission.assignment_id);
+      //make sure there's any submissions to work with for this course
+      let subs = feature.studentAssignmentsData;
+      if (subs !== undefined) {
+        //get the data for all submissions that are available and organize by assignment_id
+        let subData = {};
+        for (let s = 0; s < subs.length; s++) {
+          let sub = subs[s];
+          if (sub.posted_at != null) {
+            subData[sub.assignment_id] = sub;
+          }
         }
-      }
+        //reset display of assigment elements
+        let originalBody = $("#btech-original-grades-body");
+        originalBody.hide();
+        let newBody = $("#btech-enrollment-grades-body");
+        newBody.empty();
+        newBody.show();
 
-      //Go through each assignment group and figure out the points value of the included assignments that are in those groups
-      let assignmentGroups = ENV.assignment_groups;
-      let finalScore = 0;
-      let finalTotalScore = 0;
-      //used for figuring out scores if using hours enrolled
-      let finalPoints = 0;
-      let finalUngradedAsZero = 0;
-      let totalProgress = 0;
-      let totalWeights = 0;
-      //loop assignments
-      for (let i = 0; i < assignmentGroups.length; i++) {
-        let group = assignmentGroups[i];
-        let score = 0;
-        let possiblePoints = 0;
-        let totalPoints = 0;
-        let assignments = group.assignments;
-        for (let a = 0; a < assignments.length; a++) {
-          let assignment = assignments[a];
-          let id = parseInt(assignment.id);
-          let submissionElement = $("#submission_" + id);
-          totalPoints += assignment.points_possible;
-          if (includedAssignments.includes(id)) {
-            submissionElement.clone().appendTo(newBody);
-            let currentScoreString = submissionElement.find("td.assignment_score span.original_points").text().trim();
-            let parsedScore = parseFloat(currentScoreString);
-            if (!isNaN(parsedScore)) {
-              let curScore = parseFloat(currentScoreString);
-              score += curScore;
-              finalPoints += (curScore * group.group_weight);
-              possiblePoints += assignment.points_possible;
+        //figure out which assignments should be included
+        let includedAssignments = [];
+        for (let i = 0; i < studentAssignmentsData.length; i++) {
+          let submission = studentAssignmentsData[i];
+          let date = new Date(submission.graded_at);
+          if (date >= startDate && date <= endDate) {
+            includedAssignments.push(submission.assignment_id);
+          }
+        }
+
+        //Go through each assignment group and figure out the points value of the included assignments that are in those groups
+        let assignmentGroups = feature.assignmentGroups;
+        let finalScore = 0;
+        let finalTotalScore = 0;
+        //used for figuring out scores if using hours enrolled
+        let finalPoints = 0;
+        let finalUngradedAsZero = 0;
+        let totalProgress = 0;
+        let totalWeights = 0;
+        //get the data for all submissions
+        let subData = {};
+        for (let s = 0; s < subs.length; s++) {
+          let sub = subs[s];
+          if (sub.posted_at != null) {
+            subData[sub.assignment_id] = sub;
+          }
+        }
+        //loop assignments
+        for (let i = 0; i < assignmentGroups.length; i++) {
+          let group = assignmentGroups[i];
+          if (group.group_weight > 0) {
+            let score = 0;
+            let possiblePoints = 0;
+            let totalPoints = 0;
+            let assignments = group.assignments;
+            for (let a = 0; a < assignments.length; a++) {
+              let assignment = assignments[a];
+              if (assignment.published) {
+                let id = parseInt(assignment.id);
+                let submissionElement = $("#submission_" + id);
+                totalPoints += assignment.points_possible;
+                if (assignment.id in subData) {
+                  let sub = subData[assignment.id];
+                  let subDateString = sub.submitted_at;
+                  if (subDateString === null) subDateString = sub.graded_at;
+                  let subDate = new Date(subDateString);
+                  if (subDate >= feature.termStartDate && subDate <= feature.termEndDate) {
+                    submissionElement.clone().appendTo(newBody);
+                    score += sub.score;
+                    finalPoints += (sub.score * group.group_weight);
+                    possiblePoints += assignment.points_possible;
+                  }
+                } else {
+                  //console.log($("#submission_"+id).html());
+                }
+              }
             }
-          } else {
-            //console.log($("#submission_"+id).html());
+            if (possiblePoints > 0) {
+              let groupPerc = (score / possiblePoints);
+              let groupUngradedAsZeroPerc = (score / totalPoints);
+              finalTotalScore += group.group_weight;
+              finalScore += (groupPerc * group.group_weight);
+              finalUngradedAsZero += (groupUngradedAsZeroPerc * group.group_weight);
+            }
+            if (totalPoints > 0) {
+              let progress = possiblePoints / totalPoints;
+              totalProgress += progress * group.group_weight;
+              totalWeights += group.group_weight;
+            }
           }
         }
-        if (possiblePoints > 0) {
-          let groupPerc = (score / possiblePoints);
-          let groupUngradedAsZeroPerc = (score / totalPoints);
-          finalTotalScore += group.group_weight;
-          finalScore += (groupPerc * group.group_weight);
-          finalUngradedAsZero += (groupUngradedAsZeroPerc * group.group_weight);
-        }
-        if (totalPoints > 0) {
-          let progress = possiblePoints / totalPoints;
-          totalProgress += progress * group.group_weight;
-          totalWeights += group.group_weight;
-        }
-      }
-      console.log("Progress???");
-      console.log(totalProgress);
-      console.log(totalProgress / totalWeights);
-      let outputScore = finalScore / finalTotalScore;
-      let outputUngradedAsZeroScore = finalUngradedAsZero / finalTotalScore;
-      let outputHours = '';
-      if (isNaN(outputScore)) {
-        outputScore = "N/A";
-      } else {
-        let gradingScheme = ENV.grading_scheme;
-        $("#btech-term-ungraded-value").html("<b>Ungraded as Zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%");
+        console.log("Progress???");
+        console.log(totalProgress);
+        console.log(totalProgress / totalWeights);
+        let outputScore = finalScore / finalTotalScore;
+        let outputUngradedAsZeroScore = finalUngradedAsZero / finalTotalScore;
+        let outputHours = '';
+        if (isNaN(outputScore)) {
+          outputScore = "N/A";
+        } else {
+          let gradingScheme = ENV.grading_scheme;
+          $("#btech-term-ungraded-value").html("<b>Ungraded as Zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%");
 
-        let letterGrade = null;
-        for (var g = 1; g < gradingScheme.length; g++) {
-          let max = gradingScheme[g - 1][1];
-          let min = gradingScheme[g][1];
-          if (outputScore >= min && outputScore < max) {
-            letterGrade = gradingScheme[g][0];
+          let letterGrade = null;
+          for (var g = 1; g < gradingScheme.length; g++) {
+            let max = gradingScheme[g - 1][1];
+            let min = gradingScheme[g][1];
+            if (outputScore >= min && outputScore < max) {
+              letterGrade = gradingScheme[g][0];
+            }
           }
+          outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
         }
-        outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
+        $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
+        let hoursCompleted =
+          $("#btech-term-grade-weighted-value").html("<p>Hours Enrolled: " + feature.hoursEnrolled + "</p><p></p>")
       }
-      $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
-      let hoursCompleted =
-        $("#btech-term-grade-weighted-value").html("<p>Hours Enrolled: " + feature.hoursEnrolled + "</p><p></p>")
     },
     parseDate(dateString) {
       let pieces = dateString.split("-");
@@ -230,6 +234,24 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       let day = parseInt(pieces[2]) + 1;
       let date = new Date(year, month, day);
       return date;
-    }
+    },
+    async getSubmissionData() {
+      let feature = this;
+      let subs = await canvasGet("/api/v1/courses/" + feature.courseId + "/students/submissions", {
+        'student_ids': [feature.studentId],
+        'include': ['assignment']
+      })
+      this.hoursAssignmentData[courseId] = null;
+      for (let s = 0; s < subs.length; s++) {
+        let sub = subs[s];
+        let assignment = sub.assignment;
+        if (assignment.name.toLowerCase() === "hours") {
+          await $.get("/api/v1/courses/" + courseId + "/gradebook_history/feed?user_id=" + app.userId + "&assignment_id=" + assignment.id).done(function (data) {
+            feature.hoursAssignmentData = data;
+          })
+        }
+      }
+      return subs;
+    },
   }
 }
