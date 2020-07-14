@@ -233,12 +233,12 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         'student_ids': [feature.studentId],
         'include': ['assignment']
       })
-      this.hoursAssignmentData[courseId] = null;
+      this.hoursAssignmentData[feature.courseId] = null;
       for (let s = 0; s < subs.length; s++) {
         let sub = subs[s];
         let assignment = sub.assignment;
         if (assignment.name.toLowerCase() === "hours") {
-          await $.get("/api/v1/courses/" + courseId + "/gradebook_history/feed?user_id=" + app.userId + "&assignment_id=" + assignment.id).done(function (data) {
+          await $.get("/api/v1/courses/" + feature.courseId + "/gradebook_history/feed?user_id=" + app.userId + "&assignment_id=" + assignment.id).done(function (data) {
             feature.hoursAssignmentData = data;
           })
         }
