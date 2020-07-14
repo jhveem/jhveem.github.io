@@ -327,6 +327,8 @@
                 let course = this.courses[c];
                 let courseId = course.course_id;
                 let hours = this.hoursBetweenDates[courseId];
+                console.log("HOURS");
+                console.log(hours);
                 if (hours !== undefined) {
                   count += 1;
                   hoursTotal += hours;
