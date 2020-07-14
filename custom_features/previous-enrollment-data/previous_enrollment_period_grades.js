@@ -202,6 +202,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         if (isNaN(outputScore)) {
           outputScore = "N/A";
         } else {
+          outputScore *= 100;
           let weightedGrade = outputScore; //has to be set here before it's all messed up, the rest dealing with weighted is done after making sure hoursEnrolled exists
           let gradingScheme = ENV.grading_scheme;
           $("#btech-term-ungraded-value").html("<b>Ungraded as Zero:</b> " + toPrecision(outputUngradedAsZeroScore, 2) + "%");
@@ -214,7 +215,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
               letterGrade = gradingScheme[g][0];
             }
           }
-          outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
+          outputScore = toPrecision(outputScore, 2) + "% (" + letterGrade + ")";
           if (feature.hoursEnrolled !== null) {
 
             let percCompleted = (totalProgress / totalWeights);
@@ -225,9 +226,9 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
             }
             console.log(weightedGrade);
             weightedGrade = toPrecision(weightedGrade, 2);
-            let hoursExplanation = "<div>You are currently enrolled for " + feature.hoursEnrolled + " hours. You have completed " + hoursCompleted + ".</div>";
+            let hoursExplanation = "<div>You have completed " + hoursCompleted + " of your " + feature.hoursEnrolled + " enrolled hours.</div>";
             if (hoursCompleted < minHoursRequired) {
-              hoursExplanation += "<div>If you were to end your course with your current hours, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
+              hoursExplanation += "<div>If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
             }
             $("#btech-term-grade-weighted-value").html(hoursExplanation);
           }
