@@ -1,22 +1,19 @@
 IMPORTED_FEATURE = {};
-console.log("TEACHER");
 if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
   IMPORTED_FEATURE = {
     initiated: false,
     courseId: null,
     studentId: null,
     studentAssignmentsData: [],
-    hours: 90,
+    hours: 0,
+    hoursEnrolled: 0,
     async _init(params = {}) {
       let feature = this;
       this.courseId = ENV.courses_with_grades[0].id;
       this.studentId = ENV.students[0].id;
       this.studentAssignmentsData = [];
-      if (params.hours !== undefined) {
-        feature.hours = params.hours;
-      }
       window.STUDENT_HOURS = 0;
-      window.TOTAL_HOURS = 90;
+      window.TOTAL_HOURS = 0;
 
       //grab the original grades and give it an id for future access
       $("table#grades_summary tbody").attr("id", "btech-original-grades-body");
@@ -120,8 +117,10 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
 
       //figure out which assignments should be included
       let includedAssignments = [];
+      console.log("SUBMISSIONS");
       for (let i = 0; i < studentAssignmentsData.length; i++) {
         let submission = studentAssignmentsData[i];
+        console.log(submission);
         let date = new Date(submission.graded_at);
         if (date >= startDate && date <= endDate) {
           includedAssignments.push(submission.assignment_id);

@@ -264,12 +264,11 @@ if (window.self === window.top) {
           const IS_ME = (currentUser === 1893418);
           const IS_CDD = (CDDIDS.includes(currentUser))
           //GENERAL FEATURES
-          featureBeta("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
           if (IS_TEACHER) {
             feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-            if (BETA) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-            else if (!IS_CDD) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-            else if (IS_CDD || currentUser === 1225484 || currentUser === 817257) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+            feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          } else { //Is not a teacher
+            featureBeta("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
           }
           //COURSE FEATURES
           let rCheckInCourse = /^\/courses\/([0-9]+)/;
