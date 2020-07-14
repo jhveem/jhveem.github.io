@@ -79,9 +79,11 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
                   </div>
                   <button class="Button" id="btech-term-grade-button">Estimate</button>
                   <button class="Button" id="btech-term-reset-button">Reset</button>
-                  <div id="btech-term-grade-value"></div>
-                  <div id="btech-term-ungraded-value"></div>
-                  <div id="btech-term-grade-weighted-value"></div>
+                  <div id="btech-term-output-container">
+                    <div id="btech-term-grade-value"></div>
+                    <div id="btech-term-ungraded-value"></div>
+                    <div id="btech-term-grade-weighted-value"></div>
+                  </div>
                 </div>`
       );
       //hide the two views
@@ -131,6 +133,9 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         let newBody = $("#btech-enrollment-grades-body");
         newBody.empty();
         newBody.show();
+        $("#btech-term-output-container div").each(function() {
+          $(this).empty();
+        })
 
         //figure out which assignments should be included
         let includedAssignments = [];
