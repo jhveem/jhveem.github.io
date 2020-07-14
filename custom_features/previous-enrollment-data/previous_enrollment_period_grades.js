@@ -49,6 +49,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         }
       }
       feature.createDateSelector(dateStringEnrollment, dateStringNow);
+      this.hours = CURRENT_COURSE_HOURS;
       window.TOTAL_HOURS = CURRENT_COURSE_HOURS;
     },
     createDateSelector(dateStringEnrollment, dateStringNow) {
@@ -73,6 +74,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
                   <button class="Button" id="btech-term-grade-button">Estimate</button>
                   <button class="Button" id="btech-term-reset-button">Reset</button>
                   <div id="btech-term-grade-value"></div>
+                  <div id="btech-term-ungraded-value"></div>
+                  <div id="btech-term-grade-weighted-value"></div>
                 </div>`
       );
       //hide the two views
@@ -195,14 +198,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         outputScore = "N/A";
       } else {
         let gradingScheme = ENV.grading_scheme;
-        outputHours += "</div><b>Ungraded as Zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%</div>";
-        if (window.STUDENT_HOURS > 0) {
-          //CHANGE THE OUTPUT SCORE TO BE BASED ON finalPoints AND finalPointsPossible
-          let reqHours = window.STUDENT_HOURS * 60;
-          outputHours += "<div><b>Required Hours:</b> " + reqHours + "</div>"
-          outputScore = hoursCompleted / reqHours;
+        $("#btech-term-ungraded-value").append("<b>Ungraded as Zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%");
 
-        }
         let letterGrade = null;
         for (var g = 1; g < gradingScheme.length; g++) {
           let max = gradingScheme[g - 1][1];
@@ -213,7 +210,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         }
         outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
       }
-      $("#btech-term-grade-value").html("<div><b>Term Grade:</b> " + outputScore + "</div>" + outputHours);
+      $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
     },
     parseDate(dateString) {
       let pieces = dateString.split("-");
