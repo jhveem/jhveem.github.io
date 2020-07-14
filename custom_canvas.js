@@ -71,6 +71,10 @@ function add_javascript_library(url) {
   document.getElementsByTagName('head')[0].appendChild(s);
 }
 
+function toPrecision(number, numberAfterDecimal) {
+  return parseFloat(number.toFixed(numberAfterDecimal));
+}
+
 function feature(f, data = {}, regex = "") {
   //feature is the name of the feature file without .js, if it's in a subfolder, include that too
   //potentially flesh out these files so they're objects with methods. Then call an init function on load with the data variable having all the custom variables needed for each department

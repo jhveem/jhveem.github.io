@@ -1,3 +1,6 @@
+function toPrecision(number, numberAfterDecimal) {
+  return parseFloat(number.toFixed(numberAfterDecimal));
+}
 IMPORTED_FEATURE = {};
 if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
   IMPORTED_FEATURE = {
@@ -192,12 +195,11 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
             }
           }
         }
-        console.log("Progress???");
-        console.log(totalProgress);
-        console.log(totalProgress / totalWeights);
         let outputScore = finalScore / finalTotalScore;
         let outputUngradedAsZeroScore = finalUngradedAsZero / finalTotalScore;
         let outputHours = '';
+        let percCompleted = (totalProgress / totalWeights);
+        let hoursCompleted = toPrecision((this.hours * percCompleted), 2);
         if (isNaN(outputScore)) {
           outputScore = "N/A";
         } else {
@@ -215,8 +217,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
         }
         $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
-        let hoursCompleted =
-          $("#btech-term-grade-weighted-value").html("<p>Hours Enrolled: " + feature.hoursEnrolled + "</p><p></p>")
+        $("#btech-term-grade-weighted-value").html("<p>Hours Enrolled: " + feature.hoursEnrolled + "</p><p>Hours Completed: " + hoursCompleted + "</p>")
       }
     },
     parseDate(dateString) {
@@ -238,6 +239,10 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         let sub = subs[s];
         let assignment = sub.assignment;
         if (assignment.name.toLowerCase() === "hours") {
+          //in ind report this looks through the grade activity stream, but student doesn't have access to this
+          //will likely need to be fixed there if student is to have access to that
+          //need a new way to get historic grade data of hours
+          //also can just do a check if a teacher, get historic, otherwise, student is stuck with most recent
           feature.hoursAssignmentData = assignment;
           feature.hoursEnrolled = sub.score;
         }
