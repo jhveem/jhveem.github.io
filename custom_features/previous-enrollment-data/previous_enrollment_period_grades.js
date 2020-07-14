@@ -141,7 +141,6 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
 
       //figure out which assignments should be included
       let includedAssignments = [];
-      console.log("SUBMISSIONS");
       for (let i = 0; i < studentAssignmentsData.length; i++) {
         let submission = studentAssignmentsData[i];
         let date = new Date(submission.graded_at);
@@ -191,8 +190,12 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           finalTotalScore += group.group_weight;
           finalScore += (groupPerc * group.group_weight);
           finalUngradedAsZero += (groupUngradedAsZeroPerc * group.group_weight);
+          console.log("DATA");
+          console.log(total);
+          console.log(ungradedAsZeroTotal);
+          console.log(group.group_weight);
+          finalPercentComplete += (total / ungradedAsZeroTotal) * group.group_weight;
         }
-        finalPercentComplete += (total / ungradedAsZeroTotal) * group.group_weight;
       }
       console.log(finalPercentComplete);
       let outputScore = finalScore / finalTotalScore;
@@ -202,7 +205,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         outputScore = "N/A";
       } else {
         let gradingScheme = ENV.grading_scheme;
-        $("#btech-term-ungraded-value").append("<b>Ungraded as Zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%");
+        $("#btech-term-ungraded-value").html("<b>Ungraded as Zero:</b> " + (outputUngradedAsZeroScore * 100).toFixed(2) + "%");
 
         let letterGrade = null;
         for (var g = 1; g < gradingScheme.length; g++) {
@@ -215,8 +218,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
       }
       $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
-      let hoursCompleted = 
-      $("#btech-term-grade-weighted-value").append("<p>Hours Enrolled: " + feature.hoursEnrolled + "</p><p></p>")
+      let hoursCompleted =
+        $("#btech-term-grade-weighted-value").html("<p>Hours Enrolled: " + feature.hoursEnrolled + "</p><p></p>")
     },
     parseDate(dateString) {
       let pieces = dateString.split("-");
