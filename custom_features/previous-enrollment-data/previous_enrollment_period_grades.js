@@ -131,6 +131,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       return submissions;
     },
     calcEnrollmentGrade(studentAssignmentsData, startDate, endDate) {
+      let feature = this;
       //reset display of assigment elements
       let originalBody = $("#btech-original-grades-body");
       originalBody.hide();
@@ -157,6 +158,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       let finalPoints = 0;
       let finalPointsPossible = 0;
       let finalUngradedAsZero = 0;
+      let finalPercentComplete = 0;
       //loop assignments
       for (let i = 0; i < assignmentGroups.length; i++) {
         let group = assignmentGroups[i];
@@ -190,7 +192,9 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           finalScore += (groupPerc * group.group_weight);
           finalUngradedAsZero += (groupUngradedAsZeroPerc * group.group_weight);
         }
+        finalPercentComplete += (total / ungradedAsZeroTotal) * group.group_weight;
       }
+      console.log(finalPercentComplete);
       let outputScore = finalScore / finalTotalScore;
       let outputUngradedAsZeroScore = finalUngradedAsZero / finalTotalScore;
       let outputHours = '';
@@ -211,6 +215,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
       }
       $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
+      let hoursCompleted = 
+      $("#btech-term-grade-weighted-value").append("<p>Hours Enrolled: " + feature.hoursEnrolled + "</p><p></p>")
     },
     parseDate(dateString) {
       let pieces = dateString.split("-");
