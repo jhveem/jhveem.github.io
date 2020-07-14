@@ -215,24 +215,24 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
             }
           }
           outputScore = (outputScore * 100).toFixed(2) + "% (" + letterGrade + ")";
+          if (feature.hoursEnrolled !== null) {
+
+            let percCompleted = (totalProgress / totalWeights);
+            let hoursCompleted = toPrecision((feature.hours * percCompleted), 2);
+            let minHoursRequired = feature.hoursEnrolled * .66;
+            if (hoursCompleted < minHoursRequired) {
+              weightedGrade *= (hoursCompleted / minHoursRequired);
+            }
+            console.log(weightedGrade);
+            weightedGrade = toPrecision(weightedGrade, 2);
+            let hoursExplanation = "<div>You are currently enrolled for " + feature.hoursEnrolled + " hours. You have completed " + hoursCompleted + ".</div>";
+            if (hoursCompleted < minHoursRequired) {
+              hoursExplanation += "<div>If you were to end your course with your current hours, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
+            }
+            $("#btech-term-grade-weighted-value").html(hoursExplanation);
+          }
         }
         $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
-        if (feature.hoursEnrolled !== null) {
-
-          let percCompleted = (totalProgress / totalWeights);
-          let hoursCompleted = toPrecision((feature.hours * percCompleted), 2);
-          let minHoursRequired = feature.hoursEnrolled * .66;
-          if (hoursCompleted < minHoursRequired) {
-            weightedGrade *= (hoursCompleted / minHoursRequired);
-          }
-          console.log(weightedGrade);
-          weightedGrade = toPrecision(weightedGrade, 2);
-          let hoursExplanation = "<div>You are currently enrolled for " + feature.hoursEnrolled + " hours. You have completed " + hoursCompleted + ".</div>";
-          if (hoursCompleted < minHoursRequired) {
-            hoursExplanation += "<div>If you were to end your course with your current hours, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
-          }
-          $("#btech-term-grade-weighted-value").html(hoursExplanation);
-        }
       }
     },
     parseDate(dateString) {
