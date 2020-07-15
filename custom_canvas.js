@@ -369,7 +369,7 @@ if (window.self === window.top) {
           featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("surveys");
           featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-          featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
+          //featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           feature("welcome_banner", {}, /^\/$/);
 
           //Survey
