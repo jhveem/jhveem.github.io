@@ -103,13 +103,17 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         feature.termEndDate = endDate;
         feature.calcEnrollmentGrade(feature.studentAssignmentsData, startDate, endDate);
       });
+
       $("#btech-term-reset-button").on("click", function () {
         let originalBody = $("#btech-original-grades-body");
         originalBody.show();
         let newBody = $("#btech-enrollment-grades-body");
         newBody.empty();
         newBody.hide();
-        $("#btech-term-grade-value").empty();
+        //empty all the output divs
+        $("#btech-term-term-output-container div").each(function() {
+          $(this).empty();
+        });
       });
     },
     calcEnrollmentGrade(studentAssignmentsData, startDate, endDate) {
