@@ -21,7 +21,7 @@ $(window).on("load", function () {
     let x = parseInt($(cells[1]).text());
     let y = parseInt($(cells[2]).text());
     let icon = $("<div height='64px' width='64px' style='position: absolute; left: " + Math.round(x) + "%; top: " + Math.round(y) + "%;'></div>");
-    let iconImage = $("<img src='https://upload.wikimedia.org/wikipedia/commons/9/99/Star_icon_stylized.svg' style='width: 64px; height: 64px; position: relative;'>");
+    let iconImage = $("<img src='https://upload.wikimedia.org/wikipedia/commons/9/99/Star_icon_stylized.svg'>");
     icon.append(iconImage);
     iconImage.css({
       'top': '24px',
