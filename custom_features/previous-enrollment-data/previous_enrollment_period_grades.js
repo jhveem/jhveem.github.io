@@ -57,6 +57,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
     },
     createDateSelector(dateStringEnrollment, dateStringNow) {
       let feature = this;
+      //edit so the note does not appear if a student
       $("#student-grades-right-content").append(
         `<div id="btech-submissions-between-dates-module">
           <br><br>
@@ -71,8 +72,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
             <input type="date" id="btech-term-grade-end" name="term-end" value="` + dateStringNow + `" min="2010-01-01" max="2020-12-31">
           </div>
           <div id="btech-term-student-view">
-            <h2>Grade for Submissions Between Dates</h2> 
-            <p><b>Note:</b>Canvas only tracks the most recent submission, so regraded assignments will only be included in the date range for its most recent submission.</p>
+            <h2>Term Grade</h2> 
+            <p><b>Note:</b>If you are enrolled as a highscool student, your grade may be based on assignments completed during a certain period of time, not all assignments in the course. Click Estimate below to estimate your grade for the current enrollment period.</p>
           </div>
           <button class="Button" id="btech-term-grade-button">Estimate</button>
           <button class="Button" id="btech-term-reset-button">Reset</button>
