@@ -20,6 +20,7 @@ async function _init() {
           } catch (e) {}
         }
         var url = "https://script.google.com/macros/s/AKfycbzhlxe1absfbAV8-jtLIqOhy_qFcfAa2igje1FHJQYMNSRGNuUs/exec?sheetId=" + sheetId;
+        console.log(sheetId);
         var request = jQuery.ajax({
           crossDomain: true,
           url: url,
