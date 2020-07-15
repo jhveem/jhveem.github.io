@@ -27,8 +27,7 @@ $(window).on("load", function () {
       'top': '24px',
       'left': '24px',
       'height': '16px',
-      'width': '16px',
-      'transform': 'translate(-32px, -32px)'
+      'width': '16px'
     });
     icon.on({
       mouseenter: function () {
