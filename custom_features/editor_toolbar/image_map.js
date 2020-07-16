@@ -45,9 +45,9 @@
     });
   }
 
-  function imageMapCreate() {
+  async function imageMapCreate() {
     let editor = TOOLBAR.editor;
-    let img = addClassToImage("btech-image-map-image");
+    let img = await addClassToImage("btech-image-map-image");
     console.log(img);
     editor.execCommand("mceReplaceContent", false, img.outerHTML + "<table><tbody><tr><td>TEST</td></tr></tbody></table>");
   }
