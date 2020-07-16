@@ -1,5 +1,6 @@
 $(window).on("load", function () {
   let img = $(".btech-image-map-image");
+  img.wrap("<div class='btech-image-map-container' style='position: relative;'></div>");
   let table = $(".btech-image-map-table");
   let container = $(".btech-image-map-container");
   container.width(img.width());
