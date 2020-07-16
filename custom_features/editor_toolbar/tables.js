@@ -22,6 +22,7 @@
         tinyMCE.activeEditor.dom.addClass(parent, className);
       }
     }
+    return parent;
   }
 
   function resetTableButtons() {

@@ -47,12 +47,11 @@
 
   function imageMapCreate() {
     let img = addClassToImage("btech-image-map-image");
-    $(img).after("<table><tbody><tr><td>TEST</td></tr></tbody></table>")
+    $(img).after("<table><tbody><tr><td>TEST</td></tr></tbody></table>");
   }
 
   await TOOLBAR.checkReady();
-    TOOLBAR.addButtonIcom("far fa-star", "Convert an image to an Image Map.", imageMapCreate);
-  }
+  TOOLBAR.addButtonIcom("far fa-star", "Convert an image to an Image Map.", imageMapCreate);
 
   //whenever you click in the editor, see if it's selected a table with one of the classes
   tinymce.activeEditor.on("click", function () {
