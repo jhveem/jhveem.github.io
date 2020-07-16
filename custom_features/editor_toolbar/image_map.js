@@ -45,25 +45,33 @@
     });
   }
 
+  function linkImageMapToTable(imageId) {
+    let img = $(tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("image-id-" + imageId)[0]);
+    let table = $(tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("image-id-" + imageId + "-table")[0]);
+    img.click(function (e) {
+      var offset = $(this).offset();
+      let width = $(this).width();
+      let height = $(this).height();
+      var relativeX = Math.round((e.pageX - offset.left) / width * 100);
+      var relativeY = Math.round((e.pageY - offset.top) / height * 100);
+      // let icon = $("<i class='icon-video' style='position: absolute;'></i>")
+      let row = $("<tr><td>-INSERT VIDEO-</td><td>" + relativeX + "</td><td>" + relativeY + "</td></tr>");
+      table.find("tbody").prepend(row);
+    });
+  }
+
+  function getImageMapId(img) {
+
+  }
+
   async function imageMapCreate() {
     let editor = TOOLBAR.editor;
     let originalImage = await addClassToImage("btech-image-map-image");
     if ($(originalImage).hasClass('btech-image-map-image')) {
       let imageId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-      TOOLBAR.editor.dom.addClass(originalImage, "image-id-"+imageId);
-      editor.execCommand("mceReplaceContent", false, originalImage.outerHTML + "<table class='btech-image-map-table btech-hidden'><thead><tr><th>Content</th><th>x%</th><th>y%</th></tr></thead><tbody></tbody></table>");
-      let img = $(tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image")[0]);
-      let table = $(tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-table")[0]);
-      img.click(function (e) {
-        var offset = $(this).offset();
-        let width = $(this).width();
-        let height = $(this).height();
-        var relativeX = Math.round((e.pageX - offset.left) / width * 100);
-        var relativeY = Math.round((e.pageY - offset.top) / height * 100);
-        // let icon = $("<i class='icon-video' style='position: absolute;'></i>")
-        let row = $("<tr><td>-INSERT VIDEO-</td><td>" + relativeX + "</td><td>" + relativeY + "</td></tr>");
-        table.find("tbody").prepend(row);
-      });
+      TOOLBAR.editor.dom.addClass(originalImage, "image-id-" + imageId);
+      editor.execCommand("mceReplaceContent", false, originalImage.outerHTML + "<table class='btech-image-map-table image-id-" + imageId + "-table btech-hidden'><thead><tr><th>Content</th><th>x%</th><th>y%</th></tr></thead><tbody></tbody></table>");
+      linkImageMapToTable(imageId);
     } else {
       //get the image id and delete the corresponding table
     }
@@ -71,6 +79,18 @@
 
   await TOOLBAR.checkReady();
   TOOLBAR.addButtonIcon("far fa-star", "Convert an image to an Image Map.", imageMapCreate);
+  //set up all existing image maps
+  let imgs = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image");
+  for (let i = 0; i < imgs.length; i++) {
+    let img = $(imgs[i]);
+    let classes = img.attr('class').split(/\s+/);
+    for (var c = 0; c < classes.length; c++) {
+      try {
+        imageId = classes[c].match(/^image-id-\-(.*)/)[1];
+        console.log(imageId);
+      } catch (e) {}
+    }
+  }
 
   //whenever you click in the editor, see if it's selected a table with one of the classes
   tinymce.activeEditor.on("click", function () {
