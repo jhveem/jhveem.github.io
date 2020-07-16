@@ -92,7 +92,7 @@
   //set up all existing image maps
   let imgs = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image");
   for (let i = 0; i < imgs.length; i++) {
-    let img = $(imgs[i])[0];
+    let img = $(imgs[i]);
     console.log(img);
     let imageId = getImageId(img);
     console.log(imageId);
