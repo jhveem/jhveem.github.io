@@ -60,8 +60,17 @@
     });
   }
 
-  function getImageMapId(img) {
-
+  function getImageId(img) {
+    let classes = img.attr('class').split(/\s+/);
+    for (var c = 0; c < classes.length; c++) {
+      try {
+        imageId = classes[c].match(/^image-id-\-(.*)/)[1];
+        console.log(imageId);
+        return imageId;
+      } catch (e) {
+      }
+    }
+    return null;
   }
 
   async function imageMapCreate() {
@@ -81,17 +90,13 @@
   TOOLBAR.addButtonIcon("far fa-star", "Convert an image to an Image Map.", imageMapCreate);
   //set up all existing image maps
   let imgs = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image");
-  console.log(imgs);
   for (let i = 0; i < imgs.length; i++) {
     let img = $(imgs[i]);
-    let classes = img.attr('class').split(/\s+/);
-    for (var c = 0; c < classes.length; c++) {
-      try {
-        imageId = classes[c].match(/^image-id-\-(.*)/)[1];
-        console.log(imageId);
-      } catch (e) {
-
-      }
+    console.log(img);
+    let imageId = getImageId(img);
+    console.log(imageId);
+    if (imageId !== null) {
+      linkImageMapToTable(imageId);
     }
   }
 
