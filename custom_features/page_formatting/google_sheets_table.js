@@ -20,14 +20,12 @@ async function _init() {
           } catch (e) {}
         }
         var url = "https://script.google.com/macros/s/AKfycbzhlxe1absfbAV8-jtLIqOhy_qFcfAa2igje1FHJQYMNSRGNuUs/exec?sheetId=" + sheetId;
-        console.log(sheetId);
         var request = jQuery.ajax({
           crossDomain: true,
           url: url,
           method: "GET",
           dataType: "jsonp"
         }).done(function (res) {
-          console.log(res);
           let rows = table.find("tr");
           let thTag = $("<thead><tr></tr></thead>");
           let headerSet = false;

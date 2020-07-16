@@ -18,7 +18,6 @@ $(window).on("load", function () {
     let row = $(this);
     let cells = row.find('td');
     let content = $(cells[0]).html();
-    console.log();
     let x = parseInt($(cells[1]).text());
     let y = parseInt($(cells[2]).text());
     let imgSrc= "https://jhveem.github.io/media/map-marker.jpg";
@@ -72,7 +71,6 @@ $(window).on("load", function () {
       }
     });
     icon.click(function () {
-      console.log("CLICKED");
       backdrop.show();
       currentRow = row;
       player.html(content);

@@ -55,18 +55,16 @@
       var relativeX = Math.round((e.pageX - offset.left) / width * 100);
       var relativeY = Math.round((e.pageY - offset.top) / height * 100);
       // let icon = $("<i class='icon-video' style='position: absolute;'></i>")
-      let row = $("<tr><td>-INSERT VIDEO-</td><td>" + relativeX + "</td><td>" + relativeY + "</td></tr>");
+      let row = $("<tr><td>-INSERT CONTENT HERE-</td><td>" + relativeX + "</td><td>" + relativeY + "</td></tr>");
       table.find("tbody").prepend(row);
     });
   }
 
   function getImageId(img) {
     let classes = img.attr('class').split(/\s+/);
-    console.log(classes);
     for (var c = 0; c < classes.length; c++) {
       try {
         imageId = classes[c].match(/^image-id-(.*)/)[1];
-        console.log(imageId);
         return imageId;
       } catch (e) {
       }
@@ -93,9 +91,7 @@
   let imgs = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image");
   for (let i = 0; i < imgs.length; i++) {
     let img = $(imgs[i]);
-    console.log(img);
     let imageId = getImageId(img);
-    console.log(imageId);
     if (imageId !== null) {
       linkImageMapToTable(imageId);
     }

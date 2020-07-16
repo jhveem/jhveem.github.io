@@ -164,7 +164,6 @@ function addToModuleMenu(name, description, func, icon = "icon-plus") {
       let titleMatch = title.match(rTitle);
       if (titleMatch !== null) {
         let modTitle = "Module " + titleMatch[1];
-        console.log(modTitle);
         let menu = item.find("ul.al-options");
         let liTag = $("<li></li>");
         let aTag = $(`<a href="" title="` + description + `"><i class="` + icon + `"></i>` + name + `</a>`);
