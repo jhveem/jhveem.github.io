@@ -47,8 +47,20 @@
 
   async function imageMapCreate() {
     let editor = TOOLBAR.editor;
-    let img = await addClassToImage("btech-image-map-image");
-    editor.execCommand("mceReplaceContent", false, img.outerHTML + "<table class='btech-image-map-table btech-hidden'><thead><tr><th>Content</th><th>x%</th><th>y%</th></tr></thead><tbody></tbody></table>");
+    let originalImg = await addClassToImage("btech-image-map-image");
+    editor.execCommand("mceReplaceContent", false, originalImage.outerHTML + "<table class='btech-image-map-table btech-hidden'><thead><tr><th>Content</th><th>x%</th><th>y%</th></tr></thead><tbody></tbody></table>");
+    let img = $(tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image")[0]);
+    let table = $(tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-table")[0]);
+    img.click(function (e) {
+      var offset = $(this).offset();
+      let width = $(this).width();
+      let height = $(this).height();
+      var relativeX = Math.round((e.pageX - offset.left) / width * 100);
+      var relativeY = Math.round((e.pageY - offset.top) / height * 100);
+      // let icon = $("<i class='icon-video' style='position: absolute;'></i>")
+      let row = $("<tr><td>-INSERT VIDEO-</td><td>" + relativeX + "</td><td>" + relativeY + "</td></tr>");
+      table.find("tbody").append(row)
+    });
   }
 
   await TOOLBAR.checkReady();
