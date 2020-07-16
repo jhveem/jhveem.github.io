@@ -65,7 +65,7 @@
     console.log(classes);
     for (var c = 0; c < classes.length; c++) {
       try {
-        imageId = classes[c].match(/^image-id-\-(.*)/)[1];
+        imageId = classes[c].match(/^image-id-(.*)/)[1];
         console.log(imageId);
         return imageId;
       } catch (e) {
