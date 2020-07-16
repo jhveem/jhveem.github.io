@@ -48,8 +48,7 @@
   async function imageMapCreate() {
     let editor = TOOLBAR.editor;
     let img = await addClassToImage("btech-image-map-image");
-    console.log(img);
-    editor.execCommand("mceReplaceContent", false, img.outerHTML + "<table><tbody><tr><td>TEST</td></tr></tbody></table>");
+    editor.execCommand("mceReplaceContent", false, img.outerHTML + "<table class='btech-image-map-table btech-hidden'><thead><tr><th>Content</th><th>x%</th><th>y%</th></tr></thead><tbody></tbody></table>");
   }
 
   await TOOLBAR.checkReady();
