@@ -46,8 +46,9 @@
   }
 
   function imageMapCreate() {
+    let editor = TOOLBAR.editor;
     let img = addClassToImage("btech-image-map-image");
-    $(img).after("<table><tbody><tr><td>TEST</td></tr></tbody></table>");
+    editor.execCommand("mceReplaceContent", false, $(img).html() + "<table><tbody><tr><td>TEST</td></tr></tbody></table>");
   }
 
   await TOOLBAR.checkReady();
