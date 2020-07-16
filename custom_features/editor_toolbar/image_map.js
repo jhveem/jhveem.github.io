@@ -81,6 +81,7 @@
   TOOLBAR.addButtonIcon("far fa-star", "Convert an image to an Image Map.", imageMapCreate);
   //set up all existing image maps
   let imgs = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image");
+  console.log(imgs);
   for (let i = 0; i < imgs.length; i++) {
     let img = $(imgs[i]);
     let classes = img.attr('class').split(/\s+/);
@@ -88,7 +89,9 @@
       try {
         imageId = classes[c].match(/^image-id-\-(.*)/)[1];
         console.log(imageId);
-      } catch (e) {}
+      } catch (e) {
+
+      }
     }
   }
 
