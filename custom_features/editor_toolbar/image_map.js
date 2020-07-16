@@ -62,6 +62,7 @@
 
   function getImageId(img) {
     let classes = img.attr('class').split(/\s+/);
+    console.log(classes);
     for (var c = 0; c < classes.length; c++) {
       try {
         imageId = classes[c].match(/^image-id-\-(.*)/)[1];
@@ -91,7 +92,7 @@
   //set up all existing image maps
   let imgs = tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image");
   for (let i = 0; i < imgs.length; i++) {
-    let img = $(imgs[i]);
+    let img = $(imgs[i])[0];
     console.log(img);
     let imageId = getImageId(img);
     console.log(imageId);
