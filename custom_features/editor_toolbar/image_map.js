@@ -47,7 +47,7 @@
 
   async function imageMapCreate() {
     let editor = TOOLBAR.editor;
-    let originalImg = await addClassToImage("btech-image-map-image");
+    let originalImage = await addClassToImage("btech-image-map-image");
     editor.execCommand("mceReplaceContent", false, originalImage.outerHTML + "<table class='btech-image-map-table btech-hidden'><thead><tr><th>Content</th><th>x%</th><th>y%</th></tr></thead><tbody></tbody></table>");
     let img = $(tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-image")[0]);
     let table = $(tinyMCE.activeEditor.iframeElement.contentDocument.getElementsByClassName("btech-image-map-table")[0]);
