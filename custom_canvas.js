@@ -301,7 +301,7 @@ if (window.self === window.top) {
             feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
             feature("quizzes/duplicate_bank_item", {}, /\/courses\/([0-9]+)\/question_banks\/([0-9]+)/);
-
+            feature('blueprint_association_links');
             feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
 
