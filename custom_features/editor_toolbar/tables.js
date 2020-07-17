@@ -28,12 +28,12 @@
   function resetTableButtons() {
     let node = tinyMCE.activeEditor.selection.getNode();
     let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
+    let found = false;
     $('.btech-table-edit-option').each(function () {
       $(this).css({
         'background-color': '#eee',
         'color': '#000'
       });
-      $(this).prop('selected', false);
       let className = $(this).attr('id').replace("-button", "");
       if (parent !== null) {
         if ($(parent).hasClass(className)) {
@@ -42,10 +42,15 @@
             'background-color': bgColor,
             'color': '#fff'
           });
-          $(this).prop('selected', true);
+          $(this).select();
+          found = true;
         }
       }
     });
+    //if no options are selected, select the disabled or default option
+    if (!found) {
+      $('.btech-table-edit-option:disabled').select();
+    }
   }
 
   async function googleSheetsTable() {
