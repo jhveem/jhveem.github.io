@@ -1,5 +1,6 @@
 (async function () {
   let blueprintIcon = await getElement(".bcs__trigger")
+  console.log(blueprintIcon);
   blueprintIcon.click(async function (e) {
     let button = await getElement(".bcs__row__associations button");
     button.click(async function (e) {
@@ -12,4 +13,4 @@
       });
     });
   });
-})():
+})();
