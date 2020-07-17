@@ -33,6 +33,7 @@
         'background-color': '#eee',
         'color': '#000'
       });
+      $(this).prop('selected', false);
       let className = $(this).attr('id').replace("-button", "");
       if (parent !== null) {
         if ($(parent).hasClass(className)) {
@@ -41,6 +42,7 @@
             'background-color': bgColor,
             'color': '#fff'
           });
+          $(this).prop('selected', true);
         }
       }
     });
