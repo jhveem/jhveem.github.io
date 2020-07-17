@@ -73,18 +73,21 @@ TOOLBAR = {
     return id;
   },
   
-  async addSelect(name) {
+  async addSelect(name, description) {
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");
     let id = this.selectNameToId(name);
-    customButtonsContainer.append("<select id='"+id+"'><option selected disabled>-"+name+" options-</option></select>");
+    let select = "<select title='"+description+"' id='"+id+"'><option selected disabled>-"+name+" options-</option></select>";
+    customButtonsContainer.append(select);
+    return select;
   },
 
-  async addSelectOption(name, selectName, func) {
+  async addSelectOption(name, selectName, description, func, className) {
     let selectId = this.selectNameToId(selectName);
     let select = $("#" + selectId); 
-    let option = $("<option>" + name + "</option>");
+    let option = $("<option title='"+description+"' class='"+className+"'>" + name + "</option>");
     select.append(option);
     option.click(func);
+    return option;
   },
 
   async addButton(name, func, className = '') {
