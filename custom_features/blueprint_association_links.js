@@ -1,12 +1,15 @@
-$(".bcs__trigger").click(async function(e) {
-  let button = await getElement(".bcs__row__associations button");
-  button.click(async function(e) {
+(async function () {
+  let blueprintIcon = await getElement(".bcs__trigger")
+  blueprintIcon.click(async function (e) {
+    let button = await getElement(".bcs__row__associations button");
+    button.click(async function (e) {
       rows = await getElement(".bca-associations__course-row");
       rows = $(".bca-associations__course-row");
-      rows.each(function() {
-          let spans = $(this).find("span");
-          let courseId = $(this).attr("id").replace("course_", "");
-          $(spans[0]).wrapInner("<a href='/courses/"+courseId+"' target='#'></a>");
+      rows.each(function () {
+        let spans = $(this).find("span");
+        let courseId = $(this).attr("id").replace("course_", "");
+        $(spans[0]).wrapInner("<a href='/courses/" + courseId + "' target='#'></a>");
       });
+    });
   });
-}); 
+})():

@@ -34,6 +34,7 @@ var CDDIDS = [
 var CURRENT_COURSE_ID = null;
 var CURRENT_DEPARTMENT_ID = null;
 var CURRENT_COURSE_HOURS = null;
+var IS_BLUEPRINT = null;
 var IS_TEACHER = null;
 if (ENV.current_user_roles !== null) {
   IS_TEACHER = ENV.current_user_roles.includes("teacher");
@@ -276,6 +277,7 @@ if (window.self === window.top) {
           //COURSE FEATURES
           let rCheckInCourse = /^\/courses\/([0-9]+)/;
           if (rCheckInCourse.test(window.location.pathname)) {
+            IS_BLUEPRINT = !(ENV.BLUEPRINT_COURSES_DATA === undefined)
             CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
             let courseData = null;
             $.get('/api/v1/courses/' + CURRENT_COURSE_ID, function (data) {
@@ -301,7 +303,7 @@ if (window.self === window.top) {
             feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
             feature("quizzes/duplicate_bank_item", {}, /\/courses\/([0-9]+)\/question_banks\/([0-9]+)/);
-            feature('blueprint_association_links');
+            if (IS_BLUEPRINT) feature('blueprint_association_links');
             feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
 
