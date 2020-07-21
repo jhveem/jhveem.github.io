@@ -22,12 +22,14 @@
         tinyMCE.activeEditor.dom.addClass(parent, className);
       }
     }
+    return parent;
   }
 
   function resetTableButtons() {
     let node = tinyMCE.activeEditor.selection.getNode();
     let parent = tinyMCE.activeEditor.dom.getParent(node, "table");
-    $('.btech-table-edit-button').each(function () {
+    let found = false;
+    $('.btech-table-edit-option').each(function () {
       $(this).css({
         'background-color': '#eee',
         'color': '#000'
@@ -40,9 +42,15 @@
             'background-color': bgColor,
             'color': '#fff'
           });
+          $(this).select();
+          found = true;
         }
       }
     });
+    //if no options are selected, select the disabled or default option
+    if (!found) {
+      $('.btech-table-edit-option:disabled').select();
+    }
   }
 
   async function googleSheetsTable() {
@@ -90,14 +98,15 @@
 
   await TOOLBAR.checkReady();
   TOOLBAR.addButtonIcon("far fa-file-spreadsheet", "Insert a table which will be linked to a google sheet. You will need the google sheet id.", googleSheetsTable);
+  let select = TOOLBAR.addSelect("tables", "Convert tables to other display options.");
   for (let i = 0; i < tableOptions.length; i++) {
     let className = tableOptions[i];
-    let optionName = "Table->" + className.replace("btech-", "").replace("-table", "");
-    let btn = await TOOLBAR.addButton(optionName, function () {
+    let optionName = className.replace("btech-", "").replace("-table", "");
+    let option = await TOOLBAR.addSelectOption(optionName, 'tables', '', function () {
       addClassToTable(className);
       resetTableButtons();
-    }, 'btech-table-edit-button');
-    btn.attr('id', className + '-button');
+    }, 'btech-table-edit-option');
+    option.attr('id', className + '-button');
   }
 
   //whenever you click in the editor, see if it's selected a table with one of the classes

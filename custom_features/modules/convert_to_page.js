@@ -24,7 +24,7 @@
           }, function (data) {
             $.delete("/api/v1/courses/" + courseId + "/modules/" + moduleId + "/items/" + moduleItemId).done(function () {
               $.delete("/api/v1/courses/" + courseId + "/assignments/" + oldModuleItemData.content_id).done(function () {
-                gocation.reload(true);
+                location.reload(true);
               });
             });
           });

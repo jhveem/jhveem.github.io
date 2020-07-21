@@ -51,6 +51,14 @@
 }
 
 /*the conatiner is currently only used in replacing a table with a tabbed window, but the tabs themselves are used in other places*/
+.btech-tabs-table{
+  display: none;
+}
+
+.btech-dropdown-table{
+  display: none;
+}
+
 .btech-tabs-container {
   box-shadow: 3px 6px 6px #888;
   outline:  #CCC solid 1px;

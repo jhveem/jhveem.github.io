@@ -68,8 +68,27 @@ TOOLBAR = {
     });
   },
 
+  selectNameToId(name) {
+    let id = "btech-custom-editor-select-" + name.replace(" ", "-");
+    return id;
+  },
   
-  
+  async addSelect(name, description) {
+    let customButtonsContainer = $("#btech-custom-editor-buttons-container");
+    let id = this.selectNameToId(name);
+    let select = "<select title='"+description+"' id='"+id+"'><option selected disabled>-"+name+" options-</option></select>";
+    customButtonsContainer.append(select);
+    return select;
+  },
+
+  async addSelectOption(name, selectName, description, func, className) {
+    let selectId = this.selectNameToId(selectName);
+    let select = $("#" + selectId); 
+    let option = $("<option title='"+description+"' class='"+className+"'>" + name + "</option>");
+    select.append(option);
+    option.click(func);
+    return option;
+  },
 
   async addButton(name, func, className = '') {
     let customButtonsContainer = $("#btech-custom-editor-buttons-container");

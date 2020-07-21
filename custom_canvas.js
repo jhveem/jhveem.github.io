@@ -34,7 +34,11 @@ var CDDIDS = [
 var CURRENT_COURSE_ID = null;
 var CURRENT_DEPARTMENT_ID = null;
 var CURRENT_COURSE_HOURS = null;
-var IS_TEACHER = ENV.current_user_roles.includes("teacher");
+var IS_BLUEPRINT = null;
+var IS_TEACHER = null;
+if (ENV.current_user_roles !== null) {
+  IS_TEACHER = ENV.current_user_roles.includes("teacher");
+}
 
 var FEATURES = {};
 var IMPORTED_FEATURE = {};
@@ -66,6 +70,10 @@ function add_javascript_library(url) {
   s.setAttribute('type', 'text/javascript');
   s.setAttribute('src', url);
   document.getElementsByTagName('head')[0].appendChild(s);
+}
+
+function toPrecision(number, numberAfterDecimal) {
+  return parseFloat(number.toFixed(numberAfterDecimal));
 }
 
 function feature(f, data = {}, regex = "") {
@@ -157,7 +165,6 @@ function addToModuleMenu(name, description, func, icon = "icon-plus") {
       let titleMatch = title.match(rTitle);
       if (titleMatch !== null) {
         let modTitle = "Module " + titleMatch[1];
-        console.log(modTitle);
         let menu = item.find("ul.al-options");
         let liTag = $("<li></li>");
         let aTag = $(`<a href="" title="` + description + `"><i class="` + icon + `"></i>` + name + `</a>`);
@@ -246,27 +253,31 @@ function checkCookie() {
 }
 
 if (window.self === window.top) {
-
+  /*
+  https://btech.instructure.com/accounts/3/theme_editor
+  https://btech.instructure.com/users/1945202/masquerade
+  https://btech.instructure.com/courses/498024/quizzes/1057750?module_item_id=6739262
+  */
   add_javascript_library("https://jhveem.github.io/custom_canvas_import.js");
   $.getScript("https://cdn.jsdelivr.net/npm/vue").done(function () {
     $.getScript("https://jhveem.github.io/custom_features/editor_toolbar/toolbar.js").done(() => {
       $.getScript("https://jhveem.github.io/course_list/course_list.js").done(() => {
         $.getScript("https://jhveem.github.io/course_list/course_hours.js").done(() => {
           //set CURRENT_COURSE_HOURS
-
           let currentUser = parseInt(ENV.current_user.id);
           const IS_ME = (currentUser === 1893418);
           const IS_CDD = (CDDIDS.includes(currentUser))
           //GENERAL FEATURES
           if (IS_TEACHER) {
             feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-            if (BETA) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-            else if (!IS_CDD) feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
-            else if (IS_CDD || currentUser === 1225484 || currentUser === 817257) feature("reports/individual_page/report-beta", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+            feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+          } else { //Is not a teacher
+            featureBeta("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
           }
           //COURSE FEATURES
           let rCheckInCourse = /^\/courses\/([0-9]+)/;
           if (rCheckInCourse.test(window.location.pathname)) {
+            IS_BLUEPRINT = !(ENV.BLUEPRINT_COURSES_DATA === undefined)
             CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
             let courseData = null;
             $.get('/api/v1/courses/' + CURRENT_COURSE_ID, function (data) {
@@ -292,7 +303,7 @@ if (window.self === window.top) {
             feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
             feature("quizzes/duplicate_bank_item", {}, /\/courses\/([0-9]+)\/question_banks\/([0-9]+)/);
-
+            if (IS_BLUEPRINT) feature('blueprint_association_links');
             feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
 
 
@@ -319,10 +330,8 @@ if (window.self === window.top) {
             CURRENT_DEPARTMENT_ID = departmentId;
             if (departmentId === 3824) { // DENTAL
               feature("highlighted_grades_page_items", {}, /^\/courses\/[0-9]+\/grades\/[0-9]+/);
-              featureBeta("previous-enrollment-data/previous_enrollment_period_grades", {}, /^\/courses\/[0-9]+\/grades/);
+              feature("previous-enrollment-data/previous_enrollment_period_grades", {}, /^\/courses\/[0-9]+\/grades/);
               if (IS_TEACHER) {
-                feature("previous-enrollment-data/previous_enrollment_period_grades", {}, /^\/courses\/[0-9]+\/grades\/[0-9]+/);
-                feature("previous-enrollment-data/set_hours_form", {}, /^\/courses\/[0-9]+\/grades\/[0-9]+/);
                 feature("speed_grader/split_screen", {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
                 if (currentUser === 1225484 || currentUser === 817257 || IS_ME) { //I think Alivia and Wendi
                   feature("speed_grader/move_rubric_points", {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
@@ -357,9 +366,11 @@ if (window.self === window.top) {
           featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
           featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
           featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          featureCDD("page_formatting/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("surveys");
           featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-          featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
+          if (IS_ME) featureCDD("editor_toolbar/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          //featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           feature("welcome_banner", {}, /^\/$/);
 
           //Survey
