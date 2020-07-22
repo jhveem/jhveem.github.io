@@ -533,60 +533,58 @@
               let url = "/api/v1/courses/" + course_id + "/students/submissions?student_ids[]=" + user_id + "&include=assignments";
               if (enrollment === undefined) return;
               try {
-                await $.get(url).done(function (data) {
-                  course.assignments = data;
-                  let assignments = data;
-                  console.log(assignments);
-                  let total_points_possible = 0;
-                  let current_points_possible = 0;
-                  let most_recent = {};
-                  let submitted = 0;
-                  let max_submissions = 0;
-                  let progress_per_day = 0;
-                  let start_date = Date.parse(enrollment.created_at);
-                  let now_date = Date.now();
-                  let diff_time = Math.abs(now_date - start_date);
-                  let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
-                  let most_recent_time = diff_time;
-                  for (let a = 0; a < assignments.length; a++) {
-                    let assignment = assignments[a];
-                    let points_possible = assignment.points_possible;
-                    let submission = assignment.submission;
-                    if (submission != undefined) {
-                      let submitted_at = Date.parse(submission.submitted_at);
-                      total_points_possible += points_possible;
-                      if (assignment.points_possible > 0) {
-                        max_submissions += 1;
-                        if (submission.score !== null) {
-                          current_points_possible += points_possible;
-                          submitted += 1;
-                        }
+                let assignments = await canvasGet(url);
+                console.log(assignments);
+                course.assignments = assignments;
+                let total_points_possible = 0;
+                let current_points_possible = 0;
+                let most_recent = {};
+                let submitted = 0;
+                let max_submissions = 0;
+                let progress_per_day = 0;
+                let start_date = Date.parse(enrollment.created_at);
+                let now_date = Date.now();
+                let diff_time = Math.abs(now_date - start_date);
+                let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
+                let most_recent_time = diff_time;
+                for (let a = 0; a < assignments.length; a++) {
+                  let assignment = assignments[a];
+                  let points_possible = assignment.points_possible;
+                  let submission = assignment.submission;
+                  if (submission != undefined) {
+                    let submitted_at = Date.parse(submission.submitted_at);
+                    total_points_possible += points_possible;
+                    if (assignment.points_possible > 0) {
+                      max_submissions += 1;
+                      if (submission.score !== null) {
+                        current_points_possible += points_possible;
+                        submitted += 1;
                       }
-                      if (Math.abs(now_date - submitted_at) < most_recent_time) {
-                        most_recent_time = Math.abs(now_date - submitted_at);
-                        most_recent = assignment;
-                      }
-
                     }
-                  }
-                  let perc_submitted = Math.round((submitted / max_submissions) * 100);
-                  if (isNaN(perc_submitted)) perc_submitted = 0;
-                  course.submissions = perc_submitted;
+                    if (Math.abs(now_date - submitted_at) < most_recent_time) {
+                      most_recent_time = Math.abs(now_date - submitted_at);
+                      most_recent = assignment;
+                    }
 
-                  //calc days since last submission from time since last submission
-                  let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
-
-                  //Change output depending on status
-                  if (course.state === 'Active') {
-                    course.days_since_last_submission = most_recent_days;
-                  } else if (course.state == 'Completed') {
-                    course.days_since_last_submission = "Complete";
-                    course.points = 100;
-                  } else {
-                    course.days_since_last_submission = "N/A";
-                    course.points = "N/A";
                   }
-                })
+                }
+                let perc_submitted = Math.round((submitted / max_submissions) * 100);
+                if (isNaN(perc_submitted)) perc_submitted = 0;
+                course.submissions = perc_submitted;
+
+                //calc days since last submission from time since last submission
+                let most_recent_days = Math.ceil(most_recent_time / (1000 * 60 * 60 * 24));
+
+                //Change output depending on status
+                if (course.state === 'Active') {
+                  course.days_since_last_submission = most_recent_days;
+                } else if (course.state == 'Completed') {
+                  course.days_since_last_submission = "Complete";
+                  course.points = 100;
+                } else {
+                  course.days_since_last_submission = "N/A";
+                  course.points = "N/A";
+                }
               } catch (e) {
                 console.log(e);
               }
