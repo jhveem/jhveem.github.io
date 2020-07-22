@@ -528,12 +528,14 @@
               let app = this;
               let course_id = course.course_id;
               let user_id = app.userId;
+              //I think this one works better, but it apparently doesn't work for all students??? Might be related to status. The one it didn't work on was inactive
+              // let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments";
               let url = "/api/v1/courses/" + course_id + "/students/submissions?student_ids[]=" + user_id + "&include=assignments";
               if (enrollment === undefined) return;
               try {
                 await $.get(url).done(function (data) {
-                  course.assignments = data;
-                  let assignments = data;
+                  course.assignments = data[0];
+                  let assignments = data[0];
                   let total_points_possible = 0;
                   let current_points_possible = 0;
                   let most_recent = {};
