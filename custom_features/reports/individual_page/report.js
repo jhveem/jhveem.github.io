@@ -528,7 +528,7 @@
               let app = this;
               let course_id = course.course_id;
               let user_id = app.userId;
-              let url = "/api/v1/courses/" + course_id + "/analytics/users/" + user_id + "/assignments";
+              let url = "/api/v1/courses/" + course_id + "/students/submissions?student_ids[]=" + user_id + "&include=assignments";
               if (enrollment === undefined) return;
               try {
                 await $.get(url).done(function (data) {
