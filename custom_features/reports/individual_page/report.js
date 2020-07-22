@@ -534,8 +534,9 @@
               if (enrollment === undefined) return;
               try {
                 await $.get(url).done(function (data) {
-                  course.assignments = data[0];
-                  let assignments = data[0];
+                  course.assignments = data;
+                  let assignments = data;
+                  console.log(assignments);
                   let total_points_possible = 0;
                   let current_points_possible = 0;
                   let most_recent = {};
