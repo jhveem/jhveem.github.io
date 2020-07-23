@@ -14,7 +14,7 @@
       });
       $(this).after(input);
       input.after(display);
-      let correct = $("<div style='width: 100%; background-color: #2C3; color: #FFF; text-align: center; font-size: 1.5em;'>Correct!</div>");
+      let correct = $("<div style='width: 100%; background-color: #2B3; color: #FFF; text-align: center; font-size: 1.5em;'>Correct!</div>");
       correct.hide();
       $(this).after(correct);
       $(this).after(html);
