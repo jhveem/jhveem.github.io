@@ -247,7 +247,6 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
               warning.click
               $("#btech-term-hours-warning").append("<br><div><b>WARNING:</b> If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>");
             }
-            $("#btech-term-grade-weighted-value").html(hoursExplanation);
           }
         }
         $("#btech-term-grade-value").html("<b>Term Grade:</b> " + outputScore);
