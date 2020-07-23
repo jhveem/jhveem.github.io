@@ -310,7 +310,7 @@ if (window.self === window.top) {
             feature('modules/convert_to_page');
 
             featureBeta('rubrics/gen_comment');
-            featureBeta('modules/course_features');
+            feature('modules/course_features');
             let courseId = CURRENT_COURSE_ID;
             //COURSE SPECIFIC FEATURES
             featurePilot("change_2019_to_2019-2020", courseId, [489538]); //IV Therapy

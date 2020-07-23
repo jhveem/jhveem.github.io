@@ -96,6 +96,7 @@
             let select = $("<select></select>");
             let noPage = $("<option selected>-no page-</option>");
             select.append(noPage);
+            select.hide();
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
               select.append("<option value='#FRONT PAGE#'>Front Page</option>");
