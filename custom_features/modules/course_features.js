@@ -83,7 +83,9 @@
           //get course id
           let pageName = await this.getSettingData('modules-page-header')
           //if FRONT-PAGE then just get the front page, otherwise, selec the specific page
-          if (pageName === "#FRONT PAGE#") {
+          if (pageName === "#NO PAGE#") {
+            console.log("No Page Selected");
+          } else if (pageName === "#FRONT PAGE#") {
             $.get("/api/v1/courses/" + feature.courseId + "/front_page", function (data) {
               moduleHeader.append(data.body);
             });
@@ -94,7 +96,7 @@
           }
           if (IS_TEACHER) {
             let select = $("<select></select>");
-            let noPage = $("<option selected>-no page-</option>");
+            let noPage = $("<option value='#NO PAGE#' selected>-no page-</option>");
             select.append(noPage);
             //This is just a temporary thing. I'm hiding the select dropdown until we officially roll this out
             select.hide();
