@@ -1,15 +1,16 @@
-async function parseCommentHTML() {
-  let feature = this;
-  let element = $(".btech-html-practice");
-  element.each(function() {
+(async function () {
+  async function parseCommentHTML() {
+    let feature = this;
+    let element = $(".btech-html-practice");
+    element.each(function () {
       let html = $(this).text();
       console.log(html);
       html = html.replace(/&lt;(\/{0,1}.+?)&gt;/g, "<$1>");
       let input = $("<textarea style='width: 100%; box-sizing:border-box;'></textarea>");
       let display = $("<div></div>");
-      input.on('input', function() {
-          display.html($(this).val());
-          if ($(this).val() == html) correct.show();
+      input.on('input', function () {
+        display.html($(this).val());
+        if ($(this).val() == html) correct.show();
       });
       $(this).after(input);
       input.after(display);
@@ -17,7 +18,8 @@ async function parseCommentHTML() {
       correct.hide();
       $(this).after(correct);
       $(this).after(html);
-  });
-}
+    });
+  }
 
-parseCommentHTML();
+  parseCommentHTML();
+})();
