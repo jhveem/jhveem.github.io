@@ -99,7 +99,9 @@
             let noPage = $("<option value='#NO PAGE#' selected>-no page-</option>");
             select.append(noPage);
             //This is just a temporary thing. I'm hiding the select dropdown until we officially roll this out
-            select.hide();
+            if (!IS_ME) {
+              select.hide();
+            }
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
               select.append("<option value='#FRONT PAGE#'>Front Page</option>");
