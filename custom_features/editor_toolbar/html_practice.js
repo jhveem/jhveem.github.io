@@ -17,7 +17,7 @@
       let correct = $("<div style='width: 100%; background-color: #2B3; color: #FFF; text-align: center; font-size: 1em;'><b>Correct!</b></div>");
       correct.hide();
       $(this).after(correct);
-      $(this).after("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'>" + html + "</div>");
+      $(this).after($.parseHTML("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'>" + html + "</div>"));
     });
   }
 
