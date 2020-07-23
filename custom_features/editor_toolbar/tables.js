@@ -34,7 +34,7 @@
         'background-color': '#eee',
         'color': '#000'
       });
-      let className = $(this).attr('id').replace("-button", "");
+      let className = $(this).attr('id').replace("-option", "");
       if (parent !== null) {
         if ($(parent).hasClass(className)) {
           let bgColor = getComputedStyle(document.documentElement, null).getPropertyValue("--ic-brand-button--secondary-bgd-darkened-5");
@@ -42,12 +42,15 @@
             'background-color': bgColor,
             'color': '#fff'
           });
+          //also set this option to the selected option
+          //this isn't working at the moment
           $(this).select();
           found = true;
         }
       }
     });
     //if no options are selected, select the disabled or default option
+    //this isn't working at the moment
     if (!found) {
       $('.btech-table-edit-option:disabled').select();
     }
@@ -106,7 +109,7 @@
       addClassToTable(className);
       resetTableButtons();
     }, 'btech-table-edit-option');
-    option.attr('id', className + '-button');
+    option.attr('id', className + '-option');
   }
 
   //whenever you click in the editor, see if it's selected a table with one of the classes
