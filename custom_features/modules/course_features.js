@@ -6,7 +6,6 @@
       initiated: false, //SET TO TRUE WHEN feature() IS RUN FROM THE custom_canvas.js PAGE TO MAKE SURE FEATURE ISN'T INITIATED TWICE
       courseId: '',
       settingsEl: null,
-      IS_ME: false,
       async getSettings() {
         let feature = this;
         $('body').append("<settings id='btech-custom-settings'></settings>");
@@ -53,7 +52,6 @@
         setting.text(value);
       },
       async _init(params = {}) { //SOME FEATURES NEED CUSTOM PARAMS DEPENDING ON THE USER/DEPARTMENT/COURSE SUCH AS IF DENTAL HAS ONE SET OF RULES GOVERNING FORMATTING WHILE BUSINESS HAS ANOTHER
-        if (params.IS_ME !== undefined) this.IS_ME = params.IS_ME;
         let feature = this;
         let rPieces = /^\/courses\/([0-9]+)/;
         let pieces = window.location.pathname.match(rPieces);
@@ -67,7 +65,6 @@
 
         await this.getSettings();
         //get header on modules page and add an empty div
-        let feature = this;
         let moduleModal = $(".header-bar");
         let moduleHeader = $("<div></div>");
         moduleModal.after(moduleHeader);
@@ -100,9 +97,7 @@
             let noPage = $("<option selected>-no page-</option>");
             select.append(noPage);
             //This is just a temporary thing. I'm hiding the select dropdown until we officially roll this out
-            if (feature.IS_ME) {
-              select.hide();
-            }
+            select.hide();
             moduleHeader.append(select);
             $.get("/api/v1/courses/" + feature.courseId + "/pages").done(function (data) {
               select.append("<option value='#FRONT PAGE#'>Front Page</option>");

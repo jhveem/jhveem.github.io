@@ -36,6 +36,7 @@ var CURRENT_DEPARTMENT_ID = null;
 var CURRENT_COURSE_HOURS = null;
 var IS_BLUEPRINT = null;
 var IS_TEACHER = null;
+var IS_ME = false;
 if (ENV.current_user_roles !== null) {
   IS_TEACHER = ENV.current_user_roles.includes("teacher");
 }
@@ -269,7 +270,7 @@ if (window.self === window.top) {
         $.getScript("https://jhveem.github.io/course_list/course_hours.js").done(() => {
           //set CURRENT_COURSE_HOURS
           let currentUser = parseInt(ENV.current_user.id);
-          const IS_ME = (currentUser === 1893418);
+          IS_ME = (currentUser === 1893418);
           const IS_CDD = (CDDIDS.includes(currentUser))
           //GENERAL FEATURES
           if (IS_TEACHER) {
