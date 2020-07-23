@@ -65,6 +65,10 @@ async function getElement(selectorText, iframe = "") {
   }
 }
 
+function genId() {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); 
+}
+
 function add_javascript_library(url) {
   var s = document.createElement("script");
   s.setAttribute('type', 'text/javascript');
@@ -368,8 +372,10 @@ if (window.self === window.top) {
           featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("page_formatting/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("surveys");
+          featureCDD("editor_toolbar/html_practice", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           if (IS_ME) featureCDD("editor_toolbar/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          if (IS_ME) $.getScript("https://jhveem.xyz/collaborator/import.js");
           //featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           feature("welcome_banner", {}, /^\/$/);
 
