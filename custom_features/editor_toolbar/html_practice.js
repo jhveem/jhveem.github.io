@@ -10,7 +10,7 @@
       let display = $("<div></div>");
       input.on('input', function () {
         display.html($(this).val());
-        if ($(this).val() == html) correct.show();
+        if ($(this).val().toLowerCase() == html.toLowerCase()) correct.show();
       });
       $(this).after(input);
       input.after(display);
