@@ -111,7 +111,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         newBody.empty();
         newBody.hide();
         //empty all the output divs
-        $("#btech-term-term-output-container div").each(function() {
+        $("#btech-term-term-output-container div").each(function () {
           $(this).empty();
         });
       });
@@ -135,7 +135,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
         let newBody = $("#btech-enrollment-grades-body");
         newBody.empty();
         newBody.show();
-        $("#btech-term-output-container div").each(function() {
+        $("#btech-term-output-container div").each(function () {
           $(this).empty();
         })
 
@@ -215,11 +215,14 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           $("#btech-term-ungraded-value").html("<b>Ungraded as Zero:</b> " + toPrecision(outputUngradedAsZeroScore, 2) + "%");
 
           let letterGrade = null;
-          for (var g = 1; g < gradingScheme.length; g++) {
-            let max = gradingScheme[g - 1][1];
-            let min = gradingScheme[g][1];
-            if (outputScore >= min && outputScore < max) {
-              letterGrade = gradingScheme[g][0];
+          if (outputScore >= gradingScheme[0][1]) letterGrade = gradingScheme[0][0];
+          else {
+            for (var g = 1; g < gradingScheme.length; g++) {
+              let max = gradingScheme[g - 1][1];
+              let min = gradingScheme[g][1];
+              if (outputScore >= min && outputScore < max) {
+                letterGrade = gradingScheme[g][0];
+              }
             }
           }
           outputScore = toPrecision(outputScore, 2) + "% (" + letterGrade + ")";
@@ -232,7 +235,7 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
               weightedGrade *= (hoursCompleted / minHoursRequired);
             }
             weightedGrade = toPrecision(weightedGrade, 2);
-            let hoursExplanation = "<div>You have completed " + hoursCompleted + " / " + feature.hoursEnrolled + " ("+toPrecision((hoursCompleted / feature.hoursEnrolled) * 100)+"%) of your enrolled hours.</div>";
+            let hoursExplanation = "<div>You have completed " + hoursCompleted + " / " + feature.hoursEnrolled + " (" + toPrecision((hoursCompleted / feature.hoursEnrolled) * 100) + "%) of your enrolled hours.</div>";
             if (hoursCompleted < minHoursRequired) {
               hoursExplanation += "<br><div><b>WARNING:</b> If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
             }
