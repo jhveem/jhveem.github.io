@@ -275,7 +275,7 @@ if (window.self === window.top) {
           //GENERAL FEATURES
           if (IS_TEACHER) {
             feature("reports/grades_page/report", {}, /^\/courses\/[0-9]+\/gradebook$/);
-            feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
+            feature("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/accounts\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
           } else { //Is not a teacher
             featureBeta("reports/individual_page/report", {}, [/^\/courses\/[0-9]+\/users\/[0-9]+$/, /^\/users\/[0-9]+$/]);
           }

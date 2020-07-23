@@ -244,7 +244,9 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
             if (hoursCompleted < minHoursRequired) {
               let warning = $("<i class='icon-warning'></i>");
               $("#btech-term-hours-completed").append(warning);
-              warning.click
+              warning.click(function() {
+                $("#btech-term-hours-warning").show();
+              })
               $("#btech-term-hours-warning").append("<br><div><b>WARNING:</b> If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>");
             }
           }
