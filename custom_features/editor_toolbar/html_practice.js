@@ -7,7 +7,7 @@
       console.log(html);
       html = html.replace(/&lt;(\/{0,1}.+?)&gt;/g, "<$1>");
       let input = $("<textarea style='width: 100%; box-sizing:border-box;'></textarea>");
-      let display = $("<div></div>");
+      let display = $("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'></div>");
       input.on('input', function () {
         display.html($(this).val());
         if ($(this).val().toLowerCase() == html.toLowerCase()) correct.show();
