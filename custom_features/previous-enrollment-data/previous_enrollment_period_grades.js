@@ -79,6 +79,8 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
           <button class="Button" id="btech-term-reset-button">Reset</button>
           <div id="btech-term-output-container">
             <div id="btech-term-grade-value"></div>
+            <div id="btech-term-hours-completed"></div>
+            <div id="btech-term-hours-warning"></div>
             <div id="btech-term-ungraded-value"></div>
             <div id="btech-term-grade-weighted-value"></div>
           </div>
@@ -87,6 +89,9 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
       //hide the two views
       $('#btech-term-student-view').hide();
       $('#btech-term-teacher-view').hide();
+      $('#btech-term-ungraded-value').hide(); //Not currently used. Will need to come up with a way of making this only show up if needed
+      $('#btech-term-grade-weighted-value').hide();
+      $('#btech-term-hours-warning').hide();
       //if teacher, show teacher stuff, if student AND enrolled for hours, show student stuff, else, hide everything
       if (IS_TEACHER) $('#btech-term-teacher-view').show();
       if (this.hoursEnrolled !== null) {
@@ -235,9 +240,12 @@ if (/^\/courses\/[0-9]+\/grades/.test(window.location.pathname)) {
               weightedGrade *= (hoursCompleted / minHoursRequired);
             }
             weightedGrade = toPrecision(weightedGrade, 2);
-            let hoursExplanation = "<div>You have completed " + hoursCompleted + " / " + feature.hoursEnrolled + " (" + toPrecision((hoursCompleted / feature.hoursEnrolled) * 100) + "%) of your enrolled hours.</div>";
+            $("#btech-term-hours-completed").html("<div><b>Hours Completed</b> " + hoursCompleted + " / " + feature.hoursEnrolled + " (" + toPrecision((hoursCompleted / feature.hoursEnrolled) * 100) + "%)</div>");
             if (hoursCompleted < minHoursRequired) {
-              hoursExplanation += "<br><div><b>WARNING:</b> If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>"
+              let warning = $("<i class='icon-warning'></i>");
+              $("#btech-term-hours-completed").append(warning);
+              warning.click
+              $("#btech-term-hours-warning").append("<br><div><b>WARNING:</b> If you were to end your course with your current hours completed, your Term Grade would be reduced to the following score: " + weightedGrade + "%</div>");
             }
             $("#btech-term-grade-weighted-value").html(hoursExplanation);
           }
