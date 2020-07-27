@@ -67,7 +67,7 @@ async function getElement(selectorText, iframe = "") {
 }
 
 function genId() {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); 
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
 function add_javascript_library(url) {
@@ -307,6 +307,7 @@ if (window.self === window.top) {
             feature('page_formatting/tabs_from_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature('page_formatting/google_sheets_table', {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature("page_formatting/tinymce_font_size", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
+            feature("page_formatting/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
             feature("quizzes/duplicate_bank_item", {}, /\/courses\/([0-9]+)\/question_banks\/([0-9]+)/);
             if (IS_BLUEPRINT) feature('blueprint_association_links');
             feature("editor_toolbar/basics", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)\/(.+?)\/edit/);
@@ -315,7 +316,9 @@ if (window.self === window.top) {
             feature('modules/convert_to_page');
 
             featureBeta('rubrics/gen_comment');
-            feature('modules/course_features', {IS_ME: IS_ME});
+            feature('modules/course_features', {
+              IS_ME: IS_ME
+            });
             let courseId = CURRENT_COURSE_ID;
             //COURSE SPECIFIC FEATURES
             featurePilot("change_2019_to_2019-2020", courseId, [489538]); //IV Therapy
@@ -371,11 +374,10 @@ if (window.self === window.top) {
           featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
           featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
           featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-          featureCDD("page_formatting/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("surveys");
           featureCDD("editor_toolbar/html_practice", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-          if (IS_ME) featureCDD("editor_toolbar/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          featureCDD("editor_toolbar/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           if (IS_ME) $.getScript("https://jhveem.xyz/collaborator/import.js");
           //featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           feature("welcome_banner", {}, /^\/$/);

@@ -25,10 +25,10 @@ $(window).on("load", function () {
     let iconImage = $("<img src='"+imgSrc+"' style=' position: absolute;'>");
     icon.append(iconImage);
     iconImage.css({
-      'top': '24px',
-      'left': '24px',
-      'height': '16px',
-      'width': '16px'
+      'top': '20px',
+      'left': '20px',
+      'height': '24px',
+      'width': '24px'
     });
     icon.on({
       mouseenter: function () {
@@ -43,10 +43,10 @@ $(window).on("load", function () {
       },
       mouseleave: function () {
         iconImage.css({
-          'top': '24px',
-          'left': '24px',
-          'height': '16px',
-          'width': '16px'
+          'top': '20px',
+          'left': '20px',
+          'height': '24px',
+          'width': '24px'
         });
       }
     });
