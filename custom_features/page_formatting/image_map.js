@@ -7,9 +7,16 @@ $(window).on("load", function () {
   container.height(img.height());
   let backdrop = $("<div style='position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8);'></div>");
   let player = $("<div style='position: absolute; width: 75%; height: 75%; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 10px;'></div>");
+  let closeButton = $('<i class="fa fa-times-circle fa-3x" style="float: right; position: absolute; right: -1.5rem; top: -1.5rem; color: #D23; background-color: #FFF; border-radius: 100px;"></i>');
+  player.append(closeButton);
+
   backdrop.hide();
   backdrop.click(function () {
-    $(this).hide();
+    backdrop.hide();
+    player.empty();
+  });
+  closeButton.click(function () {
+    backdrop.hide();
     player.empty();
   });
   let currentRow = null;
