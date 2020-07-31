@@ -13,6 +13,7 @@ IMPORTED_FEATURE = {
   },
 
   async setAssignmentSubmittedDateHeader(selectorText, iframe = "") {
+    let feature = this;
     let elements = await getElement(selectorText, iframe);
     elements.each(function () {
       let element = $(this);
@@ -22,6 +23,6 @@ IMPORTED_FEATURE = {
   },
 
   setAssignmentSubmittedDateHeaderElement(element) {
-      element.html(element.html().replace(/([A-Z][a-z]+) ([0-9]+) at/g, "$1 $2, " + (new Date()).getFullYear() + " at"));
+    element.html(element.html().replace(/([A-Z][a-z]+) ([0-9]+) at/g, "$1 $2, " + (new Date()).getFullYear() + " at"));
   }
 }
