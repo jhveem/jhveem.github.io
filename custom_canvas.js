@@ -375,10 +375,12 @@ if (window.self === window.top) {
           featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
           featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("surveys");
-          featureCDD("editor_toolbar/html_practice", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
+          feature("editor_toolbar/html_practice", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("editor_toolbar/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
-          if (IS_ME) $.getScript("https://jhveem.xyz/collaborator/import.js");
+          featureCDD('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
+          featureCDD('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
+          if (IS_ME && !BETA) $.getScript("https://jhveem.xyz/collaborator/import.js");
           //featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           feature("welcome_banner", {}, /^\/$/);
 
@@ -405,8 +407,6 @@ $.getScript(ALLY_CFG.baseUrl + '/integration/canvas/ally.js');
 /*  NOT CURRENTLY BEING USED  */
 //This may need to be removed/revisited until next COE if other issues pop up.
 //Problem was it was breaking link between quiz and the grade at the end so changes to scores weren't being caught
-// feature('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
-// feature('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
 
 
 /*
