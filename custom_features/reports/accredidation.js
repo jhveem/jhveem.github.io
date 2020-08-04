@@ -98,6 +98,7 @@
             });
             for (let i = 0; i < assignmentsData.attachments.length; i++) {
               let attachment = assignmentsData.attachments[i];
+              console.log(attachment.url);
               await app.createIframe(attachment.url);
             }
           }
@@ -112,7 +113,8 @@
           content.find("#rubric_holder").prepend("<div>Student:" + data.submission.user.name+ "</div>");
           content.find("#rubric_holder").prepend("<div>Assignment:" + data.assignment.name+ "</div>");
           content.find("#rubric_holder").css({
-            'max-height': ''
+            'max-height': '',
+            'overflow': 'visible'
           });
           content.find("#rubric_holder").printThis();
         },
