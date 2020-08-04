@@ -88,7 +88,7 @@
           }
           if (assignment.rubric != undefined) {
             let url = "/courses/" + app.courseId + "/assignments/" + assignment.id + "/submissions/" + submission.user.id;
-            app.createIframe(url, app.downloadRubric);
+            app.createIframe(url, app.downloadRubric, {'submission': submission});
           }
           if (types.includes("online_upload")) {
             let url = "/api/v1/courses/" + app.courseId + "/assignments/" + assignment.id + "/submissions/" + submission.user.id;
@@ -108,7 +108,8 @@
         },
         async downloadRubric(iframe, content, data) {
           content.find("#rubric_holder").show();
-          content.find("#rubric_holder").prepend("SUBMISSION DATE");
+          console.log(data);
+          content.find("#rubric_holder").prepend("<div>SUBMISSION DATE:" + data.submission.submitted_at + "</div>");
           content.find("#rubric_holder").css({
             'max-height': ''
           });
