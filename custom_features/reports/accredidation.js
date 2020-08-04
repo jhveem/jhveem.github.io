@@ -110,7 +110,6 @@ import { connect } from "http2";
         },
         async downloadRubric(iframe, content, data) {
           content.find("#rubric_holder").show();
-          console.log(data);
           content.find("#rubric_holder").prepend("<div>SUBMISSION DATE:" + data.submission.submitted_at + "</div>");
           content.find("#rubric_holder").css({
             'max-height': ''
