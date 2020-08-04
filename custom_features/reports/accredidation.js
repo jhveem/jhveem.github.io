@@ -147,7 +147,9 @@
             });
             assignment.submissions = submissions;
           }
+          console.log(assignment);
           app.submissions = app.submittedAssignments(assignment.submissions);
+          console.log(app.submissions);
         },
         submittedAssignments(submissions) {
           let output = [];
@@ -157,7 +159,6 @@
               output.push(submission);
             }
           }
-          console.log(output);
           return output;
         },
         close() {
