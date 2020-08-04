@@ -1,3 +1,5 @@
+import { connect } from "http2";
+
 (async function () {
   //https://btech.instructure.com/courses/498455/accredidation
   let rCheckInCourse = /^\/courses\/([0-9]+)\/accredidation/;
@@ -121,7 +123,8 @@
           $("#content").append(iframe);
           let content = await getElement("body", "#btech-quiz");
           //update date in the content of the quiz
-          $("#btech-quiz").get(0).contentWindow.print();
+          content.prepend(submission.submitted_at);
+          content.printThis();
           $("#btech-quiz").remove();
         },
         async createIframe(url, func = null, data = {}) {
