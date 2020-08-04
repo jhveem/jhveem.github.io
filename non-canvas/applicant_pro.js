@@ -41,7 +41,7 @@
     "Concrete Example of Competency",
     "Other (include note)",
     "Other (include note)",
-    "Other (include note)",
+    "Other (include note)"
   ];
   let flags = [
     "Spelling/Grammar",
@@ -49,7 +49,7 @@
     "Lacks Experience in Desired Skill",
     "Other (include note)",
     "Other (include note)",
-    "Other (include note)",
+    "Other (include note)"
   ];
   async function preparePopup() {
     //Get container

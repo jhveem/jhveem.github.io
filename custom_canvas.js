@@ -338,7 +338,8 @@ if (window.self === window.top) {
             CURRENT_DEPARTMENT_ID = departmentId;
             if (departmentId === 3824) { // DENTAL
               feature("highlighted_grades_page_items", {}, /^\/courses\/[0-9]+\/grades\/[0-9]+/);
-              feature("previous-enrollment-data/previous_enrollment_period_grades", {}, /^\/courses\/[0-9]+\/grades/);
+              //This is currently disabled because it was decided it might be more confusing for students to see a grade that was only part of their final grade.
+              // feature("previous-enrollment-data/previous_enrollment_period_grades", {}, /^\/courses\/[0-9]+\/grades/);
               if (IS_TEACHER) {
                 feature("speed_grader/split_screen", {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
                 if (currentUser === 1225484 || currentUser === 817257 || IS_ME) { //I think Alivia and Wendi
@@ -380,6 +381,7 @@ if (window.self === window.top) {
           featureCDD("editor_toolbar/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
           featureCDD('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
+          featureCDD('reports/accredidation', {}, /^\/courses\/([0-9]+)\/accredidation/);
           if (IS_ME && !BETA) $.getScript("https://jhveem.xyz/collaborator/import.js");
           //featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           feature("welcome_banner", {}, /^\/$/);
