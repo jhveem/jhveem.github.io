@@ -23,7 +23,7 @@
               <h2>{{currentAssignment.name}}</h2>
               <div v-for='submission in submissions'>
                 <i class='icon-download' style='cursor: pointer;' @click='downloadSubmission(currentAssignment, submission)'></i>
-                <a target='#' v-bind:href="'/courses/'+courseId+'/assignments/'+currentAssignment.id+'/submissions/'+submission.user.id">{{submission.user.name}}: {{submission.workflow_state}}</a>
+                <a target='#' v-bind:href="'/courses/'+courseId+'/assignments/'+currentAssignment.id+'/submissions/'+submission.user.id">{{submission.user.name}} ({{submission.grade}})</a>
               </div>
             </div>
           </div>
