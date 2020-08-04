@@ -5,7 +5,12 @@
     let rCheckInCourse = /^\/courses\/([0-9]+)/;
     if (rCheckInCourse.test(window.location.pathname)) {
       console.log("IN COURSE");
+      //Allows printing of an element, may be obsolete
       add_javascript_library("https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js");
+      //convert html to a canvas which can then be converted to a blob...
+      add_javascript_library("https://html2canvas.hertzen.com/dist/html2canvas.min.js");
+      //which can then be zipped into a file using this library
+      add_javascript_library("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js");
       let CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
       //add in a selector for all students with their grade then only show assignments they've submitted so far???
       $("#content").html(`
@@ -135,7 +140,20 @@
             content.prepend("<div>Submitted:" + submission.submitted_at + "</div>");
             content.prepend("<div>Student:" + submission.user.name + "</div>");
             content.prepend("<div>Assignment:" + assignment.name + "</div>");
-            content.printThis();
+            //THIS IS A TEST
+            let zip = new JSZip();
+            html2canvas(content[0]).then(canvas => {
+              canvas.toBlob(function (blob) {
+                console.log(blob);
+                zip.file("test.png", blob);
+                zip.generateAsync({
+                  type: "base64"
+                }).then(function (content) {
+                  window.location.href = "data:application/zip;base64," + content;
+                });
+              });
+            });
+            // content.printThis();
             $("#btech-quiz").remove();
           },
           async createIframe(url, func = null, data = {}) {
