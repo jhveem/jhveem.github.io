@@ -142,7 +142,7 @@
             content.prepend("<div>Assignment:" + assignment.name + "</div>");
             //THIS IS A TEST
             let zip = new JSZip();
-            html2canvas(content[0]).then(canvas => {
+            html2canvas(content).then(canvas => {
               canvas.toBlob(function (blob) {
                 console.log(blob);
                 zip.file("test.png", blob);
