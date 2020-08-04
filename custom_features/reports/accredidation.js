@@ -19,9 +19,9 @@
         <div v-if='showModal' class='btech-modal' style='display: inline-block;'>
           <div class='btech-modal-content'>
             <div style='float: right; cursor: pointer;' v-on:click='close()'>X</div>
-              <div class='btech-modal-content-inner'>
-                <h2>{{currentAssignment.name}}</h2>
-                <div v-for='submission in submissions'>
+            <div class='btech-modal-content-inner'>
+              <h2>{{currentAssignment.name}}</h2>
+              <div v-for='submission in submissions'>
                 <i class='icon-download' style='cursor: pointer;' @click='downloadSubmission(currentAssignment, submission)'></i>
                 <a target='#' v-bind:href="'/courses/'+courseId+'/assignments/'+currentAssignment.id+'/submissions/'+submission.user.id">{{submission.user.name}}: {{submission.workflow_state}}</a>
               </div>
@@ -106,8 +106,9 @@
             console.log('assignment type undefined');
           }
         },
-        async downloadRubric(iframe, content) {
+        async downloadRubric(iframe, content, data) {
           content.find("#rubric_holder").show();
+          content.find("#rubric_holder").prepend("SUBMISSION DATE");
           content.find("#rubric_holder").css({
             'max-height': ''
           });
@@ -122,7 +123,7 @@
           $("#btech-quiz").get(0).contentWindow.print();
           $("#btech-quiz").remove();
         },
-        async createIframe(url, func = null) {
+        async createIframe(url, func = null, data = {}) {
           let app = this;
           let id = genId();
           let elId = 'temp-iframe-' + id
@@ -130,7 +131,7 @@
           $("#content").append(iframe);
           let content = await getElement("body", "#" + elId);
           if (func !== null) {
-            func(iframe, content);
+            func(iframe, content, data);
           }
           $("#" + elId).remove();
         },
