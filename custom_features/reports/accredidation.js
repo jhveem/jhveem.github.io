@@ -4,6 +4,7 @@
   if (document.title === "BTECH Accredidation") {
     let rCheckInCourse = /^\/courses\/([0-9]+)/;
     if (rCheckInCourse.test(window.location.pathname)) {
+      console.log("IN COURSE");
       add_javascript_library("https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js");
       let CURRENT_COURSE_ID = parseInt(window.location.pathname.match(rCheckInCourse)[1]);
       //add in a selector for all students with their grade then only show assignments they've submitted so far???
