@@ -141,8 +141,12 @@
             content.prepend("<div>Student:" + submission.user.name + "</div>");
             content.prepend("<div>Assignment:" + assignment.name + "</div>");
             //THIS IS A TEST
+            //add a div, fill it with contents of iframe, probably clean it up a bit, then use that to save the image
+            /*
+            $("#content").append("<div id='test-export'></div>");
+            $("#test-export").append(document.getElementById('btech-quiz').contentWindow.document.getElementsByTagName('body')[0]);
             let zip = new JSZip();
-            html2canvas(content.get(0)).then(canvas => {
+            html2canvas(document.querySelector('#test-export')).then(canvas => {
               canvas.toBlob(function (blob) {
                 console.log(blob);
                 zip.file("test.png", blob);
@@ -153,8 +157,9 @@
                 });
               });
             });
-            // content.printThis();
-            // $("#btech-quiz").remove();
+            */
+            content.printThis();
+            $("#btech-quiz").remove();
           },
           async createIframe(url, func = null, data = {}) {
             let app = this;
