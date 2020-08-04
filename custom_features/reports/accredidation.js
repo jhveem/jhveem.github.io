@@ -91,6 +91,8 @@
             app.createIframe(url, app.downloadRubric, {'submission': submission, 'assignment': assignment});
           }
           if (types.includes("online_upload")) {
+            console.log("SUBMISSION");
+            console.log(submission);
             let url = "/api/v1/courses/" + app.courseId + "/assignments/" + assignment.id + "/submissions/" + submission.user.id;
             let assignmentsData = null;
             await $.get(url, function (data) {
