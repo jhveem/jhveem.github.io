@@ -381,7 +381,7 @@ if (window.self === window.top) {
           featureCDD("editor_toolbar/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
           featureCDD('date_display/add_current_year', {}, /^\/courses\/[0-9]+\/assignments\/[0-9]+\/submissions\/[0-9]+/);
-          featureCDD('reports/accredidation', {}, /^\/courses\/([0-9]+)\/accredidation/);
+          featureCDD('reports/accredidation', {}, /^\/courses\/([0-9]+)\/external_tools\/([0-9]+)/);
           if (IS_ME && !BETA) $.getScript("https://jhveem.xyz/collaborator/import.js");
           //featureCDD("transfer_sections", {}, /^\/courses\/[0-9]+\/users/);
           feature("welcome_banner", {}, /^\/$/);
