@@ -88,7 +88,7 @@
           }
           if (assignment.rubric != undefined) {
             let url = "/courses/" + app.courseId + "/assignments/" + assignment.id + "/submissions/" + submission.user.id;
-            app.createIframe(url, app.downloadRubric, {'submission': submission});
+            app.createIframe(url, app.downloadRubric, {'submission': submission, 'assignment': assignment});
           }
           if (types.includes("online_upload")) {
             let url = "/api/v1/courses/" + app.courseId + "/assignments/" + assignment.id + "/submissions/" + submission.user.id;
@@ -108,7 +108,9 @@
         },
         async downloadRubric(iframe, content, data) {
           content.find("#rubric_holder").show();
-          content.find("#rubric_holder").prepend("<div>SUBMISSION DATE:" + data.submission.submitted_at + "</div>");
+          content.find("#rubric_holder").prepend("<div>Submitted:" + data.submission.submitted_at + "</div>");
+          content.find("#rubric_holder").prepend("<div>Student:" + data.submission.user.name+ "</div>");
+          content.find("#rubric_holder").prepend("<div>Assignment:" + data.assignment.name+ "</div>");
           content.find("#rubric_holder").css({
             'max-height': ''
           });
@@ -120,7 +122,9 @@
           $("#content").append(iframe);
           let content = await getElement("body", "#btech-quiz");
           //update date in the content of the quiz
-          content.prepend(submission.submitted_at);
+          content.prepend("<div>Submitted:" + submission.submitted_at + "</div>");
+          content.prepend("<div>Student:" + submission.user.name+ "</div>");
+          content.prepend("<div>Assignment:" + assignment.name+ "</div>");
           content.printThis();
           $("#btech-quiz").remove();
         },
