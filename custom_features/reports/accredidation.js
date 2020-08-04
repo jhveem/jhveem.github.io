@@ -1,5 +1,3 @@
-import { connect } from "http2";
-
 (async function () {
   //https://btech.instructure.com/courses/498455/accredidation
   let rCheckInCourse = /^\/courses\/([0-9]+)\/accredidation/;
