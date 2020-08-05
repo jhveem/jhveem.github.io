@@ -95,6 +95,7 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
   //Can probably get rid of the ids
   //get the container
   let container = $('.btech-survey');
+  let form = null;
   if (container.length > 0) {
 
     container.removeClass('btech-hidden'); //make it not hidden
@@ -111,7 +112,7 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
       } catch (e) {}
     }
     //Create form
-    let form = $(`
+    form = $(`
       <form
         action="https://docs.google.com/forms/u/0/d/e/`+formId+`/formResponse"
         method="POST" 
