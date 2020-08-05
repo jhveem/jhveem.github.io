@@ -165,6 +165,7 @@ target="formSubmitFrame">
         else {
           for (let e = 0; e < item.entry.length; e++) {
             let entry = item.entry[e];
+            console.log(item.type);
             switch (item.type) {
               case "TEXT":
                 addTextEntry(entry, item.title);
@@ -174,6 +175,9 @@ target="formSubmitFrame">
                 break;
               case "GRID":
                 addButtons(entry, item.title, item.answers);
+                break;
+              case "MULTIPLE_CHOICE":
+                console.log(entry);
                 break;
             }
           }
