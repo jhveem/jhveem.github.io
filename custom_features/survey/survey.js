@@ -115,6 +115,7 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
     form = $(`
       <form
         method="POST" 
+        id="m_-3546089173053724613ss-form"
         target="formSubmitFrame">
       </form>
     `);
