@@ -95,7 +95,12 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
   //Can probably get rid of the ids
   //get the container
   let container = $('.btech-survey');
-  let form = null;
+  let form = $(`
+      <form
+        method="POST" id="m_8914134288611702631ss-form"
+        target="formSubmitFrame">
+      </form>
+    `);
   if (container.length > 0) {
 
     container.removeClass('btech-hidden'); //make it not hidden
@@ -112,13 +117,7 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
       } catch (e) {}
     }
     //Create form
-    form = $(`
-      <form
-        method="POST" 
-        id="m_8914134288611702631ss-form"
-        target="formSubmitFrame">
-      </form>
-    `);
+    //the id is temporary I think, but it needs to match id in the submit button
 
     //request the form data
     //script found here:
@@ -138,7 +137,7 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
       console.log(formData[0]);
       //could grab any since they all have the responseId, but getting 0 for consistency sake
       form.attr('action',
-        "https://docs.google.com/forms/u/0/d/e/"+formData[0].responseId+"/formResponse"
+        "https://docs.google.com/forms/u/0/d/e/" + formData[0].responseId + "/formResponse"
       );
       //grab some default data
       let courseId = ENV.COURSE_ID;
