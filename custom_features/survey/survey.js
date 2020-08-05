@@ -93,13 +93,6 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
   }
 
   //Can probably get rid of the ids
-  let form = $(`
-<form
-action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSffvo5Uap6vY_DFz8x9nv7Evo7OnczEOtJXqWyzLNBnlmOhZQ/formResponse"
-method="POST" id="m_8914134288611702631ss-form"
-target="formSubmitFrame">
-</form>
-`);
   //get the container
   let container = $('.btech-survey');
   if (container.length > 0) {
@@ -117,8 +110,18 @@ target="formSubmitFrame">
         formId = classes[c].match(/^form\-(.*)/)[1];
       } catch (e) {}
     }
+    //Create form
+    let form = $(`
+      <form
+        action="https://docs.google.com/forms/u/0/d/e/`+formId+`/formResponse"
+        method="POST" 
+        target="formSubmitFrame">
+      </form>
+    `);
 
     //request the form data
+    //script found here:
+    //https://script.google.com/a/btech.edu/d/1rPsTLhKjtzcL9W1-hy3yuHglTAgiJPBovljYd52CGTa4X0N0uaLSfwrb/edit
     if (formId !== "") {
       var url = "https://script.google.com/a/btech.edu/macros/s/AKfycbwIgHHMYbih2XnJf7mjDw8g3grdeHhn9s6JIvH6Qg7mfZ0ElbWr/exec?formId=" + formId;
       let formData = null;
