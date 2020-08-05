@@ -77,6 +77,13 @@ function add_javascript_library(url) {
   document.getElementsByTagName('head')[0].appendChild(s);
 }
 
+function add_css_library(url) {
+  var s = document.createElement("link");
+  s.setAttribute('rel', 'stylesheet');
+  s.setAttribute('href', url);
+  document.getElementsByTagName('head')[0].appendChild(s);
+}
+
 function toPrecision(number, numberAfterDecimal) {
   return parseFloat(number.toFixed(numberAfterDecimal));
 }
