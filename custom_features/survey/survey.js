@@ -138,8 +138,6 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
         </form>
       `);
       //could grab any since they all have the responseId, but getting 0 for consistency sake
-      form.attr(
-      );
       //grab some default data
       let courseId = ENV.COURSE_ID;
       let userId = ENV.current_user.id;
