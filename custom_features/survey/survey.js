@@ -114,7 +114,6 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
     //Create form
     form = $(`
       <form
-        action="https://docs.google.com/forms/u/0/d/e/`+formId+`/formResponse"
         method="POST" 
         target="formSubmitFrame">
       </form>
@@ -135,7 +134,11 @@ style="text-align:left;color:#666;border-bottom:1px solid #d3d8d3;padding:0;min-
         formData = res;
       });
       console.log(formData);
-
+      console.log(formData[0]);
+      //could grab any since they all have the responseId, but getting 0 for consistency sake
+      form.attr('action',
+        "https://docs.google.com/forms/u/0/d/e/"+formData[0].responseId+"/formResponse"
+      );
       //grab some default data
       let courseId = ENV.COURSE_ID;
       let userId = ENV.current_user.id;
