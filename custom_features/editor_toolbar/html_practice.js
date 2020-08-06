@@ -54,8 +54,8 @@
             });
             console.log(html);
             let context = display.find('iframe')[0].contentWindow.document;
-            var $body = $('body', context);
-            $body.html('<p style="background-color: #f00;">Cool</p>');;
+            var $body = $('html', context);
+            $body.html(html);;
           });
           $(el).empty();
           $(el).removeClass('btech-hidden');
