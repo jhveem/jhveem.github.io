@@ -40,6 +40,7 @@
             language: 'html',
             theme: 'vs-dark'
           });
+          $(el).removeClass('btech-hidden');
         })
       });
 
