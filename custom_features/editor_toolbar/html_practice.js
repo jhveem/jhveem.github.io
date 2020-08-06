@@ -81,7 +81,7 @@
     document.getElementsByTagName('head')[0].appendChild(s);
   });
   */
-  //*
+  /*
   async function parseCommentHTML() {
     let element = $(".btech-html-practice");
     element.each(function () {
