@@ -32,7 +32,7 @@
           let el = this;
           let html = $(el).text();
           let button = $("<button>Run</button>");
-          let display = $("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'></div>");
+          let display = $("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'><iframe width='100%' height='100%'></iframe></div>");
           $(el).after(display);
           $(el).after(button);
           button.click(function () {
@@ -53,7 +53,7 @@
               html += $(this).text();
             });
             console.log(html);
-            display.html("<div>" + html + "</div>");
+            display.find('iframe')[0].contentDocument.write(html);
           });
           $(el).empty();
           $(el).removeClass('btech-hidden');
