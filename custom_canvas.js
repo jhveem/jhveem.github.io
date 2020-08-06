@@ -297,15 +297,18 @@ if (window.self === window.top) {
               let year = null;
               let dateData = courseData.start_at;
 
-              let yearData = dateData.trim().match(/^(2[0-9]{3})-([0-9]+)/);
-              if (yearData != null) {
-                year = parseInt(yearData[1]);
-                month = parseInt(yearData[2]);
-                if (month < 6) {
-                  year -= 1;
+              if (dateData !== null) {
+
+                let yearData = dateData.trim().match(/^(2[0-9]{3})-([0-9]+)/);
+                if (yearData != null) {
+                  year = parseInt(yearData[1]);
+                  month = parseInt(yearData[2]);
+                  if (month < 6) {
+                    year -= 1;
+                  }
+                  let crsCode = courseData.course_code;
+                  CURRENT_COURSE_HOURS = COURSE_HOURS[year][crsCode];
                 }
-                let crsCode = courseData.course_code;
-                CURRENT_COURSE_HOURS = COURSE_HOURS[year][crsCode];
               }
             })
 
