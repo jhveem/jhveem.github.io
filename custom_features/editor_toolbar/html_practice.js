@@ -31,6 +31,12 @@
         elements.each(function () {
           let el = this;
           let html = $(el).text();
+          let button = $("<button>Run</button>");
+          $(el).after(button);
+          button.click(function() {
+            console.log($(el).text());
+          });
+          $(el).empty();
           $(el).css({
             width: '100%',
             height: '256px'
