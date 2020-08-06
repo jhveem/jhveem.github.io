@@ -39,11 +39,9 @@
             let lines = $(el).find('.view-line');
             lines.sort(function (a, b) {
               let topACSS = $(a).css('top').replace('px', '');
-              console.log(topACSS);
               let topA = parseInt(topACSS);
 
               let topBCSS = $(b).css('top').replace('px', '');;
-              console.log(topBCSS);
               let topB = parseInt(topBCSS);
 
               return (topA < topB) ? -1 : (topA > topB) ? 1 : 0;
@@ -55,7 +53,7 @@
             console.log(html);
             let context = display.find('iframe')[0].contentWindow.document;
             var $body = $('html', context);
-            $($body).innherHTML = (html);
+            $($body).innerHTML = (html);
           });
           $(el).empty();
           $(el).removeClass('btech-hidden');
