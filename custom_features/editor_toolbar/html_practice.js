@@ -37,7 +37,7 @@
           });
           let editor = monaco.editor.create(el, {
             value: html,
-            language: 'html',
+            language: 'javascript',
             theme: 'vs-dark'
           });
           $(el).removeClass('btech-hidden');
