@@ -1,6 +1,54 @@
 (async function () {
+  //Figure out how to await these two libraries loading then ...
+  $.getScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js").done(function () {
+    var s = document.createElement("link");
+    s.setAttribute('rel', 'stylesheet');
+    s.setAttribute('data-name', 'vs/editor/editor.main');
+    s.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css');
+    s.onload = function () {
+
+
+      //Do this part
+      require.config({
+        paths: {
+          'vs': 'https://unpkg.com/monaco-editor@latest/min/vs'
+        }
+      });
+      window.MonacoEnvironment = {
+        getWorkerUrl: () => proxy
+      };
+
+      let proxy = URL.createObjectURL(new Blob([`
+          self.MonacoEnvironment = {
+            baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+          };
+          importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+        `], {
+        type: 'text/javascript'
+      }));
+
+      require(["vs/editor/editor.main"], function () {
+        let editor = monaco.editor.create($('.vs-code')[0], {
+          value: [
+            'function x() {',
+            '\tconsole.log("Hello world!");',
+            '}'
+          ].join('\n'),
+          language: 'javascript',
+          theme: 'vs-dark'
+        });
+      });
+
+      //this func can go in the previous bit to replace the anonymous function. have it cycle through all els and replace with the text inside or something
+      function setUpVSCode() {
+        let element = $(".btech-html-practice");
+      }
+      setUpVSCode();
+      // parseCommentHTML();
+    }
+    document.getElementsByTagName('head')[0].appendChild(s);
+  });
   async function parseCommentHTML() {
-    let feature = this;
     let element = $(".btech-html-practice");
     element.each(function () {
       let html = $(this).text();
@@ -21,5 +69,4 @@
     });
   }
 
-  parseCommentHTML();
 })();
