@@ -1,5 +1,6 @@
 (async function () {
   //https://btech.instructure.com/courses/498455/accredidation
+  //https://jhveem.xyz/accredidation/lti.xml
   console.log("TEST");
   if (document.title === "BTECH Accredidation") {
     let rCheckInCourse = /^\/courses\/([0-9]+)/;
