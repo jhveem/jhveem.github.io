@@ -37,7 +37,7 @@
           $(el).after(button);
           button.click(function () {
             let lines = $(el).find('.view-line');
-            lines.sort(function(a, b) {
+            lines.sort(function (a, b) {
               let topACSS = $(a).css('top').replace('px', '');
               console.log(topACSS);
               let topA = parseInt(topACSS);
@@ -53,7 +53,9 @@
               html += $(this).text();
             });
             console.log(html);
-            display.find('iframe')[0].contentDocument.write(html);
+            let context = display.find('iframe')[0].contentWindow.document;
+            var $body = $('body', context);
+            $body.html('<p style="background-color: #f00;">Cool</p>');;
           });
           $(el).empty();
           $(el).removeClass('btech-hidden');
