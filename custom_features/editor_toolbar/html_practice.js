@@ -37,6 +37,17 @@
           $(el).after(button);
           button.click(function () {
             let lines = $(el).find('.view-line');
+            lines.sort(function(a, b) {
+              let topACSS = $(a).css('top').replace('px', '');
+              console.log(topACSS);
+              let topA = parseInt(topACSS);
+
+              let topBCSS = $(b).css('top').replace('px', '');;
+              console.log(topBCSS);
+              let topB = parseInt(topBCSS);
+
+              return (topA < topB) ? -1 : (topA > topB) ? 1 : 0;
+            })
             let html = "";
             lines.each(function () {
               html += $(this).text();
