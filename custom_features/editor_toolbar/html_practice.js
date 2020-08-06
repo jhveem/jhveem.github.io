@@ -36,12 +36,8 @@
             height: '256px'
           });
           let editor = monaco.editor.create(el, {
-            value: [
-              'function x() {',
-              '\tconsole.log("Hello world!");',
-              '}'
-            ].join('\n'),
-            language: 'javascript',
+            value: html,
+            language: 'html',
             theme: 'vs-dark'
           });
         })
