@@ -32,14 +32,20 @@
           let el = this;
           let html = $(el).text();
           let button = $("<button>Run</button>");
+          let display = $("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'></div>");
+          $(el).after(display);
           $(el).after(button);
           button.click(function() {
             let lines = $(el).find('.view-line');
+            let html = "";
             lines.each(function() {
+              html += $(this).text(); 
               console.log($(this).text());
             });
+            display.html(html);
           });
           $(el).empty();
+          $(el).removeClass('btech-hidden');
           $(el).css({
             width: '100%',
             height: '256px'
