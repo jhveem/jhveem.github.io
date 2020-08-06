@@ -55,7 +55,6 @@
 
     function parseVSCode(editor, el, display) {
       let html = editor.getValue();
-      console.log(html);
       let context = display.find('iframe')[0].contentWindow.document;
       var $body = $('html', context);
       $body.html(html);
