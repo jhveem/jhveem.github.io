@@ -27,20 +27,17 @@
       }));
 
       require(["vs/editor/editor.main"], function () {
-        let codes = $('.vs-code');
-        codes.each(function () {
+        let elements = $(".btech-html-practice");
+        elements.each(function () {
           let el = this;
+          let html = $(el).text();
           $(el).css({
             width: '100%',
             height: '256px'
           });
           let editor = monaco.editor.create(el, {
-            value: [
-              'function x() {',
-              '\tconsole.log("Hello world!");',
-              '}'
-            ].join('\n'),
-            language: 'javascript',
+            value: html,
+            language: 'html',
             theme: 'vs-dark'
           });
         })
