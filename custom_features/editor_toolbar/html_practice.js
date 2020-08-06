@@ -1,5 +1,6 @@
 (async function () {
   //Figure out how to await these two libraries loading then ...
+  /*
   $.getScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js").done(function () {
     var s = document.createElement("link");
     s.setAttribute('rel', 'stylesheet');
@@ -79,7 +80,8 @@
     s.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css');
     document.getElementsByTagName('head')[0].appendChild(s);
   });
-  /*
+  */
+  //*
   async function parseCommentHTML() {
     let element = $(".btech-html-practice");
     element.each(function () {
@@ -99,6 +101,7 @@
       $(this).after("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'>" + html + "</div>");
     });
   }
-  */
+  parseCommentHTML();
+  //*/
 
 })();
