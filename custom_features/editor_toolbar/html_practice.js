@@ -4,7 +4,6 @@
     var s = document.createElement("link");
     s.setAttribute('rel', 'stylesheet');
     s.setAttribute('data-name', 'vs/editor/editor.main');
-    s.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css');
     s.onload = function () {
 
 
@@ -28,7 +27,12 @@
       }));
 
       require(["vs/editor/editor.main"], function () {
-        let editor = monaco.editor.create($('.vs-code')[0], {
+        let el = $('.vs-code')[0];
+        $(el).css({
+          width: '100%',
+          height: '256px'
+        });
+        let editor = monaco.editor.create(el, {
           value: [
             'function x() {',
             '\tconsole.log("Hello world!");',
@@ -46,6 +50,7 @@
       setUpVSCode();
       // parseCommentHTML();
     }
+    s.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css');
     document.getElementsByTagName('head')[0].appendChild(s);
   });
   async function parseCommentHTML() {
