@@ -34,7 +34,10 @@
           let button = $("<button>Run</button>");
           $(el).after(button);
           button.click(function() {
-            console.log($(el).text());
+            let lines = $(el).find('.view-line');
+            lines.each(function() {
+              console.log($(this).text());
+            });
           });
           $(el).empty();
           $(el).css({
