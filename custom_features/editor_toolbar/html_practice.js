@@ -41,7 +41,8 @@
             lines.each(function () {
               html += $(this).text();
             });
-            display.html(html);
+            console.log(html);
+            display.html("<div>" + html + "</div>");
           });
           $(el).empty();
           $(el).removeClass('btech-hidden');
