@@ -50,7 +50,7 @@
             })
             let html = "";
             lines.each(function () {
-              html += $(this).text();
+              html += $(this).text().strip();
             });
             console.log(html);
             let context = display.find('iframe')[0].contentWindow.document;
