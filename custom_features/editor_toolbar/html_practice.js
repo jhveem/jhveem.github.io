@@ -55,7 +55,7 @@
             console.log(html);
             let context = display.find('iframe')[0].contentWindow.document;
             var $body = $('html', context);
-            $body.html(html);;
+            $body.parseHTML(html);
           });
           $(el).empty();
           $(el).removeClass('btech-hidden');
