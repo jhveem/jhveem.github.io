@@ -35,12 +35,11 @@
           let display = $("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'></div>");
           $(el).after(display);
           $(el).after(button);
-          button.click(function() {
+          button.click(function () {
             let lines = $(el).find('.view-line');
             let html = "";
-            lines.each(function() {
-              html += $(this).text(); 
-              console.log($(this).text());
+            lines.each(function () {
+              html += $(this).text();
             });
             display.html(html);
           });
@@ -68,11 +67,11 @@
     s.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css');
     document.getElementsByTagName('head')[0].appendChild(s);
   });
+  /*
   async function parseCommentHTML() {
     let element = $(".btech-html-practice");
     element.each(function () {
       let html = $(this).text();
-      console.log(html);
       html = html.replace(/&lt;(\/{0,1}.+?)&gt;/g, "<$1>");
       let input = $("<textarea style='width: 100%; box-sizing:border-box;'></textarea>");
       let display = $("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'></div>");
@@ -88,5 +87,6 @@
       $(this).after("<div style='outline: 1px solid #000; padding: 5px; margin-bottom: 10px;'>" + html + "</div>");
     });
   }
+  */
 
 })();
