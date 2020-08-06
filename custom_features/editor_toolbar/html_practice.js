@@ -27,20 +27,23 @@
       }));
 
       require(["vs/editor/editor.main"], function () {
-        let el = $('.vs-code')[0];
-        $(el).css({
-          width: '100%',
-          height: '256px'
-        });
-        let editor = monaco.editor.create(el, {
-          value: [
-            'function x() {',
-            '\tconsole.log("Hello world!");',
-            '}'
-          ].join('\n'),
-          language: 'javascript',
-          theme: 'vs-dark'
-        });
+        let codes = $('.vs-code');
+        codes.each(function () {
+          let el = this;
+          $(el).css({
+            width: '100%',
+            height: '256px'
+          });
+          let editor = monaco.editor.create(el, {
+            value: [
+              'function x() {',
+              '\tconsole.log("Hello world!");',
+              '}'
+            ].join('\n'),
+            language: 'javascript',
+            theme: 'vs-dark'
+          });
+        })
       });
 
       //this func can go in the previous bit to replace the anonymous function. have it cycle through all els and replace with the text inside or something
