@@ -381,7 +381,7 @@ if (window.self === window.top) {
           featureCDD("rubrics/sortable", {}, [/\/rubrics/, /\/assignments\//]);
           featureCDD("quizzes/question_bank_sorter", {}, /^\/courses\/[0-9]+\/quizzes\/[0-9]+\/edit/);
           //featureCDD("previous-enrollment-data/previous_enrollment_period_grades");
-          featureCDD("help_tab");
+          // featureCDD("help_tab");
           featureCDD("rubrics/add_criteria_from_csv", {}, new RegExp('/(rubrics|assignments\/)'));
           featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
           featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
