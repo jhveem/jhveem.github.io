@@ -124,6 +124,24 @@ function feature(f, data = {}, regex = "") {
   }
 }
 
+function externalFeature(url, regex) {
+  let check = false;
+  if (regex === "") {
+    check = true;
+  } else {
+    if (!Array.isArray(regex)) regex = [regex];
+    for (var i = 0; i < regex.length; i++) {
+      let reg = regex[i];
+      if (reg.test(window.location.pathname)) {
+        check = true;
+      }
+    }
+  }
+  if (check) {
+    $.getScript(url);
+  }
+}
+
 function featureBeta(f, data = {}, regex = "") {
   if (BETA) feature(f, data, regex);
 }
@@ -375,6 +393,9 @@ if (window.self === window.top) {
             if (departmentId === 3848) { //Interior Design
               feature("rubrics/sortable");
             }
+            if (departmentId === 3820) { //Web & Mobile
+              externalFeature("https://bridgerland-web-dev.github.io/html_practice/html_practice.js", /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/)
+            }
           }
 
           //CDD ONLY
@@ -386,7 +407,6 @@ if (window.self === window.top) {
           featureCDD("rubrics/create_rubric_from_csv", {}, new RegExp('^/(course|account)s/([0-9]+)/rubrics$'));
           featureCDD("editor_toolbar/tables", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("surveys");
-          feature("editor_toolbar/html_practice", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("survey/survey", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD("editor_toolbar/image_map", {}, /^\/courses\/[0-9]+\/(pages|assignments|quizzes)/);
           featureCDD('date_display/add_current_year_speed_grader', {}, /^\/courses\/[0-9]+\/gradebook\/speed_grader/);
