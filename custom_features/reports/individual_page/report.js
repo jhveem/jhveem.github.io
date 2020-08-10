@@ -564,12 +564,12 @@
                 let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
                 console.log(diff_days);
                 let most_recent_time = diff_time;
-                console.log("GO THROUGH EACH ASSIGNMENT")
+                console.log("GO THROUGH EACH ASSIGNMENT");
                 console.log(assignments);
                 for (let a = 0; a < assignments.length; a++) {
                   let assignment = assignments[a];
                   let points_possible = assignment.points_possible;
-                  let submission = assignment.submission;
+                  let submission = assignment;
                   if (submission != undefined) {
                     let submitted_at = Date.parse(submission.submitted_at);
                     total_points_possible += points_possible;
@@ -580,8 +580,8 @@
                         submitted += 1;
                       }
                     }
-                    console.log("CHECK AGAINST CURRENT")
-                    console.log(Math.abs(now_date - submitted_at))
+                    console.log("CHECK AGAINST CURRENT");
+                    console.log(Math.abs(now_date - submitted_at));
                     if (Math.abs(now_date - submitted_at) < most_recent_time) {
                       most_recent_time = Math.abs(now_date - submitted_at);
                       most_recent = assignment;
