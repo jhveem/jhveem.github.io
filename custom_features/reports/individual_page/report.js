@@ -565,6 +565,7 @@
                 console.log(diff_days);
                 let most_recent_time = diff_time;
                 console.log("GO THROUGH EACH ASSIGNMENT")
+                console.log(assignments);
                 for (let a = 0; a < assignments.length; a++) {
                   let assignment = assignments[a];
                   let points_possible = assignment.points_possible;
