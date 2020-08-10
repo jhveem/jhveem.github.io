@@ -97,6 +97,7 @@
               menu: 'report'
             }
           },
+
           computed: {
             visibleColumns: function () {
               return this.columns.filter(function (c) {
@@ -104,6 +105,7 @@
               })
             }
           },
+
           methods: {
             sumHoursCompleted() {
               let sum = 0;
@@ -116,6 +118,7 @@
               }
               return parseFloat(sum.toFixed(2));
             },
+
             weightedGradeForTerm() {
               let weightedGrade = 0;
               let totalHoursCompleted = this.sumHoursCompleted();
@@ -130,11 +133,13 @@
               }
               return parseFloat(weightedGrade.toFixed(2));
             },
+
             getHoursEnrolled(courseId) {
               let hours = this.hoursBetweenDates[courseId];
               if (hours !== undefined) return hours;
               return "N/A";
             },
+
             weightedFinalGradeForTerm() {
               let hoursEnrolled = this.estimatedHoursEnrolled; //might change how this is calculated because this doesn't really make sense. Maybe user has to select one? Consult on this.
               let requiredHours = hoursEnrolled * .67;
@@ -145,6 +150,7 @@
               }
               return parseFloat(grade.toFixed(2));
             },
+
             async weightedGradeWithRequiredHours() {
               //This needs to be created
               //will take the weighted grade and then if the student does not complete at least 66% of the hours enrolled, they will have a reduction in their score based on ammount below that 66%
@@ -157,20 +163,24 @@
               }
               return weightedGrade;
             },
+
             getProgressBetweenDates(courseId) {
               let progress = this.progressBetweenDates[courseId];
               if (progress !== undefined) return (progress + "%");
               return "";
             },
+
             getGradesBetweenDates(courseId) {
               let grade = this.gradesBetweenDates[courseId];
               if (grade !== undefined) return (grade + "%");
               return "";
             },
+            
             getHoursCompleted(course) {
               let progress = this.progressBetweenDates[course.course_id];
               if (progress !== undefined) return parseFloat((Math.round(progress * course.hours) * .01).toFixed(2));
             },
+
             sortColumn(header) {
               let app = this;
               let name = this.columnNameToCode(header);
@@ -209,6 +219,7 @@
                 return comp
               })
             },
+
             async calcGradesBetweenDates() {
               let gradesBetweenDates = {};
               let progressBetweenDates = {};
@@ -346,6 +357,7 @@
               }
               this.estimatedHoursEnrolled = parseFloat((hoursTotal / count).toFixed(2));
             },
+
             parseDate(dateString) {
               if (dateString == undefined) return undefined;
               let pieces = dateString.split("-");
@@ -354,6 +366,7 @@
               let day = parseInt(pieces[2]) + 1;
               let date = new Date(year, month, day);
               return date;
+
             },
             async getSubmissionData(courseId) {
               let app = this;
@@ -373,6 +386,7 @@
               }
               return subs;
             },
+
             async newCourse(id, state, name, year) {
               let app = this;
               let course = {};
@@ -536,7 +550,7 @@
               if (enrollment === undefined) return;
               try {
                 let assignments = await canvasGet(url);
-                console.log(assignments);
+                console.log("START CALC DAYS SINCE LAST SUBMISSION");
                 course.assignments = assignments;
                 let total_points_possible = 0;
                 let current_points_possible = 0;
@@ -548,7 +562,9 @@
                 let now_date = Date.now();
                 let diff_time = Math.abs(now_date - start_date);
                 let diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
+                console.log(diff_days);
                 let most_recent_time = diff_time;
+                console.log("GO THROUGH EACH ASSIGNMENT")
                 for (let a = 0; a < assignments.length; a++) {
                   let assignment = assignments[a];
                   let points_possible = assignment.points_possible;
@@ -563,10 +579,14 @@
                         submitted += 1;
                       }
                     }
+                    console.log("CHECK AGAINST CURRENT")
+                    console.log(Math.abs(now_date - submitted_at))
                     if (Math.abs(now_date - submitted_at) < most_recent_time) {
                       most_recent_time = Math.abs(now_date - submitted_at);
                       most_recent = assignment;
                     }
+                    console.log("NEW CURRENT");
+                    console.log(most_recent_time);
 
                   }
                 }
