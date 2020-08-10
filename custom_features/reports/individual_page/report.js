@@ -564,8 +564,8 @@
                 let most_recent_time = diff_time;
                 for (let a = 0; a < submissions.length; a++) {
                   let submission = submissions [a];
-                  let points_possible = assignment.points_possible;
                   let assignment = submission.assignment;
+                  let points_possible = assignment.points_possible;
                   if (submission != undefined) {
                     let submitted_at = Date.parse(submission.submitted_at);
                     total_points_possible += points_possible;
