@@ -550,7 +550,7 @@
               if (enrollment === undefined) return;
               try {
                 let submissions = await canvasGet(url);
-                course.assignments = assignments;
+                course.assignments = submissions;
                 let total_points_possible = 0;
                 let current_points_possible = 0;
                 let most_recent = {};
