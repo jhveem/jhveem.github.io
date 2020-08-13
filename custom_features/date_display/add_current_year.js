@@ -2,6 +2,7 @@ IMPORTED_FEATURE = {};
 IMPORTED_FEATURE = {
   initiated: false,
   async _init() {
+    console.log("ADD YEAR");
     let feature = this;
     feature.setAssignmentSubmittedDateHeader("span.submission-details-header__time");
     //this has been commented out because it's breaking the grade updater. Will have to readdress this if we need to add it back in.
